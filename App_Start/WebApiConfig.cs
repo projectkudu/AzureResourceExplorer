@@ -10,8 +10,7 @@ namespace ARMOAuth
     {
         public static void Register(HttpConfiguration config)
         {
-            config.Routes.MapHttpRoute("get-token", "token", new { controller = "ARM", action = "GetToken" }, new { verb = new HttpMethodConstraint("GET") });
-            config.Routes.MapHttpRoute("get-tenants", "tenants/{id}", new { controller = "ARM", action = "GetTenants", id = RouteParameter.Optional }, new { verb = new HttpMethodConstraint("GET") });
+            config.Routes.MapHttpRoute("get-token", "token", new { controller = "ARM", action = "GetToken" }, new { verb = new HttpMethodConstraint("GET", "HEAD") });
             config.Routes.MapHttpRoute("get", "{*path}", new { controller = "ARM", action = "Get" }, new { verb = new HttpMethodConstraint("GET", "HEAD") });
 
             //config.Routes.MapHttpRoute(
