@@ -46,6 +46,12 @@ namespace ARMOAuth.Modules
             var request = application.Request;
             var response = application.Response;
 
+            if (request.Url.Scheme != "https")
+            {
+                response.Redirect(String.Format("https://{0}{1}", request.Url.Authority, request.Url.PathAndQuery), endResponse: true);
+                return;
+            }
+
             if (request.Url.PathAndQuery.StartsWith("/logout", StringComparison.OrdinalIgnoreCase))
             {
                 RemoveSessionCookie(application);
