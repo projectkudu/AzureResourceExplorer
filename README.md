@@ -47,7 +47,7 @@ Test ARM apis
 Test with Azure Websites
 ========================
 1. Create Azure Websites with local git publishing enabled
-2. Add the site url as the reply URL for AAD application
+2. Add the site https url as the reply URL for AAD application
 3. Deploy the website by pushing the repository
 4. Set AADClientID and AADClientSecret appSettings
 5. To test, simply browse to the website
