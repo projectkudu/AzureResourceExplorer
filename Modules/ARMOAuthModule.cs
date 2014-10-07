@@ -16,6 +16,7 @@ namespace ARMOAuth.Modules
     {
         public const string ManagementResource = "https://management.core.windows.net/";
         public const string TenantIdClaimType = "http://schemas.microsoft.com/identity/claims/tenantid";
+        public const string NonceClaimType = "nonce";
         public const string OAuthTokenCookie = "OAuthToken";
         public const string DeleteCookieFormat = "{0}=deleted; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
         public const int CookieChunkSize = 2000;
@@ -61,9 +62,19 @@ namespace ARMOAuth.Modules
                 return;
             }
 
-            var id_token = request.QueryString["id_token"];
-            var code = request.QueryString["code"];
-            var state = request.QueryString["state"];
+            string tenantId;
+            if (SwitchTenant(application, out tenantId))
+            {
+                RemoveSessionCookie(application);
+
+                var loginUrl = GetLoginUrl(application, tenantId, "/token");
+                response.Redirect(loginUrl, endResponse: true);
+                return;
+            }
+
+            var id_token = request.Form["id_token"];
+            var code = request.Form["code"];
+            var state = request.Form["state"];
 
             if (!String.IsNullOrEmpty(id_token) && !String.IsNullOrEmpty(code))
             {
@@ -100,12 +111,11 @@ namespace ARMOAuth.Modules
             {
                 var loginUrl = GetLoginUrl(application);
                 response.Redirect(loginUrl, endResponse: true);
+                return;
             }
-            else
-            {
-                HttpContext.Current.User = principal;
-                Thread.CurrentPrincipal = principal;
-            }
+
+            HttpContext.Current.User = principal;
+            Thread.CurrentPrincipal = principal;
         }
 
         public static string GetLoginUrl(HttpApplication application, string tenantId = null, string state = null)
@@ -119,8 +129,8 @@ namespace ARMOAuth.Modules
             var issuerAddress = config.GetAuthorizationEndpoint(tenantId);
             var redirect_uri = request.Url.GetLeftPart(UriPartial.Authority);
             var client_id = AADClientId;
-            var nonce = Guid.NewGuid().ToString();
-            var response_mode = "query";
+            var nonce = GenerateNonce();
+            var response_mode = "form_post";
 
             StringBuilder strb = new StringBuilder();
             strb.Append(issuerAddress);
@@ -174,7 +184,52 @@ namespace ARMOAuth.Modules
             parameters.SigningTokens = tokens;
 
             // validate
-            return (ClaimsPrincipal)handler.ValidateToken(id_token, parameters);
+            var principal = (ClaimsPrincipal)handler.ValidateToken(id_token, parameters);
+
+            // verify nonce
+            VerifyNonce(principal.FindFirst(NonceClaimType).Value);
+
+            return principal;
+        }
+
+        public static bool SwitchTenant(HttpApplication application, out string tenantId)
+        {
+            tenantId = null;
+
+            var request = application.Request;
+            if (request.Url.PathAndQuery.StartsWith("/tenants", StringComparison.OrdinalIgnoreCase))
+            {
+                var parts = request.Url.PathAndQuery.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length >= 2)
+                {
+                    tenantId = parts[1];
+                }
+            }
+
+            return tenantId != null;
+        }
+
+        // NOTE: secure the cookie
+        public static byte[] EncryptAndSignCookie(AADOAuth2AccessToken oauthToken)
+        {
+            return oauthToken.ToBytes();
+        }
+
+        // NOTE: secure the cookie
+        public static AADOAuth2AccessToken DecryptAndVerifySignatureCookie(byte[] bytes)
+        {
+            return AADOAuth2AccessToken.FromBytes(bytes);
+        }
+
+        // NOTE: generate nonce
+        public static string GenerateNonce()
+        {
+            return Guid.NewGuid().ToString();
+        }
+
+        // NOTE: verify nonce
+        public static void VerifyNonce(string nonce)
+        {
         }
 
         public static AADOAuth2AccessToken ReadOAuthTokenCookie(HttpApplication application)
@@ -209,7 +264,7 @@ namespace ARMOAuth.Modules
             }
 
             var bytes = Convert.FromBase64String(strb.ToString());
-            var oauthToken = AADOAuth2AccessToken.FromBytes(bytes);
+            var oauthToken = DecryptAndVerifySignatureCookie(bytes);
             if (!oauthToken.IsValid())
             {
                 try
@@ -239,7 +294,7 @@ namespace ARMOAuth.Modules
             var request = application.Context.Request;
             var response = application.Context.Response;
 
-            var bytes = oauthToken.ToBytes();
+            var bytes = EncryptAndSignCookie(oauthToken);
             var cookie = Convert.ToBase64String(bytes);
             var chunkCount = cookie.Length / CookieChunkSize + (cookie.Length % CookieChunkSize == 0 ? 0 : 1);
             for (int i = 0; i < chunkCount; ++i)
