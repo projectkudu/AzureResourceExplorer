@@ -12,27 +12,32 @@ namespace ARMOAuth.Controllers
 {
     public class ARMController : ApiController
     {
-        static ARMController()
-        {
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-        }
-
-        public HttpResponseMessage GetToken()
+        [Authorize]
+        public HttpResponseMessage GetToken(bool plainText = false)
         {
             var jwtToken = Request.Headers.GetValues("X-MS-OAUTH-TOKEN").FirstOrDefault();
-            var base64 = jwtToken.Split('.')[1];
-
-            // fixup
-            int mod4 = base64.Length % 4;
-            if (mod4 > 0)
+            if (plainText)
             {
-                base64 += new string('=', 4 - mod4);
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(jwtToken, Encoding.UTF8, "text/plain");
+                return response;
             }
+            else
+            {
+                var base64 = jwtToken.Split('.')[1];
 
-            var json = Encoding.UTF8.GetString(Convert.FromBase64String(base64));
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(json, Encoding.UTF8, "application/json");
-            return response;
+                // fixup
+                int mod4 = base64.Length % 4;
+                if (mod4 > 0)
+                {
+                    base64 += new string('=', 4 - mod4);
+                }
+
+                var json = Encoding.UTF8.GetString(Convert.FromBase64String(base64));
+                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(json, Encoding.UTF8, "application/json");
+                return response;
+            }
         }
 
         [Authorize]
