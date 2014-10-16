@@ -23,7 +23,7 @@ _app/
 *.ncrunchsolution
 nuget.exe
 Kudu.Services.Web/commit.txt
-Areas/*
-Content/*
-Images/*
-Views/*
+ng/*.js
+ng/*.js.map
+ng/*/*.js
+ng/*/*.js.map
