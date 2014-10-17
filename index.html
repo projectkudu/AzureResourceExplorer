@@ -16,6 +16,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-sanitize.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.min.js"></script>
     <script src="Content/Scripts/abn_tree_directive.js"></script>
+    <script src="Content/Scripts/jsoneditor.min.js"></script>
     <script src="ng/app.js"></script>
 
     <title>ManagePortal - {{ viewName }}</title>
@@ -25,6 +26,7 @@
 
     <!-- Custom CSS -->
     <link href="Content/Styles/abn_tree.css" rel="stylesheet" />
+    <link href="Content/Styles/jsoneditor.min.css" rel="stylesheet" />
     <link href="Content/Styles/sb-admin-2.css" rel="stylesheet" />
 
     <!-- Custom Fonts -->
@@ -61,7 +63,26 @@
                     </div>
                 </div>
             </div>
-            <div ng-view=""></div>
+            <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
+            <div class="panel panel-default" ng-if="methods.length > 0">
+                <div class="panel-heading">
+                    Methods for {{ selectedResourceType }}
+                </div>
+                <div class="panel-body">
+                    <p>
+                        <button class="btn btn-outline btn-primary" ng-repeat="method in methods" style="margin: 5px" ng-click="selectMethod(method)">
+                            {{ method.name }}
+                        </button>
+                    </p>
+                </div>
+            </div>
+            <div ng-show="show">
+                <div id="jsoneditor"></div>
+                <button class="btn btn-success" style="margin: 5px" ng-click="invokeMethod()">
+                    Submit
+                </button>
+            </div>
+
         </div>
     </div>
 

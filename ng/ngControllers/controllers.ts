@@ -3,6 +3,10 @@
 module managePortalUi {
     "use strict";
 
+    interface JSONEditor {
+        new (...args: any[]): any;
+    }
+
     export class angularBaseController {
         public static $inject = [
             "$scope",
@@ -27,9 +31,21 @@ module managePortalUi {
             super();
             console.log("start");
             $scope.jsonHtml = "select something";
+            var container = document.getElementById("jsoneditor");
+            var editor = new JSONEditor(container);
             $scope.my_tree_handler = (e) => {
                 $scope.viewTitle = e.label;
                 $scope.jsonHtml = e.data.html;
+                $scope.selected = e;
+                if (!e.data.resource_type || e.data.resource_type === 0) return;
+                $scope.selectedResourceType = e.data.resource_type === 1 ? "WebSites" : "WebHostingPlans";
+                $http({
+                    method: "GET",
+                    url: "/api/methods/" + $scope.selectedResourceType,
+                    responseType: "application/json; charset=utf-8"
+                }).success((methods: any) => {
+                    $scope.methods = methods.filter((m) => m.name.startsWith("Get") || m.name.startsWith("Update") || m.name.startsWith("CreateOrUpdate"));
+                    });
             };
 
             $scope.my_data = [];
@@ -42,57 +58,90 @@ module managePortalUi {
                     $scope.my_data = subscriptions.value.map((subscription) => {
                         return {
                             label: subscription.displayName,
-                            data: { subscriptionId: subscription.subscriptionId, html: managePortalApi.syntaxHighlight(subscription) },
+                            data: { subscriptionId: subscription.subscriptionId, html: managePortalApi.syntaxHighlight(subscription), json: subscription, resource_type: 0 },
+                            children: [{ label: "Websites", resource_icon: "fa fa-html5 fa-fw", data: { html: "select a WebSite" } }, { label: "WebHostingPlans", resource_icon: "fa fa-building fa-fw", data: { html: "select a WebHostingPlan" }}],
                             resource_icon: "fa fa-cube fa-fw"
                         };
                     });
-                    $scope.my_data.map((subscription: any) => {
-                        $http({
-                            method: "GET",
-                            url: "/api/subscriptions/" + subscription.data.subscriptionId + "/resourceGroups",
-                            responseType: "application/json; charset=utf-8"
-                        }).success((resourceGroups: any) => {
-                                subscription.children = resourceGroups.value.map((resourceGroup: any) => {
-                                    return {
-                                        label: resourceGroup.name,
-                                        data: { html: managePortalApi.syntaxHighlight(resourceGroup) },
-                                        resource_icon: "fa fa-cloud fa-fw"
-                                    };
-                                });
-                                subscription.children.map((resourceGroup: any) => {
-                                    var websitesNodes, whpNodes;
-                                    var q1 = $http({
-                                        method: "GET",
-                                        url: "/api/methods/WebSites/" + subscription.data.subscriptionId + "/ListAsync?resourceGroupName=" + resourceGroup.label,
-                                        responseType: "application/json; charset=utf-8"
-                                    }).success((websites: any) => {
-                                            websitesNodes = websites.map((website: any) => {
-                                                return {
-                                                    label: website.Name,
-                                                    data: { html: managePortalApi.syntaxHighlight(website) },
-                                                    resource_icon: "fa fa-html5 fa-fw"
-                                                };
-                                            });
-                                        });
-                                    var q2 = $http({
-                                        method: "GET",
-                                        url: "/api/methods/WebHostingPlans/" + subscription.data.subscriptionId + "/ListAsync?resourceGroupName=" + resourceGroup.label,
-                                        responseType: "application/json; charset=utf-8"
-                                    }).success((WebHostingPlans: any) => {
-                                            whpNodes = WebHostingPlans.map((WebHostingPlan: any) => {
-                                                return {
-                                                    label: WebHostingPlan.Name,
-                                                    data: { html: managePortalApi.syntaxHighlight(WebHostingPlan) },
-                                                    resource_icon: "fa fa-building fa-fw"
-                                                };
-                                            });
-                                        });
-                                    q1.then(() => q2.then(() => { if (whpNodes.length !== 0 || websitesNodes.length !== 0) resourceGroup.children = whpNodes.concat(websitesNodes) }));
-                                });
+                $scope.my_data.map((subscription: any) => {
+
+                    $http({
+                        method: "GET",
+                        url: "/api/subscriptions/" + subscription.data.subscriptionId + "/providers/Microsoft.Web/sites",
+                        responseType: "application/json; charset=utf-8"
+                    }).success((websites: any) => {
+                        subscription.children[0].children = websites.map((website: any) => {
+                                return {
+                                    label: website.name,
+                                    data: { html: managePortalApi.syntaxHighlight(website), json: website, subscriptionId: subscription.data.subscriptionId, resource_type: 1 },
+                                    resource_icon: "fa fa-html5 fa-fw"
+                                };
                             });
                     });
 
+                    $http({
+                        method: "GET",
+                        url: "/api/subscriptions/" + subscription.data.subscriptionId + "/providers/Microsoft.Web/serverfarms",
+                        responseType: "application/json; charset=utf-8"
+                    }).success((WebHostingPlans: any) => {
+                        subscription.children[1].children = WebHostingPlans.map((WebHostingPlan: any) => {
+                                return {
+                                    label: WebHostingPlan.name,
+                                    data: { html: managePortalApi.syntaxHighlight(WebHostingPlan), json: WebHostingPlan, resource_type: 2 },
+                                    resource_icon: "fa fa-building fa-fw"
+                                };
+                            });
+                        });
+                    });
+
+            });
+
+            $scope.selectMethod = (method: any) => {
+                console.log(method);
+                console.log(this.$scope.selected);
+                editor.set({});
+                $scope.show = false;
+                $scope.jsonHtml = "";
+                $scope.selectedMethod = method;
+                $http({
+                    method: "GET",
+                    url: "/api/methods/" + $scope.selectedResourceType + "/" + $scope.selected.data.subscriptionId + "/" + method.name.replace("Update", "Get") + "?resourceGroupName=" + managePortalApi.getRerouceGroupNameFromWebSpaceName($scope.selected.data.json.properties.webSpace) + "&webSiteName=" + $scope.selected.data.json.name,
+                    responseType: "application/json; charset=utf-8"
+                }).success((data: any) => {
+                    $scope.jsonHtml = managePortalApi.syntaxHighlight(data);
+                    if (method.name.startsWith("Get")) return;
+                    if (method.name === "UpdateAppSettingsAsync" || method.name === "UpdateMetadataAsync" || method.name === "UpdateConnectionStringsAsync") {
+                        if (!managePortalApi.isEmptyObjectorArray((data.Resource.Properties))) {
+                            method.arguments.parameters.Properties = data.Resource.Properties;
+                        }
+                    } else {
+                        for (var sourceProperty in data) {
+                            if (data.hasOwnProperty(sourceProperty)) {
+                                if (!managePortalApi.isEmptyObjectorArray((method.arguments[sourceProperty]))) {
+                                    method.arguments[sourceProperty] = data[sourceProperty];
+                                }
+                            }
+                        }
+                    }
+                    editor.set(method.arguments.parameters);
+                    editor.expandAll();
+                    $scope.show = true;
                 });
+            }
+            $scope.invokeMethod = () => {
+                var userObject = editor.get();
+                managePortalApi.cleanObject(userObject);
+                console.log(userObject);
+                $http({
+                    method: "POST",
+                    url: "/api/methods/" + $scope.selectedResourceType + "/" + $scope.selected.data.subscriptionId + "/" + $scope.selectedMethod.name + "?resourceGroupName=" + managePortalApi.getRerouceGroupNameFromWebSpaceName($scope.selected.data.json.properties.webSpace) + "&webSiteName=" + $scope.selected.data.json.name,
+                    data: userObject,
+                    responseType: "application/json; charset=utf-8"
+                }).success((e) => {
+                        $scope.selectMethod($scope.selectedMethod);
+                });
+
+            };
         }
     }
 

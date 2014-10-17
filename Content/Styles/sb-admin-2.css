@@ -12,7 +12,7 @@
 @media (min-width: 768px) {
   #page-wrapper {
     position: inherit;
-    margin: 0 0 0 250px;
+    margin: 0 0 0 280px;
     padding: 30px 30px;
     border-left: 1px solid #e7e7e7;
   }
@@ -99,7 +99,7 @@
   .sidebar {
     z-index: 1;
     position: absolute;
-    width: 250px;
+    width: 280px;
     margin-top: 51px;
   }
   .navbar-top-links .dropdown-messages,
@@ -114,7 +114,7 @@
   transition: all .5s;
 }
 .btn-primary.btn-outline {
-  color: #428bca;
+  /*color: #428bca;*/
 }
 .btn-success.btn-outline {
   color: #5cb85c;

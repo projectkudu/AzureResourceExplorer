@@ -38,6 +38,8 @@ namespace ARMOAuth.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        [HttpGet]
         public async Task<HttpResponseMessage> GetInvokeMethod(string type, string subscription, string method)
         {
             var token = Request.Headers.GetValues("X-MS-OAUTH-TOKEN").FirstOrDefault();
@@ -147,7 +149,7 @@ namespace ARMOAuth.Controllers
         {
             if (type == typeof(string))
             {
-                return "string";
+                return "(string)";
             }
             else if (type.IsGenericType && type.Name.StartsWith("Nullable"))
             {
@@ -155,15 +157,15 @@ namespace ARMOAuth.Controllers
             }
             else if (type == typeof(int))
             {
-                return "number";
+                return "(number)";
             }
             else if (type == typeof(bool))
             {
-                return "bool";
+                return "(bool)";
             }
             else if (type == typeof(DateTime))
             {
-                return "datetime";
+                return "(datetime)";
             }
             else if (type.IsEnum)
             {
@@ -172,7 +174,7 @@ namespace ARMOAuth.Controllers
                 {
                     objs.Add(value);
                 }
-                return String.Join("|", objs);
+                return String.Format("({0})", String.Join("|", objs));
             }
             else if (type.IsArray)
             {
@@ -180,7 +182,11 @@ namespace ARMOAuth.Controllers
                 array.Add(GetTypeDescription(type.GetElementType()));
                 return array;
             }
-            else if (typeof(IEnumerable).IsAssignableFrom(type))
+            else if (typeof (IDictionary<string, string>).IsAssignableFrom(type))
+            {
+                return new JObject();
+            }
+            else if (typeof(IEnumerable).IsAssignableFrom(type) && type.GenericTypeArguments.Length == 1)
             {
                 var array = new JArray();
                 array.Add(GetTypeDescription(type.GenericTypeArguments[0]));

@@ -132,8 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Scripts\abn_tree_directive.js" />
+    <Content Include="Content\Scripts\jsoneditor.min.js" />
     <Content Include="Content\Styles\abn_tree.css" />
     <Content Include="Content\Styles\app.css" />
+    <Content Include="Content\Styles\jsoneditor.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ng\ngViews\Home.html" />
