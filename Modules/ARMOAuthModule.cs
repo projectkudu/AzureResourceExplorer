@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IdentityModel.Selectors;
 using System.IdentityModel.Tokens;
@@ -46,6 +47,15 @@ namespace ARMOAuth.Modules
             var application = (HttpApplication)sender;
             var request = application.Request;
             var response = application.Response;
+
+            // only perform authentication if localhost
+            if (!request.Url.IsLoopback)
+            {
+                principal = new ClaimsPrincipal(new ClaimsIdentity("SCM"));
+                HttpContext.Current.User = principal;
+                Thread.CurrentPrincipal = principal;
+                return;
+            }
 
             if (request.Url.Scheme != "https")
             {
@@ -197,12 +207,12 @@ namespace ARMOAuth.Modules
             tenantId = null;
 
             var request = application.Request;
-            if (request.Url.PathAndQuery.StartsWith("/tenants", StringComparison.OrdinalIgnoreCase))
+            if (request.Url.PathAndQuery.StartsWith("/api/tenants", StringComparison.OrdinalIgnoreCase))
             {
                 var parts = request.Url.PathAndQuery.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length >= 2)
+                if (parts.Length >= 3)
                 {
-                    tenantId = parts[1];
+                    tenantId = parts[2];
                 }
             }
 

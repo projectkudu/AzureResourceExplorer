@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,6 +12,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Management.WebSites;
+using Microsoft.Azure.Management.WebSites.Models;
 using Microsoft.WindowsAzure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,9 +22,9 @@ namespace ARMOAuth.Controllers
     public class ManageController : ApiController
     {
         [Authorize]
-        public HttpResponseMessage GetMethods(string @type)
+        public HttpResponseMessage GetMethods(string type)
         {
-            var prop = typeof(WebSiteManagementClient).GetProperty(@type);
+            var prop = typeof(WebSiteManagementClient).GetProperty(type);
             var methods = prop.PropertyType.GetMethods().Where(m => m.Name.EndsWith("Async"));
             var result = new JArray();
             foreach (var method in methods)
@@ -36,13 +38,15 @@ namespace ARMOAuth.Controllers
         }
 
         [Authorize]
-        public async Task<HttpResponseMessage> GetInvokeMethod(string @type, string subscription, string method)
+        public async Task<HttpResponseMessage> GetInvokeMethod(string type, string subscription, string method)
         {
             var token = Request.Headers.GetValues("X-MS-OAUTH-TOKEN").FirstOrDefault();
             var creds = new TokenCloudCredentials(subscription, token);
+            var watch = new Stopwatch();
+            watch.Start();
 
-            var client = new WebSiteManagementClient(creds, new Uri("https://management.azure.com"));
-            var prop = client.GetType().GetProperty(@type);
+            var client = new WebSiteManagementClient(creds, new Uri(ManageController.GetCSMUrl(Request.RequestUri.Host)));
+            var prop = client.GetType().GetProperty(type);
             var propValue = prop.GetValue(client);
             var func = propValue.GetType().GetMethod(method);
             var args = new List<object>();
@@ -63,11 +67,19 @@ namespace ARMOAuth.Controllers
                     var serializer = new JsonSerializer();
                     using (var reader = new StreamReader(await Request.Content.ReadAsStreamAsync()))
                     {
-                        args.Add(serializer.Deserialize(new JsonTextReader(reader), parameter.ParameterType));
+                        var arg = serializer.Deserialize(new JsonTextReader(reader), parameter.ParameterType);
+                        var resource = arg as ResourceBase;
+                        if (resource != null)
+                        {
+                            resource.Location = String.Empty;
+                        }
+
+                        args.Add(arg);
                     }
                 }
             }
 
+            HttpResponseMessage response;
             if (func.ReturnType.IsGenericType)
             {
                 var result = await (dynamic)func.Invoke(propValue, args.ToArray());
@@ -80,15 +92,36 @@ namespace ARMOAuth.Controllers
                 {
                     content = JObject.FromObject(result).ToString();
                 }
-                var response = Request.CreateResponse(HttpStatusCode.OK);
+                response = Request.CreateResponse(HttpStatusCode.OK);
                 response.Content = new StringContent(content, Encoding.UTF8, "application/json");
-                return response;
             }
             else
             {
                 await (Task)func.Invoke(propValue, args.ToArray());
-                return Request.CreateResponse(HttpStatusCode.OK);
+                response = Request.CreateResponse(HttpStatusCode.OK);
             }
+
+            watch.Stop();
+            response.Headers.Add("X-MS-Ellapsed", watch.ElapsedMilliseconds + "ms");
+            return response;
+        }
+
+        public static string GetCSMUrl(string host)
+        {
+            if (host.EndsWith(".antares-int.windows-int.net", StringComparison.OrdinalIgnoreCase))
+            {
+                return "https://api-next.resources.windows-int.net";
+            }
+            else if (host.EndsWith(".antdir0.antares-test.windows-int.net", StringComparison.OrdinalIgnoreCase))
+            {
+                return "https://api-current.resources.windows-int.net";
+            }
+            else if (host.EndsWith(".ant-intapp.windows-int.net", StringComparison.OrdinalIgnoreCase))
+            {
+                return "https://api-dogfood.resources.windows-int.net";
+            }
+
+            return "https://management.azure.com";
         }
 
         private static JObject GetMethodDescription(MethodInfo method)
