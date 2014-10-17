@@ -175,6 +175,9 @@
     <Content Include="index.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="applicationHost.xdt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\FileSystem.pubxml" />
   </ItemGroup>
   <PropertyGroup>
