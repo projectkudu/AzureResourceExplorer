@@ -37,7 +37,7 @@ module managePortalUi {
                 $scope.selectedResourceType = e.data.resource_type === 1 ? "WebSites" : "WebHostingPlans";
                 $http({
                     method: "GET",
-                    url: "/api/methods/" + $scope.selectedResourceType,
+                    url: "api/methods/" + $scope.selectedResourceType,
                     responseType: "application/json; charset=utf-8"
                 }).success((methods: any) => {
                     $scope.methods = methods.filter((m) => m.name.startsWith("Get") || m.name.startsWith("Update") || m.name.startsWith("CreateOrUpdate"));
@@ -48,7 +48,7 @@ module managePortalUi {
 
             $http({
                 method: "GET",
-                url: "/api/subscriptions",
+                url: "api/subscriptions",
                 responseType: "application/json; charset=utf-8"
             }).success((subscriptions: any) => {
                     $scope.my_data = subscriptions.value.map((subscription) => {
@@ -63,7 +63,7 @@ module managePortalUi {
 
                     $http({
                         method: "GET",
-                        url: "/api/subscriptions/" + subscription.data.subscriptionId + "/providers/Microsoft.Web/sites",
+                        url: "api/subscriptions/" + subscription.data.subscriptionId + "/providers/Microsoft.Web/sites",
                         responseType: "application/json; charset=utf-8"
                     }).success((websites: any) => {
                         subscription.children[0].children = websites.map((website: any) => {
@@ -77,7 +77,7 @@ module managePortalUi {
 
                     $http({
                         method: "GET",
-                        url: "/api/subscriptions/" + subscription.data.subscriptionId + "/providers/Microsoft.Web/serverfarms",
+                        url: "api/subscriptions/" + subscription.data.subscriptionId + "/providers/Microsoft.Web/serverfarms",
                         responseType: "application/json; charset=utf-8"
                     }).success((WebHostingPlans: any) => {
                         subscription.children[1].children = WebHostingPlans.map((WebHostingPlan: any) => {
@@ -101,7 +101,7 @@ module managePortalUi {
                 $scope.selectedMethod = method;
                 $http({
                     method: "GET",
-                    url: "/api/methods/" + $scope.selectedResourceType + "/" + $scope.selected.data.subscriptionId + "/" + method.name.replace("Update", "Get") + "?resourceGroupName=" + managePortalApi.getRerouceGroupNameFromWebSpaceName($scope.selected.data.json.properties.webSpace) + "&webSiteName=" + $scope.selected.data.json.name,
+                    url: "api/methods/" + $scope.selectedResourceType + "/" + $scope.selected.data.subscriptionId + "/" + method.name.replace("Update", "Get") + "?resourceGroupName=" + managePortalApi.getRerouceGroupNameFromWebSpaceName($scope.selected.data.json.properties.webSpace) + "&webSiteName=" + $scope.selected.data.json.name,
                     responseType: "application/json; charset=utf-8"
                 }).success((data: any) => {
                     $scope.jsonHtml = managePortalApi.syntaxHighlight(data);
@@ -130,7 +130,7 @@ module managePortalUi {
                 console.log(userObject);
                 $http({
                     method: "POST",
-                    url: "/api/methods/" + $scope.selectedResourceType + "/" + $scope.selected.data.subscriptionId + "/" + $scope.selectedMethod.name + "?resourceGroupName=" + managePortalApi.getRerouceGroupNameFromWebSpaceName($scope.selected.data.json.properties.webSpace) + "&webSiteName=" + $scope.selected.data.json.name,
+                    url: "api/methods/" + $scope.selectedResourceType + "/" + $scope.selected.data.subscriptionId + "/" + $scope.selectedMethod.name + "?resourceGroupName=" + managePortalApi.getRerouceGroupNameFromWebSpaceName($scope.selected.data.json.properties.webSpace) + "&webSiteName=" + $scope.selected.data.json.name,
                     data: userObject,
                     responseType: "application/json; charset=utf-8"
                 }).success((e) => {

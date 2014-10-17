@@ -9,12 +9,12 @@ module managePortalUi {
         .service("managePortalApi", managePortalApi)
         .config(($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider) => {
             $routeProvider
-                .when("/", {
+                .when("/manage", {
                     controller: "homeController",
                     templateUrl: "ng/ngViews/Home.html",
                     caseInsensitiveMatch: true
                 })
-                .otherwise({ redirectTo: "/" }); //TODO: add 404 page
+                .otherwise({ redirectTo: "/manage" }); //TODO: add 404 page
             $locationProvider.html5Mode(true);
         });
 
