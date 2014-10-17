@@ -18,4 +18,7 @@ interface Array<T> {
 }
 declare class JSONEditor {
     constructor(args: any);
+    get(): any;
+    set(any);
+    expandAll();
 }
