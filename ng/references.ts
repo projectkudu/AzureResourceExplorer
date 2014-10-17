@@ -7,3 +7,15 @@
 /// <reference path="../Content/Scripts/typings/angularjs/angular-sanitize.d.ts" />
 /// <reference path="../Content/Scripts/typings/angularjs/angular-scenario.d.ts" />
 /// <reference path="../Content/Scripts/typings/angularjs/angular-ui-bootstrap.d.ts" />
+
+interface String {
+    startsWith(str: string): boolean;
+    endsWith(str: string): boolean;
+}
+
+interface Array<T> {
+    remove(from: number, to: number);
+}
+declare class JSONEditor {
+    constructor(args: any);
+}

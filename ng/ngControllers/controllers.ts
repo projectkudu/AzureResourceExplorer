@@ -3,10 +3,6 @@
 module managePortalUi {
     "use strict";
 
-    interface JSONEditor {
-        new (...args: any[]): any;
-    }
-
     export class angularBaseController {
         public static $inject = [
             "$scope",
