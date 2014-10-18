@@ -49,7 +49,7 @@
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-ex1-collapse navbar-collapse collapse">
-                    <abn-tree tree-data="my_data" tree-control="my_tree" on-select="my_tree_handler(branch)" expand-level="0" ></abn-tree>
+                    <abn-tree tree-data="resources" tree-control="my_tree" on-select="selectResourceHandler(branch)" expand-level="0" ></abn-tree>
                 </div>
             </div>
         </nav>
@@ -57,20 +57,20 @@
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">{{ viewTitle }}</h1>
+                    <h1 class="page-header">{{ selectedResource.label }}</h1>
                     <div class="spinner" ng-show="loading">
                         <i id="loading" class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
                     </div>
                 </div>
             </div>
             <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
-            <div class="panel panel-default" ng-if="methods.length > 0">
+            <div class="panel panel-default" ng-if="resourceMethods.length > 0">
                 <div class="panel-heading">
-                    Methods for {{ selectedResourceType }}
+                    Methods for {{ selectedResource.data.resourceType }}
                 </div>
                 <div class="panel-body">
                     <p>
-                        <button class="btn btn-outline btn-primary" ng-repeat="method in methods" style="margin: 5px" ng-click="selectMethod(method)">
+                        <button class="btn btn-outline btn-primary" ng-repeat="method in resourceMethods" style="margin: 5px" ng-click="selectMethod(method)">
                             {{ method.name }}
                         </button>
                     </p>
