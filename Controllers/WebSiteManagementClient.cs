@@ -4756,11 +4756,12 @@ namespace Microsoft.Azure.Management.WebSites.Models
         /// </summary>
         public WebSiteUpdateConfigurationParameters()
         {
-            this.AppSettings = new Dictionary<string, string>();
-            this.ConnectionStrings = new List<ConnectionStringInfo>();
-            this.DefaultDocuments = new List<string>();
-            this.HandlerMappings = new List<WebSiteUpdateConfigurationParameters.HandlerMapping>();
-            this.Metadata = new Dictionary<string, string>();
+            // suwatch
+            //this.AppSettings = new Dictionary<string, string>();
+            //this.ConnectionStrings = new List<ConnectionStringInfo>();
+            //this.DefaultDocuments = new List<string>();
+            //this.HandlerMappings = new List<WebSiteUpdateConfigurationParameters.HandlerMapping>();
+            //this.Metadata = new Dictionary<string, string>();
         }
         
         /// <summary>
@@ -12932,7 +12933,7 @@ namespace Microsoft.Azure.Management.WebSites
                         responseDoc = JToken.Parse(responseContent);
                     }
                     
-                    JToken siteConfigValue = responseDoc["SiteConfig"];
+                    JToken siteConfigValue = responseDoc["properties"];
                     if (siteConfigValue != null && siteConfigValue.Type != JTokenType.Null)
                     {
                         WebSiteGetConfigurationResponse siteConfigInstance = new WebSiteGetConfigurationResponse();
@@ -13148,7 +13149,11 @@ namespace Microsoft.Azure.Management.WebSites
                             bool webSocketsEnabledInstance = ((bool)webSocketsEnabledValue);
                             siteConfigInstance.WebSocketsEnabled = webSocketsEnabledInstance;
                         }
+
+                        // suwatch
+                        result = siteConfigInstance;
                     }
+
                     
                     result.StatusCode = statusCode;
                     if (httpResponse.Headers.Contains("x-ms-request-id"))
@@ -16803,7 +16808,7 @@ namespace Microsoft.Azure.Management.WebSites
             {
                 url = url + "/slots/" + Uri.EscapeDataString(slotName != null ? slotName.Trim() : "");
             }
-            url = url + "/config?";
+            url = url + "/config/web?";
             url = url + "api-version=2014-06-01";
             string baseUrl = this.Client.BaseUri.AbsoluteUri;
             // Trim '/' character from the end of baseUrl and beginning of url.
@@ -16838,19 +16843,20 @@ namespace Microsoft.Azure.Management.WebSites
                 
                 JObject siteConfigValue = new JObject();
                 requestDoc = new JObject();
-                requestDoc["siteConfig"] = siteConfigValue;
+                requestDoc["Properties"] = siteConfigValue;
                 
-                JObject appSettingsDictionary = new JObject();
+                // suwatch
                 if (parameters.AppSettings != null)
                 {
+                    JObject appSettingsDictionary = new JObject();
                     foreach (KeyValuePair<string, string> pair in parameters.AppSettings)
                     {
                         string appSettingsKey = pair.Key;
                         string appSettingsValue = pair.Value;
                         appSettingsDictionary[appSettingsKey] = appSettingsValue;
                     }
+                    siteConfigValue["appSettings"] = appSettingsDictionary;
                 }
-                siteConfigValue["appSettings"] = appSettingsDictionary;
                 
                 if (parameters.ConnectionStrings != null)
                 {
@@ -16935,18 +16941,19 @@ namespace Microsoft.Azure.Management.WebSites
                 {
                     siteConfigValue["managedPipelineMode"] = parameters.ManagedPipelineMode.Value.ToString();
                 }
-                
-                JObject metadataDictionary = new JObject();
+
+                // suwatch
                 if (parameters.Metadata != null)
                 {
+                    JObject metadataDictionary = new JObject();
                     foreach (KeyValuePair<string, string> pair2 in parameters.Metadata)
                     {
                         string metadataKey = pair2.Key;
                         string metadataValue = pair2.Value;
                         metadataDictionary[metadataKey] = metadataValue;
                     }
+                    siteConfigValue["metadata"] = metadataDictionary;
                 }
-                siteConfigValue["metadata"] = metadataDictionary;
                 
                 if (parameters.NetFrameworkVersion != null)
                 {

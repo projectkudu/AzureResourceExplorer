@@ -113,8 +113,9 @@ module managePortalUi {
                     } else {
                         for (var sourceProperty in data) {
                             if (data.hasOwnProperty(sourceProperty)) {
-                                if (!managePortalApi.isEmptyObjectorArray((method.arguments[sourceProperty]))) {
-                                    method.arguments[sourceProperty] = data[sourceProperty];
+                                if (!managePortalApi.isEmptyObjectorArray((data[sourceProperty])) &&
+                                    method.arguments.parameters.hasOwnProperty(sourceProperty)) {
+                                    method.arguments.parameters[sourceProperty] = data[sourceProperty];
                                 }
                             }
                         }

@@ -51,6 +51,7 @@ module managePortalUi {
         }
 
         isEmptyObjectorArray(obj) {
+            if (typeof obj === "number" || typeof obj === "boolean") return false;
             if (jQuery.isEmptyObject(obj)) return true;
             if (obj === null || obj === "" || obj.length === 0) return true;
             return false;
