@@ -43,6 +43,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Hydra.Core">
+      <HintPath>ref\Hydra.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.WebSites.Specification">
+      <HintPath>ref\Microsoft.Azure.Management.WebSites.Specification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
@@ -118,10 +124,9 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ARMController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\OperationController.cs" />
+    <Compile Include="Controllers\OperationInfo.cs" />
     <Compile Include="Controllers\Utils.cs" />
-    <Compile Include="Controllers\WebSiteManagementClient.cs" />
-    <Compile Include="Controllers\WebSiteManagementClient.Customization.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

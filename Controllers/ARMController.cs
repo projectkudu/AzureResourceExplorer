@@ -49,7 +49,7 @@ namespace ARMOAuth.Controllers
                 return await GetTenants(path);
             }
 
-            using (var client = GetClient(ManageController.GetCSMUrl(Request.RequestUri.Host)))
+            using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
             {
                 return await Utils.Execute(client.GetAsync(path + "?api-version=2014-04-01"));
             }
@@ -79,7 +79,7 @@ namespace ARMOAuth.Controllers
                 }
                 else
                 {
-                    using (var client = GetClient(ManageController.GetCSMUrl(Request.RequestUri.Host)))
+                    using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
                     {
                         var response = await Utils.Execute(client.GetAsync(path + "?api-version=2014-04-01"));
                         if (!response.IsSuccessStatusCode)
@@ -161,6 +161,7 @@ namespace ARMOAuth.Controllers
             client.BaseAddress = new Uri(baseUri);
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
                 Request.Headers.GetValues(Utils.X_MS_OAUTH_TOKEN).FirstOrDefault());
+            client.DefaultRequestHeaders.Add("User-Agent", Request.RequestUri.Host);
             return client;
         }
     }

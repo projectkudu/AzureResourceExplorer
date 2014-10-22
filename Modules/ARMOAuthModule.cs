@@ -95,10 +95,11 @@ namespace ARMOAuth.Modules
                     throw new InvalidOperationException("Missing tenantid claim");
                 }
 
-                var redirect_uri = request.Url.GetLeftPart(UriPartial.Authority);
+                var base_uri = request.Url.GetLeftPart(UriPartial.Authority);
+                var redirect_uri = base_uri + "/manage";
                 var token = AADOAuth2AccessToken.GetAccessTokenByCode(tenantIdClaim.Value, code, redirect_uri);
                 WriteOAuthTokenCookie(application, token);
-                response.Redirect(redirect_uri + state, endResponse: true);
+                response.Redirect(base_uri + state, endResponse: true);
                 return;
             }
             else
@@ -137,7 +138,7 @@ namespace ARMOAuth.Modules
             var request = application.Context.Request;
             var response_type = "id_token code";
             var issuerAddress = config.GetAuthorizationEndpoint(tenantId);
-            var redirect_uri = request.Url.GetLeftPart(UriPartial.Authority);
+            var redirect_uri = request.Url.GetLeftPart(UriPartial.Authority) + "/manage";
             var client_id = AADClientId;
             var nonce = GenerateNonce();
             var response_mode = "form_post";
