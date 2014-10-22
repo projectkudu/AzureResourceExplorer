@@ -102,7 +102,7 @@ namespace ARMOAuth.Controllers
                 var uri = Request.RequestUri.AbsoluteUri;
                 var response = Request.CreateResponse(HttpStatusCode.Redirect);
                 response.Headers.Add("Set-Cookie", String.Format("OAuthTenant={0}; path=/; secure; HttpOnly", tenantId));
-                response.Headers.Location = new Uri(uri.Substring(0, uri.IndexOf("/" + parts[0])));
+                response.Headers.Location = new Uri(uri.Substring(0, uri.IndexOf("/api/" + parts[0], StringComparison.OrdinalIgnoreCase)));
                 return response;
             }
         }

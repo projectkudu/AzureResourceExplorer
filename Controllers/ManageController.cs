@@ -38,9 +38,7 @@ namespace ARMOAuth.Controllers
         }
 
         [Authorize]
-        [HttpPost]
-        [HttpGet]
-        public async Task<HttpResponseMessage> GetInvokeMethod(string type, string subscription, string method)
+        public async Task<HttpResponseMessage> InvokeMethod(string type, string subscription, string method)
         {
             var token = Request.Headers.GetValues("X-MS-OAUTH-TOKEN").FirstOrDefault();
             var creds = new TokenCloudCredentials(subscription, token);

@@ -114,7 +114,7 @@ module managePortalUi {
                 $scope.jsonHtml = "";
                 $scope.selectedMethod = method;
                 $http({
-                    method: "GET",
+                    method: "POST",
                     url: "api/methods/" + $scope.selectedResource.data.resourceType + "s" + "/" + $scope.selectedResource.data.subscriptionId + "/" + method.name.replace("Update", "Get") + "?resourceGroupName=" + managePortalApi.getRerouceGroupNameFromWebSpaceName($scope.selectedResource.data.json.properties.webSpace) + "&" + this.resourceToQueryStringName[$scope.selectedResource.data.resourceType] + "=" + $scope.selectedResource.data.json.name,
                     responseType: "application/json; charset=utf-8"
                 }).success((data: any) => {

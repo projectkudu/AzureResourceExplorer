@@ -135,6 +135,7 @@
     <Content Include="Content\Scripts\jsoneditor.min.js" />
     <Content Include="Content\Styles\abn_tree.css" />
     <Content Include="Content\Styles\app.css" />
+    <Content Include="Content\Styles\img\jsoneditor-icons.png" />
     <Content Include="Content\Styles\jsoneditor.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -185,7 +186,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+  <PropertyGroup>
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
     <TypeScriptOutFile>ng\app.js</TypeScriptOutFile>
   </PropertyGroup>
