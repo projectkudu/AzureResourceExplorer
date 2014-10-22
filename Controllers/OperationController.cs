@@ -180,19 +180,19 @@ namespace ARMOAuth.Controllers
             {
                 if (jsonValue.Type is Hydra.ServiceModel.ObjectType)
                 {
-                    if (jsonValue.Members.Count == 1 && jsonValue.PassThrough)
+                    var schema = new JObject();
+                    foreach (var member in jsonValue.Members)
                     {
-                        return GetJsonSchehma(jsonValue.Members[0]);
-                    }
-                    else
-                    {
-                        var schema = new JObject();
-                        foreach (var member in jsonValue.Members)
+                        if ((member is JsonValue && ((JsonValue)member).PassThrough) ||
+                            (member is JsonArray && ((JsonArray)member).PassThrough) ||
+                            (member is JsonDictionary && ((JsonDictionary)member).PassThrough))
                         {
-                            schema[member.Name] = GetJsonSchehma(member);
+                            return GetJsonSchehma(member);
                         }
-                        return schema;
+
+                        schema[member.Name] = GetJsonSchehma(member);
                     }
+                    return schema;
                 }
 
                 if (jsonValue.Type is Hydra.ServiceModel.KnownType)
