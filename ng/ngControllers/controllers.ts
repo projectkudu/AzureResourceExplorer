@@ -182,6 +182,7 @@ module managePortalUi {
                 MethodName: "Get",
                 HttpMethod: "Get",
                 ResponseBody: {},
+                RequestBody: {},
                 Url: "api/subscriptions"
             });
 
@@ -189,6 +190,7 @@ module managePortalUi {
                 MethodName: "Get",
                 HttpMethod: "Get",
                 ResponseBody: {},
+                RequestBody: {},
                 Url: "api/subscriptions/{subscriptionId}"
             });
 
