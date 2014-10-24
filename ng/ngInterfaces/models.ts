@@ -7,6 +7,7 @@ module managePortalUi {
         MethodName: string;
         HttpMethod: string;
         ResponseBody: any;
+        RequestBody: any;
         Url: string;
     }
 } 

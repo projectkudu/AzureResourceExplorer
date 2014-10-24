@@ -77,17 +77,8 @@ module managePortalUi {
                     q.then(() => {
                         var putActions = resourceUrl.actions.filter((a) => (a === "Post" || a === "Put"));
                         if (putActions.length === 1) {
-                            var editable = {};
-                            if (resourceUrl.responseBody)
-                                for (var sourceProperty in $scope.rawData) {
-                                    if ($scope.rawData.hasOwnProperty(sourceProperty)) {
-                                        if (!managePortalApi.isEmptyObjectorArray(($scope.rawData[sourceProperty]))) {
-                                            editable[sourceProperty] = $scope.rawData[sourceProperty];
-                                        } else {
-                                            editable[sourceProperty] = resourceUrl.responseBody[sourceProperty];
-                                        }
-                                    }
-                                }
+                            var editable = jQuery.extend(true, {}, resourceUrl.responseBody);
+                            this.megeObject($scope.rawData, editable);
                             editor.set(editable);
                             $scope.show = true;
                             editor.expandAll();
@@ -263,7 +254,7 @@ module managePortalUi {
                     children: undefined,
                     actions: (operation ? [operation.HttpMethod] : []),
                     url: url,
-                    responseBody: operation ? operation.ResponseBody : {}
+                    responseBody: operation ? operation.RequestBody : {}
                 };
                 resourceUrlTable.push(addedElement);
             }
@@ -311,6 +302,18 @@ module managePortalUi {
             }
             if (action && parent.actions.filter((c) => c === action).length === 0) {
                 parent.actions.push(action);
+            }
+        }
+
+        megeObject(source: any, target: any) {
+            for (var sourceProperty in source) {
+                if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
+                    if (!this.managePortalApi.isEmptyObjectorArray(source[sourceProperty]) && (typeof source[sourceProperty] === "object") && !Array.isArray(source[sourceProperty])) {
+                        this.megeObject(source[sourceProperty], target[sourceProperty]);
+                    } else if (!this.managePortalApi.isEmptyObjectorArray(source[sourceProperty])) {
+                        target[sourceProperty] = source[sourceProperty];
+                    }
+                }
             }
         }
     }
