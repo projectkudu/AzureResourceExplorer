@@ -53,10 +53,10 @@ module managePortalUi {
                         url = url.replace("{" + value + "}", $scope.inject[value]);
                     }
                     var q;
-                    if (url.endsWith("resourceGroups")) {
+                    if (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3) {
                         q = $http({
                             method: "GET",
-                            url: url.replace("https://management.azure.com/", "api/"),
+                            url: "api" + url.substring(url.indexOf("/subscriptions")),//"https://management.azure.com/", "api/"),
                         }).success((data: any) => {
                             $scope.jsonHtml = this.managePortalApi.syntaxHighlight(data);
                             $scope.rawData = data;
@@ -149,10 +149,10 @@ module managePortalUi {
                         childUrl = childUrl.replace("{" + value + "}", $scope.inject[value]);
                     }
 
-                    if (childUrl.endsWith("resourceGroups")) {
+                    if (childUrl.endsWith("resourceGroups") || childUrl.endsWith("subscriptions") || childUrl.split("/").length === 3) {
                         $http({
                             method: "GET",
-                            url: childUrl.replace("https://management.azure.com/", "api/"),
+                            url: "api" + childUrl.substring(childUrl.indexOf("/subscriptions")),
                         }).success((data: any) => {
                                 branch.children = (data.value ? data.value : data).map((d) => {
                                     return {
@@ -191,14 +191,14 @@ module managePortalUi {
                 MethodName: "Get",
                 HttpMethod: "Get",
                 ResponseBody: {},
-                Url: "https://management.azure.com/subscriptions"
+                Url: "api/subscriptions"
             });
 
             this.addToResourceUrlTable(resourcesUrlsTable, {
                 MethodName: "Get",
                 HttpMethod: "Get",
                 ResponseBody: {},
-                Url: "https://management.azure.com/subscriptions/{subscriptionId}"
+                Url: "api/subscriptions/{subscriptionId}"
             });
 
             $http({
@@ -237,7 +237,7 @@ module managePortalUi {
         }
 
         addToResourceUrlTable(resourceUrlTable: any[], operation: IOperation, url?: string): any {
-            url = (operation ? operation.Url : url).replace("https://management.azure.com", "");
+            url = (operation ? operation.Url : url);
             var segments = url.split("/").filter(a => a.length !== 0);
             var resourceName = segments.pop();
             var addedElement;
@@ -262,7 +262,7 @@ module managePortalUi {
                     resourceName: resourceName,
                     children: undefined,
                     actions: (operation ? [operation.HttpMethod] : []),
-                    url: "https://management.azure.com" + url,
+                    url: url,
                     responseBody: operation? operation.ResponseBody : {}
                 };
                 resourceUrlTable.push(addedElement);
