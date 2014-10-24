@@ -56,7 +56,7 @@ module managePortalUi {
                     if (url.endsWith("resourceGroups")) {
                         q = $http({
                             method: "GET",
-                            url: url.replace("https://management.azure.com/", "https://localhost:44300/manage/api/"),
+                            url: url.replace("https://management.azure.com/", "api/"),
                         }).success((data: any) => {
                             $scope.jsonHtml = this.managePortalApi.syntaxHighlight(data);
                             $scope.rawData = data;
@@ -64,7 +64,7 @@ module managePortalUi {
                     } else {
                         q = $http({
                             method: "POST",
-                            url: "https://localhost:44300/manage/api/operations",
+                            url: "api/operations",
                             data: {
                                 Url: url,
                                 HttpMethod: getAction
@@ -115,7 +115,7 @@ module managePortalUi {
                 
                 $http({
                     method: "POST",
-                    url: "https://localhost:44300/manage/api/operations",
+                    url: "api/operations",
                     data: {
                         Url: $scope.putUrl,
                         HttpMethod: "Put",
@@ -152,7 +152,7 @@ module managePortalUi {
                     if (childUrl.endsWith("resourceGroups")) {
                         $http({
                             method: "GET",
-                            url: childUrl.replace("https://management.azure.com/", "https://localhost:44300/manage/api/"),
+                            url: childUrl.replace("https://management.azure.com/", "api/"),
                         }).success((data: any) => {
                                 branch.children = (data.value ? data.value : data).map((d) => {
                                     return {
@@ -165,7 +165,7 @@ module managePortalUi {
                     } else {
                         $http({
                             method: "POST",
-                            url: "https://localhost:44300/manage/api/operations",
+                            url: "api/operations",
                             data: {
                                 Url: childUrl,
                                 HttpMethod: "Get"
