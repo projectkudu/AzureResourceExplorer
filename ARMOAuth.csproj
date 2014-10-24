@@ -172,6 +172,7 @@
     <Content Include="Content\Styles\sb-admin-2.css" />
     <TypeScriptCompile Include="ng\app.ts" />
     <TypeScriptCompile Include="ng\ngControllers\controllers.ts" />
+    <TypeScriptCompile Include="ng\ngInterfaces\models.ts" />
     <TypeScriptCompile Include="ng\ngInterfaces\routeParameters.ts" />
     <TypeScriptCompile Include="ng\ngInterfaces\scopes.ts" />
     <TypeScriptCompile Include="ng\ngServices\managePortalApi.ts" />

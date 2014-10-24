@@ -7,13 +7,14 @@
       '$timeout', function ($timeout) {
           return {
               restrict: 'E',
-              template: "<ul class=\"nav nav-list nav-pills nav-stacked abn-tree\">\n  <li ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\" ng-animate=\"'abn-tree-animate'\" ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"abn-tree-row\">\n    <a ng-click=\"user_clicks_branch(row.branch)\">\n      <i ng-class=\"row.tree_icon\" ng-click=\"row.branch.expanded = !row.branch.expanded\" class=\"indented tree-icon\"> </i>\n      <i ng-class=\"row.resource_icon\" class=\"indented tree-icon\"></i>\n      <span class=\"indented tree-label\">{{ row.label }} </span>\n    </a>\n  </li>\n</ul>",
+              template: "<ul class=\"nav nav-list nav-pills nav-stacked abn-tree\">\n  <li ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\" ng-animate=\"'abn-tree-animate'\" ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"abn-tree-row\">\n    <a ng-click=\"user_clicks_branch(row.branch)\">\n      <i ng-class=\"row.tree_icon\" ng-click=\"user_expands_branch(row.branch, row)\" class=\"indented tree-icon\"> </i>\n      <i ng-class=\"row.resource_icon\" class=\"indented tree-icon\"></i>\n      <span class=\"indented tree-label\">{{ row.label }} </span>\n    </a>\n  </li>\n</ul>",
               replace: true,
               scope: {
                   treeData: '=',
                   onSelect: '&',
                   initialSelection: '@',
-                  treeControl: '='
+                  treeControl: '=',
+                  onExpand: '&'
               },
               link: function (scope, element, attrs) {
                   var error, expand_all_parents, expand_level, for_all_ancestors, for_each_branch, get_parent, n, on_treeData_change, select_branch, selected_branch, tree;
@@ -106,6 +107,22 @@
                           return select_branch(branch);
                       }
                   };
+                  scope.user_expands_branch = function (branch, row) {
+                      if (branch.onExpand != null) {
+                          return $timeout(function () {
+                              return branch.onExpand(branch, row);
+                          });
+                      } else {
+                          if (scope.onExpand != null) {
+                              return $timeout(function () {
+                                  return scope.onExpand({
+                                      branch: branch,
+                                      row: row
+                                  });
+                              });
+                          }
+                      }
+                  }
                   get_parent = function (child) {
                       var parent;
                       parent = void 0;
@@ -139,7 +156,7 @@
                               return b.uid = "" + Math.random();
                           }
                       });
-                      console.log('UIDs are set.');
+                      //console.log('UIDs are set.');
                       for_each_branch(function (b) {
                           var child, _i, _len, _ref, _results;
                           if (angular.isArray(b.children)) {
@@ -187,22 +204,23 @@
                           if (branch.expanded == null) {
                               branch.expanded = false;
                           }
-                          if (!branch.children || branch.children.length === 0) {
-                              tree_icon = attrs.iconLeaf;
+                          //if (!branch.children || branch.children.length === 0) {
+                          //    tree_icon = attrs.iconLeaf;
+                          //} else {
+                          if (branch.expanded) {
+                              tree_icon = attrs.iconCollapse;
                           } else {
-                              if (branch.expanded) {
-                                  tree_icon = attrs.iconCollapse;
-                              } else {
-                                  tree_icon = attrs.iconExpand;
-                              }
+                              tree_icon = attrs.iconExpand;
                           }
+                          //}
                           scope.tree_rows.push({
                               level: level,
                               branch: branch,
                               label: branch.label,
                               tree_icon: tree_icon,
                               resource_icon: branch.resource_icon,
-                              visible: visible
+                              visible: visible,
+                              clear_tree_icon: function () { this.tree_icon = null;}
                           });
                           if (branch.children != null) {
                               _ref = branch.children;
@@ -234,7 +252,7 @@
                       });
                   }
                   n = scope.treeData.length;
-                  console.log('num root branches = ' + n);
+                  //console.log('num root branches = ' + n);
                   for_each_branch(function (b, level) {
                       b.level = level;
                       return b.expanded = b.level < expand_level;

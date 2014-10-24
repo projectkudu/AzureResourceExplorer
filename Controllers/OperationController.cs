@@ -84,9 +84,12 @@ namespace ARMOAuth.Controllers
             return method.Name.IndexOf("backup", StringComparison.OrdinalIgnoreCase) >= 0
                 || method.Name.IndexOf("restore", StringComparison.OrdinalIgnoreCase) >= 0
                 || method.Name.IndexOf("discover", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("resource", StringComparison.OrdinalIgnoreCase) >= 0
                 || method.Name.IndexOf("slotConfigNames", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("usages", StringComparison.OrdinalIgnoreCase) >= 0;
+                || method.Name.IndexOf("metrics", StringComparison.OrdinalIgnoreCase) >= 0
+                || method.Name.IndexOf("repository", StringComparison.OrdinalIgnoreCase) >= 0
+                || method.Name.IndexOf("usages", StringComparison.OrdinalIgnoreCase) >= 0
+                || method.Name.IndexOf("register", StringComparison.OrdinalIgnoreCase) >= 0
+                || method.Name.IndexOf("unregister", StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
         private JArray GetOperations<T>(bool hidden)
