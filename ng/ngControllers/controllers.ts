@@ -58,9 +58,9 @@ module managePortalUi {
                             method: "GET",
                             url: "api" + url.substring(url.indexOf("/subscriptions")),//"https://management.azure.com/", "api/"),
                         }).success((data: any) => {
-                            $scope.jsonHtml = this.managePortalApi.syntaxHighlight(data);
-                            $scope.rawData = data;
-                        });
+                                $scope.jsonHtml = this.managePortalApi.syntaxHighlight(data);
+                                $scope.rawData = data;
+                            });
                     } else {
                         q = $http({
                             method: "POST",
@@ -70,9 +70,9 @@ module managePortalUi {
                                 HttpMethod: getAction
                             }
                         }).success((data: any) => {
-                            $scope.jsonHtml = this.managePortalApi.syntaxHighlight(data);
-                            $scope.rawData = data;
-                        });
+                                $scope.jsonHtml = this.managePortalApi.syntaxHighlight(data);
+                                $scope.rawData = data;
+                            });
                     }
                     q.then(() => {
                         var putActions = resourceUrl.actions.filter((a) => (a === "Post" || a === "Put"));
@@ -112,7 +112,7 @@ module managePortalUi {
                 var userObject = editor.get();
                 managePortalApi.cleanObject(userObject);
                 console.log(userObject);
-                
+
                 $http({
                     method: "POST",
                     url: "api/operations",
@@ -122,8 +122,8 @@ module managePortalUi {
                         RequestBody: userObject
                     }
                 }).success((e) => {
-                    $scope.selectResourceHandler($scope.selectedResource);
-                });
+                        $scope.selectResourceHandler($scope.selectedResource);
+                    });
             };
 
             $scope.expandResourceHandler = (branch, row) => {
@@ -205,28 +205,28 @@ module managePortalUi {
                 method: "GET",
                 url: "api/operations"
             }).success((operations: IOperation[]) => {
-                operations.sort((a, b) => {
-                    return a.Url.localeCompare(b.Url);
-                });
-                operations.map((operation) => {
-                    if (operation.Url.indexOf("{Name}") !== -1) {
-                        operation.Url = operation.Url.replace("{Name}", "{webHostingPlanName}");
-                    }
-                    if (operation.Url.indexOf("resourcegroups") !== -1) {
-                        operation.Url = operation.Url.replace("resourcegroups", "resourceGroups");
-                    }
-                    if (operation.Url.endsWith("/")) {
-                        operation.Url = operation.Url.substring(0, operation.Url.length - 1);
-                    }
-
-                    this.addToResourceUrlTable(resourcesUrlsTable, operation);
-                    resourcesUrlsTable.map((r) => {
-                        if (Array.isArray(r.children)){
-                            r.children.sort()
+                    operations.sort((a, b) => {
+                        return a.Url.localeCompare(b.Url);
+                    });
+                    operations.map((operation) => {
+                        if (operation.Url.indexOf("{name}") !== -1) {
+                            operation.Url = operation.Url.replace("{name}", "{webHostingPlanName}");
                         }
+                        if (operation.Url.indexOf("resourcegroups") !== -1) {
+                            operation.Url = operation.Url.replace("resourcegroups", "resourceGroups");
+                        }
+                        if (operation.Url.endsWith("/")) {
+                            operation.Url = operation.Url.substring(0, operation.Url.length - 1);
+                        }
+
+                        this.addToResourceUrlTable(resourcesUrlsTable, operation);
+                        resourcesUrlsTable.map((r) => {
+                            if (Array.isArray(r.children)) {
+                                r.children.sort()
+                        }
+                        });
                     });
                 });
-            });
 
             $scope.resources = [{
                 label: "subscriptions",
@@ -263,7 +263,7 @@ module managePortalUi {
                     children: undefined,
                     actions: (operation ? [operation.HttpMethod] : []),
                     url: url,
-                    responseBody: operation? operation.ResponseBody : {}
+                    responseBody: operation ? operation.ResponseBody : {}
                 };
                 resourceUrlTable.push(addedElement);
             }
