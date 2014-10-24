@@ -101,6 +101,7 @@
     position: absolute;
     width: 280px;
     margin-top: 51px;
+    overflow-x: auto;
   }
   .navbar-top-links .dropdown-messages,
   .navbar-top-links .dropdown-tasks,
