@@ -251,22 +251,9 @@ namespace ARMOAuth.Controllers
 
         private object EvaluateExpression(BindingExpression expression)
         {
-            // special case
-            if (expression.ToString().Equals("{Credentials.SubscriptionId}", StringComparison.OrdinalIgnoreCase))
-            {
-                return "{subscriptionId}";
-            }
-
             if (expression.ToString().Equals("{BaseUri}", StringComparison.OrdinalIgnoreCase))
             {
                 return Utils.GetCSMUrl(Request.RequestUri.Host);
-                //return EvaluateExpression(((Hydra.ServiceModel.Method)expression.Context).Service.BaseUrlExpression);
-            }
-
-            if (expression.ToString().StartsWith("{parameters.", StringComparison.OrdinalIgnoreCase))
-            {
-                var parts = expression.ToString().Split(new[] { '.', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
-                return "{" + parts.Last() + "}";
             }
 
             var concat = expression as ConcatenatedBindingExpression;
@@ -314,7 +301,7 @@ namespace ARMOAuth.Controllers
                 var prop = obj.GetType().GetProperty(property.PropertyName);
                 if (prop == null)
                 {
-                    throw new InvalidOperationException(property.PropertyName + " property should not be null");
+                    return "{" + Char.ToLowerInvariant(property.PropertyName[0]) + property.PropertyName.Substring(1) + "}";
                 }
 
                 var value = prop.GetValue(obj);
@@ -324,8 +311,8 @@ namespace ARMOAuth.Controllers
             var parameter = expression as ParameterBindingExpression;
             if (parameter != null)
             {
-                var parts = parameter.ToString().Split(new[] { '.', '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
-                return "{" + parts.Last() + "}";
+                var name = parameter.ToString().Split(new[] { '.', '{', '}' }, StringSplitOptions.RemoveEmptyEntries).Last();
+                return "{" + Char.ToLowerInvariant(name[0]) + name.Substring(1) + "}";
             }
 
             var formatting = expression as FormattingBindingExpression;
