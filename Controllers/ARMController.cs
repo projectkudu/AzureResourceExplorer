@@ -51,7 +51,8 @@ namespace ARMOAuth.Controllers
 
             using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
             {
-                return await Utils.Execute(client.GetAsync(path + "?api-version=2014-04-01"));
+                var apiVersion = Utils.GetApiVersion(path);
+                return await Utils.Execute(client.GetAsync(path + "?api-version=" + apiVersion));
             }
         }
 
@@ -81,7 +82,8 @@ namespace ARMOAuth.Controllers
                 {
                     using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
                     {
-                        var response = await Utils.Execute(client.GetAsync(path + "?api-version=2014-04-01"));
+                        var apiVersion = Utils.GetApiVersion(path);
+                        var response = await Utils.Execute(client.GetAsync(path + "?api-version=" + apiVersion));
                         if (!response.IsSuccessStatusCode)
                         {
                             return response;

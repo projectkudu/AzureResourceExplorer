@@ -9,6 +9,18 @@ namespace ARMOAuth.Controllers
     {
         public const string X_MS_OAUTH_TOKEN = "X-MS-OAUTH-TOKEN";
         public const string X_MS_Ellapsed = "X-MS-Ellapsed";
+        public const string AntaresApiVersion = "2014-06-01";
+        public const string CSMApiVersion = "2014-04-01";
+
+        public static string GetApiVersion(string path)
+        {
+            if (path.IndexOf("/Microsoft.Web/", StringComparison.OrdinalIgnoreCase) > 0)
+            {
+                return AntaresApiVersion;
+            }
+
+            return CSMApiVersion;
+        }
 
         public static async Task<HttpResponseMessage> Execute(Task<HttpResponseMessage> task)
         {
@@ -27,7 +39,7 @@ namespace ARMOAuth.Controllers
             {
                 return "https://api-next.resources.windows-int.net";
             }
-            else if (host.EndsWith(".antdir0.antares-test.windows-int.net", StringComparison.OrdinalIgnoreCase))
+            else if (host.EndsWith(".antares-test.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
                 return "https://api-current.resources.windows-int.net";
             }

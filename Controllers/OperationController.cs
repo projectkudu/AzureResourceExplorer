@@ -18,7 +18,6 @@ namespace ARMOAuth.Controllers
 {
     public class OperationController : ApiController
     {
-        const string ApiVersion = "2014-06-01";
         static object _lock = new object();
         static bool _resetDefinedTypes = false;
         static Dictionary<Type, JArray[]> _operations = new Dictionary<Type, JArray[]>();
@@ -48,7 +47,8 @@ namespace ARMOAuth.Controllers
         {
             using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
             {
-                var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + "?api-version=" + ApiVersion);
+                var apiVersion = Utils.GetApiVersion(info.Url);
+                var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + "?api-version=" + apiVersion);
                 if (info.RequestBody != null)
                 {
                     request.Content = new StringContent(info.RequestBody.ToString(), Encoding.UTF8, "application/json");
