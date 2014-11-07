@@ -43,8 +43,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hydra.Core">
-      <HintPath>ref\Hydra.Core.dll</HintPath>
+    <Reference Include="Hyak.Core, Version=1.0.5400.37276, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ref\Hyak.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hyak.Specs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ref\Hyak.Specs.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.WebSites.Specification">
       <HintPath>ref\Microsoft.Azure.Management.WebSites.Specification.dll</HintPath>
@@ -124,6 +129,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ARMController.cs" />
+    <Compile Include="Controllers\HyakUtils.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationInfo.cs" />
     <Compile Include="Controllers\Utils.cs" />

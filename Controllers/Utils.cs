@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ARMOAuth.Controllers
 {
-    public class Utils
+    public static class Utils
     {
         public const string X_MS_OAUTH_TOKEN = "X-MS-OAUTH-TOKEN";
         public const string X_MS_Ellapsed = "X-MS-Ellapsed";
