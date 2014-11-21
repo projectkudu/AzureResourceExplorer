@@ -36,12 +36,10 @@ module managePortalUi {
             $scope.resources = [];
             $scope.methods = {};
             $scope.treeControl = {};
-            $scope.inject = {};
             var container = document.getElementById("jsoneditor");
             var editor = new JSONEditor(container);
 
             $scope.selectResourceHandler = (resource) => {
-                $scope.inject[resource.resourceName.replace("{", "").replace("}", "")] = resource.value;
                 var resourceUrls = resourcesUrlsTable.filter((r) => r.resourceName === resource.resourceName);
                 if (resourceUrls.length !== 1) return;
                 var resourceUrl = resourceUrls[0];
@@ -49,9 +47,7 @@ module managePortalUi {
                 if (getActions.length === 1) {
                     var getAction = (getActions[0] === "GetPost" ? "Post" : "Get");
                     var url = (getAction === "Post" ? resourceUrl.url + "/list" : resourceUrl.url);
-                    for (var value in $scope.inject) {
-                        url = url.replace("{" + value + "}", $scope.inject[value]);
-                    }
+                    url = this.injectTemplateValues(url, resource);
                     var q;
                     if (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3) {
                         q = $http({
@@ -93,10 +89,6 @@ module managePortalUi {
                         }
                     });
                 }
-                //$scope.jsonHtml = resource.data.html;
-                //$scope.selectedResource = resource;
-                //$scope.resourceMethods = $scope.methods[resource.data.resourceType];
-                //$scope.show = false;
             };
 
             $scope.invokeMethod = () => {
@@ -120,6 +112,7 @@ module managePortalUi {
                     });
             };
 
+            // Flowing $event is currently a hack as there must be a better way in Angular to do this.
             $scope.expandResourceHandler = (branch, row, event) => {
                 if (branch.expanded) {
                     // clear the children array on collapse
@@ -140,10 +133,7 @@ module managePortalUi {
                         };
                     });
                 } else if (typeof resourceUrl.children === "string") {
-                    var childUrl = resourceUrl.url;
-                    for (var value in $scope.inject) {
-                        childUrl = childUrl.replace("{" + value + "}", $scope.inject[value]);
-                    }
+                    var childUrl = this.injectTemplateValues(resourceUrl.url, branch);
 
                     var originalTreeIcon = row.tree_icon;
                     $(event.target).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
@@ -331,6 +321,17 @@ module managePortalUi {
                     }
                 }
             }
+        }
+
+        injectTemplateValues(url: string, branch: any): string{
+            var resourceParent = branch;
+            while (resourceParent !== undefined) {
+                if (resourceParent.value !== undefined) {
+                    url = url.replace(resourceParent.resourceName, resourceParent.value);
+                }
+                resourceParent = this.$scope.treeControl.get_parent_branch(resourceParent);
+            }
+            return url;
         }
     }
 
