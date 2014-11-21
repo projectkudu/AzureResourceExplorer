@@ -25,7 +25,7 @@ module managePortalUi {
         };
 
         constructor(
-            private $scope: any,
+            private $scope: IBodyScope,
             private $routeParams: IBodyRouteParams,
             private $location: ng.ILocationService,
             private $http: ng.IHttpService,
@@ -33,13 +33,11 @@ module managePortalUi {
             super();
 
             $scope.jsonHtml = "select something";
-            $scope.resources = [];
-            $scope.methods = {};
-            $scope.treeControl = {};
+            $scope.treeControl = <any>{};
             var container = document.getElementById("jsoneditor");
             var editor = new JSONEditor(container);
 
-            $scope.selectResourceHandler = (resource) => {
+            $scope.selectResourceHandler = (resource: ITreeBranch) => {
                 var resourceUrls = resourcesUrlsTable.filter((r) => r.resourceName === resource.resourceName);
                 if (resourceUrls.length !== 1) return;
                 var resourceUrl = resourceUrls[0];
@@ -94,7 +92,6 @@ module managePortalUi {
             $scope.invokeMethod = () => {
                 var userObject = editor.get();
                 managePortalApi.cleanObject(userObject);
-                console.log(userObject);
                 $scope.loading = true;
                 $http({
                     method: "POST",
@@ -113,7 +110,7 @@ module managePortalUi {
             };
 
             // Flowing $event is currently a hack as there must be a better way in Angular to do this.
-            $scope.expandResourceHandler = (branch, row, event) => {
+            $scope.expandResourceHandler = (branch: ITreeBranch, row: ITreeRow, event: Event) => {
                 if (branch.expanded) {
                     // clear the children array on collapse
                     branch.children.length = 0;
@@ -229,11 +226,12 @@ module managePortalUi {
                 label: "subscriptions",
                 resourceName: "subscriptions",
                 data: undefined,
-                resource_icon: "fa fa-cube fa-fw"
+                resource_icon: "fa fa-cube fa-fw",
+                children: []
             }];
         }
 
-        addToResourceUrlTable(resourceUrlTable: any[], operation: IOperation, url?: string): any {
+        addToResourceUrlTable(resourceUrlTable: IResourceUrlInfo[], operation: IOperation, url?: string): IResourceUrlInfo {
             url = (operation ? operation.Url : url);
             var segments = url.split("/").filter(a => a.length !== 0);
             var resourceName = segments.pop();
@@ -270,7 +268,7 @@ module managePortalUi {
             return addedElement;
         }
 
-        setParent(resourceUrlTable: any[], url: string, action?: string) {
+        setParent(resourceUrlTable: IResourceUrlInfo[], url: string, action?: string) {
             var segments = url.split("/").filter(a => a.length !== 0);
             var resourceName = segments.pop();
             var parentName = segments.pop();
@@ -323,7 +321,7 @@ module managePortalUi {
             }
         }
 
-        injectTemplateValues(url: string, branch: any): string{
+        injectTemplateValues(url: string, branch: ITreeBranch): string{
             var resourceParent = branch;
             while (resourceParent !== undefined) {
                 if (resourceParent.value !== undefined) {
