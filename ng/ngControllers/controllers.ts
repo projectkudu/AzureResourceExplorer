@@ -117,8 +117,10 @@ module managePortalUi {
                     });
             };
 
-            $scope.expandResourceHandler = (branch, row) => {
+            $scope.expandResourceHandler = (branch, row, event) => {
                 if (branch.expanded) {
+                    // clear the children array on collapse
+                    branch.children.length = 0;
                     $scope.treeControl.collapse_branch(branch);
                     return;
                 }
@@ -140,6 +142,9 @@ module managePortalUi {
                         childUrl = childUrl.replace("{" + value + "}", $scope.inject[value]);
                     }
 
+                    var originalTreeIcon = row.tree_icon;
+                    $(event.target).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
+
                     if (childUrl.endsWith("resourceGroups") || childUrl.endsWith("subscriptions") || childUrl.split("/").length === 3) {
                         $http({
                             method: "GET",
@@ -152,6 +157,9 @@ module managePortalUi {
                                         value: (d.subscriptionId ? d.subscriptionId : d.name)
                                     };
                                 });
+                        }).then(() => {
+                                $(event.target).removeClass("fa fa-refresh fa-spin").addClass(originalTreeIcon);
+                                $scope.treeControl.expand_branch(branch);
                             });
                     } else {
                         $http({
@@ -169,10 +177,13 @@ module managePortalUi {
                                         value: (d.subscriptionId ? d.subscriptionId : d.name)
                                     };
                                 });
+                            }).then(() => {
+                                $(event.target).removeClass("fa fa-refresh fa-spin").addClass(originalTreeIcon);
+                                $scope.treeControl.expand_branch(branch);
                             });
                     }
+                    return;
                 } //else if undefined
-
                 $scope.treeControl.expand_branch(branch);
             };
 

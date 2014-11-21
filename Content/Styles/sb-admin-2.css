@@ -102,6 +102,7 @@
     width: 280px;
     margin-top: 51px;
     overflow-x: auto;
+    overflow-y: hidden;
   }
   .navbar-top-links .dropdown-messages,
   .navbar-top-links .dropdown-tasks,
