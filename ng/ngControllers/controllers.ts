@@ -74,7 +74,7 @@ module managePortalUi {
                                 $scope.rawData = data;
                             });
                     }
-                    q.then(() => {
+                    return q.then(() => {
                         var putActions = resourceUrl.actions.filter((a) => (a === "Post" || a === "Put"));
                         if (putActions.length === 1) {
                             var editable = jQuery.extend(true, {}, resourceUrl.responseBody);
@@ -103,7 +103,7 @@ module managePortalUi {
                 var userObject = editor.get();
                 managePortalApi.cleanObject(userObject);
                 console.log(userObject);
-
+                $scope.loading = true;
                 $http({
                     method: "POST",
                     url: "api/operations",
@@ -112,8 +112,11 @@ module managePortalUi {
                         HttpMethod: "Put",
                         RequestBody: userObject
                     }
-                }).success((e) => {
-                        $scope.selectResourceHandler($scope.selectedResource);
+                }).then((e) => {
+                        $scope.selectResourceHandler($scope.selectedResource).then(() => {
+                            $scope.loading = false;
+                            $("html, body").scrollTop(0);
+                        });
                     });
             };
 
