@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace ARMOAuth.Modules
+namespace ManagePortal.Modules
 {
     public class AADOAuth2AccessToken
     {
@@ -37,7 +37,7 @@ namespace ARMOAuth.Modules
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("client-request-id", Guid.NewGuid().ToString());
-                client.DefaultRequestHeaders.Add("User-Agent", "ARMOAuth");
+                client.DefaultRequestHeaders.Add("User-Agent", "ManagePortal");
 
                 using (var response = client.PostAsync(tokenRequestUri, content).Result)
                 {
@@ -68,7 +68,7 @@ namespace ARMOAuth.Modules
             using (var client = new HttpClient())
             {
                 client.DefaultRequestHeaders.Add("client-request-id", Guid.NewGuid().ToString());
-                client.DefaultRequestHeaders.Add("User-Agent", "ARMOAuth");
+                client.DefaultRequestHeaders.Add("User-Agent", "ManagePortal");
 
                 using (var response = client.PostAsync(tokenRequestUri, content).Result)
                 {

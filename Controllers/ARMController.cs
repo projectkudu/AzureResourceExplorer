@@ -10,7 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Routing;
 using Newtonsoft.Json.Linq;
 
-namespace ARMOAuth.Controllers
+namespace ManagePortal.Controllers
 {
     public class ARMController : ApiController
     {

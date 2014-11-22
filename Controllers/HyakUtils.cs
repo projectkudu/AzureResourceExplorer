@@ -8,7 +8,7 @@ using Hyak.ApiModel;
 using Hyak.ServiceModel;
 using Newtonsoft.Json.Linq;
 
-namespace ARMOAuth.Controllers
+namespace ManagePortal.Controllers
 {
     public static class HyakUtils
     {

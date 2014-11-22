@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ARMOAuth.Controllers
+namespace ManagePortal.Controllers
 {
     public static class Utils
     {

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace ARMOAuth.Controllers
+namespace ManagePortal.Controllers
 {
     public class OperationInfo
     {

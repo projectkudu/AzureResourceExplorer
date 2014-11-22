@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Routing;
 
-namespace ARMOAuth
+namespace ManagePortal
 {
     public static class WebApiConfig
     {

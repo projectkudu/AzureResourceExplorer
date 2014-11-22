@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Management.WebSites;
 
-namespace ARMOAuth.Controllers
+namespace ManagePortal.Controllers
 {
     public class OperationController : ApiController
     {

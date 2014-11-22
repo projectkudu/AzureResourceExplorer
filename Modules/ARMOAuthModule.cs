@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Web;
 
-namespace ARMOAuth.Modules
+namespace ManagePortal.Modules
 {
     public class ARMOAuthModule : IHttpModule
     {
