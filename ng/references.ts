@@ -15,6 +15,7 @@ interface String {
 
 interface Array<T> {
     remove(from: number, to: number);
+    getUnique(Function): Array<T>;
 }
 declare class JSONEditor {
     constructor(args: any);

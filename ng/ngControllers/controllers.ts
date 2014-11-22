@@ -38,7 +38,9 @@ module managePortalUi {
             var editor = new JSONEditor(container);
 
             $scope.selectResourceHandler = (resource: ITreeBranch) => {
-                var resourceUrls = resourcesUrlsTable.filter((r) => r.resourceName === resource.resourceName);
+                var resourceUrls = resourcesUrlsTable.filter((r) => {
+                    return (r.resourceName === resource.resourceName) && ((r.url === resource.resourceUrl) || r.url === (resource.resourceUrl + "/" + resource.resourceName));
+                });
                 if (resourceUrls.length !== 1) return;
                 var resourceUrl = resourceUrls[0];
                 var getActions = resourceUrl.actions.filter((a) => (a === "Get" || a === "GetPost"));
@@ -50,7 +52,7 @@ module managePortalUi {
                     if (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3) {
                         q = $http({
                             method: "GET",
-                            url: "api" + url.substring(url.indexOf("/subscriptions")),//"https://management.azure.com/", "api/"),
+                            url: "api" + url.substring(url.indexOf("/subscriptions")),
                         }).success((data: any) => {
                                 $scope.jsonHtml = this.managePortalApi.syntaxHighlight(data);
                                 $scope.rawData = data;
@@ -118,7 +120,13 @@ module managePortalUi {
                     return;
                 }
 
-                var resourceUrls = resourcesUrlsTable.filter((r) => r.resourceName === branch.resourceName);
+                var resourceUrls = resourcesUrlsTable.filter((r) => {
+                    return (r.resourceName === branch.resourceName) && ((r.url === branch.resourceUrl) || r.url === (branch.resourceUrl + "/" + branch.resourceName));
+                });
+                if (resourceUrls.length > 1) {
+                    console.log("ASSERT! More than 1 resourceUrl. This is an error");
+                    return;
+                }
                 if (resourceUrls.length !== 1) return;
                 var resourceUrl = resourceUrls[0];
 
@@ -126,7 +134,8 @@ module managePortalUi {
                     branch.children = resourceUrl.children.map((c) => {
                         return {
                             label: c,
-                            resourceName: c
+                            resourceName: c,
+                            resourceUrl: resourceUrl.url
                         };
                     });
                 } else if (typeof resourceUrl.children === "string") {
@@ -144,10 +153,11 @@ module managePortalUi {
                                     return {
                                         label: (d.displayName ? d.displayName : d.name),
                                         resourceName: resourceUrl.children,
+                                        resourceUrl: resourceUrl.url,
                                         value: (d.subscriptionId ? d.subscriptionId : d.name)
                                     };
                                 });
-                        }).then(() => {
+                        }).finally(() => {
                                 $(event.target).removeClass("fa fa-refresh fa-spin").addClass(originalTreeIcon);
                                 $scope.treeControl.expand_branch(branch);
                             });
@@ -164,10 +174,11 @@ module managePortalUi {
                                     return {
                                         label: (d.displayName ? d.displayName : d.name),
                                         resourceName: resourceUrl.children,
+                                        resourceUrl: resourceUrl.url,
                                         value: (d.subscriptionId ? d.subscriptionId : d.name)
                                     };
                                 });
-                            }).then(() => {
+                            }).finally(() => {
                                 $(event.target).removeClass("fa fa-refresh fa-spin").addClass(originalTreeIcon);
                                 $scope.treeControl.expand_branch(branch);
                             });
@@ -177,23 +188,7 @@ module managePortalUi {
                 $scope.treeControl.expand_branch(branch);
             };
 
-            var resourcesUrlsTable = [];
-
-            this.addToResourceUrlTable(resourcesUrlsTable, {
-                MethodName: "Get",
-                HttpMethod: "Get",
-                ResponseBody: {},
-                RequestBody: {},
-                Url: "api/subscriptions"
-            });
-
-            this.addToResourceUrlTable(resourcesUrlsTable, {
-                MethodName: "Get",
-                HttpMethod: "Get",
-                ResponseBody: {},
-                RequestBody: {},
-                Url: "api/subscriptions/{subscriptionId}"
-            });
+            var resourcesUrlsTable: IResourceUrlInfo[] = [];
 
             $http({
                 method: "GET",
@@ -202,9 +197,12 @@ module managePortalUi {
                     operations.sort((a, b) => {
                         return a.Url.localeCompare(b.Url);
                     });
-                    operations.map((operation) => {
-                        if (operation.Url.indexOf("{name}") !== -1) {
-                            operation.Url = operation.Url.replace("{name}", "{webHostingPlanName}");
+                operations.map((operation) => {
+                        if (operation.Url.indexOf("SourceControls/{name}") !== -1) {
+                            operation.Url = operation.Url.replace("SourceControls/{name}", "SourceControls/{sourceControlName}");
+                        }
+                        if (operation.Url.indexOf("serverFarms/{name}") !== -1) {
+                            operation.Url = operation.Url.replace("serverFarms/{name}", "serverFarms/{webHostingPlanName}");
                         }
                         if (operation.Url.indexOf("resourcegroups") !== -1) {
                             operation.Url = operation.Url.replace("resourcegroups", "resourceGroups");
@@ -220,15 +218,22 @@ module managePortalUi {
                         }
                         });
                     });
+                    (<any>console).table(resourcesUrlsTable);
+                $scope.resources = resourcesUrlsTable.map((r) => r.url.split("/")).filter((a) => a.length > 3).map(a => {
+                    return { resourceName: a[3], resourceUrl: a.slice(0, 4).join("/") };
+                }).getUnique((d) => d.resourceName).map((s) => {
+                        return {
+                            label: s.resourceName,
+                            resourceName: s.resourceName,
+                            resourceUrl: s.resourceUrl,
+                            data: undefined,
+                            resource_icon: "fa fa-cube fa-fw",
+                            children: []
+                        };
+                    });
                 });
 
-            $scope.resources = [{
-                label: "subscriptions",
-                resourceName: "subscriptions",
-                data: undefined,
-                resource_icon: "fa fa-cube fa-fw",
-                children: []
-            }];
+            $scope.resources = [];
         }
 
         addToResourceUrlTable(resourceUrlTable: IResourceUrlInfo[], operation: IOperation, url?: string): IResourceUrlInfo {
@@ -243,7 +248,7 @@ module managePortalUi {
             }
 
             //set the element itself
-            var elements = resourceUrlTable.filter((r) => r.resourceName === resourceName);
+            var elements = resourceUrlTable.filter((r) => r.url === url);
             if (elements.length === 1) {
                 //it's there, update it's actions
                 if (operation) {
@@ -271,11 +276,12 @@ module managePortalUi {
         setParent(resourceUrlTable: IResourceUrlInfo[], url: string, action?: string) {
             var segments = url.split("/").filter(a => a.length !== 0);
             var resourceName = segments.pop();
-            var parentName = segments.pop();
-            if (parentName === undefined) return;
-            var parents = resourceUrlTable.filter((r) => r.resourceName === parentName);
+            var parentName = url.substring(0, url.lastIndexOf("/"));//segments.pop();
+            if (parentName === undefined || parentName === "" || resourceName === undefined) return;
+            var parents = resourceUrlTable.filter((r) => r.url === parentName);
+            var parent;
             if (parents.length === 1) {
-                var parent = parents[0];
+                parent = parents[0];
                 if (resourceName.match(/\{.*\}/g)) {
                     // this means the parent.children should either be an undefined, or a string.
                     // if it's anything else assert! because that means we have a mistake in out assumptions
@@ -301,10 +307,10 @@ module managePortalUi {
                 }
             } else {
                 //this means the parent is not in the array. Add it
-                var parent = this.addToResourceUrlTable(resourceUrlTable, undefined, url.substring(0, url.lastIndexOf("/")));
-                this.setParent(resourceUrlTable, url.substring(0, url.lastIndexOf("/")))
+                parent = this.addToResourceUrlTable(resourceUrlTable, undefined, url.substring(0, url.lastIndexOf("/")));
+                this.setParent(resourceUrlTable, url);
             }
-            if (action && parent.actions.filter((c) => c === action).length === 0) {
+            if (action && parent && parent.actions.filter((c) => c === action).length === 0) {
                 parent.actions.push(action);
             }
         }

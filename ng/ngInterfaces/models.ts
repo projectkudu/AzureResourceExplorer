@@ -26,9 +26,9 @@ module managePortalUi {
         label: string;
         level?: number;
         resourceName: string;
+        resourceUrl: string;
         resource_icon: string;
         selected?: boolean;
-        childUrl?: string;
         value?: string;
     }
 

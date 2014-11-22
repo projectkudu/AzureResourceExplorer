@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Management.WebSites;
+using Newtonsoft.Json.Linq;
 
 namespace ManagePortal.Controllers
 {
@@ -22,7 +23,18 @@ namespace ManagePortal.Controllers
             watch.Start();
 
             var json = HyakUtils.GetOperations<WebSiteManagementClient>(hidden);
-
+            json.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "Get",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}"
+            }));
+            json.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "Get",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}"
+            }));
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");

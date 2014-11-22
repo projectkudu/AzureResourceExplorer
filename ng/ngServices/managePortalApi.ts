@@ -25,6 +25,19 @@ module managePortalUi {
                 this.length = from < 0 ? this.length + from : from;
                 return this.push.apply(this, rest);
             };
+
+            Array.prototype.getUnique = function (getValue) {
+                var u = {}, a = [];
+                for (var i = 0, l = this.length; i < l; ++i) {
+                    var value = getValue(this[i]);
+                    if (u.hasOwnProperty(value)) {
+                        continue;
+                    }
+                    a.push(this[i]);
+                    u[value] = 1;
+                }
+                return a;
+            }
         }
         syntaxHighlight(json: any): string {
             var str = JSON.stringify(json, undefined, 4);
