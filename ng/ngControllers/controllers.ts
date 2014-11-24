@@ -3,7 +3,7 @@
 module managePortalUi {
     "use strict";
 
-    export class angularBaseController {
+    export class bodyController {
         public static $inject = [
             "$scope",
             "$routeParams",
@@ -12,30 +12,18 @@ module managePortalUi {
             "managePortalApi"
         ];
 
-        constructor($scope?: IBaseScope, $location?: ng.ILocationService) {
-
-        }
-    }
-
-    export class bodyController extends angularBaseController {
-
-        private resourceToQueryStringName = {
-            "WebSite": "webSiteName",
-            "WebHostingPlan": "webHostingPlanName"
-        };
-
         constructor(
             private $scope: IBodyScope,
             private $routeParams: IBodyRouteParams,
             private $location: ng.ILocationService,
             private $http: ng.IHttpService,
             private managePortalApi: managePortalApi) {
-            super();
 
             $scope.jsonHtml = "select something";
             $scope.treeControl = <any>{};
             var container = document.getElementById("jsoneditor");
             var editor = new JSONEditor(container);
+            var resourcesUrlsTable: IResourceUrlInfo[] = [];
 
             $scope.selectResourceHandler = (resource: ITreeBranch) => {
                 var resourceUrls = resourcesUrlsTable.filter((r) => {
@@ -74,7 +62,7 @@ module managePortalUi {
                         var putActions = resourceUrl.actions.filter((a) => (a === "Post" || a === "Put"));
                         if (putActions.length === 1) {
                             var editable = jQuery.extend(true, {}, resourceUrl.responseBody);
-                            this.megeObject($scope.rawData, editable);
+                            this.managePortalApi.mergeObject($scope.rawData, editable);
                             editor.set(editable);
                             $scope.show = true;
                             editor.expandAll();
@@ -103,8 +91,8 @@ module managePortalUi {
                         HttpMethod: "Put",
                         RequestBody: userObject
                     }
-                }).then((e) => {
-                        $scope.selectResourceHandler($scope.selectedResource).then(() => {
+                }).finally(() => {
+                        $scope.selectResourceHandler($scope.selectedResource).finally(() => {
                             $scope.loading = false;
                             $("html, body").scrollTop(0);
                         });
@@ -157,7 +145,7 @@ module managePortalUi {
                                         value: (d.subscriptionId ? d.subscriptionId : d.name)
                                     };
                                 });
-                        }).finally(() => {
+                            }).finally(() => {
                                 $(event.target).removeClass("fa fa-refresh fa-spin").addClass(originalTreeIcon);
                                 $scope.treeControl.expand_branch(branch);
                             });
@@ -188,8 +176,6 @@ module managePortalUi {
                 $scope.treeControl.expand_branch(branch);
             };
 
-            var resourcesUrlsTable: IResourceUrlInfo[] = [];
-
             $http({
                 method: "GET",
                 url: "api/operations"
@@ -197,7 +183,7 @@ module managePortalUi {
                     operations.sort((a, b) => {
                         return a.Url.localeCompare(b.Url);
                     });
-                operations.map((operation) => {
+                    operations.map((operation) => {
                         if (operation.Url.indexOf("SourceControls/{name}") !== -1) {
                             operation.Url = operation.Url.replace("SourceControls/{name}", "SourceControls/{sourceControlName}");
                         }
@@ -218,19 +204,18 @@ module managePortalUi {
                         }
                         });
                     });
-                    (<any>console).table(resourcesUrlsTable);
-                $scope.resources = resourcesUrlsTable.map((r) => r.url.split("/")).filter((a) => a.length > 3).map(a => {
-                    return { resourceName: a[3], resourceUrl: a.slice(0, 4).join("/") };
-                }).getUnique((d) => d.resourceName).map((s) => {
-                        return {
-                            label: s.resourceName,
-                            resourceName: s.resourceName,
-                            resourceUrl: s.resourceUrl,
-                            data: undefined,
-                            resource_icon: "fa fa-cube fa-fw",
-                            children: []
-                        };
-                    });
+                    $scope.resources = resourcesUrlsTable.map((r) => r.url.split("/")).filter((a) => a.length > 3).map(a => {
+                        return { resourceName: a[3], resourceUrl: a.slice(0, 4).join("/") };
+                    }).getUnique((d) => d.resourceName).map((s) => {
+                            return {
+                                label: s.resourceName,
+                                resourceName: s.resourceName,
+                                resourceUrl: s.resourceUrl,
+                                data: undefined,
+                                resource_icon: "fa fa-cube fa-fw",
+                                children: []
+                            };
+                        });
                 });
 
             $scope.resources = [];
@@ -290,7 +275,6 @@ module managePortalUi {
                     } else {
                         console.log("ASSERT, typeof parent.children: " + typeof parent.children)
                     }
-                    this.setParent(resourceUrlTable, url.substring(0, url.lastIndexOf("/")))
                 } else if (resourceName !== "list") {
                     // this means that the resource is a pre-defined one. the parent.children should be undefined or array
                     // if it's anything else assert! because that means we have a mistake in out assumptions
@@ -303,7 +287,6 @@ module managePortalUi {
                     } else {
                         console.log("ASSERT, typeof parent.children: " + typeof parent.children)
                     }
-                    this.setParent(resourceUrlTable, url.substring(0, url.lastIndexOf("/")))
                 }
             } else {
                 //this means the parent is not in the array. Add it
@@ -315,19 +298,7 @@ module managePortalUi {
             }
         }
 
-        megeObject(source: any, target: any) {
-            for (var sourceProperty in source) {
-                if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
-                    if (!this.managePortalApi.isEmptyObjectorArray(source[sourceProperty]) && (typeof source[sourceProperty] === "object") && !Array.isArray(source[sourceProperty])) {
-                        this.megeObject(source[sourceProperty], target[sourceProperty]);
-                    } else if (!this.managePortalApi.isEmptyObjectorArray(source[sourceProperty])) {
-                        target[sourceProperty] = source[sourceProperty];
-                    }
-                }
-            }
-        }
-
-        injectTemplateValues(url: string, branch: ITreeBranch): string{
+        injectTemplateValues(url: string, branch: ITreeBranch): string {
             var resourceParent = branch;
             while (resourceParent !== undefined) {
                 if (resourceParent.value !== undefined) {
@@ -336,18 +307,6 @@ module managePortalUi {
                 resourceParent = this.$scope.treeControl.get_parent_branch(resourceParent);
             }
             return url;
-        }
-    }
-
-
-    export class homeController extends angularBaseController {
-        constructor(
-            private $scope: any,
-            private $routeParams: IBodyRouteParams,
-            private $location: ng.ILocationService,
-            private $http: ng.IHttpService,
-            private managePortalApi: managePortalApi) {
-            super();
         }
     }
 }

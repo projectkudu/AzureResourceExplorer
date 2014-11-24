@@ -5,7 +5,6 @@ module managePortalUi {
 
     var managePortalUiMvc = angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree"])
         .controller("bodyController", bodyController)
-        .controller("homeController", homeController)
         .service("managePortalApi", managePortalApi)
         .config(($routeProvider: ng.route.IRouteProvider, $locationProvider: ng.ILocationProvider) => {
             $routeProvider

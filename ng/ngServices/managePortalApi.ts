@@ -1,4 +1,4 @@
-﻿ /// <reference path="../references.ts" />
+﻿/// <reference path="../references.ts" />
 
 module managePortalUi {
     "use strict";
@@ -93,34 +93,46 @@ module managePortalUi {
         }
 
         cleanObject(obj) {
-                for (var property in obj) {
-                    if (obj.hasOwnProperty(property)) {
-                        if (typeof obj[property] === "string" && (/\(.*\)/.test(obj[property]) || obj[property] === "")) {
-                            delete obj[property];
-                        } else if (Array.isArray(obj[property])) {
-                            var toRemove = [];
-                            for (var i = 0; i < obj[property].length; i++) {
-                                if (typeof obj[property][i] === "string" && (/\(.*\)/.test(obj[property][i]) || obj[property][i] === "")) {
-                                    toRemove.push(i);
-                                } else if (typeof obj[property][i] === "object" && !jQuery.isEmptyObject(obj[property])) {
-                                    this.cleanObject(obj[property][i]);
-                                } else if (typeof obj[property][i] === "object" && jQuery.isEmptyObject(obj[property])) {
-                                    toRemove.push(i);
-                                }
-                                if(jQuery.isEmptyObject(obj[property][i])) toRemove.push(i);
+            for (var property in obj) {
+                if (obj.hasOwnProperty(property)) {
+                    if (typeof obj[property] === "string" && (/\(.*\)/.test(obj[property]))) {
+                        delete obj[property];
+                    } else if (Array.isArray(obj[property])) {
+                        var toRemove = [];
+                        for (var i = 0; i < obj[property].length; i++) {
+                            if (typeof obj[property][i] === "string" && (/\(.*\)/.test(obj[property][i]))) {
+                                toRemove.push(i);
+                            } else if (typeof obj[property][i] === "object" && !jQuery.isEmptyObject(obj[property])) {
+                                this.cleanObject(obj[property][i]);
+                            } else if (typeof obj[property][i] === "object" && jQuery.isEmptyObject(obj[property])) {
+                                toRemove.push(i);
                             }
-
-                            for (var i = 0; i < toRemove.length; i++) obj[property].remove(i);
-                            if (obj[property].length === 0) delete obj[property];
-
-                        } else if (typeof obj[property] === "object" && !jQuery.isEmptyObject(obj[property])) {
-                            this.cleanObject(obj[property]);
-                            if (jQuery.isEmptyObject(obj[property])) delete obj[property];
-                        } else if (typeof obj[property] === "object" && jQuery.isEmptyObject(obj[property])) {
-                            delete obj[property];
+                            if (jQuery.isEmptyObject(obj[property][i])) toRemove.push(i);
                         }
+
+                        for (var i = 0; i < toRemove.length; i++) obj[property].remove(i);
+                        if (obj[property].length === 0) delete obj[property];
+
+                    } else if (typeof obj[property] === "object" && !jQuery.isEmptyObject(obj[property])) {
+                        this.cleanObject(obj[property]);
+                        if (jQuery.isEmptyObject(obj[property])) delete obj[property];
+                    } else if (typeof obj[property] === "object" && jQuery.isEmptyObject(obj[property])) {
+                        delete obj[property];
                     }
                 }
+            }
+        }
+
+        mergeObject(source: any, target: any) {
+            for (var sourceProperty in source) {
+                if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
+                    if (!this.isEmptyObjectorArray(source[sourceProperty]) && (typeof source[sourceProperty] === "object") && !Array.isArray(source[sourceProperty])) {
+                        this.mergeObject(source[sourceProperty], target[sourceProperty]);
+                    } else if (!this.isEmptyObjectorArray(source[sourceProperty])) {
+                        target[sourceProperty] = source[sourceProperty];
+                    }
+                }
+            }
         }
 
 

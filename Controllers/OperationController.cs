@@ -22,12 +22,12 @@ namespace ManagePortal.Controllers
             var watch = new Stopwatch();
             watch.Start();
 
-            var json = HyakUtils.GetOperations<WebSiteManagementClient>(hidden);
+            var json = (JArray) HyakUtils.GetOperations<WebSiteManagementClient>(hidden).DeepClone();
             json.AddFirst(JObject.FromObject(new
             {
                 MethodName = "Get",
                 HttpMethod = "Get",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}"
+                Url = HyakUtils.CSMUrl + "/subscriptions"
             }));
             json.AddFirst(JObject.FromObject(new
             {
