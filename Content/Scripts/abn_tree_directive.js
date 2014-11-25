@@ -30,7 +30,7 @@
                       attrs.iconCollapse = 'icon-minus glyphicon glyphicon-minus fa fa-minus';
                   }
                   if (attrs.iconLeaf == null) {
-                      attrs.iconLeaf = null;
+                      attrs.iconLeaf = "glyphicon glyphicon-file";
                   }
                   if (attrs.expandLevel == null) {
                       attrs.expandLevel = '3';
@@ -210,6 +210,8 @@
                           //} else {
                           if (branch.expanded) {
                               tree_icon = attrs.iconCollapse;
+                          } else if (branch.is_leaf) {
+                              tree_icon = attrs.iconLeaf;
                           } else {
                               tree_icon = attrs.iconExpand;
                           }

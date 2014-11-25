@@ -15,9 +15,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-animate.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-sanitize.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/rxjs/2.2.27/rx.lite.compat.js"></script>
     <script src="Content/Scripts/abn_tree_directive.js"></script>
     <script src="Content/Scripts/jsoneditor.min.js"></script>
-    <script src="ng/app.js"></script>
+    <script src="Content/Scripts/rx.angular.js"></script>
+    <script src="ng/test.js"></script>
 
     <title>ManagePortal - {{ viewName }}</title>
 
@@ -55,39 +57,55 @@
         </nav>
 
         <div id="page-wrapper">
-            <div class="row">
+            <div class="row" style="margin-bottom: -50px">
                 <div class="col-lg-12">
                     <h1 class="page-header">{{ selectedResource.label }}</h1>
                 </div>
+                <span class="loading-spinner" ng-show="loading">
+                    <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
+                </span>
             </div>
-            <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
-            <div class="panel panel-default" ng-if="resourceMethods.length > 0">
-                <div class="panel-heading">
-                    Methods for {{ selectedResource.data.resourceType }}
-                </div>
-                <div class="panel-body">
-                    <p>
-                        <button class="btn btn-outline btn-primary" ng-repeat="method in resourceMethods" style="margin: 5px" ng-click="selectMethod(method)">
-                            {{ method.name }}
+            <tabset>
+                <tab>
+                    <tab-heading>
+                       <i class="fa fa-database"></i> Data (GET, PUT)
+                    </tab-heading>
+                    <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
+                    <div class="panel panel-default" ng-if="resourceMethods.length > 0">
+                        <div class="panel-heading">
+                            Methods for {{ selectedResource.data.resourceType }}
+                        </div>
+                        <div class="panel-body">
+                            <p>
+                                <button class="btn btn-outline btn-primary" ng-repeat="method in resourceMethods" style="margin: 5px" ng-click="selectMethod(method)">
+                                    {{ method.name }}
+                                </button>
+                            </p>
+                        </div>
+          
+                    </div>
+                    <div ng-show="show">
+                        <div id="jsoneditor"></div>
+                        <button class="btn btn-success" style="margin: 5px" ng-click="invokeMethod()">
+                            Submit
                         </button>
-                    </p>
-                </div>
-            </div>
-            <div ng-show="show">
-                <div id="jsoneditor"></div>
-                <button class="btn btn-success" style="margin: 5px" ng-click="invokeMethod()">
-                    Submit
-                </button>
-                <div class="spinner ng-hide" ng-show="loading">
-                    <i id="loading" class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
-                </div>
-            </div>
-
+                        <div class="invoking-spinner" ng-show="invoking">
+                            <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
+                        </div>
+                    </div>
+                </tab>
+                <tab>
+                    <tab-heading>
+                        <i class="fa fa-bolt"></i> Actions (POST) {{ selectedResource.actions ? selectedResource.actions.length : 0 }}
+                    </tab-heading>
+                    <button class="btn btn-lg" ng-repeat="action in selectedResource.actions">{{ action }}</button>
+                </tab>
+            </tabset>
         </div>
     </div>
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <script src="ng/app.js"></script>
+    <!--<script src="ng/app.j"></script>-->
 </body>
 
 </html>
