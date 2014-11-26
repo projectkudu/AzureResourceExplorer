@@ -36,7 +36,7 @@
                     $scope.show = true;
                     editor.expandAll();
                     if (url.endsWith("list")) {
-                        url = url.substring(0, url.lastIndexOf("/"));
+                        $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
                 } else {
                     editor.set({});
@@ -72,15 +72,18 @@
 
                 //}));
                 resource.url = url;
+                resource.httpMethod = value.httpMethod
                 $scope.selectedResource = resource;
             },
             function (err) {
                 $scope.invoking = false;
                 $scope.loading = false;
+                $scope.errorResponse = syntaxHighlight(err);
             });
 
         $scope.invokeAction = function (action, url) {
             $scope.loading = true;
+            delete $scope.actionResponse;
             $http({
                 method: "POST",
                 url: "api/operations",
@@ -88,7 +91,8 @@
                     Url: url,
                     HttpMethod: action
                 }
-            }).success(function(){
+            }).success(function(data){
+                $scope.actionResponse = syntaxHighlight(data);
                 $scope.loading = false;
                 var parent = $scope.treeControl.get_parent_branch($scope.treeControl.get_selected_branch());
                 if (action === "DELETE") {
@@ -103,12 +107,14 @@
                     $("html, body").scrollTop(0);
                 }
 
-            }).error(function(){
+            }).error(function(err){
                 $scope.loading = false;
+                $scope.actionResponse = syntaxHighlight(err);
             });
         };
 
         $scope.invokePut = function () {
+            delete $scope.actionResponse;
             var userObject = editor.get();
             cleanObject(userObject);
             $scope.invoking = true;
@@ -120,6 +126,10 @@
                     HttpMethod: "PUT",
                     RequestBody: userObject
                 }
+            }).success(function (data) {
+                $scope.actionResponse = syntaxHighlight(data);
+            }).error(function (err) {
+                $scope.actionResponse = syntaxHighlight(err);
             }).finally(function () {
                 $scope.selectResourceHandler($scope.selectedResource);
             });
@@ -198,6 +208,10 @@
             $scope.treeControl.expand_branch(branch);
         };
 
+        $scope.tenantSelect = function () {
+            window.location = "api/tenants/" + $scope.selectedTenant.id;
+        };
+
         $http({
             method: "GET",
             url: "api/operations"
@@ -228,6 +242,20 @@
                     children: []
                 };
             });
+        });
+
+        $http({
+            method: "GET",
+            url: "api/tenants"
+        }).success(function (tenants) {
+            $scope.tenants = tenants.map(function (tenant) {
+                return {
+                    name: tenant.DisplayName,
+                    id: tenant.TenantId,
+                    current: tenant.Current
+                };
+            });
+            $scope.selectedTenant = $scope.tenants[$scope.tenants.indexOfDelegate(function (tenant) { return tenant.current; })];
         });
 
         function fixOperationUrl(operation) {
@@ -336,6 +364,7 @@
 
         function selectResource(resource) {
             $scope.loading = true;
+            delete $scope.errorResponse;
             var resourceUrls = $scope.resourcesUrlsTable.filter(function (r) {
                 return (r.resourceName === resource.resourceName) && ((r.url === resource.resourceUrl) || r.url === (resource.resourceUrl + "/" + resource.resourceName));
             });
@@ -362,12 +391,13 @@
                     }
                 };
                 $scope.loading = true;
-                return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceUrl: resourceUrl, data: data.data, url: url, resource: resource }; });
+                return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceUrl: resourceUrl, data: data.data, url: url, resource: resource, httpMethod: getAction }; });
             }
             return rx.Observable.fromPromise($q.when({ resource: resource }));
         }
 
         function syntaxHighlight(json) {
+            if (typeof json === "string") return escapeHtmlEntities(json);
             var str = JSON.stringify(json, undefined, 4);
             str = escapeHtmlEntities(str);
             return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
@@ -497,3 +527,67 @@ Array.prototype.getUnique = function (getValue) {
     }
     return a;
 }
+
+//http://devdocs.io/javascript/global_objects/array/indexof
+Array.prototype.indexOfDelegate = function (searchElement, fromIndex) {
+
+    var k;
+
+    // 1. Let O be the result of calling ToObject passing
+    //    the this value as the argument.
+    if (this == null) {
+        throw new TypeError('"this" is null or not defined');
+    }
+
+    var O = Object(this);
+
+    // 2. Let lenValue be the result of calling the Get
+    //    internal method of O with the argument "length".
+    // 3. Let len be ToUint32(lenValue).
+    var len = O.length >>> 0;
+
+    // 4. If len is 0, return -1.
+    if (len === 0) {
+        return -1;
+    }
+
+    // 5. If argument fromIndex was passed let n be
+    //    ToInteger(fromIndex); else let n be 0.
+    var n = +fromIndex || 0;
+
+    if (Math.abs(n) === Infinity) {
+        n = 0;
+    }
+
+    // 6. If n >= len, return -1.
+    if (n >= len) {
+        return -1;
+    }
+
+    // 7. If n >= 0, then Let k be n.
+    // 8. Else, n<0, Let k be len - abs(n).
+    //    If k is less than 0, then let k be 0.
+    k = Math.max(n >= 0 ? n : len - Math.abs(n), 0);
+
+    // 9. Repeat, while k < len
+    while (k < len) {
+        var kValue;
+        // a. Let Pk be ToString(k).
+        //   This is implicit for LHS operands of the in operator
+        // b. Let kPresent be the result of calling the
+        //    HasProperty internal method of O with argument Pk.
+        //   This step can be combined with c
+        // c. If kPresent is true, then
+        //    i.  Let elementK be the result of calling the Get
+        //        internal method of O with the argument ToString(k).
+        //   ii.  Let same be the result of applying the
+        //        Strict Equality Comparison Algorithm to
+        //        searchElement and elementK.
+        //  iii.  If same is true, return k.
+        if (k in O && searchElement(O[k])) {
+            return k;
+        }
+        k++;
+    }
+    return -1;
+};

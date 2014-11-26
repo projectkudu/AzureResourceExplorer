@@ -48,6 +48,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/" ng-click="clearEnvironment()">Azure Resource Management API Playground</a>
+                <select ng-model="selectedTenant" ng-options="tenant.name for tenant in tenants" style="position: absolute; top: 15px" ng-change="tenantSelect()"></select>
             </div>
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-ex1-collapse navbar-collapse collapse">
@@ -70,7 +71,7 @@
                     <tab-heading>
                         <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
-                    <pre ng-show="selectedResource.url">GET {{ selectedResource.url }}</pre>
+                    <pre ng-show="selectedResource.url">{{ selectedResource.httpMethod }} {{ selectedResource.url }}</pre>
                     <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
                     <div class="panel panel-default" ng-if="resourceMethods.length > 0">
                         <div class="panel-heading">
@@ -94,15 +95,25 @@
                             <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
                         </div>
                     </div>
+                    <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
                 </tab>
                 <tab>
                     <tab-heading>
                         <i class="fa fa-bolt"></i> Actions (POST, DELETE) {{ selectedResource.actions ? selectedResource.actions.length : 0 }}
                     </tab-heading>
-                    <div ng-repeat="action in selectedResource.actions" style="margin: 20px">
-                        <button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action.httpMethod, action.url)">{{ action.name }}</button>
-                        <pre>{{ action.httpMethod }} {{ action.url }}</pre>
-                    </div>
+                    <table class="table table-no-border" style="margin: 20px">
+                        <colgroup>
+                            <col class="col-xs-1">
+                            <col class="col-xs-7">
+                        </colgroup>
+                        <tbody>
+                            <tr ng-repeat="action in selectedResource.actions">
+                                <td><button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action.httpMethod, action.url)">{{ action.name }}</button></td>
+                                <td><pre>{{ action.httpMethod }} {{ action.url }}</pre></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <pre ng-show="actionResponse" ng-bind-html="actionResponse" style="max-height: 400px"></pre>
                 </tab>
             </tabset>
         </div>

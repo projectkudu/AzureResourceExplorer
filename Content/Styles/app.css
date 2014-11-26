@@ -77,8 +77,8 @@ left: -20px; }
 }
 
 pre {
-    word-break: normal;
-    word-wrap: normal;
+    /*word-break: normal;
+    word-wrap: normal;*/
 }
 
 html[data-useragent*='MSIE 10.0'] .form-control {
