@@ -28,6 +28,7 @@
                 var resource = value.resource;
                 $scope.jsonHtml = syntaxHighlight(data);
                 $scope.rawData = data;
+                $scope.putUrl = url;
                 var putActions = resourceUrl.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
                 if (putActions.length === 1) {
                     var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
