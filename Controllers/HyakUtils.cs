@@ -79,7 +79,7 @@ namespace ManagePortal.Controllers
         {
             var json = new JObject();
             json["MethodName"] = method.Name;
-            json["HttpMethod"] = method.HttpMethod.ToString();
+            json["HttpMethod"] = method.HttpMethod.ToString().ToUpper();
 
             if (method.RequestBodies.Count == 1)
             {

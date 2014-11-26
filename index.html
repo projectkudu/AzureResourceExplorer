@@ -66,7 +66,7 @@
                 </span>
             </div>
             <tabset>
-                <tab>
+                <tab id="data-tab">
                     <tab-heading>
                        <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
@@ -86,7 +86,7 @@
                     </div>
                     <div ng-show="show">
                         <div id="jsoneditor"></div>
-                        <button class="btn btn-success" style="margin: 5px" ng-click="invokeMethod()">
+                        <button class="btn btn-success" style="margin: 5px" ng-click="invokePut()">
                             Submit
                         </button>
                         <div class="invoking-spinner" ng-show="invoking">
@@ -96,9 +96,13 @@
                 </tab>
                 <tab>
                     <tab-heading>
-                        <i class="fa fa-bolt"></i> Actions (POST) {{ selectedResource.actions ? selectedResource.actions.length : 0 }}
+                        <i class="fa fa-bolt"></i> Actions (POST, DELETE) {{ selectedResource.actions ? selectedResource.actions.length : 0 }}
                     </tab-heading>
-                    <button class="btn btn-lg" ng-repeat="action in selectedResource.actions">{{ action }}</button>
+                    <div ng-repeat="action in selectedResource.actions" style="margin: 20px">
+                        
+                        <button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action.httpMethod, action.url)">{{ action.name }}</button>
+                        <pre>{{ action.url }}</pre>
+                    </div>
                 </tab>
             </tabset>
         </div>

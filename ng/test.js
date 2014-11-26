@@ -28,7 +28,7 @@
                 var resource = value.resource;
                 $scope.jsonHtml = syntaxHighlight(data);
                 $scope.rawData = data;
-                var putActions = resourceUrl.actions.filter(function (a) { return (a === "Post" || a === "Put"); });
+                var putActions = resourceUrl.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
                 if (putActions.length === 1) {
                     var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
                     mergeObject($scope.rawData, editable);
@@ -42,12 +42,73 @@
                     editor.set({});
                     $scope.show = false;
                 }
-                $scope.putUrl = url;
-                resource.actions = resourceUrl.actions.filter(function (a) { return (a !== "Put" && a !== "Get" && a !== "GetPost"); });
+
+                resource.actions = resourceUrl.actions.filter(function (a) { return (a === "DELETE"); }).map(function(a) {
+                    return {
+                        httpMethod: a,
+                        name: "Delete",
+                        url: url
+                    };
+                });
+                if (Array.isArray(resourceUrl.children))
+                    Array.prototype.push.apply(resource.actions, resourceUrl.children.filter(function (childString) {
+                        var d = $scope.resourcesUrlsTable.filter(function (r) {
+                            return (r.resourceName === childString) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + childString));
+                        });
+                        return d.length === 1;
+                    }).map(function (childString) {
+                        var d = $scope.resourcesUrlsTable.filter(function (r) {
+                            return (r.resourceName === childString) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + childString));
+                        });
+                        var dd = d[0];
+                        if (dd.children === undefined && Array.isArray(dd.actions) && dd.actions.filter(function (actionName) { return actionName === "POST" }).length > 0) {
+                            return {
+                                httpMethod: "POST",
+                                name: dd.resourceName,
+                                url: url + "/" + dd.resourceName
+                            };
+                        }
+                    }).filter(function(r) {return r !== undefined;}));
+
+                //}));
+
                 $scope.selectedResource = resource;
+            },
+            function (err) {
+                $scope.invoking = false;
+                $scope.loading = false;
             });
 
-        $scope.invokeMethod = function () {
+        $scope.invokeAction = function (action, url) {
+            $scope.loading = true;
+            $http({
+                method: "POST",
+                url: "api/operations",
+                data: {
+                    Url: url,
+                    HttpMethod: action
+                }
+            }).success(function(){
+                $scope.loading = false;
+                var parent = $scope.treeControl.get_parent_branch($scope.treeControl.get_selected_branch());
+                if (action === "DELETE") {
+                    $scope.treeControl.select_branch(parent);
+                    $scope.treeControl.collapse_branch(parent);
+                    $timeout(function () {
+                        $("html, body").scrollTop(0);
+                        $("#data-tab").find('a:first').click();
+                    }, 900);
+                } else {
+                    $scope.selectResourceHandler($scope.selectedResource);
+                    $("html, body").scrollTop(0);
+                }
+
+            }).error(function(){
+                $scope.loading = false;
+            });
+        };
+
+        $scope.invokePut = function () {
             var userObject = editor.get();
             cleanObject(userObject);
             $scope.invoking = true;
@@ -56,14 +117,11 @@
                 url: "api/operations",
                 data: {
                     Url: $scope.putUrl,
-                    HttpMethod: "Put",
+                    HttpMethod: "PUT",
                     RequestBody: userObject
                 }
             }).finally(function () {
-                $scope.selectResourceHandler($scope.selectedResource).finally(function () {
-                    $scope.invoking = false;
-                    $("html, body").scrollTop(0);
-                });
+                $scope.selectResourceHandler($scope.selectedResource);
             });
         };
 
@@ -92,13 +150,14 @@
                     var child = $scope.resourcesUrlsTable.filter(function (r) {
                         return (r.resourceName === c) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + c));
                     });
+                    if (child[0].children === undefined && Array.isArray(child[0].actions) && child[0].actions.filter(function (actionName) { return actionName === "POST" }).length > 0) return;
                     return {
                         label: c,
                         resourceName: c,
                         resourceUrl: resourceUrl.url,
                         is_leaf: (child.length > 0 && child[0].children ? false : true)
                     };
-                });
+                }).filter(function (f) { return f !== undefined;});
             } else if (typeof resourceUrl.children === "string") {
                 var childUrl = injectTemplateValues(resourceUrl.url, branch);
 
@@ -114,7 +173,7 @@
                       url: "api/operations",
                       data: {
                           Url: childUrl,
-                          HttpMethod: "Get"
+                          HttpMethod: "GET"
                       }
                   };
                 return $http(httpConfig).success(function (data) {
@@ -122,6 +181,7 @@
                         var child = $scope.resourcesUrlsTable.filter(function (r) {
                             return (r.resourceName === resourceUrl.children) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + resourceUrl.children));
                         });
+
                         return {
                             label: (d.displayName ? d.displayName : d.name),
                             resourceName: resourceUrl.children,
@@ -192,8 +252,8 @@
             var resourceName = segments.pop();
             var addedElement;
 
-            if (resourceName === "list" && operation && operation.HttpMethod === "Post") {
-                setParent(url, "GetPost");
+            if (resourceName === "list" && operation && operation.HttpMethod === "POST") {
+                setParent(url, "GETPOST");
                 return;
             }
 
@@ -282,11 +342,11 @@
             if (resourceUrls.length !== 1) return rx.Observable.fromPromise($q.when(resource));
             var resourceUrl = resourceUrls[0];
             var getActions = resourceUrl.actions.filter(function (a) {
-                return (a === "Get" || a === "GetPost");
+                return (a === "GET" || a === "GETPOST");
             });
             if (getActions.length === 1) {
-                var getAction = (getActions[0] === "GetPost" ? "Post" : "Get");
-                var url = (getAction === "Post" ? resourceUrl.url + "/list" : resourceUrl.url);
+                var getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
+                var url = (getAction === "POST" ? resourceUrl.url + "/list" : resourceUrl.url);
                 url = injectTemplateValues(url, resource);
                 var httpConfig = (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3)
                 ? {

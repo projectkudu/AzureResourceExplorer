@@ -26,13 +26,13 @@ namespace ManagePortal.Controllers
             json.AddFirst(JObject.FromObject(new
             {
                 MethodName = "Get",
-                HttpMethod = "Get",
+                HttpMethod = "GET",
                 Url = HyakUtils.CSMUrl + "/subscriptions"
             }));
             json.AddFirst(JObject.FromObject(new
             {
                 MethodName = "Get",
-                HttpMethod = "Get",
+                HttpMethod = "GET",
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}"
             }));
             watch.Stop();
