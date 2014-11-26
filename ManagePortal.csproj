@@ -78,6 +78,7 @@
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
     <Reference Include="System.IdentityModel.Tokens.Jwt">
       <HintPath>ref\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
