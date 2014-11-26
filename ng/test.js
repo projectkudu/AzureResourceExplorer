@@ -18,7 +18,7 @@
                 if (value.data === undefined) {
                     editor.set({});
                     $scope.show = false;
-                    $scope.selectedResource = { label: value.resourceName };
+                    $scope.selectedResource = { label: value.resource.resourceName, url: value.url };
                     $scope.jsonHtml = "No GET Url"
                     return;
                 }
@@ -71,7 +71,7 @@
                     }).filter(function(r) {return r !== undefined;}));
 
                 //}));
-
+                resource.url = url;
                 $scope.selectedResource = resource;
             },
             function (err) {
@@ -339,7 +339,7 @@
             var resourceUrls = $scope.resourcesUrlsTable.filter(function (r) {
                 return (r.resourceName === resource.resourceName) && ((r.url === resource.resourceUrl) || r.url === (resource.resourceUrl + "/" + resource.resourceName));
             });
-            if (resourceUrls.length !== 1) return rx.Observable.fromPromise($q.when(resource));
+            if (resourceUrls.length !== 1) return rx.Observable.fromPromise($q.when({resource: resource}));
             var resourceUrl = resourceUrls[0];
             var getActions = resourceUrl.actions.filter(function (a) {
                 return (a === "GET" || a === "GETPOST");
@@ -364,7 +364,7 @@
                 $scope.loading = true;
                 return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceUrl: resourceUrl, data: data.data, url: url, resource: resource }; });
             }
-            return rx.Observable.fromPromise($q.when(resource));
+            return rx.Observable.fromPromise($q.when({ resource: resource }));
         }
 
         function syntaxHighlight(json) {

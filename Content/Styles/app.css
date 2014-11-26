@@ -1,4 +1,14 @@
-﻿.string {
+﻿.table-no-border>thead>tr>th, 
+.table-no-border>tbody>tr>th, 
+.table-no-border>tfoot>tr>th, 
+.table-no-border>thead>tr>td, 
+.table-no-border>tbody>tr>td, 
+.table-no-border>tfoot>tr>td {
+  border-top: none;
+    padding: 3px;
+}
+
+.string {
   color: green; }
 
 .number {

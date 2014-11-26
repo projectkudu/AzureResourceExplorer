@@ -68,8 +68,9 @@
             <tabset>
                 <tab id="data-tab">
                     <tab-heading>
-                       <i class="fa fa-database"></i> Data (GET, PUT)
+                        <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
+                    <pre ng-show="selectedResource.url">GET {{ selectedResource.url }}</pre>
                     <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
                     <div class="panel panel-default" ng-if="resourceMethods.length > 0">
                         <div class="panel-heading">
@@ -99,9 +100,8 @@
                         <i class="fa fa-bolt"></i> Actions (POST, DELETE) {{ selectedResource.actions ? selectedResource.actions.length : 0 }}
                     </tab-heading>
                     <div ng-repeat="action in selectedResource.actions" style="margin: 20px">
-                        
                         <button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action.httpMethod, action.url)">{{ action.name }}</button>
-                        <pre>{{ action.url }}</pre>
+                        <pre>{{ action.httpMethod }} {{ action.url }}</pre>
                     </div>
                 </tab>
             </tabset>

@@ -27,6 +27,18 @@ namespace ManagePortal.Controllers
             {
                 MethodName = "Get",
                 HttpMethod = "GET",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
+            }));
+            json.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "GET",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups"
+            }));
+            json.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "GET",
                 Url = HyakUtils.CSMUrl + "/subscriptions"
             }));
             json.AddFirst(JObject.FromObject(new
