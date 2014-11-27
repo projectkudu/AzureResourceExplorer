@@ -251,7 +251,7 @@
         }).success(function (tenants) {
             $scope.tenants = tenants.map(function (tenant) {
                 return {
-                    name: tenant.DisplayName,
+                    name: tenant.DisplayName + " (" + tenant.DomainName + ")",
                     id: tenant.TenantId,
                     current: tenant.Current
                 };
