@@ -115,7 +115,7 @@
         };
 
         $scope.invokePut = function () {
-            delete $scope.actionResponse;
+            delete $scope.putError;
             var userObject = editor.get();
             cleanObject(userObject);
             $scope.invoking = true;
@@ -127,10 +127,8 @@
                     HttpMethod: "PUT",
                     RequestBody: userObject
                 }
-            }).success(function (data) {
-                $scope.actionResponse = syntaxHighlight(data);
             }).error(function (err) {
-                $scope.actionResponse = syntaxHighlight(err);
+                $scope.putError = syntaxHighlight(err);
             }).finally(function () {
                 $scope.selectResourceHandler($scope.selectedResource);
             });
