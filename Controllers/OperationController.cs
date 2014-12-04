@@ -25,6 +25,12 @@ namespace ManagePortal.Controllers
             var json = (JArray) HyakUtils.GetOperations<WebSiteManagementClient>(hidden).DeepClone();
             json.AddFirst(JObject.FromObject(new
             {
+                MethodName = "Delete",
+                HttpMethod = "DELETE",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
+            }));
+            json.AddFirst(JObject.FromObject(new
+            {
                 MethodName = "Get",
                 HttpMethod = "GET",
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
