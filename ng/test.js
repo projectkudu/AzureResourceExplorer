@@ -10,8 +10,7 @@
             editor = ace.edit("jsoneditor");//new JSONEditor(document.getElementById("jsoneditor"));
             editor.setOptions({
                 maxLines: Infinity,
-                fontSize: 15,
-                showInvisibles: true
+                fontSize: 15
             });
             editor.setTheme("ace/theme/tomorrow");
             editor.getSession().setMode("ace/mode/json");
@@ -19,15 +18,36 @@
 
         $scope.$createObservableFunction("selectResourceHandler")
             .flatMapLatest(selectResource)
+            .do(function () {}, function (err) {
+                $scope.invoking = false;
+                $scope.loading = false;
+                $scope.errorResponse = syntaxHighlight(err);
+                if (err.config && err.config.resourceUrl && !isEmptyObjectorArray(err.config.resourceUrl.requestBody)) {
+                    var resourceUrl = err.config.resourceUrl;
+                    var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
+                    editor.setValue(JSON.stringify(editable, undefined, 4));
+                    editor.session.selection.clearSelection();
+                    $scope.show = true;
+                }
+            })
+            .retry()
             .subscribe(function (value) {
                 delete $scope.putError;
                 $scope.invoking = false;
                 $scope.loading = false;
                 if (value.data === undefined) {
-                    editor.setValue("");
-                    $scope.show = false;
-                    $scope.selectedResource = { label: value.resource.resourceName, url: value.url };
-                    $scope.jsonHtml = "No GET Url"
+                    if (value.resourceUrl !== undefined && !isEmptyObjectorArray(value.resourceUrl.requestBody)) {
+                        var editable = jQuery.extend(true, {}, value.resourceUrl.requestBody);
+                        editor.setValue(JSON.stringify(editable, undefined, 4));
+                        editor.session.selection.clearSelection();
+                        $scope.show = true;
+                        $scope.jsonHtml = "";
+                    } else {
+                        editor.setValue("");
+                        $scope.show = false;
+                        $scope.jsonHtml = "No GET Url";
+                    }
+                    if (value.resource) $scope.selectedResource = { label: value.resource.resourceName, url: value.url };
                     return;
                 }
                 var data = value.data;
@@ -82,11 +102,6 @@
                 resource.url = url;
                 resource.httpMethod = value.httpMethod
                 $scope.selectedResource = resource;
-            },
-            function (err) {
-                $scope.invoking = false;
-                $scope.loading = false;
-                $scope.errorResponse = syntaxHighlight(err);
             });
 
         $scope.invokeAction = function (action, url) {
@@ -396,12 +411,13 @@
                     data: {
                         Url: url,
                         HttpMethod: getAction
-                    }
+                    },
+                    resourceUrl: resourceUrl
                 };
                 $scope.loading = true;
                 return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceUrl: resourceUrl, data: data.data, url: url, resource: resource, httpMethod: getAction }; });
             }
-            return rx.Observable.fromPromise($q.when({ resource: resource }));
+            return rx.Observable.fromPromise($q.when({ resource: resource, resourceUrl: resourceUrl }));
         }
 
         function syntaxHighlight(json) {
@@ -465,20 +481,18 @@
                         delete obj[property];
                     } else if (Array.isArray(obj[property])) {
                         var toRemove = [];
-                        for (var i = 0; i < obj[property].length; i++) {
-                            if (typeof obj[property][i] === "string" && (/\(.*\)/.test(obj[property][i]))) {
-                                toRemove.push(i);
-                            } else if (typeof obj[property][i] === "object" && !$.isEmptyObject(obj[property])) {
-                                cleanObject(obj[property][i]);
-                            } else if (typeof obj[property][i] === "object" && $.isEmptyObject(obj[property])) {
-                                toRemove.push(i);
+                        obj[property] = obj[property].filter(function (element) {
+                            if (typeof element === "string" && (/\(.*\)/.test(element))) {
+                                return false
+                            } else if (typeof element === "object" && !$.isEmptyObject(element)) {
+                                cleanObject(element);
+                            } else if (typeof element === "object" && $.isEmptyObject(element)) {
+                                return false;
                             }
-                            if ($.isEmptyObject(obj[property][i])) toRemove.push(i);
-                        }
-
-                        for (var i = 0; i < toRemove.length; i++) obj[property].remove(i);
+                            if ($.isEmptyObject(element)) return false;
+                            return true;
+                        });
                         if (obj[property].length === 0) delete obj[property];
-
                     } else if (typeof obj[property] === "object" && !$.isEmptyObject(obj[property])) {
                         cleanObject(obj[property]);
                         if ($.isEmptyObject(obj[property])) delete obj[property];
@@ -490,15 +504,31 @@
         }
 
         function mergeObject(source, target) {
+            if (typeof source === "string") {
+                target = source;
+                return target;
+            }
             for (var sourceProperty in source) {
                 if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
                     if (!isEmptyObjectorArray(source[sourceProperty]) && (typeof source[sourceProperty] === "object") && !Array.isArray(source[sourceProperty])) {
                         mergeObject(source[sourceProperty], target[sourceProperty]);
+                    } else if (Array.isArray(source[sourceProperty]) && Array.isArray(target[sourceProperty])) {
+                        var targetModel = target[sourceProperty][0];
+                        target[sourceProperty] = source[sourceProperty];
+                        target[sourceProperty].push(targetModel);
+                        //target[sourceProperty].length = 0;
+                        //for (var i = 0; i < source[sourceProperty].length; i++) {
+                        //    var tempTarget = jQuery.extend(true, {}, targetModel);
+                        //    tempTarget = mergeObject(source[sourceProperty][i], tempTarget);
+                        //    target[sourceProperty].push(tempTarget);
+                        //}
                     } else if (!isEmptyObjectorArray(source[sourceProperty])) {
                         target[sourceProperty] = source[sourceProperty];
+                        
                     }
                 }
             }
+            return target;
         }
     });
 
