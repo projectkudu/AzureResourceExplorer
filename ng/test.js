@@ -21,14 +21,16 @@
             .do(function () {}, function (err) {
                 $scope.invoking = false;
                 $scope.loading = false;
-                $scope.errorResponse = syntaxHighlight(err);
                 if (err.config && err.config.resourceUrl && !isEmptyObjectorArray(err.config.resourceUrl.requestBody)) {
                     var resourceUrl = err.config.resourceUrl;
+                    delete err.config.resourceUrl;
                     var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
                     editor.setValue(JSON.stringify(editable, undefined, 4));
                     editor.session.selection.clearSelection();
                     $scope.show = true;
+                    $scope.jsonHtml = ""
                 }
+                $scope.errorResponse = syntaxHighlight(err);
             })
             .retry()
             .subscribe(function (value) {
