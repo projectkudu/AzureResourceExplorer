@@ -7,16 +7,24 @@
         $scope.resources = [];
         var editor;
         $timeout(function () {
-            editor = new JSONEditor(document.getElementById("jsoneditor"));
+            editor = ace.edit("jsoneditor");//new JSONEditor(document.getElementById("jsoneditor"));
+            editor.setOptions({
+                maxLines: Infinity,
+                fontSize: 15,
+                showInvisibles: true
+            });
+            editor.setTheme("ace/theme/tomorrow");
+            editor.getSession().setMode("ace/mode/json");
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
             .flatMapLatest(selectResource)
             .subscribe(function (value) {
+                delete $scope.putError;
                 $scope.invoking = false;
                 $scope.loading = false;
                 if (value.data === undefined) {
-                    editor.set({});
+                    editor.setValue("");
                     $scope.show = false;
                     $scope.selectedResource = { label: value.resource.resourceName, url: value.url };
                     $scope.jsonHtml = "No GET Url"
@@ -33,14 +41,14 @@
                 if (putActions.length === 1) {
                     var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
                     mergeObject($scope.rawData, editable);
-                    editor.set(editable);
+                    editor.setValue(JSON.stringify(editable, undefined, 4));
+                    editor.session.selection.clearSelection();
                     $scope.show = true;
-                    editor.expandAll();
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
                 } else {
-                    editor.set({});
+                    editor.setValue("");
                     $scope.show = false;
                 }
 
@@ -71,7 +79,6 @@
                         }
                     }).filter(function(r) {return r !== undefined;}));
 
-                //}));
                 resource.url = url;
                 resource.httpMethod = value.httpMethod
                 $scope.selectedResource = resource;
@@ -116,7 +123,7 @@
 
         $scope.invokePut = function () {
             delete $scope.putError;
-            var userObject = editor.get();
+            var userObject = JSON.parse(editor.getValue());
             cleanObject(userObject);
             $scope.invoking = true;
             $http({
@@ -129,7 +136,9 @@
                 }
             }).error(function (err) {
                 $scope.putError = syntaxHighlight(err);
-            }).finally(function () {
+                $scope.invoking = false;
+                $scope.loading = false;
+            }).success(function () {
                 $scope.selectResourceHandler($scope.selectedResource);
             });
         };
