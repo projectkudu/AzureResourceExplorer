@@ -3,7 +3,7 @@
 
         $scope.jsonHtml = "select something";
         $scope.treeControl = {};
-        $scope.resourcesUrlsTable = [];
+        $scope.resourcesDefinitionsTable = [];
         $scope.resources = [];
         var editor;
         $timeout(function () {
@@ -21,12 +21,12 @@
             .do(function () {}, function (err) {
                 $scope.invoking = false;
                 $scope.loading = false;
-                if (err.config && err.config.resourceUrl && !isEmptyObjectorArray(err.config.resourceUrl.requestBody)) {
-                    var resourceUrl = err.config.resourceUrl;
-                    $scope.putUrl = err.config.putUrl;
-                    delete err.config.resourceUrl;
-                    delete err.config.putUrl;
-                    var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
+                if (err.config && err.config.resourceDefinition && !isEmptyObjectorArray(err.config.resourceDefinition.requestBody)) {
+                    var resourceDefinition = err.config.resourceDefinition;
+                    $scope.putUrl = err.config.filledInUrl;
+                    delete err.config.resourceDefinition;
+                    delete err.config.filledInUrl;
+                    var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
                     editor.setValue(JSON.stringify(editable, undefined, 4));
                     editor.session.selection.clearSelection();
                     $scope.show = true;
@@ -40,8 +40,8 @@
                 $scope.invoking = false;
                 $scope.loading = false;
                 if (value.data === undefined) {
-                    if (value.resourceUrl !== undefined && !isEmptyObjectorArray(value.resourceUrl.requestBody)) {
-                        var editable = jQuery.extend(true, {}, value.resourceUrl.requestBody);
+                    if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
+                        var editable = jQuery.extend(true, {}, value.resourceDefinition.requestBody);
                         editor.setValue(JSON.stringify(editable, undefined, 4));
                         editor.session.selection.clearSelection();
                         $scope.show = true;
@@ -51,19 +51,17 @@
                         $scope.show = false;
                         $scope.jsonHtml = "No GET Url";
                     }
-                    if (value.resource) $scope.selectedResource = { label: value.resource.resourceName, url: value.url };
                     return;
                 }
                 var data = value.data;
-                var resourceUrl = value.resourceUrl;
+                var resourceDefinition = value.resourceDefinition;
                 var url = value.url;
-                var resource = value.resource;
                 $scope.jsonHtml = syntaxHighlight(data);
                 $scope.rawData = data;
                 $scope.putUrl = url;
-                var putActions = resourceUrl.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
+                var putActions = resourceDefinition.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
                 if (putActions.length === 1) {
-                    var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
+                    var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
                     mergeObject($scope.rawData, editable);
                     editor.setValue(JSON.stringify(editable, undefined, 4));
                     editor.session.selection.clearSelection();
@@ -76,36 +74,35 @@
                     $scope.show = false;
                 }
 
-                resource.actions = resourceUrl.actions.filter(function (a) { return (a === "DELETE"); }).map(function(a) {
+                var actionsAndVerbs = resourceDefinition.actions.filter(function (a) { return (a === "DELETE"); }).map(function (a) {
                     return {
                         httpMethod: a,
                         name: "Delete",
                         url: url
                     };
                 });
-                if (Array.isArray(resourceUrl.children))
-                    Array.prototype.push.apply(resource.actions, resourceUrl.children.filter(function (childString) {
-                        var d = $scope.resourcesUrlsTable.filter(function (r) {
-                            return (r.resourceName === childString) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + childString));
+                if (Array.isArray(resourceDefinition.children))
+                    Array.prototype.push.apply(actionsAndVerbs, resourceDefinition.children.filter(function (childString) {
+                        var d = $scope.resourcesDefinitionsTable.filter(function (r) {
+                            return (r.resourceName === childString) && ((r.url === resourceDefinition.url) || r.url === (resourceDefinition.url + "/" + childString));
                         });
                         return d.length === 1;
                     }).map(function (childString) {
-                        var d = $scope.resourcesUrlsTable.filter(function (r) {
-                            return (r.resourceName === childString) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + childString));
-                        });
-                        var dd = d[0];
-                        if (dd.children === undefined && Array.isArray(dd.actions) && dd.actions.filter(function (actionName) { return actionName === "POST" }).length > 0) {
+                        var d = getResourceDefinitionByNameAndUrl(childString, resourceDefinition.url + "/" + childString);
+                        if (d.children === undefined && Array.isArray(d.actions) && d.actions.filter(function (actionName) { return actionName === "POST" }).length > 0) {
                             return {
                                 httpMethod: "POST",
-                                name: dd.resourceName,
-                                url: url + "/" + dd.resourceName
+                                name: d.resourceName,
+                                url: url + "/" + d.resourceName
                             };
                         }
                     }).filter(function(r) {return r !== undefined;}));
 
-                resource.url = url;
-                resource.httpMethod = value.httpMethod
-                $scope.selectedResource = resource;
+                $scope.selectedResource = {
+                    url: url,
+                    actionsAndVerbs: actionsAndVerbs,
+                    httpMethod: value.httpMethod,
+                };
             });
 
         $scope.invokeAction = function (action, url) {
@@ -130,7 +127,7 @@
                         $("#data-tab").find('a:first').click();
                     }, 900);
                 } else {
-                    $scope.selectResourceHandler($scope.selectedResource);
+                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch());
                     $("html, body").scrollTop(0);
                 }
 
@@ -158,12 +155,13 @@
                 $scope.invoking = false;
                 $scope.loading = false;
             }).success(function () {
-                $scope.selectResourceHandler($scope.selectedResource);
+                $scope.selectResourceHandler($scope.treeControl.get_selected_branch());
             });
         };
 
         $scope.expandResourceHandler = function (branch, row, event) {
             if (branch.is_leaf) return;
+
             if (branch.expanded) {
                 // clear the children array on collapse
                 branch.children.length = 0;
@@ -171,60 +169,48 @@
                 return;
             }
 
-            var resourceUrls = $scope.resourcesUrlsTable.filter(function (r) {
-                return (r.resourceName === branch.resourceName) && ((r.url === branch.resourceUrl) || r.url === (branch.resourceUrl + "/" + branch.resourceName));
-            });
-            if (resourceUrls.length > 1) {
-                console.log("ASSERT! More than 1 resourceUrl. This is an error");
-                return;
-            }
-            if (resourceUrls.length !== 1) return;
-            var resourceUrl = resourceUrls[0];
+            var resourceDefinition = branch.resourceDefinition;
+            if (!resourceDefinition) return;
 
-            if (Array.isArray(resourceUrl.children)) {
+            if (Array.isArray(resourceDefinition.children)) {
                 //TODO
-                branch.children = resourceUrl.children.map(function (c) {
-                    var child = $scope.resourcesUrlsTable.filter(function (r) {
-                        return (r.resourceName === c) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + c));
-                    });
-                    if (child[0].children === undefined && Array.isArray(child[0].actions) && child[0].actions.filter(function (actionName) { return actionName === "POST" }).length > 0) return;
+                branch.children = resourceDefinition.children.map(function (childName) {
+                    var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
+                    if (!childDefinition) return;
+                    if (childDefinition.children === undefined && Array.isArray(childDefinition.actions) && childDefinition.actions.filter(function (actionName) { return actionName === "POST" }).length > 0) return;
                     return {
-                        label: c,
-                        resourceName: c,
-                        resourceUrl: resourceUrl.url,
-                        is_leaf: (child.length > 0 && child[0].children ? false : true)
+                        label: childName,
+                        resourceDefinition: childDefinition,
+                        is_leaf: (childDefinition.children ? false : true)
                     };
                 }).filter(function (f) { return f !== undefined;});
-            } else if (typeof resourceUrl.children === "string") {
-                var childUrl = injectTemplateValues(resourceUrl.url, branch);
+            } else if (typeof resourceDefinition.children === "string") {
+                var getUrl = injectTemplateValues(resourceDefinition.url, branch);
 
                 var originalTreeIcon = row.tree_icon;
                 $(event.target).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
-                var httpConfig = (childUrl.endsWith("resourceGroups") || childUrl.endsWith("subscriptions") || childUrl.split("/").length === 3)
+                var httpConfig = (getUrl.endsWith("resourceGroups") || getUrl.endsWith("subscriptions") || getUrl.split("/").length === 3)
                   ? {
                       method: "GET",
-                      url: "api" + childUrl.substring(childUrl.indexOf("/subscriptions")),
+                      url: "api" + getUrl.substring(getUrl.indexOf("/subscriptions")),
                   }
                   : {
                       method: "POST",
                       url: "api/operations",
                       data: {
-                          Url: childUrl,
+                          Url: getUrl,
                           HttpMethod: "GET"
                       }
                   };
                 return $http(httpConfig).success(function (data) {
                     branch.children = (data.value ? data.value : data).map(function (d) {
-                        var child = $scope.resourcesUrlsTable.filter(function (r) {
-                            return (r.resourceName === resourceUrl.children) && ((r.url === resourceUrl.url) || r.url === (resourceUrl.url + "/" + resourceUrl.children));
-                        });
+                        var childDefinition = getResourceDefinitionByNameAndUrl(resourceDefinition.children, resourceDefinition.url + "/" + resourceDefinition.children);
 
                         return {
                             label: (d.displayName ? d.displayName : d.name),
-                            resourceName: resourceUrl.children,
-                            resourceUrl: resourceUrl.url,
+                            resourceDefinition: childDefinition,
                             value: (d.subscriptionId ? d.subscriptionId : d.name),
-                            is_leaf: (child.length > 0  && child[0].children ? false : true)
+                            is_leaf: (childDefinition.children ? false : true)
                         };
                     });
                 }).finally(function () {
@@ -239,51 +225,91 @@
             window.location = "api/tenants/" + $scope.selectedTenant.id;
         };
 
-        $http({
-            method: "GET",
-            url: "api/operations"
-        }).success(function (operations) {
-            operations.sort(function (a, b) {
-                return a.Url.localeCompare(b.Url);
-            });
-            operations.map(function (operation) {
-                //TODO: remove this
-                operation = fixOperationUrl(operation);
+        // Get resourcesDefinitions
+        initResourcesDefinitions();
 
-                addToResourceUrlTable(operation);
-                $scope.resourcesUrlsTable.map(function (r) {
-                    if (Array.isArray(r.children)) {
-                        r.children.sort()
-                    }
-                });
+        // Get tenants list
+        initTenants();
+
+        function getResourceDefinitionByNameAndUrl(name, url) {
+            var resourceDefinitions = $scope.resourcesDefinitionsTable.filter(function (r) {
+                return (r.resourceName === name) && ((r.url === url) || r.url === (url + "/" + name));
             });
-            $scope.resources = $scope.resourcesUrlsTable.map(function (r) { return r.url.split("/"); }).filter(function (a) { return a.length > 3; }).map(function (a) {
-                return { resourceName: a[3], resourceUrl: a.slice(0, 4).join("/") };
-            }).getUnique(function (d) { return d.resourceName; }).map(function (s) {
+            if (resourceDefinitions > 1) {
+                console.log("ASSERT! dublicate ids in resourceDefinitionsTable");
+                console.log(resourceDefinitions);
+            }
+            return resourceDefinitions[0];
+        }
+
+        function initTenants() {
+            $http({
+                method: "GET",
+                url: "api/tenants"
+            }).success(function (tenants) {
+                $scope.tenants = tenants.map(function (tenant) {
+                    return {
+                        name: tenant.DisplayName + " (" + tenant.DomainName + ")",
+                        id: tenant.TenantId,
+                        current: tenant.Current
+                    };
+                });
+                $scope.selectedTenant = $scope.tenants[$scope.tenants.indexOfDelegate(function (tenant) { return tenant.current; })];
+            });
+        }
+
+        function initResourcesDefinitions() {
+            $http({
+                method: "GET",
+                url: "api/operations"
+            }).success(function (operations) {
+                operations.sort(function (a, b) {
+                    return a.Url.localeCompare(b.Url);
+                });
+                operations.map(function (operation) {
+                    //TODO: remove this
+                    operation = fixOperationUrl(operation);
+
+                    buildResourcesDefinitionsTable(operation);
+
+                    $scope.resourcesDefinitionsTable.map(function (r) {
+                        if (Array.isArray(r.children)) {
+                            r.children.sort();
+                        }
+                    });
+                });
+
+                // Initializes the root nodes for the tree
+                $scope.resources = getRootTreeNodes();
+
+            });
+        }
+
+        function getRootTreeNodes() {
+
+            return $scope.resourcesDefinitionsTable.filter(function (rd) { return rd.url.split("/").length === 4; })
+                .getUnique(function (rd) { return rd.url.split("/")[3]; }).map(function (urd) {
                 return {
-                    label: s.resourceName,
-                    resourceName: s.resourceName,
-                    resourceUrl: s.resourceUrl,
+                    label: urd.url.split("/")[3],
+                    resourceDefinition: urd,
                     data: undefined,
                     resource_icon: "fa fa-cube fa-fw",
                     children: []
                 };
             });
-        });
 
-        $http({
-            method: "GET",
-            url: "api/tenants"
-        }).success(function (tenants) {
-            $scope.tenants = tenants.map(function (tenant) {
-                return {
-                    name: tenant.DisplayName + " (" + tenant.DomainName + ")",
-                    id: tenant.TenantId,
-                    current: tenant.Current
-                };
-            });
-            $scope.selectedTenant = $scope.tenants[$scope.tenants.indexOfDelegate(function (tenant) { return tenant.current; })];
-        });
+            //$scope.resourcesDefinitionsTable.map(function (rd) { return { splits: rd.url.split("/"), resourceId: rd.resourceId }; }).filter(function (a) { return a.splits.length > 3; }).map(function (a) {
+            //    return { resourceName: a.splits[3], resourceId: a.resourceId };
+            //}).getUnique(function (d) { return d.resourceName; }).map(function (s) {
+            //    return {
+            //        label: s.resourceName,
+            //        resourceDefinition: s,
+            //        data: undefined,
+            //        resource_icon: "fa fa-cube fa-fw",
+            //        children: []
+            //    };
+            //});
+        }
 
         function fixOperationUrl(operation) {
             if (operation.Url.indexOf("SourceControls/{name}") !== -1) {
@@ -301,7 +327,7 @@
             return operation;
         }
 
-        function addToResourceUrlTable(operation, url) {
+        function buildResourcesDefinitionsTable(operation, url) {
             url = (operation ? operation.Url : url);
             var segments = url.split("/").filter(function (a) { return a.length !== 0 });
             var resourceName = segments.pop();
@@ -313,7 +339,7 @@
             }
 
             //set the element itself
-            var elements = $scope.resourcesUrlsTable.filter(function (r) { return r.url === url });
+            var elements = $scope.resourcesDefinitionsTable.filter(function (r) { return r.url === url });
             if (elements.length === 1) {
                 //it's there, update it's actions
                 if (operation) {
@@ -330,7 +356,7 @@
                     url: url,
                     requestBody: operation ? operation.RequestBody : {}
                 };
-                $scope.resourcesUrlsTable.push(addedElement);
+                $scope.resourcesDefinitionsTable.push(addedElement);
             }
 
             // set the parent recursively
@@ -341,9 +367,9 @@
         function setParent(url, action) {
             var segments = url.split("/").filter(function (a) { return a.length !== 0; });
             var resourceName = segments.pop();
-            var parentName = url.substring(0, url.lastIndexOf("/"));//segments.pop();
+            var parentName = url.substring(0, url.lastIndexOf("/"));
             if (parentName === undefined || parentName === "" || resourceName === undefined) return;
-            var parents = $scope.resourcesUrlsTable.filter(function (r) { return r.url === parentName; });
+            var parents = $scope.resourcesDefinitionsTable.filter(function (rd) { return rd.url === parentName; });
             var parent;
             if (parents.length === 1) {
                 parent = parents[0];
@@ -370,7 +396,7 @@
                 }
             } else {
                 //this means the parent is not in the array. Add it
-                parent = addToResourceUrlTable(undefined, url.substring(0, url.lastIndexOf("/")));
+                parent = buildResourcesDefinitionsTable(undefined, url.substring(0, url.lastIndexOf("/")));
                 setParent(url);
             }
             if (action && parent && parent.actions.filter(function (c) { return c === action; }).length === 0) {
@@ -382,29 +408,27 @@
             var resourceParent = branch;
             while (resourceParent !== undefined) {
                 if (resourceParent.value !== undefined) {
-                    url = url.replace(resourceParent.resourceName, resourceParent.value);
+                    url = url.replace(resourceParent.resourceDefinition.resourceName, resourceParent.value);
                 }
                 resourceParent = $scope.treeControl.get_parent_branch(resourceParent);
             }
             return url;
         }
 
-        function selectResource(resource) {
-            $scope.selectedResource = resource;
+        function selectResource(branch) {
             $scope.loading = true;
             delete $scope.errorResponse;
-            var resourceUrls = $scope.resourcesUrlsTable.filter(function (r) {
-                return (r.resourceName === resource.resourceName) && ((r.url === resource.resourceUrl) || r.url === (resource.resourceUrl + "/" + resource.resourceName));
-            });
-            if (resourceUrls.length !== 1) return rx.Observable.fromPromise($q.when({resource: resource}));
-            var resourceUrl = resourceUrls[0];
-            var getActions = resourceUrl.actions.filter(function (a) {
+            var resourceDefinition = branch.resourceDefinition;
+            if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch }));
+
+            var getActions = resourceDefinition.actions.filter(function (a) {
                 return (a === "GET" || a === "GETPOST");
             });
+
             if (getActions.length === 1) {
                 var getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
-                var url = (getAction === "POST" ? resourceUrl.url + "/list" : resourceUrl.url);
-                url = injectTemplateValues(url, resource);
+                var url = (getAction === "POST" ? resourceDefinition.url + "/list" : resourceDefinition.url);
+                url = injectTemplateValues(url, branch);
                 var httpConfig = (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3)
                 ? {
                     method: "GET",
@@ -417,13 +441,13 @@
                         Url: url,
                         HttpMethod: getAction
                     },
-                    resourceUrl: resourceUrl,
-                    putUrl: url
+                    resourceDefinition: resourceDefinition,
+                    filledInUrl: url
                 };
                 $scope.loading = true;
-                return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceUrl: resourceUrl, data: data.data, url: url, resource: resource, httpMethod: getAction }; });
+                return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
             }
-            return rx.Observable.fromPromise($q.when({ resource: resource, resourceUrl: resourceUrl }));
+            return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
         }
 
         function syntaxHighlight(json) {
@@ -522,12 +546,6 @@
                         var targetModel = target[sourceProperty][0];
                         target[sourceProperty] = source[sourceProperty];
                         target[sourceProperty].push(targetModel);
-                        //target[sourceProperty].length = 0;
-                        //for (var i = 0; i < source[sourceProperty].length; i++) {
-                        //    var tempTarget = jQuery.extend(true, {}, targetModel);
-                        //    tempTarget = mergeObject(source[sourceProperty][i], tempTarget);
-                        //    target[sourceProperty].push(tempTarget);
-                        //}
                     } else if (!isEmptyObjectorArray(source[sourceProperty])) {
                         target[sourceProperty] = source[sourceProperty];
                         

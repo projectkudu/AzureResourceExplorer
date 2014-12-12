@@ -59,7 +59,7 @@
         <div id="page-wrapper">
             <div class="row" style="margin-bottom: -50px">
                 <div class="col-lg-12">
-                    <h1 class="page-header">{{ selectedResource.label }}</h1>
+                    <h1 class="page-header">{{ treeControl.get_selected_branch().label }}</h1>
                 </div>
                 <span class="loading-spinner" ng-show="loading">
                     <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
@@ -72,19 +72,6 @@
                     </tab-heading>
                     <pre ng-show="selectedResource.url">{{ selectedResource.httpMethod }} {{ selectedResource.url }}</pre>
                     <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
-                    <div class="panel panel-default" ng-if="resourceMethods.length > 0">
-                        <div class="panel-heading">
-                            Methods for {{ selectedResource.data.resourceType }}
-                        </div>
-                        <div class="panel-body">
-                            <p>
-                                <button class="btn btn-outline btn-primary" ng-repeat="method in resourceMethods" style="margin: 5px" ng-click="selectMethod(method)">
-                                    {{ method.name }}
-                                </button>
-                            </p>
-                        </div>
-          
-                    </div>
                     <div ng-show="show">
                         <div id="jsoneditor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
                         <button class="btn btn-success" style="margin: 5px" ng-click="invokePut()">
@@ -100,7 +87,7 @@
                 </tab>
                 <tab>
                     <tab-heading>
-                        <i class="fa fa-bolt"></i> Actions (POST, DELETE) {{ selectedResource.actions ? selectedResource.actions.length : 0 }}
+                        <i class="fa fa-bolt"></i> Actions (POST, DELETE) {{ selectedResource.actionsAndVerbs ? selectedResource.actionsAndVerbs.length : 0 }}
                     </tab-heading>
                     <table class="table table-no-border" style="margin: 20px">
                         <colgroup>
@@ -108,7 +95,7 @@
                             <col class="col-xs-7">
                         </colgroup>
                         <tbody>
-                            <tr ng-repeat="action in selectedResource.actions">
+                            <tr ng-repeat="action in selectedResource.actionsAndVerbs">
                                 <td><button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action.httpMethod, action.url)">{{ action.name }}</button></td>
                                 <td><pre>{{ action.httpMethod }} {{ action.url }}</pre></td>
                             </tr>
