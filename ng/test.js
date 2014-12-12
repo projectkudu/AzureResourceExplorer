@@ -23,7 +23,9 @@
                 $scope.loading = false;
                 if (err.config && err.config.resourceUrl && !isEmptyObjectorArray(err.config.resourceUrl.requestBody)) {
                     var resourceUrl = err.config.resourceUrl;
+                    $scope.putUrl = err.config.putUrl;
                     delete err.config.resourceUrl;
+                    delete err.config.putUrl;
                     var editable = jQuery.extend(true, {}, resourceUrl.requestBody);
                     editor.setValue(JSON.stringify(editable, undefined, 4));
                     editor.session.selection.clearSelection();
@@ -388,6 +390,7 @@
         }
 
         function selectResource(resource) {
+            $scope.selectedResource = resource;
             $scope.loading = true;
             delete $scope.errorResponse;
             var resourceUrls = $scope.resourcesUrlsTable.filter(function (r) {
@@ -414,7 +417,8 @@
                         Url: url,
                         HttpMethod: getAction
                     },
-                    resourceUrl: resourceUrl
+                    resourceUrl: resourceUrl,
+                    putUrl: url
                 };
                 $scope.loading = true;
                 return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceUrl: resourceUrl, data: data.data, url: url, resource: resource, httpMethod: getAction }; });
