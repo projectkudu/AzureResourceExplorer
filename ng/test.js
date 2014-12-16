@@ -118,10 +118,11 @@
             }).success(function(data){
                 $scope.actionResponse = syntaxHighlight(data);
                 $scope.loading = false;
-                var parent = $scope.treeControl.get_parent_branch($scope.treeControl.get_selected_branch());
+                var currentBranch = $scope.treeControl.get_selected_branch();
+                var parent = $scope.treeControl.get_parent_branch(currentBranch);
                 if (action === "DELETE") {
                     $scope.treeControl.select_branch(parent);
-                    $scope.treeControl.collapse_branch(parent);
+                    parent.children = parent.children.filter(function (branch) { return branch.uid !== currentBranch.uid; });
                     $timeout(function () {
                         $("html, body").scrollTop(0);
                         $("#data-tab").find('a:first').click();
@@ -188,7 +189,7 @@
                 var getUrl = injectTemplateValues(resourceDefinition.url, branch);
 
                 var originalTreeIcon = row.tree_icon;
-                $(event.target).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
+                $(event.currentTarget).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
                 var httpConfig = (getUrl.endsWith("resourceGroups") || getUrl.endsWith("subscriptions") || getUrl.split("/").length === 3)
                   ? {
                       method: "GET",
@@ -214,7 +215,7 @@
                         };
                     });
                 }).finally(function () {
-                    $(event.target).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
+                    $(event.currentTarget).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
                     $scope.treeControl.expand_branch(branch);
                 });
             } //else if undefined
@@ -415,7 +416,10 @@
             return url;
         }
 
-        function selectResource(branch) {
+        function selectResource(args) {
+            var branch = args[0];
+            var event = args[1];
+            fixWidths(event);
             $scope.loading = true;
             delete $scope.errorResponse;
             var resourceDefinition = branch.resourceDefinition;
@@ -448,6 +452,13 @@
                 return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
             }
             return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
+        }
+
+        function fixWidths(event){
+            var anchor = $(event.currentTarget);
+            var span = $(event.currentTarget).find("span");
+            var width = span.width() + parseInt(span.css("left"), 10) + 37;
+            anchor.width((width < 280 ? 280 : width) - 20);
         }
 
         function syntaxHighlight(json) {
