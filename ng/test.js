@@ -128,7 +128,7 @@
                         $("#data-tab").find('a:first').click();
                     }, 900);
                 } else {
-                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch());
+                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                     $("html, body").scrollTop(0);
                 }
 
@@ -156,7 +156,7 @@
                 $scope.invoking = false;
                 $scope.loading = false;
             }).success(function () {
-                $scope.selectResourceHandler($scope.treeControl.get_selected_branch());
+                $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
             });
         };
 
@@ -184,12 +184,16 @@
                         resourceDefinition: childDefinition,
                         is_leaf: (childDefinition.children ? false : true)
                     };
-                }).filter(function (f) { return f !== undefined;});
+                }).filter(function (f) { return f !== undefined; });
+                if (branch.children.length === 1)
+                    $timeout(function () {
+                        $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
+                    });
             } else if (typeof resourceDefinition.children === "string") {
                 var getUrl = injectTemplateValues(resourceDefinition.url, branch);
 
-                var originalTreeIcon = row.tree_icon;
-                $(event.currentTarget).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
+                var originalTreeIcon = row ? row.tree_icon : "icon-plus  glyphicon glyphicon-plus fa fa-plus";
+                $(document.getElementById("expand-icon-" + branch.uid)).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
                 var httpConfig = (getUrl.endsWith("resourceGroups") || getUrl.endsWith("subscriptions") || getUrl.split("/").length === 3)
                   ? {
                       method: "GET",
@@ -215,8 +219,12 @@
                         };
                     });
                 }).finally(function () {
-                    $(event.currentTarget).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
+                    $(document.getElementById("expand-icon-" + branch.uid)).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
                     $scope.treeControl.expand_branch(branch);
+                    if (branch.children && branch.children.length === 1)
+                        $timeout(function () {
+                            $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
+                        });
                 });
             } //else if undefined
             $scope.treeControl.expand_branch(branch);
@@ -454,7 +462,8 @@
             return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
         }
 
-        function fixWidths(event){
+        function fixWidths(event) {
+            if (!event) return;
             var anchor = $(event.currentTarget);
             var span = $(event.currentTarget).find("span");
             var width = span.width() + parseInt(span.css("left"), 10) + 37;
