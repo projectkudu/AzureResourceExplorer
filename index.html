@@ -19,7 +19,7 @@
     <script src="Content/Scripts/abn_tree_directive.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
     <script src="Content/Scripts/rx.angular.js"></script>
-    <script src="ng/test.js"></script>
+    <script src="ng/manage.js"></script>
 
     <title>ManagePortal - {{ viewName }}</title>
 
@@ -61,7 +61,7 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">{{ treeControl.get_selected_branch().label }}</h1>
                 </div>
-                <span class="loading-spinner" ng-show="loading">
+                <span class="loading-spinner" ng-show="loading || invoking">
                     <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
                 </span>
             </div>
@@ -70,16 +70,17 @@
                     <tab-heading>
                         <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
-                    <pre ng-show="selectedResource.url">{{ selectedResource.httpMethod }} {{ selectedResource.url }}</pre>
-                    <pre ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
+                    <pre ng-show="selectedResource.url && !show">{{ selectedResource.httpMethod }} {{ selectedResource.url }}</pre>
+                    <pre ng-show="!show" ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
                     <div ng-show="show">
-                        <div id="jsoneditor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
-                        <button class="btn btn-success" style="margin: 5px" ng-click="invokePut()">
-                            Submit
+                        <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokePut()">
+                            PUT
                         </button>
-                        <div class="invoking-spinner" ng-show="invoking">
+                        <pre>{{ selectedResource.url }}</pre>
+                        <div id="jsoneditor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
+                        <!--<div class="invoking-spinner" ng-show="invoking">
                             <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
-                        </div>
+                        </div>-->
                     </div>
                     <h2 ng-show="errorResponse || putError">Error:</h2>
                     <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>

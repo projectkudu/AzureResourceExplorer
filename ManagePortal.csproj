@@ -149,8 +149,8 @@
     <Content Include="Content\Styles\img\jsoneditor-icons.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="ng\manage.js" />
     <Content Include="ng\ngViews\Home.html" />
-    <Content Include="ng\test.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

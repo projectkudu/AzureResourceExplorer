@@ -7,7 +7,7 @@
         $scope.resources = [];
         var editor;
         $timeout(function () {
-            editor = ace.edit("jsoneditor");//new JSONEditor(document.getElementById("jsoneditor"));
+            editor = ace.edit("jsoneditor");
             editor.setOptions({
                 maxLines: Infinity,
                 fontSize: 15
@@ -570,6 +570,8 @@
                         target[sourceProperty] = source[sourceProperty];
                         
                     }
+                } else if (!isEmptyObjectorArray(source[sourceProperty])) {
+                    target[sourceProperty] = source[sourceProperty];
                 }
             }
             return target;
