@@ -79,10 +79,12 @@
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
                 } else if (createActions.length === 1) {
+                    $scope.creatable = true;
+                    editor.setValue("");
+                    $scope.show = false;
                     var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
                     createEditor.setValue(JSON.stringify(editable, undefined, 4));
                     createEditor.session.selection.clearSelection();
-                    $scope.creatable = true;
                 } else {
                     editor.setValue("");
                     $scope.show = false;
@@ -355,14 +357,14 @@
 
             return $scope.resourcesDefinitionsTable.filter(function (rd) { return rd.url.split("/").length === 4; })
                 .getUnique(function (rd) { return rd.url.split("/")[3]; }).map(function (urd) {
-                return {
-                    label: urd.url.split("/")[3],
-                    resourceDefinition: urd,
-                    data: undefined,
-                    resource_icon: "fa fa-cube fa-fw",
-                    children: []
-                };
-            });
+                    return {
+                        label: urd.url.split("/")[3],
+                        resourceDefinition: urd,
+                        data: undefined,
+                        resource_icon: "fa fa-cube fa-fw",
+                        children: []
+                    };
+                });
         }
 
         function fixOperationUrl(operation) {
@@ -622,7 +624,7 @@
                         target[sourceProperty].push(targetModel);
                     } else if (!isEmptyObjectorArray(source[sourceProperty])) {
                         target[sourceProperty] = source[sourceProperty];
-                        
+
                     }
                 } else if (!isEmptyObjectorArray(source[sourceProperty])) {
                     target[sourceProperty] = source[sourceProperty];
