@@ -71,6 +71,8 @@ namespace ManagePortal.Controllers
                 || method.Name.IndexOf("metrics", StringComparison.OrdinalIgnoreCase) >= 0
                 || method.Name.IndexOf("repository", StringComparison.OrdinalIgnoreCase) >= 0
                 || method.Name.IndexOf("usages", StringComparison.OrdinalIgnoreCase) >= 0
+                || method.Name.IndexOf("Clone", StringComparison.OrdinalIgnoreCase) >= 0
+                || method.Name.IndexOf("GetOperation", StringComparison.OrdinalIgnoreCase) >= 0
                 || method.Name.IndexOf("register", StringComparison.OrdinalIgnoreCase) >= 0
                 || method.Name.IndexOf("unregister", StringComparison.OrdinalIgnoreCase) >= 0;
         }
@@ -90,12 +92,12 @@ namespace ManagePortal.Controllers
 
             if (method.ResponseBodies.Count == 1)
             {
-                var response = (ResponseBody)method.ResponseBodies.First().Value;
+                var response = (ResponseBody)method.ResponseBodies.First().Value.First().Value;
                 var schema = GetJsonSchehma(response.SerializationFormat);
                 json["ResponseBody"] = schema;
             }
 
-            var url = EvaluateExpression(method.UrlExpression).ToString();
+            var url = EvaluateExpression(BindingExpression.Bind(method, method.UrlExpression)).ToString();
             url = url.Contains('?') ? url.Substring(0, url.IndexOf('?')) : url;
 
             var urls = new List<string>();
