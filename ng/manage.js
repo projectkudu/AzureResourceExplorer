@@ -5,15 +5,19 @@
         $scope.treeControl = {};
         $scope.resourcesDefinitionsTable = [];
         $scope.resources = [];
-        var editor;
+        var editor, createEditor;
         $timeout(function () {
-            editor = ace.edit("jsoneditor");
-            editor.setOptions({
-                maxLines: Infinity,
-                fontSize: 15
-            });
-            editor.setTheme("ace/theme/tomorrow");
-            editor.getSession().setMode("ace/mode/json");
+            editor = ace.edit("json-editor");
+            createEditor = ace.edit("json-create-editor");
+            [editor, createEditor].map(function (e) {
+                e.setOptions({
+                    maxLines: Infinity,
+                    fontSize: 15,
+                    wrap: "free"
+                });
+                e.setTheme("ace/theme/tomorrow");
+                e.getSession().setMode("ace/mode/json");
+            })
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
@@ -37,8 +41,12 @@
             .retry()
             .subscribe(function (value) {
                 delete $scope.putError;
+                delete $scope.actionResponse;
+                delete $scope.selectedResource;
                 $scope.invoking = false;
                 $scope.loading = false;
+                $scope.creatable = false;
+                selectFirstTab(1);
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
                         var editable = jQuery.extend(true, {}, value.resourceDefinition.requestBody);
@@ -60,6 +68,7 @@
                 $scope.rawData = data;
                 $scope.putUrl = url;
                 var putActions = resourceDefinition.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
+                var createActions = resourceDefinition.actions.filter(function (a) { return ( a === "CREATE"); });
                 if (putActions.length === 1) {
                     var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
                     mergeObject($scope.rawData, editable);
@@ -69,6 +78,11 @@
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
+                } else if (createActions.length === 1) {
+                    var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
+                    createEditor.setValue(JSON.stringify(editable, undefined, 4));
+                    createEditor.session.selection.clearSelection();
+                    $scope.creatable = true;
                 } else {
                     editor.setValue("");
                     $scope.show = false;
@@ -81,6 +95,7 @@
                         url: url
                     };
                 });
+
                 if (Array.isArray(resourceDefinition.children))
                     Array.prototype.push.apply(actionsAndVerbs, resourceDefinition.children.filter(function (childString) {
                         var d = $scope.resourcesDefinitionsTable.filter(function (r) {
@@ -123,10 +138,8 @@
                 if (action === "DELETE") {
                     $scope.treeControl.select_branch(parent);
                     parent.children = parent.children.filter(function (branch) { return branch.uid !== currentBranch.uid; });
-                    $timeout(function () {
-                        $("html, body").scrollTop(0);
-                        $("#data-tab").find('a:first').click();
-                    }, 900);
+                    selectFirstTab(900);
+                    scrollToTop(900);
                 } else {
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                     $("html, body").scrollTop(0);
@@ -234,11 +247,55 @@
             window.location = "api/tenants/" + $scope.selectedTenant.id;
         };
 
+        $scope.enterCreateMode = function () {
+            $scope.createMode = true;
+        }
+
+        $scope.leaveCreateMode = function () {
+            $scope.createMode = false;
+        }
+
+        $scope.invokeCreate = function (createdResourceName) {
+            delete $scope.createError;
+            var userObject = JSON.parse(createEditor.getValue());
+            cleanObject(userObject);
+            $scope.invoking = true;
+            $http({
+                method: "POST",
+                url: "api/operations",
+                data: {
+                    Url: $scope.putUrl + "/" + createdResourceName,
+                    HttpMethod: "PUT",
+                    RequestBody: userObject
+                }
+            }).error(function (err) {
+                $scope.createError = syntaxHighlight(err);
+                $scope.invoking = false;
+                $scope.loading = false;
+            }).success(function () {
+                var branch = $scope.treeControl.get_selected_branch();
+                $scope.treeControl.collapse_branch(branch);
+                $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
+            });
+        }
+
         // Get resourcesDefinitions
         initResourcesDefinitions();
 
         // Get tenants list
         initTenants();
+
+        function selectFirstTab(delay) {
+            $timeout(function () {
+                $("#data-tab").find('a:first').click();
+            }, delay);
+        }
+
+        function scrollToTop(delay) {
+            $timeout(function () {
+                $("html, body").scrollTop(0);
+            }, delay);
+        }
 
         function getResourceDefinitionByNameAndUrl(name, url) {
             var resourceDefinitions = $scope.resourcesDefinitionsTable.filter(function (r) {
@@ -306,18 +363,6 @@
                     children: []
                 };
             });
-
-            //$scope.resourcesDefinitionsTable.map(function (rd) { return { splits: rd.url.split("/"), resourceId: rd.resourceId }; }).filter(function (a) { return a.splits.length > 3; }).map(function (a) {
-            //    return { resourceName: a.splits[3], resourceId: a.resourceId };
-            //}).getUnique(function (d) { return d.resourceName; }).map(function (s) {
-            //    return {
-            //        label: s.resourceName,
-            //        resourceDefinition: s,
-            //        data: undefined,
-            //        resource_icon: "fa fa-cube fa-fw",
-            //        children: []
-            //    };
-            //});
         }
 
         function fixOperationUrl(operation) {
@@ -343,8 +388,12 @@
             var addedElement;
 
             if (resourceName === "list" && operation && operation.HttpMethod === "POST") {
+                // handle resources that has a "secure GET"
                 setParent(url, "GETPOST");
                 return;
+            } else if (operation && operation.MethodName === "CreateOrUpdate" && operation.HttpMethod === "PUT") {
+                // handle resources that has a CreateOrUpdate
+                setParent(url, "CREATE", operation.RequestBody);
             }
 
             //set the element itself
@@ -373,7 +422,7 @@
             return addedElement;
         }
 
-        function setParent(url, action) {
+        function setParent(url, action, requestBody) {
             var segments = url.split("/").filter(function (a) { return a.length !== 0; });
             var resourceName = segments.pop();
             var parentName = url.substring(0, url.lastIndexOf("/"));
@@ -408,8 +457,13 @@
                 parent = buildResourcesDefinitionsTable(undefined, url.substring(0, url.lastIndexOf("/")));
                 setParent(url);
             }
+
             if (action && parent && parent.actions.filter(function (c) { return c === action; }).length === 0) {
                 parent.actions.push(action);
+            }
+
+            if (requestBody && parent && !parent.requestBody) {
+                parent.requestBody = requestBody;
             }
         }
 

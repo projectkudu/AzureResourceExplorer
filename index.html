@@ -70,25 +70,22 @@
                     <tab-heading>
                         <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
-                    <pre ng-show="selectedResource.url && !show">{{ selectedResource.httpMethod }} {{ selectedResource.url }}</pre>
+                    <pre ng-show="selectedResource && selectedResource.url && !show">{{ selectedResource.httpMethod }} {{ selectedResource.url }}</pre>
                     <pre ng-show="!show" ng-bind-html="jsonHtml" style="max-height: 400px"></pre>
                     <div ng-show="show">
                         <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokePut()">
                             PUT
                         </button>
                         <pre>{{ selectedResource.url }}</pre>
-                        <div id="jsoneditor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
-                        <!--<div class="invoking-spinner" ng-show="invoking">
-                            <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
-                        </div>-->
+                        <div id="json-editor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
                     </div>
                     <h2 ng-show="errorResponse || putError">Error:</h2>
                     <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
                     <pre ng-show="putError" ng-bind-html="putError" style="max-height: 400px"></pre>
                 </tab>
-                <tab>
+                <tab ng-show="selectedResource.actionsAndVerbs && selectedResource.actionsAndVerbs.length > 0">
                     <tab-heading>
-                        <i class="fa fa-bolt"></i> Actions (POST, DELETE) {{ selectedResource.actionsAndVerbs ? selectedResource.actionsAndVerbs.length : 0 }}
+                        <i class="fa fa-bolt"></i> Actions (POST, DELETE)
                     </tab-heading>
                     <table class="table table-no-border" style="margin: 20px">
                         <colgroup>
@@ -104,12 +101,25 @@
                     </table>
                     <pre ng-show="actionResponse" ng-bind-html="actionResponse" style="max-height: 400px"></pre>
                 </tab>
+                <tab ng-show="creatable" select="enterCreateMode()" deselect="leaveCreateMode()">
+                    <tab-heading>
+                        <i class="fa fa-database"></i> Create
+                    </tab-heading>
+                    <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate(createdResourceName)">
+                        PUT
+                    </button>
+                    <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
+                    <pre>{{ selectedResource.url + "/" + createdResourceName }}</pre>
+                    <div id="json-create-editor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
+                    <h2 ng-show="errorResponse || createError">Error:</h2>
+                    <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
+                    <pre ng-show="createError" ng-bind-html="createError" style="max-height: 400px"></pre>
+                </tab>
             </tabset>
         </div>
     </div>
 
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-    <!--<script src="ng/app.j"></script>-->
 </body>
 
 </html>
