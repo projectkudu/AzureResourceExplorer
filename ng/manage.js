@@ -1,10 +1,11 @@
 ﻿angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx"])
     .controller("bodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
 
-        $scope.jsonHtml = "select something";
         $scope.treeControl = {};
+        $scope.createModel = {};
         $scope.resourcesDefinitionsTable = [];
         $scope.resources = [];
+
         var editor, createEditor;
         $timeout(function () {
             editor = ace.edit("json-editor");
@@ -17,7 +18,11 @@
                 });
                 e.setTheme("ace/theme/tomorrow");
                 e.getSession().setMode("ace/mode/json");
-            })
+            });
+            editor.setValue(JSON.stringify({
+                message: "Select a node to start"
+            }));
+            editor.session.selection.clearSelection();
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
@@ -25,16 +30,15 @@
             .do(function () {}, function (err) {
                 $scope.invoking = false;
                 $scope.loading = false;
+                selectFirstTab(1);
                 if (err.config && err.config.resourceDefinition && !isEmptyObjectorArray(err.config.resourceDefinition.requestBody)) {
                     var resourceDefinition = err.config.resourceDefinition;
                     $scope.putUrl = err.config.filledInUrl;
                     delete err.config.resourceDefinition;
                     delete err.config.filledInUrl;
-                    var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
-                    editor.setValue(JSON.stringify(editable, undefined, 4));
+                    editor.setValue(JSON.stringify(resourceDefinition.requestBody, undefined, 4));
                     editor.session.selection.clearSelection();
                     $scope.show = true;
-                    $scope.jsonHtml = ""
                 }
                 $scope.errorResponse = syntaxHighlight(err);
             })
@@ -49,22 +53,21 @@
                 selectFirstTab(1);
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
-                        var editable = jQuery.extend(true, {}, value.resourceDefinition.requestBody);
-                        editor.setValue(JSON.stringify(editable, undefined, 4));
+                        editor.setValue(JSON.stringify(value.resourceDefinition.requestBody, undefined, 4));
                         editor.session.selection.clearSelection();
                         $scope.show = true;
-                        $scope.jsonHtml = "";
                     } else {
-                        editor.setValue("");
+                        editor.setValue(JSON.stringify({
+                            message: "No GET Url"
+                        }), undefined, 4);
+                        editor.session.selection.clearSelection();
                         $scope.show = false;
-                        $scope.jsonHtml = "No GET Url";
                     }
                     return;
                 }
                 var data = value.data;
                 var resourceDefinition = value.resourceDefinition;
                 var url = value.url;
-                $scope.jsonHtml = syntaxHighlight(data);
                 $scope.rawData = data;
                 $scope.putUrl = url;
                 var putActions = resourceDefinition.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
@@ -78,16 +81,17 @@
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
-                } else if (createActions.length === 1) {
-                    $scope.creatable = true;
-                    editor.setValue("");
-                    $scope.show = false;
-                    var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
-                    createEditor.setValue(JSON.stringify(editable, undefined, 4));
-                    createEditor.session.selection.clearSelection();
                 } else {
-                    editor.setValue("");
+                    editor.setValue(JSON.stringify($scope.rawData, undefined, 4));
+                    editor.session.selection.clearSelection();
                     $scope.show = false;
+                }
+
+                if (createActions.length === 1) {
+                    $scope.creatable = true;
+                    $scope.createMetaData = resourceDefinition.requestBody;
+                    createEditor.setValue(JSON.stringify(resourceDefinition.requestBody, undefined, 4));
+                    createEditor.session.selection.clearSelection();
                 }
 
                 var actionsAndVerbs = resourceDefinition.actions.filter(function (a) { return (a === "DELETE"); }).map(function (a) {
@@ -225,11 +229,11 @@
                 return $http(httpConfig).success(function (data) {
                     branch.children = (data.value ? data.value : data).map(function (d) {
                         var childDefinition = getResourceDefinitionByNameAndUrl(resourceDefinition.children, resourceDefinition.url + "/" + resourceDefinition.children);
-
+                        var csmName = getCsmNameFromIdAndName(d.id, d.name);
                         return {
-                            label: (d.displayName ? d.displayName : d.name),
+                            label: (d.displayName ? d.displayName : csmName),
                             resourceDefinition: childDefinition,
-                            value: (d.subscriptionId ? d.subscriptionId : d.name),
+                            value: (d.subscriptionId ? d.subscriptionId : csmName),
                             is_leaf: (childDefinition.children ? false : true)
                         };
                     });
@@ -251,13 +255,33 @@
 
         $scope.enterCreateMode = function () {
             $scope.createMode = true;
+            createEditor.resize();
         }
 
         $scope.leaveCreateMode = function () {
             $scope.createMode = false;
+            editor.resize();
         }
 
-        $scope.invokeCreate = function (createdResourceName) {
+        $scope.clearCreate = function () {
+            delete $scope.createModel.createdResourceName;
+            createEditor.setValue(JSON.stringify($scope.createMetaData, undefined, 4));
+            createEditor.session.selection.clearSelection();
+        }
+
+        $scope.invokeCreate = function () {
+            var resourceName = $scope.createModel.createdResourceName
+            if (!resourceName) {
+                $scope.createError = syntaxHighlight({
+                    error: {
+                        message: "{Resource Name} can't be empty"
+                    }
+                });
+                $scope.invoking = false;
+                $scope.loading = false;
+                return;
+            }
+
             delete $scope.createError;
             var userObject = JSON.parse(createEditor.getValue());
             cleanObject(userObject);
@@ -266,7 +290,7 @@
                 method: "POST",
                 url: "api/operations",
                 data: {
-                    Url: $scope.putUrl + "/" + createdResourceName,
+                    Url: $scope.putUrl + "/" + resourceName,
                     HttpMethod: "PUT",
                     RequestBody: userObject
                 }
@@ -281,11 +305,20 @@
             });
         }
 
+        $scope.refreshContent = function () {
+            $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
+        }
+
         // Get resourcesDefinitions
         initResourcesDefinitions();
 
         // Get tenants list
         initTenants();
+
+        function getCsmNameFromIdAndName(id, name) {
+            var splited = (id && id !== null ? id : name).split("/");
+            return splited[splited.length - 1];
+        }
 
         function selectFirstTab(delay) {
             $timeout(function () {
