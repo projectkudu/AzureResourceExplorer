@@ -699,6 +699,14 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
         }
 
         function cleanObject(obj) {
+            var hadProperties = (obj.properties !== undefined);
+            recursiveCleanObject(obj);
+            if (hadProperties && !obj.properties) {
+                obj.properties = {};
+            }
+        }
+
+        function recursiveCleanObject(obj) {
             for (var property in obj) {
                 if (obj.hasOwnProperty(property)) {
                     if (typeof obj[property] === "string" && (/\(.*\)/.test(obj[property]))) {
@@ -709,7 +717,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                             if (typeof element === "string" && (/\(.*\)/.test(element))) {
                                 return false
                             } else if (typeof element === "object" && !$.isEmptyObject(element)) {
-                                cleanObject(element);
+                                recursiveCleanObject(element);
                             } else if (typeof element === "object" && $.isEmptyObject(element)) {
                                 return false;
                             }
@@ -718,7 +726,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                         });
                         if (obj[property].length === 0) delete obj[property];
                     } else if (typeof obj[property] === "object" && !$.isEmptyObject(obj[property])) {
-                        cleanObject(obj[property]);
+                        recursiveCleanObject(obj[property]);
                         if ($.isEmptyObject(obj[property])) delete obj[property];
                     } else if (typeof obj[property] === "object" && $.isEmptyObject(obj[property])) {
                         delete obj[property];
