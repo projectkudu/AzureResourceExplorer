@@ -232,8 +232,10 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                 $scope.putError = syntaxHighlight(err);
                 $scope.invoking = false;
                 $scope.loading = false;
+                fadeInAndFadeOutError();
             }).success(function () {
                 $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
+                fadeInAndFadeOutSuccess();
             });
         };
 
