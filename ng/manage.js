@@ -314,6 +314,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
         $scope.enterCreateMode = function () {
             $scope.createMode = true;
             createEditor.resize();
+            delete $scope.createModel.createdResourceName;
         }
 
         $scope.leaveCreateMode = function () {
