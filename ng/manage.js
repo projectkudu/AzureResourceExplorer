@@ -1,4 +1,62 @@
-﻿angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx"])
+﻿
+//http://stackoverflow.com/a/22253161
+angular.module("mp.resizer", [])
+     .directive('resizer', function($document) {
+
+         return function($scope, $element, $attrs) {
+
+             $element.on('mousedown', function(event) {
+                 event.preventDefault();
+
+                 $document.on('mousemove', mousemove);
+                 $document.on('mouseup', mouseup);
+             });
+
+             function mousemove(event) {
+
+                 if ($attrs.resizer == 'vertical') {
+                     // Handle vertical resizer
+                     var x = event.pageX;
+
+                     if ($attrs.resizerMax && x > $attrs.resizerMax) {
+                         x = parseInt($attrs.resizerMax);
+                     }
+
+                     $element.css({
+                         left: x + 'px'
+                     });
+
+                     $($attrs.resizerLeft).css({
+                         width: x + 'px'
+                     });
+                     $($attrs.resizerRight).css({
+                         left: (x + parseInt($attrs.resizerWidth)) + 'px'
+                     });
+
+                 } else {
+                     // Handle horizontal resizer
+                     var y = window.innerHeight - event.pageY;
+
+                     $element.css({
+                         bottom: y + 'px'
+                     });
+
+                     $($attrs.resizerTop).css({
+                         bottom: (y + parseInt($attrs.resizerHeight)) + 'px'
+                     });
+                     $($attrs.resizerBottom).css({
+                         height: y + 'px'
+                     });
+                 }
+             }
+
+             function mouseup() {
+                 $document.unbind('mousemove', mousemove);
+                 $document.unbind('mouseup', mouseup);
+             }
+         };
+     })
+angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer"])
     .controller("bodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
 
         $scope.treeControl = {};
@@ -23,6 +81,7 @@
                 message: "Select a node to start"
             }));
             editor.session.selection.clearSelection();
+            //$(".sidebar").resizable();
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
@@ -30,7 +89,7 @@
             .do(function () {}, function (err) {
                 $scope.invoking = false;
                 $scope.loading = false;
-                selectFirstTab(1);
+                if (!err.config.dontClickFirstTab) selectFirstTab(1);
                 if (err.config && err.config.resourceDefinition && !isEmptyObjectorArray(err.config.resourceDefinition.requestBody)) {
                     var resourceDefinition = err.config.resourceDefinition;
                     $scope.putUrl = err.config.filledInUrl;
@@ -45,12 +104,11 @@
             .retry()
             .subscribe(function (value) {
                 delete $scope.putError;
-                delete $scope.actionResponse;
                 delete $scope.selectedResource;
                 $scope.invoking = false;
                 $scope.loading = false;
                 $scope.creatable = false;
-                selectFirstTab(1);
+                if (!value.dontClickFirstTab) { selectFirstTab(1); delete $scope.actionResponse; }
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
                         editor.setValue(JSON.stringify(value.resourceDefinition.requestBody, undefined, 4));
@@ -147,13 +205,13 @@
                     selectFirstTab(900);
                     scrollToTop(900);
                 } else {
-                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
-                    $("html, body").scrollTop(0);
+                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
                 }
-
+                fadeInAndFadeOutSuccess();
             }).error(function(err){
                 $scope.loading = false;
                 $scope.actionResponse = syntaxHighlight(err);
+                fadeInAndFadeOutError();
             });
         };
 
@@ -298,10 +356,12 @@
                 $scope.createError = syntaxHighlight(err);
                 $scope.invoking = false;
                 $scope.loading = false;
+                fadeInAndFadeOutError();
             }).success(function () {
                 var branch = $scope.treeControl.get_selected_branch();
                 $scope.treeControl.collapse_branch(branch);
-                $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
+                $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
+                fadeInAndFadeOutSuccess();
             });
         }
 
@@ -314,6 +374,24 @@
 
         // Get tenants list
         initTenants();
+
+        function fadeInAndFadeOutSuccess() {
+            setTimeout(function () {
+                $("#success-marker").fadeIn(1500);
+                setTimeout(function () {
+                    $("#success-marker").fadeOut(1500);
+                }, 1200);
+            }, 500);
+        }
+
+        function fadeInAndFadeOutError() {
+            setTimeout(function () {
+                $("#failure-marker").fadeIn(1500);
+                setTimeout(function () {
+                    $("#failure-marker").fadeOut(1500);
+                }, 1200);
+            }, 500);
+        }
 
         function getCsmNameFromIdAndName(id, name) {
             var splited = (id && id !== null ? id : name).split("/");
@@ -516,11 +594,11 @@
         function selectResource(args) {
             var branch = args[0];
             var event = args[1];
-            fixWidths(event);
+            var dontClickFirstTab = (args.length === 3 ? args[2] : false);
             $scope.loading = true;
             delete $scope.errorResponse;
             var resourceDefinition = branch.resourceDefinition;
-            if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch }));
+            if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch, dontClickFirstTab: dontClickFirstTab }));
 
             var getActions = resourceDefinition.actions.filter(function (a) {
                 return (a === "GET" || a === "GETPOST");
@@ -534,6 +612,9 @@
                 ? {
                     method: "GET",
                     url: "api" + url.substring(url.indexOf("/subscriptions")),
+                    resourceDefinition: resourceDefinition,
+                    filledInUrl: url,
+                    dontClickFirstTab: dontClickFirstTab
                 }
                 : {
                     method: "POST",
@@ -543,12 +624,13 @@
                         HttpMethod: getAction
                     },
                     resourceDefinition: resourceDefinition,
-                    filledInUrl: url
+                    filledInUrl: url,
+                    dontClickFirstTab: dontClickFirstTab
                 };
                 $scope.loading = true;
-                return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
+                return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction, dontClickFirstTab: dontClickFirstTab }; });
             }
-            return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
+            return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition, dontClickFirstTab: dontClickFirstTab }));
         }
 
         function fixWidths(event) {
