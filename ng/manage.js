@@ -72,7 +72,8 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                 e.setOptions({
                     maxLines: Infinity,
                     fontSize: 15,
-                    wrap: "free"
+                    wrap: "free",
+                    showPrintMargin: false
                 });
                 e.setTheme("ace/theme/tomorrow");
                 e.getSession().setMode("ace/mode/json");
@@ -373,6 +374,12 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
 
         $scope.refreshContent = function () {
             $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
+        }
+
+        $scope.enterDataTab = function () {
+            if (editor) {
+                editor.resize();
+            }
         }
 
         // Get resourcesDefinitions
