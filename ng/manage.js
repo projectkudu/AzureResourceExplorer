@@ -365,6 +365,9 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                 $scope.treeControl.collapse_branch(branch);
                 $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
                 fadeInAndFadeOutSuccess();
+                $timeout(function () {
+                    $scope.expandResourceHandler(branch);
+                }, 50);
             });
         }
 
