@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace ManagePortal.Controllers
+namespace ARMExplorer.Controllers
 {
     public class OperationInfo
     {

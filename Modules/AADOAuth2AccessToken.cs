@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace ManagePortal.Modules
+namespace ARMExplorer.Modules
 {
     public class AADOAuth2AccessToken
     {

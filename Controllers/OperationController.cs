@@ -10,7 +10,7 @@ using System.Web.Http;
 using Microsoft.Azure.Management.WebSites;
 using Newtonsoft.Json.Linq;
 
-namespace ManagePortal.Controllers
+namespace ARMExplorer.Controllers
 {
     public class OperationController : ApiController
     {
@@ -22,7 +22,7 @@ namespace ManagePortal.Controllers
             var watch = new Stopwatch();
             watch.Start();
 
-            var json = (JArray) HyakUtils.GetOperations<WebSiteManagementClient>(hidden).DeepClone();
+            var json = (JArray)HyakUtils.GetOperations<WebSiteManagementClient>(hidden).DeepClone();
             json.AddFirst(JObject.FromObject(new
             {
                 MethodName = "Delete",

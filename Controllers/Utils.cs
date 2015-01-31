@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace ManagePortal.Controllers
+namespace ARMExplorer.Controllers
 {
     public static class Utils
     {

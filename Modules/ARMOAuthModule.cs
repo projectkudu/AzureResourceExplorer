@@ -13,7 +13,7 @@ using System.Text;
 using System.Threading;
 using System.Web;
 
-namespace ManagePortal.Modules
+namespace ARMExplorer.Modules
 {
     public class ARMOAuthModule : IHttpModule
     {
@@ -26,8 +26,8 @@ namespace ManagePortal.Modules
 
         public static readonly CookieTransform[] DefaultCookieTransforms = new CookieTransform[]
         {
-	        new DeflateCookieTransform(),
-	        new MachineKeyTransform()
+            new DeflateCookieTransform(),
+            new MachineKeyTransform()
         };
 
         public static string AADClientId
@@ -125,7 +125,7 @@ namespace ManagePortal.Modules
                         token = AADOAuth2AccessToken.GetAccessTokenByRefreshToken(token.TenantId, token.refresh_token, ManagementResource);
                         WriteOAuthTokenCookie(application, token);
                     }
-                    
+
                     principal = new ClaimsPrincipal(new ClaimsIdentity("AAD"));
                     request.ServerVariables["HTTP_X_MS_OAUTH_TOKEN"] = token.access_token;
                 }

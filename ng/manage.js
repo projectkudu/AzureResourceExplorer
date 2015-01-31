@@ -1,11 +1,11 @@
 ﻿
 //http://stackoverflow.com/a/22253161
 angular.module("mp.resizer", [])
-     .directive('resizer', function($document) {
+     .directive('resizer', function ($document) {
 
-         return function($scope, $element, $attrs) {
+         return function ($scope, $element, $attrs) {
 
-             $element.on('mousedown', function(event) {
+             $element.on('mousedown', function (event) {
                  event.preventDefault();
 
                  $document.on('mousemove', mousemove);
@@ -56,7 +56,7 @@ angular.module("mp.resizer", [])
              }
          };
      })
-angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer"])
+angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer"])
     .controller("bodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
 
         $scope.treeControl = {};
@@ -87,7 +87,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
 
         $scope.$createObservableFunction("selectResourceHandler")
             .flatMapLatest(selectResource)
-            .do(function () {}, function (err) {
+            .do(function () { }, function (err) {
                 $scope.invoking = false;
                 $scope.loading = false;
                 if (!err.config.dontClickFirstTab) selectFirstTab(1);
@@ -130,7 +130,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                 $scope.rawData = data;
                 $scope.putUrl = url;
                 var putActions = resourceDefinition.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
-                var createActions = resourceDefinition.actions.filter(function (a) { return ( a === "CREATE"); });
+                var createActions = resourceDefinition.actions.filter(function (a) { return (a === "CREATE"); });
                 if (putActions.length === 1) {
                     var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
                     mergeObject($scope.rawData, editable);
@@ -176,7 +176,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                                 url: url + "/" + d.resourceName
                             };
                         }
-                    }).filter(function(r) {return r !== undefined;}));
+                    }).filter(function (r) { return r !== undefined; }));
 
                 $scope.selectedResource = {
                     url: url,
@@ -195,7 +195,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                     Url: url,
                     HttpMethod: action
                 }
-            }).success(function(data){
+            }).success(function (data) {
                 $scope.actionResponse = syntaxHighlight(data);
                 $scope.loading = false;
                 var currentBranch = $scope.treeControl.get_selected_branch();
@@ -209,7 +209,7 @@ angular.module("managePortal", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootst
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
                 }
                 fadeInAndFadeOutSuccess();
-            }).error(function(err){
+            }).error(function (err) {
                 $scope.loading = false;
                 $scope.actionResponse = syntaxHighlight(err);
                 fadeInAndFadeOutError();
