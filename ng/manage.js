@@ -288,8 +288,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                       }
                   };
                 return $http(httpConfig).success(function (data) {
+                    var childDefinition = getResourceDefinitionByNameAndUrl(resourceDefinition.children, resourceDefinition.url + "/" + resourceDefinition.children);
                     branch.children = (data.value ? data.value : data).map(function (d) {
-                        var childDefinition = getResourceDefinitionByNameAndUrl(resourceDefinition.children, resourceDefinition.url + "/" + resourceDefinition.children);
                         var csmName = getCsmNameFromIdAndName(d.id, d.name);
                         return {
                             label: (d.displayName ? d.displayName : csmName),
