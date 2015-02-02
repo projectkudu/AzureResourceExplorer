@@ -1,11 +1,11 @@
 ﻿
 //http://stackoverflow.com/a/22253161
 angular.module("mp.resizer", [])
-     .directive('resizer', function ($document) {
+     .directive('resizer', function($document) {
 
-         return function ($scope, $element, $attrs) {
+         return function($scope, $element, $attrs) {
 
-             $element.on('mousedown', function (event) {
+             $element.on('mousedown', function(event) {
                  event.preventDefault();
 
                  $document.on('mousemove', mousemove);
@@ -56,6 +56,7 @@ angular.module("mp.resizer", [])
              }
          };
      })
+
 angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer"])
     .controller("bodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
 
@@ -87,9 +88,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.$createObservableFunction("selectResourceHandler")
             .flatMapLatest(selectResource)
-            .do(function () { }, function (err) {
-                $scope.invoking = false;
-                $scope.loading = false;
+            .do(function () {}, function (err) {
+                setStateForErrorOnResourceClick();
                 if (!err.config.dontClickFirstTab) selectFirstTab(1);
                 if (err.config && err.config.resourceDefinition && !isEmptyObjectorArray(err.config.resourceDefinition.requestBody)) {
                     var resourceDefinition = err.config.resourceDefinition;
@@ -104,11 +104,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             })
             .retry()
             .subscribe(function (value) {
-                delete $scope.putError;
-                delete $scope.selectedResource;
-                $scope.invoking = false;
-                $scope.loading = false;
-                $scope.creatable = false;
+                setStateForClickOnResource();
                 if (!value.dontClickFirstTab) { selectFirstTab(1); delete $scope.actionResponse; }
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
@@ -169,25 +165,24 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         return d.length === 1;
                     }).map(function (childString) {
                         var d = getResourceDefinitionByNameAndUrl(childString, resourceDefinition.url + "/" + childString);
-                        if (d.children === undefined && Array.isArray(d.actions) && d.actions.filter(function (actionName) { return actionName === "POST" }).length > 0) {
+                        if (d.children === undefined && Array.isArray(d.actions) && d.actions.filter(function (actionName) { return actionName === "POST"; }).length > 0) {
                             return {
                                 httpMethod: "POST",
                                 name: d.resourceName,
                                 url: url + "/" + d.resourceName
                             };
                         }
-                    }).filter(function (r) { return r !== undefined; }));
+                    }).filter(function(r) {return r !== undefined;}));
 
                 $scope.selectedResource = {
                     url: url,
                     actionsAndVerbs: actionsAndVerbs,
-                    httpMethod: value.httpMethod,
+                    httpMethod: value.httpMethod
                 };
             });
 
         $scope.invokeAction = function (action, url) {
-            $scope.loading = true;
-            delete $scope.actionResponse;
+            setStateForInvokeAction();
             $http({
                 method: "POST",
                 url: "api/operations",
@@ -195,7 +190,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     Url: url,
                     HttpMethod: action
                 }
-            }).success(function (data) {
+            }).success(function(data){
                 $scope.actionResponse = syntaxHighlight(data);
                 $scope.loading = false;
                 var currentBranch = $scope.treeControl.get_selected_branch();
@@ -209,7 +204,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
                 }
                 fadeInAndFadeOutSuccess();
-            }).error(function (err) {
+            }).error(function(err){
                 $scope.loading = false;
                 $scope.actionResponse = syntaxHighlight(err);
                 fadeInAndFadeOutError();
@@ -217,10 +212,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         };
 
         $scope.invokePut = function () {
-            delete $scope.putError;
+            setStateForInvokePut();
             var userObject = JSON.parse(editor.getValue());
             cleanObject(userObject);
-            $scope.invoking = true;
             $http({
                 method: "POST",
                 url: "api/operations",
@@ -255,16 +249,22 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
             if (Array.isArray(resourceDefinition.children)) {
                 //TODO
-                branch.children = resourceDefinition.children.map(function (childName) {
+                branch.children = resourceDefinition.children.filter(function(childName) {
                     var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
-                    if (!childDefinition) return;
-                    if (childDefinition.children === undefined && Array.isArray(childDefinition.actions) && childDefinition.actions.filter(function (actionName) { return actionName === "POST" }).length > 0) return;
+                    if (!childDefinition) return false;
+                    if (childDefinition.children === undefined &&
+                        Array.isArray(childDefinition.actions) &&
+                        childDefinition.actions.filter(function (actionName) { return actionName === "POST"; }).length > 0)
+                        return false;
+                    return true;
+                }).map(function (childName) {
+                    var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
                     return {
                         label: childName,
                         resourceDefinition: childDefinition,
                         is_leaf: (childDefinition.children ? false : true)
                     };
-                }).filter(function (f) { return f !== undefined; });
+                });
                 if (branch.children.length === 1)
                     $timeout(function () {
                         $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
@@ -277,7 +277,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 var httpConfig = (getUrl.endsWith("resourceGroups") || getUrl.endsWith("subscriptions") || getUrl.split("/").length === 3)
                   ? {
                       method: "GET",
-                      url: "api" + getUrl.substring(getUrl.indexOf("/subscriptions")),
+                      url: "api" + getUrl.substring(getUrl.indexOf("/subscriptions"))
                   }
                   : {
                       method: "POST",
@@ -318,21 +318,21 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.createMode = true;
             createEditor.resize();
             delete $scope.createModel.createdResourceName;
-        }
+        };
 
         $scope.leaveCreateMode = function () {
             $scope.createMode = false;
             editor.resize();
-        }
+        };
 
         $scope.clearCreate = function () {
             delete $scope.createModel.createdResourceName;
             createEditor.setValue(JSON.stringify($scope.createMetaData, undefined, 4));
             createEditor.session.selection.clearSelection();
-        }
+        };
 
         $scope.invokeCreate = function () {
-            var resourceName = $scope.createModel.createdResourceName
+            var resourceName = $scope.createModel.createdResourceName;
             if (!resourceName) {
                 $scope.createError = syntaxHighlight({
                     error: {
@@ -370,23 +370,46 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $scope.expandResourceHandler(branch);
                 }, 50);
             });
-        }
+        };
 
         $scope.refreshContent = function () {
             $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
-        }
+        };
 
         $scope.enterDataTab = function () {
             if (editor) {
                 editor.resize();
             }
-        }
+        };
 
         // Get resourcesDefinitions
         initResourcesDefinitions();
 
         // Get tenants list
         initTenants();
+
+        function setStateForClickOnResource() {
+            delete $scope.putError;
+            delete $scope.selectedResource;
+            $scope.invoking = false;
+            $scope.loading = false;
+            $scope.creatable = false;
+        }
+
+        function setStateForErrorOnResourceClick() {
+            $scope.invoking = false;
+            $scope.loading = false;
+        }
+
+        function setStateForInvokeAction() {
+            $scope.loading = true;
+            delete $scope.actionResponse;
+        }
+
+        function setStateForInvokePut() {
+            delete $scope.putError;
+            $scope.invoking = true;
+        }
 
         function fadeInAndFadeOutSuccess() {
             setTimeout(function () {
@@ -509,7 +532,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         function buildResourcesDefinitionsTable(operation, url) {
             url = (operation ? operation.Url : url);
-            var segments = url.split("/").filter(function (a) { return a.length !== 0 });
+            var segments = url.split("/").filter(function (a) { return a.length !== 0; });
             var resourceName = segments.pop();
             var addedElement;
 
@@ -523,12 +546,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
 
             //set the element itself
-            var elements = $scope.resourcesDefinitionsTable.filter(function (r) { return r.url === url });
+            var elements = $scope.resourcesDefinitionsTable.filter(function (r) { return r.url === url; });
             if (elements.length === 1) {
                 //it's there, update it's actions
                 if (operation) {
                     elements[0].requestBody = (elements[0].requestBody ? elements[0].requestBody : operation.RequestBody);
-                    if (elements[0].actions.filter(function (c) { return c === operation.HttpMethod }).length === 0) {
+                    if (elements[0].actions.filter(function (c) { return c === operation.HttpMethod; }).length === 0) {
                         elements[0].actions.push(operation.HttpMethod);
                     }
                 }
@@ -546,7 +569,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             // set the parent recursively
             setParent(url);
             return addedElement;
-        }
+        };
 
         function setParent(url, action, requestBody) {
             var segments = url.split("/").filter(function (a) { return a.length !== 0; });
@@ -802,7 +825,7 @@ Array.prototype.getUnique = function (getValue) {
         u[value] = 1;
     }
     return a;
-}
+};
 
 //http://devdocs.io/javascript/global_objects/array/indexof
 Array.prototype.indexOfDelegate = function (searchElement, fromIndex) {
