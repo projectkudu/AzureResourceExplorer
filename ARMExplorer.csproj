@@ -46,9 +46,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ref\Hyak.Specs.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Management.Compute.Specification">
+      <HintPath>ref\Microsoft.Azure.Management.Compute.Specification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Management.Network.Specification, Version=2.0.5493.31582, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ref\Microsoft.Azure.Management.Network.Specification.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.Management.Storage.Specification">
+      <HintPath>ref\Microsoft.Azure.Management.Storage.Specification.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Azure.Management.WebSites.Specification, Version=2.0.5498.41563, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

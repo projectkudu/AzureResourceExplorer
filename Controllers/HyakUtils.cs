@@ -59,6 +59,7 @@ namespace ARMExplorer.Controllers
             }
 
             AddMissingApis(array);
+            //await AddRemoteApis(array);
 
             lock (_lock)
             {
@@ -88,7 +89,7 @@ namespace ARMExplorer.Controllers
             var json = new JObject();
             json["MethodName"] = method.Name;
             json["HttpMethod"] = method.HttpMethod.ToString().ToUpper();
-            json["ApiVersion"] = method.Service.ApiVersionExpression;
+            json["ApiVersion"] = method.Service.ApiVersionExpression == "2013-03-01" ? "2014-12-01-preview" : method.Service.ApiVersionExpression;
 
             if (method.RequestBodies.Count == 1)
             {

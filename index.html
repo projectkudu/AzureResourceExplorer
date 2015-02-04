@@ -76,12 +76,7 @@
                         <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
                     <div ng-show="selectedResource && selectedResource.url">
-                        <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="refreshContent()">
-                            {{ selectedResource.httpMethod }}
-                        </button>
-                        <button class="btn btn-success" ng-disabled="!show" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokePut()">
-                            PUT
-                        </button>
+                        <button ng-repeat="httpMethod in selectedResource.httpMethods" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(httpMethod)">{{httpMethod}}</button>
                         <pre>{{ selectedResource.url + "?api-version=" + apiVersion }}</pre>
                     </div>
                     <div id="json-editor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>

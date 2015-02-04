@@ -86,7 +86,48 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
-            .flatMapLatest(selectResource)
+            .flatMapLatest(function (args) {
+                var branch = args[0];
+                var event = args[1];
+                var dontClickFirstTab = (args.length === 3 ? args[2] : false);
+                $scope.loading = true;
+                delete $scope.errorResponse;
+                var resourceDefinition = branch.resourceDefinition;
+                if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch, dontClickFirstTab: dontClickFirstTab }));
+                $scope.apiVersion = resourceDefinition.apiVersion;
+                var getActions = resourceDefinition.actions.filter(function (a) {
+                    return (a === "GET" || a === "GETPOST");
+                });
+
+                if (getActions.length === 1) {
+                    var getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
+                    var url = (getAction === "POST" ? resourceDefinition.url + "/list" : resourceDefinition.url);
+                    url = injectTemplateValues(url, branch);
+                    var httpConfig = (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3)
+                    ? {
+                        method: "GET",
+                        url: "api" + url.substring(url.indexOf("/subscriptions")),
+                        resourceDefinition: resourceDefinition,
+                        filledInUrl: url,
+                        dontClickFirstTab: dontClickFirstTab
+                    }
+                    : {
+                        method: "POST",
+                        url: "api/operations",
+                        data: {
+                            Url: url,
+                            HttpMethod: getAction,
+                            ApiVersion: resourceDefinition.apiVersion
+                        },
+                        resourceDefinition: resourceDefinition,
+                        filledInUrl: url,
+                        dontClickFirstTab: dontClickFirstTab
+                    };
+                    $scope.loading = true;
+                    return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction, dontClickFirstTab: dontClickFirstTab }; });
+                }
+                return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition, dontClickFirstTab: dontClickFirstTab }));
+            })
             .do(function () {}, function (err) {
                 setStateForErrorOnResourceClick();
                 if (!err.config.dontClickFirstTab) selectFirstTab(1);
@@ -95,7 +136,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $scope.putUrl = err.config.filledInUrl;
                     editor.setValue("");
                     editor.session.selection.clearSelection();
-                    $scope.show = true;
                 }
                 delete err.config;
                 $scope.errorResponse = syntaxHighlight(err);
@@ -112,36 +152,30 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
                         editor.setValue(JSON.stringify(value.resourceDefinition.requestBody, undefined, 4));
                         editor.session.selection.clearSelection();
-                        $scope.show = true;
                     } else {
                         editor.setValue(JSON.stringify({
                             message: "No GET Url"
                         }), undefined, 4);
                         editor.session.selection.clearSelection();
-                        $scope.show = false;
                     }
                     return;
                 }
-                var data = value.data;
                 var resourceDefinition = value.resourceDefinition;
                 var url = value.url;
-                $scope.rawData = data;
                 $scope.putUrl = url;
                 var putActions = resourceDefinition.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
                 var createActions = resourceDefinition.actions.filter(function (a) { return (a === "CREATE"); });
                 if (putActions.length === 1) {
                     var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
-                    mergeObject($scope.rawData, editable);
+                    mergeObject(value.data, editable);
                     editor.setValue(JSON.stringify(editable, undefined, 4));
                     editor.session.selection.clearSelection();
-                    $scope.show = true;
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
                 } else {
-                    editor.setValue(JSON.stringify($scope.rawData, undefined, 4));
+                    editor.setValue(JSON.stringify(value.data, undefined, 4));
                     editor.session.selection.clearSelection();
-                    $scope.show = false;
                 }
 
                 if (createActions.length === 1) {
@@ -179,20 +213,29 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $scope.selectedResource = {
                     url: url,
                     actionsAndVerbs: actionsAndVerbs,
-                    httpMethod: value.httpMethod
+                    httpMethods: resourceDefinition.actions.filter(function (e) { return e !== "DELETE" && e !== "CREATE" }).map(function (e) { return (e === "GETPOST" ? "POST" : e);})
                 };
             });
+
+        $scope.handleClick = function (method) {
+            if (method === "PUT" || method === "PATCH" ) {
+                invokePutOrPatch(method);
+            } else {
+                refreshContent();
+            }
+        }
 
         $scope.invokeAction = function (action, url) {
             setStateForInvokeAction();
             if (action === "DELETE") {
                 //confirm here
+                _invokeAction(action, url);
             } else {
                 _invokeAction(action, url);
             }
         };
 
-        $scope.invokePut = function () {
+        function invokePutOrPatch (method) {
             setStateForInvokePut();
             var userObject = JSON.parse(editor.getValue());
             cleanObject(userObject);
@@ -201,7 +244,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 url: "api/operations",
                 data: {
                     Url: $scope.putUrl,
-                    HttpMethod: "PUT",
+                    HttpMethod: method,
                     RequestBody: userObject,
                     ApiVersion: $scope.apiVersion
                 }
@@ -356,7 +399,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             });
         };
 
-        $scope.refreshContent = function () {
+        function refreshContent() {
             $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
         };
 
@@ -554,9 +597,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 // handle resources that has a "secure GET"
                 setParent(url, "GETPOST");
                 return;
-            } else if (operation && (operation.MethodName === "CreateOrUpdate" || operation.MethodName === "BeginCreateOrUpdating") && operation.HttpMethod === "PUT") {
+            } else if (operation && (operation.MethodName.startsWith("Create") || operation.MethodName.startsWith("BeginCreate") || operation.MethodName.startsWith("Put")) && operation.HttpMethod === "PUT") {
                 // handle resources that has a CreateOrUpdate
                 setParent(url, "CREATE", operation.RequestBody);
+                if (operation.MethodName.indexOf("Updat") === -1) {
+                    return;
+                }
             }
 
             //set the element itself
@@ -640,49 +686,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 resourceParent = $scope.treeControl.get_parent_branch(resourceParent);
             }
             return url;
-        }
-
-        function selectResource(args) {
-            var branch = args[0];
-            var event = args[1];
-            var dontClickFirstTab = (args.length === 3 ? args[2] : false);
-            $scope.loading = true;
-            delete $scope.errorResponse;
-            var resourceDefinition = branch.resourceDefinition;
-            if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch, dontClickFirstTab: dontClickFirstTab }));
-            $scope.apiVersion = resourceDefinition.apiVersion;
-            var getActions = resourceDefinition.actions.filter(function (a) {
-                return (a === "GET" || a === "GETPOST");
-            });
-
-            if (getActions.length === 1) {
-                var getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
-                var url = (getAction === "POST" ? resourceDefinition.url + "/list" : resourceDefinition.url);
-                url = injectTemplateValues(url, branch);
-                var httpConfig = (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3)
-                ? {
-                    method: "GET",
-                    url: "api" + url.substring(url.indexOf("/subscriptions")),
-                    resourceDefinition: resourceDefinition,
-                    filledInUrl: url,
-                    dontClickFirstTab: dontClickFirstTab
-                }
-                : {
-                    method: "POST",
-                    url: "api/operations",
-                    data: {
-                        Url: url,
-                        HttpMethod: getAction,
-                        ApiVersion: resourceDefinition.apiVersion
-                    },
-                    resourceDefinition: resourceDefinition,
-                    filledInUrl: url,
-                    dontClickFirstTab: dontClickFirstTab
-                };
-                $scope.loading = true;
-                return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction, dontClickFirstTab: dontClickFirstTab }; });
-            }
-            return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition, dontClickFirstTab: dontClickFirstTab }));
         }
 
         function fixWidths(event) {
@@ -861,7 +864,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     scrollPastEnd: true
                 });
                 e.setTheme("ace/theme/ambiance");//_night_eighties");
-                e.getSession().setMode("ace/mode/ahmed");
+                e.getSession().setMode("ace/mode/rawarm");
                 //e.commands.removeCommand('find');
             });
             var initialContent = window.localStorage.csmRawContent;
@@ -910,7 +913,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     });
 
-     ace.define('ace/mode/ahmed', function (require, exports, module) {
+     ace.define('ace/mode/rawarm', function (require, exports, module) {
 
          var oop = require("ace/lib/oop");
          var TextMode = require("ace/mode/text").Mode;
