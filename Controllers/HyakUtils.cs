@@ -7,6 +7,10 @@ using System.Text.RegularExpressions;
 using Hyak.ApiModel;
 using Hyak.ServiceModel;
 using Newtonsoft.Json.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Web;
+using System.Threading.Tasks;
 
 namespace ARMExplorer.Controllers
 {
@@ -26,7 +30,7 @@ namespace ARMExplorer.Controllers
             set;
         }
 
-        public static JArray GetOperations<T>(bool hidden)
+        public static async Task<JArray> GetOperationsAsync<T>(bool hidden)
         {
             lock (_lock)
             {
@@ -53,6 +57,8 @@ namespace ARMExplorer.Controllers
                     GenerateMethod(ShouldSkip(method) ? skip : array, method);
                 }
             }
+
+            AddMissingApis(array);
 
             lock (_lock)
             {
@@ -82,6 +88,7 @@ namespace ARMExplorer.Controllers
             var json = new JObject();
             json["MethodName"] = method.Name;
             json["HttpMethod"] = method.HttpMethod.ToString().ToUpper();
+            json["ApiVersion"] = method.Service.ApiVersionExpression;
 
             if (method.RequestBodies.Count == 1)
             {
@@ -279,6 +286,107 @@ namespace ARMExplorer.Controllers
             }
 
             throw new InvalidOperationException("Should not reach here. " + expression.GetType() + ", " + expression);
+        }
+
+        private static void AddMissingApis(JArray array)
+        {
+            array.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Delete",
+                HttpMethod = "DELETE",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
+                ApiVersion = Utils.CSMApiVersion
+            }));
+            array.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "GET",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
+                ApiVersion = Utils.CSMApiVersion
+            }));
+            array.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "GET",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups",
+                ApiVersion = Utils.CSMApiVersion
+            }));
+            array.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "GET",
+                Url = HyakUtils.CSMUrl + "/subscriptions",
+                ApiVersion = Utils.CSMApiVersion
+            }));
+            array.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "Get",
+                HttpMethod = "GET",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}",
+                ApiVersion = Utils.CSMApiVersion
+            }));
+        }
+
+        private static async Task AddRemoteApis(JArray array)
+        {
+            using (var client = GetClient())
+            {
+                var response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions?api-version=2014-04-01");
+                if (!response.IsSuccessStatusCode) return;
+
+                dynamic subscriptions = await response.Content.ReadAsAsync<JObject>();
+                if (subscriptions.value.Count == 0) return;
+
+                var subId = subscriptions.value[0].subscriptionId;
+                response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions/" + subId + "/providers?api-version=2014-04-01");
+                if (!response.IsSuccessStatusCode) return;
+
+                var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
+                var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
+                providersList.Select((provider) =>
+                {
+                    return provider["resourceTypes"].Select((resourceType) =>
+                    {
+                        return new[] { JObject.FromObject(new
+                        {
+                            MethodName = "GET",
+                            HttpMethod = "GET",
+                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b),
+                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
+                        }),
+                        JObject.FromObject(new
+                        {
+                            MethodName = "GET",
+                            HttpMethod = "GET",
+                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
+                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
+                        })};
+                    });
+                }).SelectMany(i => i).SelectMany(i => i).ToList().ForEach(array.Add);
+            }
+        }
+
+        private static HttpClient GetClient()
+        {
+            var client = new HttpClient();
+            client.BaseAddress = new Uri(Utils.GetCSMUrl(string.Empty));
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Current.Request.Headers[Utils.X_MS_OAUTH_TOKEN]);
+            client.DefaultRequestHeaders.Add("User-Agent", HttpContext.Current.Request.Url.Host);
+            return client;
+        }
+
+        private static IEnumerable<T> WithoutLast<T>(this IEnumerable<T> source)
+        {
+            using (var e = source.GetEnumerator())
+            {
+                if (e.MoveNext())
+                {
+                    for (var value = e.Current; e.MoveNext(); value = e.Current)
+                    {
+                        yield return value;
+                    }
+                }
+            }
         }
     }
 }

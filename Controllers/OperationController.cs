@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Azure.Management.WebSites;
+using Microsoft.Azure.Management.Network;
 using Newtonsoft.Json.Linq;
 
 namespace ARMExplorer.Controllers
@@ -15,44 +16,15 @@ namespace ARMExplorer.Controllers
     public class OperationController : ApiController
     {
         [Authorize]
-        public HttpResponseMessage Get(bool hidden = false)
+        public async Task<HttpResponseMessage> Get(bool hidden = false)
         {
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
 
             var watch = new Stopwatch();
             watch.Start();
-
-            var json = (JArray)HyakUtils.GetOperations<WebSiteManagementClient>(hidden).DeepClone();
-            json.AddFirst(JObject.FromObject(new
-            {
-                MethodName = "Delete",
-                HttpMethod = "DELETE",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
-            }));
-            json.AddFirst(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}"
-            }));
-            json.AddFirst(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups"
-            }));
-            json.AddFirst(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions"
-            }));
-            json.AddFirst(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}"
-            }));
+            var webSitesJson = (JArray)await HyakUtils.GetOperationsAsync<WebSiteManagementClient>(hidden);
+            var networkJson = (JArray) await HyakUtils.GetOperationsAsync<NetworkResourceProviderClient>(hidden);
+            var json = new JArray(webSitesJson.Union(networkJson));
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
@@ -67,8 +39,7 @@ namespace ARMExplorer.Controllers
 
             using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
             {
-                var apiVersion = Utils.GetApiVersion(info.Url);
-                var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + "?api-version=" + apiVersion);
+                var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=") != -1 ? string.Empty : "?api-version=" + info.ApiVersion));
                 if (info.RequestBody != null)
                 {
                     request.Content = new StringContent(info.RequestBody.ToString(), Encoding.UTF8, "application/json");

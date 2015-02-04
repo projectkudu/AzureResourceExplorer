@@ -82,7 +82,7 @@
                         <button class="btn btn-success" ng-disabled="!show" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokePut()">
                             PUT
                         </button>
-                        <pre>{{ selectedResource.url }}</pre>
+                        <pre>{{ selectedResource.url + "?api-version=" + apiVersion }}</pre>
                     </div>
                     <div id="json-editor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
                     <h2 ng-show="errorResponse || putError">Error:</h2>
@@ -101,7 +101,7 @@
                         <tbody>
                             <tr ng-repeat="action in selectedResource.actionsAndVerbs">
                                 <td><button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action.httpMethod, action.url)">{{ action.name }}</button></td>
-                                <td><pre>{{ action.httpMethod }} {{ action.url }}</pre></td>
+                                <td><pre>{{ action.httpMethod }} {{ action.url + "?api-version=" + apiVersion }}</pre></td>
                             </tr>
                         </tbody>
                     </table>
@@ -118,7 +118,7 @@
                         PUT
                     </button>
                     <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
-                    <pre>{{ selectedResource.url + "/" + createModel.createdResourceName }}</pre>
+                    <pre>{{ selectedResource.url + "/" + createModel.createdResourceName + "?api-version=" + apiVersion }}</pre>
                     <div id="json-create-editor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
                     <h2 ng-show="errorResponse || createError">Error:</h2>
                     <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>

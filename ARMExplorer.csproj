@@ -46,6 +46,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ref\Hyak.Specs.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Azure.Management.Network.Specification, Version=2.0.5493.31582, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>ref\Microsoft.Azure.Management.Network.Specification.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Azure.Management.WebSites.Specification, Version=2.0.5498.41563, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ref\Microsoft.Azure.Management.WebSites.Specification.dll</HintPath>
@@ -53,7 +57,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.identitymodel.services" />
@@ -116,6 +120,7 @@
     <Content Include="raw\index.html" />
     <Content Include="ref\Hyak.Core.dll" />
     <Content Include="ref\Hyak.Specs.dll" />
+    <Content Include="ref\Microsoft.Azure.Management.Network.Specification.dll" />
     <Content Include="ref\Microsoft.Azure.Management.WebSites.Specification.dll" />
     <Content Include="ref\System.IdentityModel.Tokens.Jwt.dll" />
     <Content Include="Web.config" />
