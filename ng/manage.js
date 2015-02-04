@@ -213,7 +213,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $scope.selectedResource = {
                     url: url,
                     actionsAndVerbs: actionsAndVerbs,
-                    httpMethods: resourceDefinition.actions.filter(function (e) { return e !== "DELETE" && e !== "CREATE" }).map(function (e) { return (e === "GETPOST" ? "POST" : e);})
+                    httpMethods: resourceDefinition.actions.filter(function (e) { return e !== "DELETE" && e !== "CREATE" }).map(function (e) { return (e === "GETPOST" ? "POST" : e);}).sort()
                 };
             });
 
