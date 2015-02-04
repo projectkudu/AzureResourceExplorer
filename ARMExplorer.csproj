@@ -93,6 +93,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Styles\app2.css" />
     <Content Include="packages.config" />
     <Content Include="applicationHost.xdt" />
     <None Include="Web.Debug.config">
@@ -112,6 +113,7 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="ng\manage.js" />
+    <Content Include="raw\index.html" />
     <Content Include="ref\Hyak.Core.dll" />
     <Content Include="ref\Hyak.Specs.dll" />
     <Content Include="ref\Microsoft.Azure.Management.WebSites.Specification.dll" />

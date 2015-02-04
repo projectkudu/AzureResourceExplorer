@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html ng-app="managePortal">
+
+<head>
+    <base href="/manage/" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-animate.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular-sanitize.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.11.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/rxjs/2.2.27/rx.lite.compat.js"></script>
+    <script src="Content/Scripts/abn_tree_directive.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.3/ace.js"></script>
+    <script src="Content/Scripts/rx.angular.js"></script>
+    <script src="ng/manage.js"></script>
+
+    <title>ManagePortal - {{ viewName }}</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link href="Content/Styles/sb-admin-2.css" rel="stylesheet" />
+
+    <!-- Custom Fonts -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="Content/Styles/app2.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+    <div id="wrapper" ng-controller="rawBodyController">
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" ng-click="clearEnvironment()">Azure Resource Management API Playground</a>
+                <select ng-model="selectedTenant" ng-options="tenant.name for tenant in tenants" style="position: absolute; top: 15px" ng-change="tenantSelect()"></select>
+                <span class="loading-spinner" ng-show="loading">
+                    <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
+                </span>
+            </div>
+        </nav>
+        <div id="sidebar" class="navbar-default sidebar" role="navigation">
+          <div id="request-editor" style="width: 100%; min-height: 100%; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px;"></div>
+        </div>
+        <div id="content">
+          <div id="response-editor" style="width: 100%; min-height: 100%; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px;"></div>
+        </div>
+
+        <div id="sidebar-resizer"
+             resizer="vertical"
+             resizer-width="2"
+             resizer-left="#sidebar"
+             resizer-right="#content"
+             resizer-max="2800">
+        </div>
+
+    </div>
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>
