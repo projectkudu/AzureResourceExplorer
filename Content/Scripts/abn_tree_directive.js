@@ -320,6 +320,9 @@
                               }
                               return new_branch;
                           };
+                          tree.get_roots = function () {
+                              return scope.treeData;
+                          };
                           tree.add_root_branch = function (new_branch) {
                               tree.add_branch(null, new_branch);
                               return new_branch;

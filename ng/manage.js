@@ -215,6 +215,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     actionsAndVerbs: actionsAndVerbs,
                     httpMethods: resourceDefinition.actions.filter(function (e) { return e !== "DELETE" && e !== "CREATE" }).map(function (e) { return (e === "GETPOST" ? "POST" : e);}).sort()
                 };
+                $location.path(url.substring("https://management.azure.com/".length));
             });
 
         $scope.handleClick = function (method) {
@@ -259,7 +260,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             });
         };
 
-        $scope.expandResourceHandler = function (branch, row, event) {
+        $scope.expandResourceHandler = function (branch, row, event, dontExpandChildren) {
             if (branch.is_leaf) return;
 
             if (branch.expanded) {
@@ -290,7 +291,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         is_leaf: (childDefinition.children ? false : true)
                     };
                 });
-                if (branch.children.length === 1)
+                if (branch.children.length === 1 && !dontExpandChildren)
                     $timeout(function () {
                         $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
                     });
@@ -327,7 +328,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 }).finally(function () {
                     $(document.getElementById("expand-icon-" + branch.uid)).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
                     $scope.treeControl.expand_branch(branch);
-                    if (branch.children && branch.children.length === 1)
+                    if (branch.children && branch.children.length === 1 && !dontExpandChildren)
                         $timeout(function () {
                             $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
                         });
@@ -414,6 +415,33 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         // Get tenants list
         initTenants();
+
+        function handlePath(path) {
+            if (path.length === 0) return;
+
+            var index = path.indexOf("/");
+            index = (index === -1 ? undefined : index);
+            var current = path.substring(0, index);
+            var rest = path.substring(index + 1);
+
+            var selectedBranch = $scope.treeControl.get_selected_branch();
+            if (!selectedBranch) {
+                var matches = $scope.treeControl.get_roots().filter(function (e) { return e.label === current; });
+                child = (matches.length > 0 ? matches[0] : undefined);
+            } else {
+                var matches = $scope.treeControl.get_children(selectedBranch).filter(function (e) { return current === (e.value ? e.value : e.label); });
+                child = (matches.length > 0 ? matches[0] : undefined);
+            }
+            
+            if (!child) return;
+            $scope.treeControl.select_branch(child);
+            var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
+            if (promis) {
+                promis.finally(function () { handlePath(rest); })
+            } else {
+                $timeout(function () { handlePath(rest); });
+            }
+        }
 
         function setStateForClickOnResource() {
             delete $scope.putError;
@@ -554,7 +582,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 // Initializes the root nodes for the tree
                 $scope.resources = getRootTreeNodes();
 
-            });
+            }).finally(function () { $timeout(function() {handlePath($location.path().substring(1))}); });
         }
 
         function getRootTreeNodes() {
@@ -911,6 +939,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $scope.selectedTenant = $scope.tenants[$scope.tenants.indexOfDelegate(function (tenant) { return tenant.current; })];
             });
         }
+    })
+    .config(function ($routeProvider, $locationProvider) {
+        $locationProvider.html5Mode(true);
     });
 
      ace.define('ace/mode/rawarm', function (require, exports, module) {
