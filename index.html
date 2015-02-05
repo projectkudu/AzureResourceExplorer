@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html ng-app="armExplorer">
 
 <head>
@@ -21,7 +21,7 @@
     <script src="Content/Scripts/rx.angular.js"></script>
     <script src="ng/manage.js"></script>
 
-    <title>ARMExplorer - {{ viewName }}</title>
+    <title>ARMExplorer</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/" ng-click="clearEnvironment()">Azure Resource Manager API Explorer</a>
+                <a class="navbar-brand" href="/" ng-click="clearEnvironment()">Azure Resource Explorer</a>
                 <select ng-model="selectedTenant" ng-options="tenant.name for tenant in tenants" style="position: absolute; top: 15px" ng-change="tenantSelect()"></select>
             </div>
         </nav>
