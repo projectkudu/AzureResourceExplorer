@@ -88,6 +88,7 @@ namespace ARMExplorer.Controllers
         {
             var json = new JObject();
             json["MethodName"] = method.Name;
+            if (method.Documentation != null) json["doc"] = JObject.FromObject(method.Documentation);
             json["HttpMethod"] = method.HttpMethod.ToString().ToUpper();
             json["ApiVersion"] = method.Service.ApiVersionExpression == "2013-03-01" ? "2014-12-01-preview" : method.Service.ApiVersionExpression;
 
@@ -96,6 +97,7 @@ namespace ARMExplorer.Controllers
                 var request = (RequestBody)method.RequestBodies.First().Value;
                 var schema = GetJsonSchehma(request.SerializationFormat);
                 json["RequestBody"] = schema;
+                json["RequestBodyDoc"] = GetJsonSchehma(request.SerializationFormat, getDocumentation: true);
             }
 
             if (method.ResponseBodies.Count == 1)
@@ -103,6 +105,7 @@ namespace ARMExplorer.Controllers
                 var response = (ResponseBody)method.ResponseBodies.First().Value.First().Value;
                 var schema = GetJsonSchehma(response.SerializationFormat);
                 json["ResponseBody"] = schema;
+                json["ResponseBodyDoc"] = GetJsonSchehma(response.SerializationFormat, getDocumentation: true);
             }
 
             var url = EvaluateExpression(BindingExpression.Bind(method, method.UrlExpression)).ToString();
@@ -127,7 +130,7 @@ namespace ARMExplorer.Controllers
             }
         }
 
-        private static JToken GetJsonSchehma(ISerializationBase serialization)
+        private static JToken GetJsonSchehma(ISerializationBase serialization, bool getDocumentation = false)
         {
             var xmlValue = serialization as Hyak.ServiceModel.XmlElement;
             if (xmlValue != null)
@@ -148,18 +151,24 @@ namespace ARMExplorer.Controllers
                             (member is JsonArray && ((JsonArray)member).PassThrough) ||
                             (member is JsonDictionary && ((JsonDictionary)member).PassThrough))
                         {
-                            return GetJsonSchehma(member);
+                            return GetJsonSchehma(member, getDocumentation);
                         }
 
-                        schema[member.Name] = GetJsonSchehma(member);
+                        schema[member.Name] = GetJsonSchehma(member, getDocumentation);
                     }
                     return schema;
                 }
 
                 var knownType = jsonValue.Type as Hyak.ServiceModel.KnownType;
-                if (knownType != null)
+                if (knownType != null && !getDocumentation)
                 {
                     return GetJsonSchehma(knownType);
+                }
+                else if (knownType != null && getDocumentation)
+                {
+                    return jsonValue.PropertyBinding.Documentation != null
+                        ? jsonValue.PropertyBinding.Documentation.Text
+                        : string.Empty;
                 }
 
                 throw new InvalidOperationException("Should not reach here. jsonValue.Type  = " + jsonValue.Type);
@@ -171,14 +180,20 @@ namespace ARMExplorer.Controllers
                 var schema = new JArray();
                 if (jsonArray.ElementFormat != null)
                 {
-                    schema.Add(GetJsonSchehma(jsonArray.ElementFormat));
+                    schema.Add(GetJsonSchehma(jsonArray.ElementFormat, getDocumentation));
                 }
                 else
                 {
                     var knownType = jsonArray.Type.GenericParameters[0] as Hyak.ServiceModel.KnownType;
-                    if (knownType != null)
+                    if (knownType != null && !getDocumentation)
                     {
                         schema.Add(GetJsonSchehma(knownType));
+                    }
+                    else if (knownType != null && getDocumentation)
+                    {
+                        schema.Add(jsonArray.PropertyBinding.Documentation != null
+                        ? jsonArray.PropertyBinding.Documentation.Text
+                        : string.Empty);
                     }
                     else
                     {

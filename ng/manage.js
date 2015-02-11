@@ -26,11 +26,19 @@ angular.module("mp.resizer", [])
                          left: x + 'px'
                      });
 
+                     var offset = 0;
+                     if ($attrs.resizerOffsetElement) {
+                         offset = $($attrs.resizerOffsetElement).outerWidth(true);
+                     }
+
                      $($attrs.resizerLeft).css({
-                         width: x + 'px'
+                         width: (x - offset) + 'px'
                      });
+
+                     var oldLeft = $($attrs.resizerRight).position().left;
                      $($attrs.resizerRight).css({
-                         left: (x + parseInt($attrs.resizerWidth)) + 'px'
+                         left: (x + parseInt($attrs.resizerWidth)) + 'px',
+                         width: $($attrs.resizerRight).outerWidth() - ((x + parseInt($attrs.resizerWidth)) - oldLeft) + 'px'
                      });
 
                  } else {
@@ -58,7 +66,7 @@ angular.module("mp.resizer", [])
      })
 
 angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer"])
-    .controller("treeBodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
+    .controller("treeBodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx, $document) {
 
         $scope.treeControl = {};
         $scope.createModel = {};
@@ -79,10 +87,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 e.setTheme("ace/theme/tomorrow");
                 e.getSession().setMode("ace/mode/json");
             });
-            editor.setValue(JSON.stringify({
-                message: "Select a node to start"
-            }));
+            editor.setValue(stringify({ message: "Select a node to start" }));
             editor.session.selection.clearSelection();
+        });
+
+        $document.on('mouseup', function () {
+            [editor, createEditor].map(function (e) { e.resize() });
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
@@ -150,12 +160,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 if (!value.dontClickFirstTab) { selectFirstTab(1); delete $scope.actionResponse; }
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
-                        editor.setValue(JSON.stringify(value.resourceDefinition.requestBody, undefined, 4));
+                        editor.setValue(stringify(value.resourceDefinition.requestBody));
                         editor.session.selection.clearSelection();
                     } else {
-                        editor.setValue(JSON.stringify({
-                            message: "No GET Url"
-                        }), undefined, 4);
+                        editor.setValue(stringify({ message: "No GET Url" }));
                         editor.session.selection.clearSelection();
                     }
                     return;
@@ -165,23 +173,26 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $scope.putUrl = url;
                 var putActions = resourceDefinition.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
                 var createActions = resourceDefinition.actions.filter(function (a) { return (a === "CREATE"); });
+                var editorData;
                 if (putActions.length === 1) {
                     var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
                     mergeObject(value.data, editable);
-                    editor.setValue(JSON.stringify(editable, undefined, 4));
+                    editor.setValue(stringify(editable));
                     editor.session.selection.clearSelection();
+                    editorData = editable;
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
                 } else {
-                    editor.setValue(JSON.stringify(value.data, undefined, 4));
+                    editor.setValue(stringify(value.data));
                     editor.session.selection.clearSelection();
+                    editorData = value.data;
                 }
 
                 if (createActions.length === 1) {
                     $scope.creatable = true;
                     $scope.createMetaData = resourceDefinition.requestBody;
-                    createEditor.setValue(JSON.stringify(resourceDefinition.requestBody, undefined, 4));
+                    createEditor.setValue(stringify(resourceDefinition.requestBody));
                     createEditor.session.selection.clearSelection();
                 }
 
@@ -209,11 +220,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             };
                         }
                     }).filter(function(r) {return r !== undefined;}));
+                var doc = (resourceDefinition.responseBodyDoc ? resourceDefinition.responseBodyDoc : resourceDefinition.requestBodyDoc);
+                var docArray = getDocumentationFlatArray(editorData, doc);
 
                 $scope.selectedResource = {
                     url: url,
                     actionsAndVerbs: actionsAndVerbs,
-                    httpMethods: resourceDefinition.actions.filter(function (e) { return e !== "DELETE" && e !== "CREATE" }).map(function (e) { return (e === "GETPOST" ? "POST" : e);}).sort()
+                    httpMethods: resourceDefinition.actions.filter(function (e) { return e !== "DELETE" && e !== "CREATE" }).map(function (e) { return (e === "GETPOST" ? "POST" : e); }).sort(),
+                    doc: docArray
                 };
                 $location.path(url.substring("https://management.azure.com/".length));
             });
@@ -354,7 +368,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.clearCreate = function () {
             delete $scope.createModel.createdResourceName;
-            createEditor.setValue(JSON.stringify($scope.createMetaData, undefined, 4));
+            createEditor.setValue(stringify($scope.createMetaData));
             createEditor.session.selection.clearSelection();
         };
 
@@ -409,6 +423,23 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 editor.resize();
             }
         };
+
+        $scope.hideDocs = function () {
+
+            var newWidth = $("#doc").outerWidth(true) + $("#content").outerWidth(true);
+            $("#content").css({ width: newWidth });
+            $("#doc").hide();
+            $("#doc-resizer").hide();
+            $("#show-doc-btn").show();
+        }
+
+        $scope.showDocs = function () {
+            $("#doc").show();
+            $("#doc-resizer").show();
+            var newWidth = $("#content").outerWidth(true) - $("#doc").outerWidth(true);
+            $("#content").css({ width: newWidth });
+            $("#show-doc-btn").hide();
+        }
 
         // Get resourcesDefinitions
         initResourcesDefinitions();
@@ -536,7 +567,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 return (r.resourceName === name) && ((r.url === url) || r.url === (url + "/" + name));
             });
             if (resourceDefinitions > 1) {
-                console.log("ASSERT! dublicate ids in resourceDefinitionsTable");
+                console.log("ASSERT! duplicate ids in resourceDefinitionsTable");
                 console.log(resourceDefinitions);
             }
             return resourceDefinitions[0];
@@ -642,6 +673,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     if (elements[0].actions.filter(function (c) { return c === operation.HttpMethod; }).length === 0) {
                         elements[0].actions.push(operation.HttpMethod);
                     }
+                    if (operation.HttpMethod === "GET") {
+                        elements[0].responseBodyDoc = operation.ResponseBodyDoc
+                    } else if (operation.HttpMethod === "PUT") {
+                        elements[0].requestBodyDoc = operation.RequestBodyDoc;
+                    }
                 }
             } else {
                 addedElement = {
@@ -650,6 +686,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     actions: (operation ? [operation.HttpMethod] : []),
                     url: url,
                     requestBody: operation ? operation.RequestBody : {},
+                    requestBodyDoc: operation ? operation.RequestBodyDoc : {},
+                    responseBodyDoc: operation ? operation.ResponseBodyDoc : {},
                     apiVersion: operation && operation.ApiVersion ? operation.ApiVersion : "2014-04-01"
                 };
                 $scope.resourcesDefinitionsTable.push(addedElement);
@@ -726,7 +764,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         function syntaxHighlight(json) {
             if (typeof json === "string") return escapeHtmlEntities(json);
-            var str = JSON.stringify(json, undefined, 4);
+            var str = stringify(json);
             str = escapeHtmlEntities(str);
             return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
                 var cls = 'number';
@@ -837,6 +875,103 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 }
             }
             return target;
+        }
+
+        function stringify(object) {
+            return JSON.stringify(object, undefined, 2)
+        }
+
+        function getDocumentationFlatArray(editorData, doc) {
+            var docArray = [];
+            if (doc) {
+                doc = (doc.properties ? doc.properties : (doc.value ? doc.value[0].properties : { }));
+            }
+
+            if (editorData && doc) {
+                editorData = (editorData.properties ? editorData.properties : ((editorData.value && editorData.value.length > 0) ? editorData.value[0].properties : {}));
+                var set = {};
+                for (var prop in editorData) {
+                    if (editorData.hasOwnProperty(prop) && doc[prop]) {
+                        docArray.push({
+                            name: prop,
+                            doc: doc[prop]
+                        });
+                        set[prop] = 1;
+                    }
+                }
+
+                for (var prop in doc) {
+                    if (doc.hasOwnProperty(prop) && !set[prop]) {
+                        docArray.push({
+                            name: prop,
+                            doc: doc[prop]
+                        });
+                    }
+                }
+                delete set;
+
+            } else {
+                docArray.push({
+                    name: "mesasage",
+                    doc: "No documentation available"
+                });
+            }
+
+            return flattenArray(docArray);
+        }
+
+        function flattenArray(array) {
+            for (var i = 0; i < array.length; i++) {
+                if (typeof array[i].doc !== "string") {
+                    if (array[i].name === "hostNameSslStates") {
+                        console.log("hostNameSslStates");
+                    }
+                    var flat = flattenObject(array[i].name, array[i].doc);
+                    var first = array.slice(0, i);
+                    var end = array.slice(i + 1);
+                    array = first.concat(flat).concat(end);
+                    i += flat.length - 1;
+                }
+            }
+            return array;
+        }
+
+        function flattenObject(prefix, object) {
+            var flat = [];
+            if (typeof object === "string") {
+                flat.push({
+                    name: prefix,
+                    doc: object
+                });
+            } else if (Array.isArray(object)) {
+                flat = flat.concat(flattenObject(prefix, object[0]));
+            } else if (isEmptyObjectorArray(object)) {
+                flat.push({
+                    name: prefix,
+                    doc: ""
+                });
+            } else {
+                for (var prop in object) {
+                    if (object.hasOwnProperty(prop)) {
+                        if (typeof object[prop] === "string") {
+                            flat.push({
+                                name: prefix + "." + prop,
+                                doc: object[prop]
+                            });
+                        } else if (Array.isArray(object[prop]) && object[prop].length > 0) {
+                            flat = flat.concat(flattenObject(prefix + "." + prop, object[prop][0]));
+                        } else if (typeof object[prop] === "object") {
+                            flat = flat.concat(flattenObject(prefix + "." + prop, object[prop]));
+                        } else {
+                            flat.push({
+                                name: prefix,
+                                doc: object
+                            });
+                        }
+                    }
+                }
+            }
+            return flat;
         }
     })
     .controller("rawBodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {

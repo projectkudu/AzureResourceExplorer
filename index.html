@@ -70,6 +70,9 @@
                     <i class="fa fa-exclamation-triangle" title="error" style="margin-top: 10px"></i>
                 </span>
             </div>
+            <button id="show-doc-btn" class="btn btn-primary" ng-click="showDocs()" style="position: relative; display: none; float: right;">
+                Show Documentation
+            </button>
             <tabset>
                 <tab id="data-tab" select="enterDataTab()">
                     <tab-heading>
@@ -122,12 +125,39 @@
             </tabset>
         </div>
 
+        <div id="doc">
+            <div style="display: inline-block; width: 100%;">
+                <button ng-click="hideDocs()" class="btn btn-primary">Hide Documentation</button>
+                <table class="table table-hover table-bordered">
+                    <thead>
+                    <th>Property</th>
+                    <th>Documentation</th>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="e in selectedResource.doc">
+                            <th>{{ e.name }}</th>
+                            <td>{{ e.doc }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="doc-resizer"
+             resizer="vertical"
+             resizer-width="4"
+             resizer-left="#content"
+             resizer-right="#doc"
+             resizer-offset-element="#sidebar"
+             resizer-max="100000">
+        </div>
+
         <div id="sidebar-resizer"
              resizer="vertical"
-             resizer-width="2"
+             resizer-width="4"
              resizer-left="#sidebar"
              resizer-right="#content"
-             resizer-max="800">
+             resizer-max="100000">
         </div>
 
     </div>
