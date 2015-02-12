@@ -912,7 +912,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
             } else {
                 docArray.push({
-                    name: "mesasage",
+                    name: "message",
                     doc: "No documentation available"
                 });
             }
