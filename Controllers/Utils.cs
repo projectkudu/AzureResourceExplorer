@@ -12,6 +12,8 @@ namespace ARMExplorer.Controllers
         public const string AntaresApiVersion = "2014-06-01";
         public const string CSMApiVersion = "2014-04-01";
 
+        public const string resourcesTemplate = "{0}/subscriptions/{1}/resources?api-version={2}";
+
         public static string GetApiVersion(string path)
         {
             if (path.IndexOf("/Microsoft.Web/", StringComparison.OrdinalIgnoreCase) > 0)

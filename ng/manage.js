@@ -275,45 +275,85 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         };
 
         $scope.expandResourceHandler = function (branch, row, event, dontExpandChildren) {
-            if (branch.is_leaf) return;
+            var promise = $q.when();
+            if (branch.is_leaf) return promise;
 
             if (branch.expanded) {
                 // clear the children array on collapse
                 branch.children.length = 0;
                 $scope.treeControl.collapse_branch(branch);
-                return;
+                return promise;
             }
 
             var resourceDefinition = branch.resourceDefinition;
-            if (!resourceDefinition) return;
+            if (!resourceDefinition) return promise;
+
+            // children are either an array or a string
+            // if array
+            //      Predefined list of options. Like Providers or (config, appsettings, etc)
+            // else if string
+            //      this means it's a Url that we need to ge fetch and display.
 
             if (Array.isArray(resourceDefinition.children)) {
-                //TODO
-                branch.children = resourceDefinition.children.filter(function(childName) {
-                    var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
-                    if (!childDefinition) return false;
-                    if (childDefinition.children === undefined &&
-                        Array.isArray(childDefinition.actions) &&
-                        childDefinition.actions.filter(function (actionName) { return actionName === "POST"; }).length > 0)
-                        return false;
-                    return true;
-                }).map(function (childName) {
-                    var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
-                    return {
-                        label: childName,
-                        resourceDefinition: childDefinition,
-                        is_leaf: (childDefinition.children ? false : true)
-                    };
-                });
-                if (branch.children.length === 1 && !dontExpandChildren)
-                    $timeout(function () {
-                        $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
+                if (isItemOf(branch, "subscriptions")) {
+                    // if we are expanding an element of subscriptions (a subscription),
+                    // then we need to make a request to the server to get a list of available providers in its resourceGroups
+                    // then we can continue with normal expanding of an item
+                    var originalIcon = showExpandingTreeItemIcon(row, branch);
+                    promise = $http({
+                        method: "GET",
+                        url: "api/operations/providers/" + branch.value
+                    }).success(function (data) {
+                        branch.providersFilter = data;
+                    }).finally(function () {
+                        endExpandingTreeItem(branch, originalIcon);
                     });
+                }
+                promise = promise.finally(function () {
+                    branch.children = resourceDefinition.children.filter(function (childName) {
+                        var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
+                        if (!childDefinition) return false;
+                        if (childDefinition.children === undefined &&
+                            Array.isArray(childDefinition.actions) &&
+                            childDefinition.actions.filter(function (actionName) { return actionName === "POST"; }).length > 0) {
+                            return false;
+                        }
+                        if (branch.label === "providers") {
+                            // filter the providers by providersFilter
+                            var providersFilter = getProvidersFilter(branch);
+                            if (providersFilter) {
+                                var parent = $scope.treeControl.get_parent_branch(branch);
+                                var currentResourceGroup = (parent && isItemOf(parent, "resourceGroups") ? parent.label : undefined);
+                                if (currentResourceGroup) {
+                                    var currentResourceGroupProviders = providersFilter[currentResourceGroup];
+                                    if (currentResourceGroupProviders) {
+                                        return currentResourceGroupProviders.includes(childName);
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                        return true;
+                    }).map(function (childName) {
+                        var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
+                        return {
+                            label: childName,
+                            resourceDefinition: childDefinition,
+                            is_leaf: (childDefinition.children ? false : true)
+                        };
+                    });
+                    $scope.treeControl.expand_branch(branch);
+                    if (branch.children.length === 1 && !dontExpandChildren) {
+                        $timeout(function () {
+                            $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
+                        });
+                    }
+                });
             } else if (typeof resourceDefinition.children === "string") {
                 var getUrl = injectTemplateValues(resourceDefinition.url, branch);
 
-                var originalTreeIcon = row ? row.tree_icon : "icon-plus  glyphicon glyphicon-plus fa fa-plus";
-                $(document.getElementById("expand-icon-" + branch.uid)).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
+                var originalIcon = showExpandingTreeItemIcon(row, branch);
                 var httpConfig = (getUrl.endsWith("resourceGroups") || getUrl.endsWith("subscriptions") || getUrl.split("/").length === 3)
                   ? {
                       method: "GET",
@@ -328,7 +368,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                           ApiVersion: resourceDefinition.apiVersion
                       }
                   };
-                return $http(httpConfig).success(function (data) {
+                promise = $http(httpConfig).success(function (data) {
                     var childDefinition = getResourceDefinitionByNameAndUrl(resourceDefinition.children, resourceDefinition.url + "/" + resourceDefinition.children);
                     branch.children = (data.value ? data.value : data).map(function (d) {
                         var csmName = getCsmNameFromIdAndName(d.id, d.name);
@@ -340,15 +380,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         };
                     });
                 }).finally(function () {
-                    $(document.getElementById("expand-icon-" + branch.uid)).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
+                    endExpandingTreeItem(branch, originalIcon);
                     $scope.treeControl.expand_branch(branch);
                     if (branch.children && branch.children.length === 1 && !dontExpandChildren)
                         $timeout(function () {
                             $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
                         });
                 });
-            } //else if undefined
-            $scope.treeControl.expand_branch(branch);
+            }
+            return promise;
         };
 
         $scope.tenantSelect = function () {
@@ -466,12 +506,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             
             if (!child) return;
             $scope.treeControl.select_branch(child);
-            var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
-            if (promis) {
-                promis.finally(function () { handlePath(rest); })
-            } else {
-                $timeout(function () { handlePath(rest); });
-            }
+            $timeout(function () {
+                child = $scope.treeControl.get_selected_branch();
+                var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
+                promis.finally(function () { handlePath(rest); });
+            });
         }
 
         function setStateForClickOnResource() {
@@ -709,7 +748,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 parent = parents[0];
                 if (resourceName.match(/\{.*\}/g)) {
                     // this means the parent.children should either be an undefined, or a string.
-                    // if it's anything else assert! because that means we have a mistake in out assumptions
+                    // if it's anything else assert! because that means we have a mistake in our assumptions
                     if (parent.children === undefined || typeof parent.children === "string") {
                         parent.children = resourceName;
                     } else {
@@ -972,6 +1011,27 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 }
             }
             return flat;
+        }
+
+        function isItemOf(branch, elementType) {
+            var parent = $scope.treeControl.get_parent_branch(branch);
+            return (parent && parent.resourceDefinition.resourceName === elementType);
+        }
+
+        function showExpandingTreeItemIcon(row, branch) {
+            var originalTreeIcon = row ? row.tree_icon : "icon-plus  glyphicon glyphicon-plus fa fa-plus";
+            $(document.getElementById("expand-icon-" + branch.uid)).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
+            return originalTreeIcon;
+        }
+
+        function endExpandingTreeItem(branch, originalTreeIcon) {
+            $(document.getElementById("expand-icon-" + branch.uid)).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
+        }
+
+        function getProvidersFilter(branch) {
+            if (!branch) return;
+            if (branch.providersFilter) return branch.providersFilter;
+            return getProvidersFilter($scope.treeControl.get_parent_branch(branch));
         }
     })
     .controller("rawBodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
@@ -1297,3 +1357,72 @@ Array.prototype.indexOfDelegate = function (searchElement, fromIndex) {
     }
     return -1;
 };
+
+if (![].first) {
+    Array.prototype.first = function (applyfunc) {
+        if (this === undefined || this === null) {
+            throw new TypeError('Cannot convert this value to object');
+        }
+        var O = Object(this);
+        var len = parseInt(O.length) || 0;
+        if (len === 0) {
+            return false;
+        }
+        var n = parseInt(arguments[1]) || 0;
+        var k = 0;
+        while (k < len) {
+            var currentElement = O[k];
+            if (applyfunc(currentElement)) {
+                return currentElement;
+            }
+            k++;
+        }
+        return undefined;
+    }
+}
+
+
+if (![].any) {
+    Array.prototype.any = function(applyfunc) {
+        if (this === undefined || this === null) {
+            throw new TypeError('Cannot convert this value to object');
+        }
+        var O = Object(this);
+        if (O.first(applyfunc)) {
+            return true;
+        }
+        return false;
+    }
+}
+
+
+//http://devdocs.io/javascript/global_objects/array/contains
+if (![].includes) {
+    Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
+        if (this === undefined || this === null) {
+            throw new TypeError('Cannot convert this value to object');
+        }
+        var O = Object(this);
+        var len = parseInt(O.length) || 0;
+        if (len === 0) {
+            return false;
+        }
+        var n = parseInt(arguments[1]) || 0;
+        var k;
+        if (n >= 0) {
+            k = n;
+        } else {
+            k = len + n;
+            if (k < 0) k = 0;
+        }
+        while (k < len) {
+            var currentElement = O[k];
+            if (searchElement === currentElement ||
+               (searchElement !== searchElement && currentElement !== currentElement)) {
+                return true;
+            }
+            k++;
+        }
+        return false;
+    }
+}
