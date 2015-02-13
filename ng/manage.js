@@ -327,7 +327,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                                 if (currentResourceGroup) {
                                     var currentResourceGroupProviders = providersFilter[currentResourceGroup];
                                     if (currentResourceGroupProviders) {
-                                        return currentResourceGroupProviders.includes(childName);
+                                        return currentResourceGroupProviders.some(function (c) { return c.toUpperCase() === childName.toUpperCase() });
                                     } else {
                                         return false;
                                     }
@@ -1358,46 +1358,35 @@ Array.prototype.indexOfDelegate = function (searchElement, fromIndex) {
     return -1;
 };
 
-if (![].first) {
-    Array.prototype.first = function (applyfunc) {
-        if (this === undefined || this === null) {
-            throw new TypeError('Cannot convert this value to object');
+if (!Array.prototype.some) {
+    Array.prototype.some = function (fun/*, thisArg*/) {
+        'use strict';
+
+        if (this == null) {
+            throw new TypeError('Array.prototype.some called on null or undefined');
         }
-        var O = Object(this);
-        var len = parseInt(O.length) || 0;
-        if (len === 0) {
-            return false;
+
+        if (typeof fun !== 'function') {
+            throw new TypeError();
         }
-        var n = parseInt(arguments[1]) || 0;
-        var k = 0;
-        while (k < len) {
-            var currentElement = O[k];
-            if (applyfunc(currentElement)) {
-                return currentElement;
+
+        var t = Object(this);
+        var len = t.length >>> 0;
+
+        var thisArg = arguments.length >= 2 ? arguments[1] : void 0;
+        for (var i = 0; i < len; i++) {
+            if (i in t && fun.call(thisArg, t[i], i, t)) {
+                return true;
             }
-            k++;
         }
-        return undefined;
-    }
-}
 
-
-if (![].any) {
-    Array.prototype.any = function(applyfunc) {
-        if (this === undefined || this === null) {
-            throw new TypeError('Cannot convert this value to object');
-        }
-        var O = Object(this);
-        if (O.first(applyfunc)) {
-            return true;
-        }
         return false;
-    }
+    };
 }
 
 
 //http://devdocs.io/javascript/global_objects/array/contains
-if (![].includes) {
+if (!Array.prototype.includes) {
     Array.prototype.includes = function(searchElement /*, fromIndex*/ ) {
         if (this === undefined || this === null) {
             throw new TypeError('Cannot convert this value to object');
