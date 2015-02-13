@@ -13,6 +13,7 @@ using Microsoft.Azure.Management.Storage;
 using Microsoft.Azure.Management.WebSites;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace ARMExplorer.Controllers
 {
@@ -36,6 +37,36 @@ namespace ARMExplorer.Controllers
             response.Content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
             response.Headers.Add(Utils.X_MS_Ellapsed, watch.ElapsedMilliseconds + "ms");
             return response;
+        }
+
+        [Authorize]
+        public async Task<HttpResponseMessage> GetProviders(string subscriptionId)
+        {
+            HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
+
+            using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, string.Format(Utils.resourcesTemplate, HyakUtils.CSMUrl, subscriptionId, Utils.CSMApiVersion));
+                var response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
+                dynamic resources = await response.Content.ReadAsAsync<JObject>();
+                JArray values = resources.value;
+                var result = new Dictionary<string, HashSet<string>>();
+                foreach (dynamic value in values)
+                {
+                    string id = value.id;
+                    var match = Regex.Match(id, "/subscriptions/.*?/resourceGroups/(.*?)/providers/(.*?)/");
+                    if (match.Success)
+                    {
+                        if (!result.ContainsKey(match.Groups[1].Value))
+                        {
+                            result.Add(match.Groups[1].Value, new HashSet<string>());
+                        }
+                        result[match.Groups[1].Value].Add(match.Groups[2].Value);
+                    }
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, result);
+            }
         }
 
         [Authorize]
