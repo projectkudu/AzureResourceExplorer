@@ -18,6 +18,7 @@ namespace ARMExplorer.Controllers
     {
         static object _lock = new object();
         static Dictionary<Type, JArray[]> _operations = new Dictionary<Type, JArray[]>();
+        static JArray _remoteCsmApis = null;
 
         static HyakUtils()
         {
@@ -59,7 +60,6 @@ namespace ARMExplorer.Controllers
             }
 
             AddMissingApis(array);
-            //await AddRemoteApis(array);
 
             lock (_lock)
             {
@@ -69,19 +69,78 @@ namespace ARMExplorer.Controllers
             return array;
         }
 
+        public static async Task<JArray> GetRemoteCsmOperationsAsync(string[] filterProviders)
+        {
+            if (_remoteCsmApis == null)
+            {
+                _remoteCsmApis = new JArray();
+                using (var client = GetClient())
+                {
+                    var response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions?api-version=2014-04-01");
+                    if (!response.IsSuccessStatusCode) return _remoteCsmApis;
+
+                    dynamic subscriptions = await response.Content.ReadAsAsync<JObject>();
+                    if (subscriptions.value.Count == 0) return _remoteCsmApis;
+
+                    var subId = subscriptions.value[0].subscriptionId;
+                    response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions/" + subId + "/providers?api-version=2014-04-01");
+                    if (!response.IsSuccessStatusCode) return _remoteCsmApis;
+
+                    var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
+                    var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
+                    providersList.Where(p => !filterProviders.Any(str => p["namespace"].ToString().IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
+                                 .Select(provider =>
+                    {
+                        return provider["resourceTypes"].Select((resourceType) =>
+                        {
+                            return new[] { JObject.FromObject(new
+                        {
+                            MethodName = "GET",
+                            HttpMethod = "GET",
+                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b),
+                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
+                        }),
+                        JObject.FromObject(new
+                        {
+                            MethodName = "GET",
+                            HttpMethod = "GET",
+                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
+                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
+                        }),
+                        JObject.FromObject(new
+                        {
+                            MethodName = "CreateOrUpdate",
+                            HttpMethod = "PUT",
+                            RequestBody = new { properties = new {}, location = string.Empty},
+                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
+                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
+                        })};
+                        });
+                    }).SelectMany(i => i).SelectMany(i => i).ToList().ForEach(_remoteCsmApis.Add);
+                }
+            }
+            return _remoteCsmApis;
+        }
+
         private static bool ShouldSkip(IMethod method)
         {
-            return method.Name.IndexOf("backup", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("restore", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("discover", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("slotConfigNames", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("metrics", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("repository", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("usages", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("Clone", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("GetOperation", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("register", StringComparison.OrdinalIgnoreCase) >= 0
-                || method.Name.IndexOf("unregister", StringComparison.OrdinalIgnoreCase) >= 0;
+            return new [] {
+                "backup",
+                "restore",
+                "discover",
+                "slotConfigNames",
+                "metrics",
+                "repository",
+                "usages",
+                "Clone",
+                "GetOperation",
+                "register",
+                "unregister",
+                "GetSubscription",
+                "PutSubscription",
+                "ListSubscriptionStorageAccounts",
+                "CheckDnsNameAvailability"
+            }.Any(str => method.Name.IndexOf(str, StringComparison.OrdinalIgnoreCase) >=0 );
         }
 
         private static void GenerateMethod(JArray array, IMethod method)
@@ -341,45 +400,6 @@ namespace ARMExplorer.Controllers
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}",
                 ApiVersion = Utils.CSMApiVersion
             }));
-        }
-
-        private static async Task AddRemoteApis(JArray array)
-        {
-            using (var client = GetClient())
-            {
-                var response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions?api-version=2014-04-01");
-                if (!response.IsSuccessStatusCode) return;
-
-                dynamic subscriptions = await response.Content.ReadAsAsync<JObject>();
-                if (subscriptions.value.Count == 0) return;
-
-                var subId = subscriptions.value[0].subscriptionId;
-                response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions/" + subId + "/providers?api-version=2014-04-01");
-                if (!response.IsSuccessStatusCode) return;
-
-                var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
-                var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
-                providersList.Select((provider) =>
-                {
-                    return provider["resourceTypes"].Select((resourceType) =>
-                    {
-                        return new[] { JObject.FromObject(new
-                        {
-                            MethodName = "GET",
-                            HttpMethod = "GET",
-                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b),
-                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
-                        }),
-                        JObject.FromObject(new
-                        {
-                            MethodName = "GET",
-                            HttpMethod = "GET",
-                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
-                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
-                        })};
-                    });
-                }).SelectMany(i => i).SelectMany(i => i).ToList().ForEach(array.Add);
-            }
         }
 
         private static HttpClient GetClient()
