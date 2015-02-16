@@ -27,11 +27,12 @@ namespace ARMExplorer.Controllers
             var watch = new Stopwatch();
             watch.Start();
             var arrayList = new List<JArray>();
-            var webSitesJson = (JArray)await HyakUtils.GetOperationsAsync<WebSiteManagementClient>(hidden);
-            var networkJson = (JArray) await HyakUtils.GetOperationsAsync<NetworkResourceProviderClient>(hidden);
-            var computerJson = (JArray)await HyakUtils.GetOperationsAsync<ComputeManagementClient>(hidden);
-            var storageJson = (JArray)await HyakUtils.GetOperationsAsync<SrpManagementClient>(hidden);
-            var json = new JArray(webSitesJson.Union(networkJson).Union(computerJson).Union(storageJson));
+            var webSitesJson = (JArray) HyakUtils.GetOperationsAsync<WebSiteManagementClient>(hidden);
+            var networkJson = (JArray) HyakUtils.GetOperationsAsync<NetworkResourceProviderClient>(hidden);
+            var computerJson = (JArray) HyakUtils.GetOperationsAsync<ComputeManagementClient>(hidden);
+            var storageJson = (JArray) HyakUtils.GetOperationsAsync<SrpManagementClient>(hidden);
+            var remoteCsmApis = await HyakUtils.GetRemoteCsmOperationsAsync();
+            var json = new JArray(webSitesJson.Union(networkJson).Union(computerJson).Union(storageJson).Union(remoteCsmApis));
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");

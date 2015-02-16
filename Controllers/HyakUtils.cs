@@ -31,7 +31,7 @@ namespace ARMExplorer.Controllers
             set;
         }
 
-        public static async Task<JArray> GetOperationsAsync<T>(bool hidden)
+        public static JArray GetOperationsAsync<T>(bool hidden)
         {
             lock (_lock)
             {
@@ -69,7 +69,7 @@ namespace ARMExplorer.Controllers
             return array;
         }
 
-        public static async Task<JArray> GetRemoteCsmOperationsAsync(string[] filterProviders)
+        public static async Task<JArray> GetRemoteCsmOperationsAsync()
         {
             if (_remoteCsmApis == null)
             {
@@ -88,8 +88,13 @@ namespace ARMExplorer.Controllers
 
                     var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
                     var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
-                    providersList.Where(p => !filterProviders.Any(str => p["namespace"].ToString().IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
-                                 .Select(provider =>
+                    providersList.Where(p => !new[] {
+                        "Microsoft.Web",
+                        "Microsoft.Compute",
+                        "Microsoft.Storage",
+                        "Microsoft.Network"
+                    }.Any(str => p["namespace"].ToString().IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
+                     .Select(provider =>
                     {
                         return provider["resourceTypes"].Select((resourceType) =>
                         {
@@ -111,6 +116,14 @@ namespace ARMExplorer.Controllers
                         {
                             MethodName = "CreateOrUpdate",
                             HttpMethod = "PUT",
+                            RequestBody = new { properties = new {}, location = string.Empty},
+                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
+                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
+                        }),
+                        JObject.FromObject(new
+                        {
+                            MethodName = "Delete",
+                            HttpMethod = "DELETE",
                             RequestBody = new { properties = new {}, location = string.Empty},
                             Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
                             ApiVersion = resourceType["apiVersions"].FirstOrDefault()
