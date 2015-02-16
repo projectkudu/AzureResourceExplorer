@@ -429,6 +429,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             var userObject = JSON.parse(createEditor.getValue());
             cleanObject(userObject);
             $scope.invoking = true;
+            var selectedBranch = $scope.treeControl.get_selected_branch();
             $http({
                 method: "POST",
                 url: "api/operations",
@@ -444,12 +445,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $scope.loading = false;
                 fadeInAndFadeOutError();
             }).success(function () {
-                var branch = $scope.treeControl.get_selected_branch();
-                $scope.treeControl.collapse_branch(branch);
-                $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
-                fadeInAndFadeOutSuccess();
+                $scope.treeControl.collapse_branch(selectedBranch);
+                if (selectedBranch.uid === $scope.treeControl.get_selected_branch().uid) {
+                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
+                    fadeInAndFadeOutSuccess();
+                }
                 $timeout(function () {
-                    $scope.expandResourceHandler(branch);
+                    $scope.expandResourceHandler(selectedBranch);
                 }, 50);
             });
         };
@@ -537,6 +539,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         function _invokeAction(action, url) {
+            var currentBranch = $scope.treeControl.get_selected_branch();
+            var parent = $scope.treeControl.get_parent_branch(currentBranch);
             $http({
                 method: "POST",
                 url: "api/operations",
@@ -548,13 +552,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }).success(function (data) {
                 $scope.actionResponse = syntaxHighlight(data);
                 $scope.loading = false;
-                var currentBranch = $scope.treeControl.get_selected_branch();
-                var parent = $scope.treeControl.get_parent_branch(currentBranch);
                 if (action === "DELETE") {
-                    $scope.treeControl.select_branch(parent);
+                    if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
+                        $scope.treeControl.select_branch(parent);
+                        selectFirstTab(900);
+                        scrollToTop(900);
+                    }
                     parent.children = parent.children.filter(function (branch) { return branch.uid !== currentBranch.uid; });
-                    selectFirstTab(900);
-                    scrollToTop(900);
                 } else {
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
                 }
