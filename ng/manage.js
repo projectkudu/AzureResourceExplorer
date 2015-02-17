@@ -111,8 +111,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
                 if (getActions.length === 1) {
                     var getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
-                    var url = (getAction === "POST" ? resourceDefinition.url + "/list" : resourceDefinition.url);
-                    url = injectTemplateValues(url, branch);
+                    var url = (getAction === "POST" ? branch.elementUrl + "/list" : branch.elementUrl);
                     var httpConfig = (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3)
                     ? {
                         method: "GET",
@@ -340,7 +339,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         return {
                             label: childName,
                             resourceDefinition: childDefinition,
-                            is_leaf: (childDefinition.children ? false : true)
+                            is_leaf: (childDefinition.children ? false : true),
+                            elementUrl: branch.elementUrl + "/" + childName
                         };
                     });
                     $scope.treeControl.expand_branch(branch);
@@ -351,7 +351,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     }
                 });
             } else if (typeof resourceDefinition.children === "string") {
-                var getUrl = injectTemplateValues(resourceDefinition.url, branch);
+                var getUrl = branch.elementUrl;
 
                 var originalIcon = showExpandingTreeItemIcon(row, branch);
                 var httpConfig = (getUrl.endsWith("resourceGroups") || getUrl.endsWith("subscriptions") || getUrl.split("/").length === 3)
@@ -376,7 +376,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             label: (d.displayName ? d.displayName : csmName),
                             resourceDefinition: childDefinition,
                             value: (d.subscriptionId ? d.subscriptionId : csmName),
-                            is_leaf: (childDefinition.children ? false : true)
+                            is_leaf: (childDefinition.children ? false : true),
+                            elementUrl: branch.elementUrl + "/" + (d.subscriptionId ? d.subscriptionId : csmName)
                         };
                     });
                 }).finally(function () {
@@ -668,7 +669,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         resourceDefinition: urd,
                         data: undefined,
                         resource_icon: "fa fa-cube fa-fw",
-                        children: []
+                        children: [],
+                        elementUrl: urd.url
                     };
                 });
         }
@@ -784,17 +786,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             if (requestBody && parent && !parent.requestBody) {
                 parent.requestBody = requestBody;
             }
-        }
-
-        function injectTemplateValues(url, branch) {
-            var resourceParent = branch;
-            while (resourceParent !== undefined) {
-                if (resourceParent.value !== undefined) {
-                    url = url.replace(resourceParent.resourceDefinition.resourceName, resourceParent.value);
-                }
-                resourceParent = $scope.treeControl.get_parent_branch(resourceParent);
-            }
-            return url;
         }
 
         function fixWidths(event) {
