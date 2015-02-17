@@ -550,10 +550,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     HttpMethod: action,
                     ApiVersion: $scope.apiVersion
                 }
-            }).success(function (data) {
+            }).success(function (data, status) {
                 $scope.actionResponse = syntaxHighlight(data);
                 $scope.loading = false;
-                if (action === "DELETE") {
+                // async DELETE returns 202. That might fail later. So don't remove from the tree
+                if (action === "DELETE" && status === 200 /*OK*/) {
                     if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
                         $scope.treeControl.select_branch(parent);
                         selectFirstTab(900);
