@@ -31,8 +31,8 @@ namespace ARMExplorer.Controllers
             var networkJson = (JArray) HyakUtils.GetOperationsAsync<NetworkResourceProviderClient>(hidden);
             var computerJson = (JArray) HyakUtils.GetOperationsAsync<ComputeManagementClient>(hidden);
             var storageJson = (JArray) HyakUtils.GetOperationsAsync<SrpManagementClient>(hidden);
-            var remoteCsmApis = await HyakUtils.GetRemoteCsmOperationsAsync();
-            var json = new JArray(webSitesJson.Union(networkJson).Union(computerJson).Union(storageJson).Union(remoteCsmApis));
+            var speclessCsmApis = await HyakUtils.GetSpeclessCsmOperationsAsync();
+            var json = new JArray(webSitesJson.Union(networkJson).Union(computerJson).Union(storageJson).Union(speclessCsmApis));
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
@@ -52,18 +52,25 @@ namespace ARMExplorer.Controllers
                 response.EnsureSuccessStatusCode();
                 dynamic resources = await response.Content.ReadAsAsync<JObject>();
                 JArray values = resources.value;
-                var result = new Dictionary<string, HashSet<string>>();
+                var result = new Dictionary<string, Dictionary<string, HashSet<string>>>();
                 foreach (dynamic value in values)
                 {
                     string id = value.id;
-                    var match = Regex.Match(id, "/subscriptions/.*?/resourceGroups/(.*?)/providers/(.*?)/");
+                    var match = Regex.Match(id, "/subscriptions/.*?/resourceGroups/(.*?)/providers/(.*?)/(.*?)/");
                     if (match.Success)
                     {
-                        if (!result.ContainsKey(match.Groups[1].Value))
+                        var resourceGroup = match.Groups[1].Value.ToUpperInvariant();
+                        var provider = match.Groups[2].Value.ToUpperInvariant();
+                        var collection = match.Groups[3].Value.ToUpperInvariant();
+                        if (!result.ContainsKey(resourceGroup))
                         {
-                            result.Add(match.Groups[1].Value, new HashSet<string>());
+                            result.Add(resourceGroup, new Dictionary<string, HashSet<string>>());
                         }
-                        result[match.Groups[1].Value].Add(match.Groups[2].Value);
+                        if (!result[resourceGroup].ContainsKey(provider))
+                        {
+                            result[resourceGroup].Add(provider, new HashSet<string>());
+                        }
+                        result[resourceGroup][provider].Add(collection);
                     }
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, result);

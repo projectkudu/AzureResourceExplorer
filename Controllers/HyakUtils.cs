@@ -18,7 +18,7 @@ namespace ARMExplorer.Controllers
     {
         static object _lock = new object();
         static Dictionary<Type, JArray[]> _operations = new Dictionary<Type, JArray[]>();
-        static JArray _remoteCsmApis = null;
+        static JArray _speclessCsmApis = null;
 
         static HyakUtils()
         {
@@ -59,8 +59,6 @@ namespace ARMExplorer.Controllers
                 }
             }
 
-            AddMissingApis(array);
-
             lock (_lock)
             {
                 _operations[typeof(T)] = new[] { array, skip };
@@ -69,22 +67,22 @@ namespace ARMExplorer.Controllers
             return array;
         }
 
-        public static async Task<JArray> GetRemoteCsmOperationsAsync()
+        public static async Task<JArray> GetSpeclessCsmOperationsAsync()
         {
-            if (_remoteCsmApis == null)
+            if (_speclessCsmApis == null)
             {
-                _remoteCsmApis = new JArray();
+                _speclessCsmApis = new JArray();
                 using (var client = GetClient())
                 {
                     var response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions?api-version=2014-04-01");
-                    if (!response.IsSuccessStatusCode) return _remoteCsmApis;
+                    if (!response.IsSuccessStatusCode) return _speclessCsmApis;
 
                     dynamic subscriptions = await response.Content.ReadAsAsync<JObject>();
-                    if (subscriptions.value.Count == 0) return _remoteCsmApis;
+                    if (subscriptions.value.Count == 0) return _speclessCsmApis;
 
                     var subId = subscriptions.value[0].subscriptionId;
                     response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions/" + subId + "/providers?api-version=2014-04-01");
-                    if (!response.IsSuccessStatusCode) return _remoteCsmApis;
+                    if (!response.IsSuccessStatusCode) return _speclessCsmApis;
 
                     var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
                     var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
@@ -129,10 +127,11 @@ namespace ARMExplorer.Controllers
                             ApiVersion = resourceType["apiVersions"].FirstOrDefault()
                         })};
                         });
-                    }).SelectMany(i => i).SelectMany(i => i).ToList().ForEach(_remoteCsmApis.Add);
+                    }).SelectMany(i => i).SelectMany(i => i).ToList().ForEach(_speclessCsmApis.Add);
                 }
             }
-            return _remoteCsmApis;
+            AddMissingApis(_speclessCsmApis);
+            return _speclessCsmApis;
         }
 
         private static bool ShouldSkip(IMethod method)
@@ -389,6 +388,13 @@ namespace ARMExplorer.Controllers
             {
                 MethodName = "Get",
                 HttpMethod = "GET",
+                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
+                ApiVersion = Utils.CSMApiVersion
+            }));
+            array.AddFirst(JObject.FromObject(new
+            {
+                MethodName = "CreateOrUpdate",
+                HttpMethod = "PUT",
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
                 ApiVersion = Utils.CSMApiVersion
             }));

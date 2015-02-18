@@ -317,21 +317,25 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             childDefinition.actions.filter(function (actionName) { return actionName === "POST"; }).length > 0) {
                             return false;
                         }
+                        var parent = $scope.treeControl.get_parent_branch(branch);
                         if (branch.label === "providers") {
                             // filter the providers by providersFilter
                             var providersFilter = getProvidersFilter(branch);
                             if (providersFilter) {
-                                var parent = $scope.treeControl.get_parent_branch(branch);
                                 var currentResourceGroup = (parent && isItemOf(parent, "resourceGroups") ? parent.label : undefined);
                                 if (currentResourceGroup) {
-                                    var currentResourceGroupProviders = providersFilter[currentResourceGroup];
+                                    var currentResourceGroupProviders = providersFilter[currentResourceGroup.toUpperCase()];
                                     if (currentResourceGroupProviders) {
-                                        return currentResourceGroupProviders.some(function (c) { return c.toUpperCase() === childName.toUpperCase() });
+                                        branch.currentResourceGroupProviders = currentResourceGroupProviders;
+                                        return (currentResourceGroupProviders[childName.toUpperCase()] ? true : false);
                                     } else {
                                         return false;
                                     }
                                 }
                             }
+                        } else if (parent && parent.currentResourceGroupProviders) {
+                            return parent.currentResourceGroupProviders[branch.label.toUpperCase()] &&
+                                   parent.currentResourceGroupProviders[branch.label.toUpperCase()].some(function (c) { return c.toUpperCase() === childName.toUpperCase(); });
                         }
                         return true;
                     }).map(function (childName) {
