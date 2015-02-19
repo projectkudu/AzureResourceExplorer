@@ -239,11 +239,20 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
         }
 
-        $scope.invokeAction = function (action, url) {
-            setStateForInvokeAction();
+        $scope.invokeAction = function (action, url, event) {
             if (action === "DELETE") {
-                //confirm here
-                _invokeAction(action, url);
+                //confirm
+                var deleteButton = $(event.currentTarget);
+                var deleteConfirmation = $(".delete-confirm-box");
+                deleteConfirmation.css({ top: (deleteButton.offset().top - ((deleteButton.height() + deleteConfirmation.height()) / 2)) + 'px' });
+                $("#yes-delete-confirm").off("click").click(function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $scope.hideConfirm();
+                    _invokeAction(action, url);
+                });
+                $("#login-dark-blocker").show();
+                deleteConfirmation.show();
             } else {
                 _invokeAction(action, url);
             }
@@ -488,6 +497,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $("#show-doc-btn").hide();
         }
 
+        $scope.hideConfirm = function () {
+            $("#delete-confirm-box").fadeOut(300);
+            $('#login-dark-blocker').hide();
+        }
+
         // Get resourcesDefinitions
         initResourcesDefinitions();
 
@@ -544,6 +558,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         function _invokeAction(action, url) {
+            setStateForInvokeAction();
             var currentBranch = $scope.treeControl.get_selected_branch();
             var parent = $scope.treeControl.get_parent_branch(currentBranch);
             $http({
@@ -962,9 +977,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         function flattenArray(array) {
             for (var i = 0; i < array.length; i++) {
                 if (typeof array[i].doc !== "string") {
-                    if (array[i].name === "hostNameSslStates") {
-                        console.log("hostNameSslStates");
-                    }
                     var flat = flattenObject(array[i].name, array[i].doc);
                     var first = array.slice(0, i);
                     var end = array.slice(i + 1);
@@ -1074,7 +1086,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     responseEditor.moveCursorTo(0, 0);
                 }
             }
-            //            console.log("keyCode: " + e.keyCode);
         });
         $timeout(function () {
             requestEditor = ace.edit("request-editor");
@@ -1415,3 +1426,11 @@ if (!Array.prototype.includes) {
         return false;
     }
 }
+
+$(document).mouseup(function (e) {
+    var container = $("#delete-confirm-box");
+    if (!container.is(e.target) && container.has(e.target).length === 0) {
+        container.fadeOut(300);
+        $('#login-dark-blocker').hide();
+    }
+});
