@@ -86,6 +86,7 @@ namespace ARMExplorer.Controllers
 
                     var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
                     var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
+                    var fakeRequestBody = new { properties = new { }, location = string.Empty };
                     providersList.Where(p => !new[] {
                         "Microsoft.Web",
                         "Microsoft.Compute",
@@ -114,7 +115,7 @@ namespace ARMExplorer.Controllers
                         {
                             MethodName = "CreateOrUpdate",
                             HttpMethod = "PUT",
-                            RequestBody = new { properties = new {}, location = string.Empty},
+                            RequestBody = fakeRequestBody,
                             Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
                             ApiVersion = resourceType["apiVersions"].FirstOrDefault()
                         }),
@@ -122,7 +123,7 @@ namespace ARMExplorer.Controllers
                         {
                             MethodName = "Delete",
                             HttpMethod = "DELETE",
-                            RequestBody = new { properties = new {}, location = string.Empty},
+                            RequestBody = fakeRequestBody,
                             Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
                             ApiVersion = resourceType["apiVersions"].FirstOrDefault()
                         })};
@@ -377,6 +378,7 @@ namespace ARMExplorer.Controllers
 
         private static void AddMissingApis(JArray array)
         {
+            var fakeRequestBody = new { properties = new { }, location = string.Empty };
             array.AddFirst(JObject.FromObject(new
             {
                 MethodName = "Delete",
@@ -395,6 +397,7 @@ namespace ARMExplorer.Controllers
             {
                 MethodName = "CreateOrUpdate",
                 HttpMethod = "PUT",
+                RequestBody = fakeRequestBody,
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
                 ApiVersion = Utils.CSMApiVersion
             }));
