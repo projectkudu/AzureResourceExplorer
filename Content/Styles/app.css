@@ -124,27 +124,18 @@ html[data-useragent*='MSIE 10.0'] .form-control {
     right: 0;
     overflow: auto;
     background-color: white;
-    padding-left: 20px;
-    padding: 40px 30px;
-    width: 1053px;
+    /*width: 1053px;*/
 }
-#top-content {
-    position: absolute;
-    top: 0;
-    bottom: 136px; /* 130 + 6 */
-    left: 0;
-    right: 0;
-    background-color: #e7e7e7;
-    overflow: auto;
-}
+
 #bottom-content {
     position: absolute;
-    height: 130px;
+    height: 150px;
     bottom: 0;
     left: 0;
     right: 0;
     overflow: auto;
-    background-color: #777;
+    background-color: white;
+    z-index: 1000;
 }
 
 #doc{
@@ -181,11 +172,16 @@ html[data-useragent*='MSIE 10.0'] .form-control {
 #content-resizer {
     position: absolute;
     height: 6px;
-    bottom: 130px;
+    bottom: 150px;
     left: 0;
     right: 0;
     background-color: #666;
     cursor: n-resize;
+}
+
+#top-content {
+    padding-left: 20px;
+    padding: 40px 30px;
 }
 
 #sidebar-resizer:hover, #preview-resizer:hover {
@@ -255,4 +251,8 @@ html[data-useragent*='MSIE 10.0'] .form-control {
 .confirm-delete-message {
     position: relative;
     margin: 8px;
+}
+
+.tab-pane, .ng-isolate-scope, .tab-content {
+    height: inherit;
 }

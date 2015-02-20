@@ -1,11 +1,10 @@
-﻿
-//http://stackoverflow.com/a/22253161
+﻿//http://stackoverflow.com/a/22253161
 angular.module("mp.resizer", [])
-     .directive('resizer', function($document) {
+     .directive('resizer', function ($document) {
 
-         return function($scope, $element, $attrs) {
+         return function ($scope, $element, $attrs) {
 
-             $element.on('mousedown', function(event) {
+             $element.on('mousedown', function (event) {
                  event.preventDefault();
 
                  $document.on('mousemove', mousemove);
@@ -26,31 +25,28 @@ angular.module("mp.resizer", [])
                          left: x + 'px'
                      });
 
-                     var offset = 0;
-                     if ($attrs.resizerOffsetElement) {
-                         offset = $($attrs.resizerOffsetElement).outerWidth(true);
-                     }
-
                      $($attrs.resizerLeft).css({
-                         width: (x - offset) + 'px'
+                         width: x + 'px'
                      });
-
-                     var oldLeft = $($attrs.resizerRight).position().left;
                      $($attrs.resizerRight).css({
-                         left: (x + parseInt($attrs.resizerWidth)) + 'px',
-                         width: $($attrs.resizerRight).outerWidth() - ((x + parseInt($attrs.resizerWidth)) - oldLeft) + 'px'
+                         left: (x + parseInt($attrs.resizerWidth)) + 'px'
                      });
 
                  } else {
                      // Handle horizontal resizer
                      var y = window.innerHeight - event.pageY;
 
+                     if ($attrs.resizerMax && y > $attrs.resizerMax) {
+                         y = parseInt($attrs.resizerMax);
+                     }
+
                      $element.css({
                          bottom: y + 'px'
                      });
 
                      $($attrs.resizerTop).css({
-                         bottom: (y + parseInt($attrs.resizerHeight)) + 'px'
+                         bottom: (y + parseInt($attrs.resizerHeight)) + 'px',
+                         height: ($($attrs.resizerTop).outerHeight() + ($($attrs.resizerBottom).outerHeight() - y)) + 'px'
                      });
                      $($attrs.resizerBottom).css({
                          height: y + 'px'
@@ -79,7 +75,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             createEditor = ace.edit("json-create-editor");
             [editor, createEditor].map(function (e) {
                 e.setOptions({
-                    maxLines: Infinity,
                     fontSize: 15,
                     wrap: "free",
                     showPrintMargin: false
@@ -90,6 +85,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             editor.setValue(stringify({ message: "Select a node to start" }));
             editor.session.selection.clearSelection();
         });
+
+        function onWindowResize() {
+            var height = $("#content").height();
+            var bottomHeight = $("#bottom-content").is(":visible") ? $("#bottom-content").outerHeight() : 0;
+            $("#top-content").height(height - (320 + bottomHeight));
+        }
+
+        $timeout(onWindowResize);
+        window.onresize = onWindowResize;
 
         $document.on('mouseup', function () {
             [editor, createEditor].map(function (e) { e.resize() });
@@ -160,6 +164,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
                         editor.setValue(stringify(value.resourceDefinition.requestBody));
+                        editor.moveCursorTo(0, 0);
                         editor.session.selection.clearSelection();
                     } else {
                         editor.setValue(stringify({ message: "No GET Url" }));
@@ -177,6 +182,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
                     mergeObject(value.data, editable);
                     editor.setValue(stringify(editable));
+                    editor.moveCursorTo(0, 0);
                     editor.session.selection.clearSelection();
                     editorData = editable;
                     if (url.endsWith("list")) {
@@ -184,6 +190,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     }
                 } else {
                     editor.setValue(stringify(value.data));
+                    editor.moveCursorTo(0, 0);
                     editor.session.selection.clearSelection();
                     editorData = value.data;
                 }
@@ -192,6 +199,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $scope.creatable = true;
                     $scope.createMetaData = resourceDefinition.requestBody;
                     createEditor.setValue(stringify(resourceDefinition.requestBody));
+                    createEditor.moveCursorTo(0, 0);
                     createEditor.session.selection.clearSelection();
                 }
 
@@ -482,19 +490,27 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.hideDocs = function () {
 
-            var newWidth = $("#doc").outerWidth(true) + $("#content").outerWidth(true);
-            $("#content").css({ width: newWidth });
-            $("#doc").hide();
-            $("#doc-resizer").hide();
+            //var newWidth = $("#doc").outerWidth(true) + $("#content").outerWidth(true);
+            //$("#content").css({ width: newWidth });
+            //$("#doc").hide();
+            //$("#doc-resizer").hide();
+            $("#bottom-content").hide();
+            $("#content-resizer").hide();
             $("#show-doc-btn").show();
+            $("#top-content").height($("#top-content").height() + $("#bottom-content").height());
+            [editor, createEditor].map(function (e) { e.resize(); });
         }
 
         $scope.showDocs = function () {
-            $("#doc").show();
-            $("#doc-resizer").show();
-            var newWidth = $("#content").outerWidth(true) - $("#doc").outerWidth(true);
-            $("#content").css({ width: newWidth });
+            //$("#doc").show();
+            //$("#doc-resizer").show();
+            //var newWidth = $("#content").outerWidth(true) - $("#doc").outerWidth(true);
+            //$("#content").css({ width: newWidth });
+            $("#bottom-content").show();
+            $("#content-resizer").show();
             $("#show-doc-btn").hide();
+            $("#top-content").height($("#top-content").height() - $("#bottom-content").height());
+            [editor, createEditor].map(function (e) { e.resize(); });
         }
 
         $scope.hideConfirm = function () {
