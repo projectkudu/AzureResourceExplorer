@@ -126,7 +126,6 @@ html[data-useragent*='MSIE 10.0'] .form-control {
     background-color: white;
     padding-left: 20px;
     padding: 40px 30px;
-    width: 1053px;
 }
 #top-content {
     position: absolute;
@@ -145,28 +144,6 @@ html[data-useragent*='MSIE 10.0'] .form-control {
     right: 0;
     overflow: auto;
     background-color: #777;
-}
-
-#doc{
-    position: absolute;
-    top: 35px;
-    bottom: 0;
-    left: 1340px /* 200 + 6*/;
-    right: 0;
-    overflow: auto;
-    background-color: white;
-    padding-left: 20px;
-    padding: 40px 5px;
-}
-
-#doc-resizer {
-    background-color: #b2b2b2;
-    position: absolute;
-    top: 35px;
-    bottom: 0;
-    left: 1340px;
-    width: 4px;
-    cursor: e-resize;
 }
 
 #sidebar-resizer {
