@@ -28,8 +28,8 @@ namespace ARMExplorer.Controllers
             watch.Start();
 
             var specs =
-                Directory.GetFiles(HostingEnvironment.MapPath("~/HydraSpecs"))
-                .Select(file => Assembly.LoadFile(file))
+                Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
+                .Select(Assembly.LoadFile)
                 .Select(assembly => assembly.GetTypes())
                 .SelectMany(t => t)
                 .Where(type => type.IsSubclassOf(typeof(BaseClient)) && !type.IsAbstract )
