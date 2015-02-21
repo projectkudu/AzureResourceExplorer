@@ -31,18 +31,18 @@ namespace ARMExplorer.Controllers
             set;
         }
 
-        public static JArray GetOperationsAsync<T>(bool hidden)
+        public static JArray GetOperationsAsync(bool hidden, Type type)
         {
             lock (_lock)
             {
                 JArray[] cache;
-                if (_operations.TryGetValue(typeof(T), out cache))
+                if (_operations.TryGetValue(type, out cache))
                 {
                     return cache[hidden ? 1 : 0];
                 }
             }
 
-            var service = ApiModeler.Instantiate(typeof(T));
+            var service = ApiModeler.Instantiate(type);
 
             JArray array = new JArray();
             JArray skip = new JArray();
@@ -61,7 +61,7 @@ namespace ARMExplorer.Controllers
 
             lock (_lock)
             {
-                _operations[typeof(T)] = new[] { array, skip };
+                _operations[type] = new[] { array, skip };
             }
 
             return array;
@@ -379,21 +379,21 @@ namespace ARMExplorer.Controllers
         private static void AddMissingApis(JArray array)
         {
             var fakeRequestBody = new { properties = new { }, location = string.Empty };
-            array.AddFirst(JObject.FromObject(new
+            array.Add(JObject.FromObject(new
             {
                 MethodName = "Delete",
                 HttpMethod = "DELETE",
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
                 ApiVersion = Utils.CSMApiVersion
             }));
-            array.AddFirst(JObject.FromObject(new
+            array.Add(JObject.FromObject(new
             {
                 MethodName = "Get",
                 HttpMethod = "GET",
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
                 ApiVersion = Utils.CSMApiVersion
             }));
-            array.AddFirst(JObject.FromObject(new
+            array.Add(JObject.FromObject(new
             {
                 MethodName = "CreateOrUpdate",
                 HttpMethod = "PUT",
@@ -401,21 +401,21 @@ namespace ARMExplorer.Controllers
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
                 ApiVersion = Utils.CSMApiVersion
             }));
-            array.AddFirst(JObject.FromObject(new
+            array.Add(JObject.FromObject(new
             {
                 MethodName = "Get",
                 HttpMethod = "GET",
                 Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups",
                 ApiVersion = Utils.CSMApiVersion
             }));
-            array.AddFirst(JObject.FromObject(new
+            array.Add(JObject.FromObject(new
             {
                 MethodName = "Get",
                 HttpMethod = "GET",
                 Url = HyakUtils.CSMUrl + "/subscriptions",
                 ApiVersion = Utils.CSMApiVersion
             }));
-            array.AddFirst(JObject.FromObject(new
+            array.Add(JObject.FromObject(new
             {
                 MethodName = "Get",
                 HttpMethod = "GET",
