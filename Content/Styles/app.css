@@ -169,7 +169,7 @@ html[data-useragent*='MSIE 10.0'] .form-control {
     background-color: #AAA;
 }
 
-.delete-confirm-box {
+.confirm-box {
     -webkit-box-shadow: 10px 10px 45px -4px rgba(74,74,74,1);
     -moz-box-shadow: 10px 10px 45px -4px rgba(74,74,74,1);
     box-shadow: 10px 10px 45px -4px rgba(74,74,74,1);
@@ -183,7 +183,7 @@ html[data-useragent*='MSIE 10.0'] .form-control {
     border: 1px solid #7d7d7d;
 }
 
-.delete-confirm-box:after, .delete-confirm-box:before {
+.confirm-box:after, .confirm-box:before {
     right: 100%;
     top: 50%;
     border: solid transparent;
@@ -194,23 +194,24 @@ html[data-useragent*='MSIE 10.0'] .form-control {
     pointer-events: none;
 }
 
-.delete-confirm-box:after {
+.confirm-box:after {
     border-color: rgba(255, 255, 255, 0);
     border-right-color: #ffffff;
     border-width: 15px;
     margin-top: -15px;
 }
 
-.delete-confirm-box:before {
+.confirm-box:before {
     border-color: rgba(125, 125, 125, 0);
     border-right-color: #7d7d7d;
     border-width: 16px;
     margin-top: -16px;
 }
 
-.delete-confirm-content {
+.confirm-content {
     display: block;
-    margin: 20px
+    margin: 20px;
+    text-align: center;
 }
 
 .dark-full-site-blocker {
@@ -224,12 +225,74 @@ html[data-useragent*='MSIE 10.0'] .form-control {
     background-color: rgba(0, 0, 0, 0.55);
 }
 
-.confirm-delete-answer {
+.confirm-answer {
     width: 49%;
     margin: 0 auto;
 }
 
-.confirm-delete-message {
+.confirm-message {
     position: relative;
     margin: 8px;
+}
+
+.switch {
+  position: relative;
+  float: left;
+  margin: 13px;
+  height: 25px;
+  width: 200px;
+  background: #ccc;
+}
+
+.switch-label {
+  position: relative;
+  z-index: 2;
+  float: left;
+  width: 98px;
+  line-height: 25px;
+  font-size: 11px;
+  color: #f2f2f2;
+  text-align: center;
+  cursor: pointer;
+}
+.switch-label:active {
+  font-weight: bold;
+}
+
+.switch-label-off {
+  padding-left: 2px;
+}
+
+.switch-label-on {
+  padding-right: 2px;
+}
+
+.switch-input {
+  display: none;
+}
+.switch-input:checked + .switch-label {
+  font-weight: bold;
+  color: white;
+}
+.switch-input:checked + .switch-label-on ~ .switch-selection {
+  left: 100px;
+}
+
+.switch-selection {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  left: 2px;
+  width: 98px;
+  height: 21px;
+  background: #428bca;
+}
+
+.navbar-header {
+    height: 50px;
+}
+
+.navbar-brand {
+    float: left;
 }

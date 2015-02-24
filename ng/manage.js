@@ -72,6 +72,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         $scope.createModel = {};
         $scope.resourcesDefinitionsTable = [];
         $scope.resources = [];
+        $scope.readOnly = true;
 
         var editor, createEditor;
         $timeout(function () {
@@ -231,9 +232,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $location.path(url.substring("https://management.azure.com/".length));
             });
 
-        $scope.handleClick = function (method) {
+        $scope.handleClick = function (method, event) {
             if (method === "PUT" || method === "PATCH" ) {
-                invokePutOrPatch(method);
+                invokePutOrPatch(method, event);
             } else {
                 refreshContent();
             }
@@ -243,26 +244,26 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             if (action === "DELETE") {
                 //confirm
                 var deleteButton = $(event.currentTarget);
-                var deleteConfirmation = $(".delete-confirm-box");
-                deleteConfirmation.css({ top: (deleteButton.offset().top - ((deleteButton.height() + deleteConfirmation.height()) / 2)) + 'px' });
+                var deleteConfirmation = $("#delete-confirm-box");
+                deleteConfirmation.css({ top: (deleteButton.offset().top - (((deleteButton.outerHeight() + 10) / 2))) + 'px', left: (deleteButton.offset().left + deleteButton.outerWidth()) + 'px' });
                 $("#yes-delete-confirm").off("click").click(function (e) {
                     e.stopPropagation();
                     e.preventDefault();
                     $scope.hideConfirm();
-                    _invokeAction(action, url);
+                    _invokeAction(action, url, event);
                 });
-                $("#login-dark-blocker").show();
+                $("#dark-blocker").show();
                 deleteConfirmation.show();
             } else {
-                _invokeAction(action, url);
+                _invokeAction(action, url, event);
             }
         };
 
-        function invokePutOrPatch (method) {
+        function invokePutOrPatch(method, event) {
             setStateForInvokePut();
             var userObject = JSON.parse(editor.getValue());
             cleanObject(userObject);
-            $http({
+            userHttp({
                 method: "POST",
                 url: "api/operations",
                 data: {
@@ -271,7 +272,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     RequestBody: userObject,
                     ApiVersion: $scope.apiVersion
                 }
-            }).error(function (err) {
+            }, event).error(function (err) {
                 $scope.putError = syntaxHighlight(err);
                 $scope.invoking = false;
                 $scope.loading = false;
@@ -426,7 +427,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             createEditor.session.selection.clearSelection();
         };
 
-        $scope.invokeCreate = function () {
+        $scope.invokeCreate = function (event) {
             var resourceName = $scope.createModel.createdResourceName;
             if (!resourceName) {
                 $scope.createError = syntaxHighlight({
@@ -444,7 +445,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             cleanObject(userObject);
             $scope.invoking = true;
             var selectedBranch = $scope.treeControl.get_selected_branch();
-            $http({
+            userHttp({
                 method: "POST",
                 url: "api/operations",
                 data: {
@@ -453,7 +454,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     RequestBody: userObject,
                     ApiVersion: $scope.apiVersion
                 }
-            }).error(function (err) {
+            }, event).error(function (err) {
                 $scope.createError = syntaxHighlight(err);
                 $scope.invoking = false;
                 $scope.loading = false;
@@ -498,8 +499,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         $scope.hideConfirm = function () {
-            $("#delete-confirm-box").fadeOut(300);
-            $('#login-dark-blocker').hide();
+            $(".confirm-box").fadeOut(300);
+            $('#dark-blocker').hide();
+        }
+
+        $scope.setReadOnly = function (readOnly) {
+            $scope.readOnly = readOnly;
         }
 
         // Get resourcesDefinitions
@@ -557,11 +562,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.invoking = true;
         }
 
-        function _invokeAction(action, url) {
+        function _invokeAction(action, url, event) {
             setStateForInvokeAction();
             var currentBranch = $scope.treeControl.get_selected_branch();
             var parent = $scope.treeControl.get_parent_branch(currentBranch);
-            $http({
+            userHttp({
                 method: "POST",
                 url: "api/operations",
                 data: {
@@ -569,7 +574,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     HttpMethod: action,
                     ApiVersion: $scope.apiVersion
                 }
-            }).success(function (data, status) {
+            }, event).success(function (data, status) {
                 $scope.actionResponse = syntaxHighlight(data);
                 $scope.loading = false;
                 // async DELETE returns 202. That might fail later. So don't remove from the tree
@@ -1045,6 +1050,44 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             if (branch.providersFilter) return branch.providersFilter;
             return getProvidersFilter($scope.treeControl.get_parent_branch(branch));
         }
+
+        function userHttp(config, event) {
+            if ($scope.readOnly) {
+                var method = (config.data ? config.data.HttpMethod : config.method);
+                var path = (config.data ? config.data.Url : config.url).split('/').last();
+                if (method !== "GET" && !(method === "POST" && path == "list")) {
+                    if (event) {
+                        var clickedButton = $(event.currentTarget);
+                        var readonlyConfirmation = $("#readonly-confirm-box");
+                        // I don't know why the top doesn't center the value for the small buttons but does for the large ones
+                        // add an 8px offset if the button outer height < 40
+                        var offset = (clickedButton.outerHeight() < 40 ? 8 : 0);
+                        readonlyConfirmation.css({ top: (clickedButton.offset().top - clickedButton.outerHeight(true) - offset) + 'px', left: (clickedButton.offset().left + clickedButton.outerWidth()) + 'px' });
+                        $("#dark-blocker").show();
+                        readonlyConfirmation.show();
+                    }
+                    return decoratePromise($q.reject());
+                }
+            }
+            return $http(config);
+        }
+
+        function decoratePromise(promise) {
+            promise.success = function (fn) {
+                promise.then(function (response) {
+                    fn(response);
+                });
+                return promise;
+            };
+
+            promise.error = function (fn) {
+                promise.then(null, function (response) {
+                    fn(response);
+                });
+                return promise;
+            };
+            return promise;
+        }
     })
     .controller("rawBodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
         var requestEditor, responseEditor;
@@ -1427,10 +1470,16 @@ if (!Array.prototype.includes) {
     }
 }
 
+if (!Array.prototype.last){
+    Array.prototype.last = function(){
+        return this[this.length - 1];
+    };
+};
+
 $(document).mouseup(function (e) {
-    var container = $("#delete-confirm-box");
+    var container = $(".confirm-box");
     if (!container.is(e.target) && container.has(e.target).length === 0) {
         container.fadeOut(300);
-        $('#login-dark-blocker').hide();
+        $('#dark-blocker').hide();
     }
 });

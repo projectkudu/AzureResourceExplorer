@@ -40,14 +40,15 @@
     <div id="wrapper" ng-controller="treeBodyController">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
                 <a class="navbar-brand" href="/manage" ng-click="clearEnvironment()">Azure Resource Explorer (beta)</a>
-                <select ng-model="selectedTenant" ng-options="tenant.name for tenant in tenants" style="position: absolute; top: 15px" ng-change="tenantSelect()"></select>
+                <select ng-model="selectedTenant" ng-options="tenant.name for tenant in tenants" style="position: relative; top: 15px; float: left" ng-change="tenantSelect()"></select>
+                <div class="switch">
+                    <input type="radio" class="switch-input" name="view" id="readOnly" ng-checked="readOnly" ng-click="setReadOnly(true)">
+                    <label for="readOnly" class="switch-label switch-label-off">Read Only</label>
+                    <input type="radio" class="switch-input" name="view" id="readWrite" ng-checked="!readOnly" ng-click="setReadOnly(false)">
+                    <label for="readWrite" class="switch-label switch-label-on">Read/Write</label>
+                    <span class="switch-selection"></span>
+                </div>
             </div>
         </nav>
         <div id="sidebar" class="navbar-default sidebar" role="navigation">
@@ -76,7 +77,7 @@
                         <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
                     <div ng-show="selectedResource && selectedResource.url">
-                        <button ng-repeat="httpMethod in selectedResource.httpMethods" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(httpMethod)">{{httpMethod}}</button>
+                        <button ng-repeat="httpMethod in selectedResource.httpMethods" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(httpMethod, $event)">{{httpMethod}}</button>
                         <pre>{{ selectedResource.url + "?api-version=" + apiVersion }}</pre>
                     </div>
                     <div id="json-editor" style="width: 100%; min-height: 100px; border: 1px solid #bcbcbc; border-radius: 4px 4px 0px"></div>
@@ -105,26 +106,16 @@
                         </tbody>
                     </table>
                     <pre ng-show="actionResponse" ng-bind-html="actionResponse" style="max-height: 400px"></pre>
-                    <div id="delete-confirm-box" class="delete-confirm-box">
-                        <div class="delete-confirm-content">
-                            <div class="confirm-delete-message">Are you sure you want to delete <strong>{{ treeControl.get_selected_branch().label }}</strong>?</div>
-                            <button id="yes-delete-confirm" class="btn btn-danger confirm-delete-answer">
-                                Yes
-                            </button>
-                            <button class="btn confirm-delete-answer" ng-click="hideConfirm()">
-                                No
-                            </button>
-                        </div>
-                    </div>
+
                 </tab>
                 <tab disabled="!creatable" select="enterCreateMode()" deselect="leaveCreateMode()">
                     <tab-heading>
                         <i class="fa fa-database"></i> Create
                     </tab-heading>
-                    <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate()">
+                    <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate($event)">
                         Reset
                     </button>
-                    <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate()">
+                    <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate($event)">
                         PUT
                     </button>
                     <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
@@ -163,8 +154,27 @@
              resizer-max="100000">
         </div>
 
+        <div id="delete-confirm-box" class="confirm-box">
+            <div class="confirm-content">
+                <div class="confirm-delete-message">Are you sure you want to delete <strong>{{ treeControl.get_selected_branch().label }}</strong>?</div>
+                <button id="yes-delete-confirm" class="btn btn-danger confirm-answer">
+                    Yes
+                </button>
+                <button class="btn confirm-answer" ng-click="hideConfirm()">
+                    No
+                </button>
+            </div>
+        </div>
+        <div id="readonly-confirm-box" class="confirm-box">
+            <div class="confirm-content">
+                <div class="confirm-message">You can't do this opration because you are in <strong>'Read Only'</strong> mode.<br> Switch to <strong>'Read/Write'</strong> mode from the top to enable this HttpVerb</div>
+                <button class="btn btn-primary confirm-answer" ng-click="hideConfirm()">
+                    Ok
+                </button>
+            </div>
+        </div>
     </div>
-    <div id="login-dark-blocker" class="dark-full-site-blocker" style="display: none"></div>
+    <div id="dark-blocker" class="dark-full-site-blocker" style="display: none"></div>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 </body>
 
