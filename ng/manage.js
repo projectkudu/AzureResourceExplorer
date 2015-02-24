@@ -241,22 +241,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         $scope.invokeAction = function (action, url, event) {
-            if (action === "DELETE") {
-                //confirm
-                var deleteButton = $(event.currentTarget);
-                var deleteConfirmation = $("#delete-confirm-box");
-                deleteConfirmation.css({ top: (deleteButton.offset().top - (((deleteButton.outerHeight() + 10) / 2))) + 'px', left: (deleteButton.offset().left + deleteButton.outerWidth()) + 'px' });
-                $("#yes-delete-confirm").off("click").click(function (e) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    $scope.hideConfirm();
-                    _invokeAction(action, url, event);
-                });
-                $("#dark-blocker").show();
-                deleteConfirmation.show();
-            } else {
-                _invokeAction(action, url, event);
-            }
+            _invokeAction(action, url, event);
         };
 
         function invokePutOrPatch(method, event) {
@@ -272,15 +257,16 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     RequestBody: userObject,
                     ApiVersion: $scope.apiVersion
                 }
-            }, event).error(function (err) {
-                $scope.putError = syntaxHighlight(err);
-                $scope.invoking = false;
-                $scope.loading = false;
-                fadeInAndFadeOutError();
-            }).success(function () {
+            }, function () {
                 $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                 fadeInAndFadeOutSuccess();
-            });
+            }, function (err) {
+                $scope.putError = syntaxHighlight(err);
+                fadeInAndFadeOutError();
+            }, function () {
+                $scope.invoking = false;
+                $scope.loading = false;
+            }, event);
         };
 
         $scope.expandResourceHandler = function (branch, row, event, dontExpandChildren) {
@@ -454,12 +440,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     RequestBody: userObject,
                     ApiVersion: $scope.apiVersion
                 }
-            }, event).error(function (err) {
-                $scope.createError = syntaxHighlight(err);
-                $scope.invoking = false;
-                $scope.loading = false;
-                fadeInAndFadeOutError();
-            }).success(function () {
+            }, function () {
                 $scope.treeControl.collapse_branch(selectedBranch);
                 if (selectedBranch.uid === $scope.treeControl.get_selected_branch().uid) {
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
@@ -468,7 +449,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $timeout(function () {
                     $scope.expandResourceHandler(selectedBranch);
                 }, 50);
-            });
+            }, function (err) {
+                $scope.createError = syntaxHighlight(err);
+                fadeInAndFadeOutError();
+            }, function () {
+                $scope.invoking = false;
+                $scope.loading = false;
+            }, event);
         };
 
         function refreshContent() {
@@ -562,7 +549,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.invoking = true;
         }
 
-        function _invokeAction(action, url, event) {
+        function _invokeAction(action, url, event, confirmed) {
             setStateForInvokeAction();
             var currentBranch = $scope.treeControl.get_selected_branch();
             var parent = $scope.treeControl.get_parent_branch(currentBranch);
@@ -574,9 +561,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     HttpMethod: action,
                     ApiVersion: $scope.apiVersion
                 }
-            }, event).success(function (data, status) {
+            }, function (data, status) {
                 $scope.actionResponse = syntaxHighlight(data);
-                $scope.loading = false;
                 // async DELETE returns 202. That might fail later. So don't remove from the tree
                 if (action === "DELETE" && status === 200 /*OK*/) {
                     if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
@@ -589,11 +575,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
                 }
                 fadeInAndFadeOutSuccess();
-            }).error(function (err) {
-                $scope.loading = false;
+            }, function (err) {
                 $scope.actionResponse = syntaxHighlight(err);
                 fadeInAndFadeOutError();
-            });
+            }, function () { $scope.loading = false; }, event, confirmed);
         }
 
         function fadeInAndFadeOutSuccess() {
@@ -1051,11 +1036,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return getProvidersFilter($scope.treeControl.get_parent_branch(branch));
         }
 
-        function userHttp(config, event) {
+        function userHttp(config, success, error, always, event, confirmed) {
+            var method = (config.data ? config.data.HttpMethod : config.method);
+            var url = (config.data ? config.data.Url : config.url);
             if ($scope.readOnly) {
-                var method = (config.data ? config.data.HttpMethod : config.method);
-                var path = (config.data ? config.data.Url : config.url).split('/').last();
-                if (method !== "GET" && !(method === "POST" && path == "list")) {
+                if (method !== "GET" && !(method === "POST" && url.split('/').last() === "list")) {
                     if (event) {
                         var clickedButton = $(event.currentTarget);
                         var readonlyConfirmation = $("#readonly-confirm-box");
@@ -1066,10 +1051,24 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         $("#dark-blocker").show();
                         readonlyConfirmation.show();
                     }
-                    return decoratePromise($q.reject());
+                    return decoratePromise($q.reject()).finally(always);
                 }
+            } else if (method === "DELETE" && !confirmed) {
+                var deleteButton = $(event.currentTarget);
+                var deleteConfirmation = $("#delete-confirm-box");
+                deleteConfirmation.css({ top: (deleteButton.offset().top - (((deleteButton.outerHeight() + 10) / 2))) + 'px', left: (deleteButton.offset().left + deleteButton.outerWidth()) + 'px' });
+                $("#yes-delete-confirm").off("click").click(function (e) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    $scope.hideConfirm();
+                    _invokeAction("DELETE", url, e, true /*confirmed*/);
+                });
+                $("#dark-blocker").show();
+                deleteConfirmation.show();
+                return decoratePromise($q.when().finally(always));
+            } else {
+                return $http(config).success(success).error(error).finally(always);
             }
-            return $http(config);
         }
 
         function decoratePromise(promise) {
