@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Styles\app2.css" />
+    <Content Include="ng\manage2.js" />
     <Content Include="packages.config" />
     <Content Include="applicationHost.xdt" />
     <None Include="Web.Debug.config">
