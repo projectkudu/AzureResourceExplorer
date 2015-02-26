@@ -244,6 +244,14 @@ html[data-useragent*='MSIE 10.0'] .form-control {
   background: #ccc;
 }
 
+.small-switch {
+  position: relative;
+  float: left;
+  height: 25px;
+  width: 100px;
+  background: #ccc;
+}
+
 .switch-label {
   position: relative;
   z-index: 2;
@@ -295,4 +303,9 @@ html[data-useragent*='MSIE 10.0'] .form-control {
 
 .navbar-brand {
     float: left;
+}
+
+pre {
+  word-break: normal;
+  word-wrap: normal;
 }

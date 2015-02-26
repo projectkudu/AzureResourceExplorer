@@ -73,12 +73,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         $scope.resourcesDefinitionsTable = [];
         $scope.resources = [];
         $scope.readOnly = true;
+        $scope.editMode = false;
 
-        var editor, createEditor;
+        var responseEditor, requestEditor, createEditor;
         $timeout(function () {
-            editor = ace.edit("json-editor");
+            responseEditor = ace.edit("response-json-editor");
+            requestEditor = ace.edit("request-json-editor");
             createEditor = ace.edit("json-create-editor");
-            [editor, createEditor].map(function (e) {
+            [responseEditor, requestEditor, createEditor].map(function (e) {
                 e.setOptions({
                     maxLines: Infinity,
                     fontSize: 15,
@@ -87,13 +89,30 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 });
                 e.setTheme("ace/theme/tomorrow");
                 e.getSession().setMode("ace/mode/json");
+                e.customSetValue = function (stringValue) {
+                    this.setValue(stringValue);
+                    this.session.selection.clearSelection();
+                    this.moveCursorTo(0, 0);
+                };
+                e.setReadOnly = function () {
+                    this.setOptions({
+                        readOnly: true,
+                        highlightActiveLine: false,
+                        highlightGutterLine: false
+                    });
+                    this.renderer.$cursorLayer.element.style.opacity = 0;
+                    this.renderer.setStyle("disabled", true);
+                    this.container.style.background = "#f5f5f5";
+                    this.blur();
+                };
             });
-            editor.setValue(stringify({ message: "Select a node to start" }));
-            editor.session.selection.clearSelection();
+            responseEditor.setReadOnly();
+            responseEditor.customSetValue(stringify({ message: "Select a node to start" }));
+            
         });
 
         $document.on('mouseup', function () {
-            [editor, createEditor].map(function (e) { e.resize() });
+            [responseEditor, requestEditor, createEditor].map(function (e) { e.resize() });
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
@@ -138,14 +157,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 }
                 return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition, dontClickFirstTab: dontClickFirstTab }));
             })
-            .do(function () {}, function (err) {
+            .do(function () { }, function (err) {
                 setStateForErrorOnResourceClick();
                 if (!err.config.dontClickFirstTab) selectFirstTab(1);
                 if (err.config && err.config.resourceDefinition) {
                     var resourceDefinition = err.config.resourceDefinition;
                     $scope.putUrl = err.config.filledInUrl;
-                    editor.setValue("");
-                    editor.session.selection.clearSelection();
+                    responseEditor.customSetValue("");
+                    $scope.readOnlyResponse = "";
                 }
                 delete err.config;
                 $scope.errorResponse = syntaxHighlight(err);
@@ -160,11 +179,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 if (!value.dontClickFirstTab) { selectFirstTab(1); delete $scope.actionResponse; }
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
-                        editor.setValue(stringify(value.resourceDefinition.requestBody));
-                        editor.session.selection.clearSelection();
+                        responseEditor.customSetValue(stringify(value.resourceDefinition.requestBody));
                     } else {
-                        editor.setValue(stringify({ message: "No GET Url" }));
-                        editor.session.selection.clearSelection();
+                        responseEditor.customSetValue(stringify({ message: "No GET Url" }));
                     }
                     return;
                 }
@@ -173,27 +190,29 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $scope.putUrl = url;
                 var putActions = resourceDefinition.actions.filter(function (a) { return (a === "POST" || a === "PUT"); });
                 var createActions = resourceDefinition.actions.filter(function (a) { return (a === "CREATE"); });
-                var editorData;
                 if (putActions.length === 1) {
-                    var editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
-                    mergeObject(value.data, editable);
-                    editor.setValue(stringify(editable));
-                    editor.session.selection.clearSelection();
-                    editorData = editable;
+                    var editable;
+                    if (resourceDefinition.requestBody && isEmptyObjectorArray(resourceDefinition.requestBody.properties)) {
+                        editable = value.data;
+                    } else {
+                        editable = jQuery.extend(true, {}, resourceDefinition.requestBody);
+                        var dataCopy = jQuery.extend(true, {}, value.data);
+                        mergeObject(dataCopy, editable);
+                    }
+                    requestEditor.customSetValue(stringify(editable));
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
                 } else {
-                    editor.setValue(stringify(value.data));
-                    editor.session.selection.clearSelection();
-                    editorData = value.data;
+                    requestEditor.customSetValue("");
                 }
+
+                responseEditor.customSetValue(stringify(value.data));
 
                 if (createActions.length === 1) {
                     $scope.creatable = true;
                     $scope.createMetaData = resourceDefinition.requestBody;
-                    createEditor.setValue(stringify(resourceDefinition.requestBody));
-                    createEditor.session.selection.clearSelection();
+                    createEditor.customSetValue(stringify(resourceDefinition.requestBody));
                 }
 
                 var actionsAndVerbs = resourceDefinition.actions.filter(function (a) { return (a === "DELETE"); }).map(function (a) {
@@ -221,7 +240,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         }
                     }).filter(function(r) {return r !== undefined;}));
                 var doc = (resourceDefinition.responseBodyDoc ? resourceDefinition.responseBodyDoc : resourceDefinition.requestBodyDoc);
-                var docArray = getDocumentationFlatArray(editorData, doc);
+                var docArray = getDocumentationFlatArray(value.data, doc);
 
                 $scope.selectedResource = {
                     url: url,
@@ -245,28 +264,34 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         };
 
         function invokePutOrPatch(method, event) {
-            setStateForInvokePut();
-            var userObject = JSON.parse(editor.getValue());
-            cleanObject(userObject);
-            userHttp({
-                method: "POST",
-                url: "api/operations",
-                data: {
-                    Url: $scope.putUrl,
-                    HttpMethod: method,
-                    RequestBody: userObject,
-                    ApiVersion: $scope.apiVersion
-                }
-            }, function () {
-                $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
-                fadeInAndFadeOutSuccess();
-            }, function (err) {
-                $scope.putError = syntaxHighlight(err);
-                fadeInAndFadeOutError();
-            }, function () {
+            try {
+                setStateForInvokePut();
+                var userObject = JSON.parse(requestEditor.getValue());
+                cleanObject(userObject);
+                userHttp({
+                    method: "POST",
+                    url: "api/operations",
+                    data: {
+                        Url: $scope.putUrl,
+                        HttpMethod: method,
+                        RequestBody: userObject,
+                        ApiVersion: $scope.apiVersion
+                    }
+                }, function () {
+                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
+                    fadeInAndFadeOutSuccess();
+                }, function (err) {
+                    $scope.putError = syntaxHighlight(err);
+                    fadeInAndFadeOutError();
+                }, function () {
+                    $scope.invoking = false;
+                    $scope.loading = false;
+                }, event);
+            } catch (e) {
+                $scope.putError = syntaxHighlight({error: "Error parsing JSON"});
                 $scope.invoking = false;
                 $scope.loading = false;
-            }, event);
+            }
         };
 
         $scope.expandResourceHandler = function (branch, row, event, dontExpandChildren) {
@@ -404,58 +429,64 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.leaveCreateMode = function () {
             $scope.createMode = false;
-            editor.resize();
+            responseEditor.resize();
+            requestEditor.resize();
         };
 
         $scope.clearCreate = function () {
             delete $scope.createModel.createdResourceName;
-            createEditor.setValue(stringify($scope.createMetaData));
-            createEditor.session.selection.clearSelection();
+            createEditor.customSetValue(stringify($scope.createMetaData));
         };
 
         $scope.invokeCreate = function (event) {
-            var resourceName = $scope.createModel.createdResourceName;
-            if (!resourceName) {
-                $scope.createError = syntaxHighlight({
-                    error: {
-                        message: "{Resource Name} can't be empty"
-                    }
-                });
-                $scope.invoking = false;
-                $scope.loading = false;
-                return;
-            }
+            try {
+                var resourceName = $scope.createModel.createdResourceName;
+                if (!resourceName) {
+                    $scope.createError = syntaxHighlight({
+                        error: {
+                            message: "{Resource Name} can't be empty"
+                        }
+                    });
+                    $scope.invoking = false;
+                    $scope.loading = false;
+                    return;
+                }
 
-            delete $scope.createError;
-            var userObject = JSON.parse(createEditor.getValue());
-            cleanObject(userObject);
-            $scope.invoking = true;
-            var selectedBranch = $scope.treeControl.get_selected_branch();
-            userHttp({
-                method: "POST",
-                url: "api/operations",
-                data: {
-                    Url: $scope.putUrl + "/" + resourceName,
-                    HttpMethod: "PUT",
-                    RequestBody: userObject,
-                    ApiVersion: $scope.apiVersion
-                }
-            }, function () {
-                $scope.treeControl.collapse_branch(selectedBranch);
-                if (selectedBranch.uid === $scope.treeControl.get_selected_branch().uid) {
-                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
-                    fadeInAndFadeOutSuccess();
-                }
-                $timeout(function () {
-                    $scope.expandResourceHandler(selectedBranch);
-                }, 50);
-            }, function (err) {
-                $scope.createError = syntaxHighlight(err);
-                fadeInAndFadeOutError();
-            }, function () {
+                delete $scope.createError;
+                var userObject = JSON.parse(createEditor.getValue());
+                cleanObject(userObject);
+                $scope.invoking = true;
+                var selectedBranch = $scope.treeControl.get_selected_branch();
+                userHttp({
+                    method: "POST",
+                    url: "api/operations",
+                    data: {
+                        Url: $scope.putUrl + "/" + resourceName,
+                        HttpMethod: "PUT",
+                        RequestBody: userObject,
+                        ApiVersion: $scope.apiVersion
+                    }
+                }, function () {
+                    $scope.treeControl.collapse_branch(selectedBranch);
+                    if (selectedBranch.uid === $scope.treeControl.get_selected_branch().uid) {
+                        $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
+                        fadeInAndFadeOutSuccess();
+                    }
+                    $timeout(function () {
+                        $scope.expandResourceHandler(selectedBranch);
+                    }, 50);
+                }, function (err) {
+                    $scope.createError = syntaxHighlight(err);
+                    fadeInAndFadeOutError();
+                }, function () {
+                    $scope.invoking = false;
+                    $scope.loading = false;
+                }, event);
+            } catch (e) {
+                $scope.createError = syntaxHighlight({ error: "Error parsing JSON" });
                 $scope.invoking = false;
                 $scope.loading = false;
-            }, event);
+            }
         };
 
         function refreshContent() {
@@ -463,9 +494,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         };
 
         $scope.enterDataTab = function () {
-            if (editor) {
-                editor.resize();
-            }
+            [responseEditor, requestEditor].map(function (e) {
+                if (e) {
+                    e.resize();
+                }
+            });
         };
 
         $scope.hideDocs = function () {
@@ -493,6 +526,21 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         $scope.setReadOnly = function (readOnly) {
             $scope.readOnly = readOnly;
         }
+
+        $scope.toggleEditMode = function () {
+            $scope.editMode = !$scope.editMode;
+            $timeout(function () {
+                [responseEditor, requestEditor].map(function (e) {
+                    if (e) {
+                        e.resize();
+                    }
+                });
+            });
+        }
+
+        $scope.showHttpVerb = function (verb) {
+            return ((verb === "GET" || verb === "POST") && !$scope.editMode) || ((verb === "PUT" || verb === "PATCH") && $scope.editMode);
+        };
 
         // Get resourcesDefinitions
         initResourcesDefinitions();
@@ -532,11 +580,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.invoking = false;
             $scope.loading = false;
             $scope.creatable = false;
+            $scope.editMode = false;
         }
 
         function setStateForErrorOnResourceClick() {
             $scope.invoking = false;
             $scope.loading = false;
+            $scope.editMode = false;
         }
 
         function setStateForInvokeAction() {
@@ -898,10 +948,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         function mergeObject(source, target) {
-            if (typeof source === "string") {
-                target = source;
-                return target;
-            }
             for (var sourceProperty in source) {
                 if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
                     if (!isEmptyObjectorArray(source[sourceProperty]) && (typeof source[sourceProperty] === "object") && !Array.isArray(source[sourceProperty])) {
@@ -912,10 +958,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         target[sourceProperty].push(targetModel);
                     } else if (!isEmptyObjectorArray(source[sourceProperty])) {
                         target[sourceProperty] = source[sourceProperty];
-
                     }
-                } else if (!isEmptyObjectorArray(source[sourceProperty])) {
-                    target[sourceProperty] = source[sourceProperty];
                 }
             }
             return target;
