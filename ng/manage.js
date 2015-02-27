@@ -552,7 +552,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         initSettings();
 
         function initSettings() {
-            $scope.setReadOnlyMode($cookies.readOnlyMode === "true");
+            if ($cookies.readOnlyMode !== undefined) {
+                $scope.setReadOnlyMode($cookies.readOnlyMode === "true");
+            }
         }
 
         function handlePath(path) {
