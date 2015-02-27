@@ -65,14 +65,14 @@ angular.module("mp.resizer", [])
          };
      })
 
-angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer"])
-    .controller("treeBodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx, $document) {
+angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ngCookies"])
+    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", "$cookies", function ($scope, $routeParams, $location, $http, $q, $timeout, rx, $document, $cookies) {
 
         $scope.treeControl = {};
         $scope.createModel = {};
         $scope.resourcesDefinitionsTable = [];
         $scope.resources = [];
-        $scope.readOnly = true;
+        $scope.readOnlyMode = true;
         $scope.editMode = false;
 
         var responseEditor, requestEditor, createEditor;
@@ -523,8 +523,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $('#dark-blocker').hide();
         }
 
-        $scope.setReadOnly = function (readOnly) {
-            $scope.readOnly = readOnly;
+        $scope.setReadOnlyMode = function (readOnlyMode) {
+            $scope.readOnlyMode = readOnlyMode;
+            $cookies.readOnlyMode = readOnlyMode;
         }
 
         $scope.toggleEditMode = function () {
@@ -547,6 +548,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         // Get tenants list
         initTenants();
+
+        initSettings();
+
+        function initSettings() {
+            $scope.setReadOnlyMode($cookies.readOnlyMode === "true");
+        }
 
         function handlePath(path) {
             if (path.length === 0) return;
@@ -1130,7 +1137,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             };
             return promise;
         }
-    })
+    }])
     .config(function ($routeProvider, $locationProvider) {
         $locationProvider.html5Mode(true);
     });
