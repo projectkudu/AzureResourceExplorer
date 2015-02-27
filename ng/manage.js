@@ -657,7 +657,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         function getCsmNameFromIdAndName(id, name) {
-            var splited = (id && id !== null ? id : name).split("/");
+            var splited = (id && id !== null ? decodeURIComponent(id) : name).split("/");
             return splited[splited.length - 1];
         }
 
