@@ -1091,7 +1091,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         function userHttp(config, success, error, always, event, confirmed) {
             var method = (config.data ? config.data.HttpMethod : config.method);
             var url = (config.data ? config.data.Url : config.url);
-            if ($scope.readOnly) {
+            if ($scope.readOnlyMode) {
                 if (method !== "GET" && !(method === "POST" && url.split('/').last() === "list")) {
                     if (event) {
                         var clickedButton = $(event.currentTarget);
