@@ -1138,7 +1138,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     e.stopPropagation();
                     e.preventDefault();
                     $scope.hideConfirm();
-                    _invokeAction("DELETE", url, e, true /*confirmed*/);
+                    _invokeAction({
+                        httpMethod: "DELETE",
+                        url: url
+                    }, e, true /*confirmed*/);
                 });
                 $("#dark-blocker").show();
                 deleteConfirmation.show();
