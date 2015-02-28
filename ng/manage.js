@@ -65,8 +65,8 @@ angular.module("mp.resizer", [])
          };
      })
 
-angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ngCookies"])
-    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", "$cookies", function ($scope, $routeParams, $location, $http, $q, $timeout, rx, $document, $cookies) {
+angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ui.ace"])
+.controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", function ($scope, $routeParams, $location, $http, $q, $timeout, rx, $document) {
 
         $scope.treeControl = {};
         $scope.createModel = {};
@@ -74,6 +74,20 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         $scope.resources = [];
         $scope.readOnlyMode = true;
         $scope.editMode = false;
+
+        $scope.aceConfig = {
+            mode: "json",
+            theme: "tomorrow",
+            onLoad: function (_ace) {
+                    _ace.setOptions({
+                        maxLines: Infinity,
+                        fontSize: 15,
+                        wrap: "free",
+                        showPrintMargin: false
+                    });
+                    _ace.resize();
+            }
+        };
 
         var responseEditor, requestEditor, createEditor;
         $timeout(function () {
@@ -235,7 +249,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             return {
                                 httpMethod: "POST",
                                 name: d.resourceName,
-                                url: url + "/" + d.resourceName
+                                url: url + "/" + d.resourceName,
+                                requestBody: (d.requestBody ? stringify(d.requestBody) : undefined)
                             };
                         }
                     }).filter(function(r) {return r !== undefined;}));
@@ -259,8 +274,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
         }
 
-        $scope.invokeAction = function (action, url, event) {
-            _invokeAction(action, url, event);
+        $scope.invokeAction = function (action, event) {
+            _invokeAction(action, event);
         };
 
         function invokePutOrPatch(method, event) {
@@ -525,7 +540,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.setReadOnlyMode = function (readOnlyMode) {
             $scope.readOnlyMode = readOnlyMode;
-            $cookies.readOnlyMode = readOnlyMode;
+            $.cookie("readOnlyMode", readOnlyMode, { expires: 10*365 });
         }
 
         $scope.toggleEditMode = function () {
@@ -552,8 +567,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         initSettings();
 
         function initSettings() {
-            if ($cookies.readOnlyMode !== undefined) {
-                $scope.setReadOnlyMode($cookies.readOnlyMode === "true");
+            if ($.cookie("readOnlyMode") !== undefined) {
+                $scope.setReadOnlyMode($.cookie("readOnlyMode") === "true");
             }
         }
 
@@ -608,36 +623,46 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.invoking = true;
         }
 
-        function _invokeAction(action, url, event, confirmed) {
-            setStateForInvokeAction();
-            var currentBranch = $scope.treeControl.get_selected_branch();
-            var parent = $scope.treeControl.get_parent_branch(currentBranch);
-            userHttp({
-                method: "POST",
-                url: "api/operations",
-                data: {
-                    Url: url,
-                    HttpMethod: action,
-                    ApiVersion: $scope.apiVersion
+        function _invokeAction(action, event, confirmed) {
+            try {
+                setStateForInvokeAction();
+                var currentBranch = $scope.treeControl.get_selected_branch();
+                var parent = $scope.treeControl.get_parent_branch(currentBranch);
+                var body;
+                if (action.requestBody) {
+                    var s = ace.edit(action.name + "-editor");
+                    body = JSON.parse(s.getValue());
                 }
-            }, function (data, status) {
-                $scope.actionResponse = syntaxHighlight(data);
-                // async DELETE returns 202. That might fail later. So don't remove from the tree
-                if (action === "DELETE" && status === 200 /*OK*/) {
-                    if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
-                        $scope.treeControl.select_branch(parent);
-                        selectFirstTab(900);
-                        scrollToTop(900);
+                userHttp({
+                    method: "POST",
+                    url: "api/operations",
+                    data: {
+                        Url: action.url,
+                        RequestBody: body,
+                        HttpMethod: action.httpMethod,
+                        ApiVersion: $scope.apiVersion
                     }
-                    parent.children = parent.children.filter(function (branch) { return branch.uid !== currentBranch.uid; });
-                } else {
-                    $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
-                }
-                fadeInAndFadeOutSuccess();
-            }, function (err) {
-                $scope.actionResponse = syntaxHighlight(err);
-                fadeInAndFadeOutError();
-            }, function () { $scope.loading = false; }, event, confirmed);
+                }, function (data, status) {
+                    $scope.actionResponse = syntaxHighlight(data);
+                    // async DELETE returns 202. That might fail later. So don't remove from the tree
+                    if (action.httpMethod === "DELETE" && status === 200 /*OK*/) {
+                        if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
+                            $scope.treeControl.select_branch(parent);
+                            selectFirstTab(900);
+                            scrollToTop(900);
+                        }
+                        parent.children = parent.children.filter(function (branch) { return branch.uid !== currentBranch.uid; });
+                    } else {
+                        $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
+                    }
+                    fadeInAndFadeOutSuccess();
+                }, function (err) {
+                    $scope.actionResponse = syntaxHighlight(err);
+                    fadeInAndFadeOutError();
+                }, function () { $scope.loading = false; }, event, confirmed);
+            } catch(e) {
+                $scope.actionResponse = syntaxHighlight({error: "Error parsing JSON"});
+            }
         }
 
         function fadeInAndFadeOutSuccess() {

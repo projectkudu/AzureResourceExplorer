@@ -309,3 +309,14 @@ pre {
   word-break: normal;
   word-wrap: normal;
 }
+
+.explorer-editor {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid #bcbcbc;
+    border-radius: 4px 4px 0px;
+}
+
+.action-editor {
+    min-height: 50px;
+}

@@ -152,7 +152,8 @@ namespace ARMExplorer.Controllers
                 "GetSubscription",
                 "PutSubscription",
                 "ListSubscriptionStorageAccounts",
-                "CheckDnsNameAvailability"
+                "CheckDnsNameAvailability",
+                "MigrateSubscription"
             }.Any(str => method.Name.IndexOf(str, StringComparison.OrdinalIgnoreCase) >=0 );
         }
 
