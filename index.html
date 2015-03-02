@@ -44,7 +44,7 @@
     <div id="wrapper" ng-controller="treeBodyController">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/manage" ng-click="clearEnvironment()">Azure Resource Explorer (beta)</a>
+                <a class="navbar-brand" href="/" ng-click="clearEnvironment()">Azure Resource Explorer (beta)</a>
                 <select ng-model="selectedTenant" ng-options="tenant.name for tenant in tenants" style="position: relative; top: 15px; float: left" ng-change="tenantSelect()"></select>
                 <div class="switch">
                     <input type="radio" class="switch-input" name="view" id="readOnly" ng-checked="readOnlyMode" ng-click="setReadOnlyMode(true)">
