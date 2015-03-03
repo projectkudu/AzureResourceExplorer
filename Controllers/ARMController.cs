@@ -14,6 +14,11 @@ namespace ARMExplorer.Controllers
 {
     public class ARMController : ApiController
     {
+        private const char base64Character62 = '+';
+        private const char base64Character63 = '/';
+        private const char base64UrlCharacter62 = '-';
+        private const char base64UrlCharacter63 = '_';
+
         [Authorize]
         public HttpResponseMessage GetToken(bool plainText = false)
         {
@@ -120,6 +125,10 @@ namespace ARMExplorer.Controllers
             {
                 base64 += new string('=', 4 - mod4);
             }
+
+            // decode url escape char
+            base64 = base64.Replace(base64UrlCharacter62, base64Character62);
+            base64 = base64.Replace(base64UrlCharacter63, base64Character63);
 
             var json = Encoding.UTF8.GetString(Convert.FromBase64String(base64));
             return JObject.Parse(json);
