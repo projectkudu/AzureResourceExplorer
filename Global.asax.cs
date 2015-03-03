@@ -16,7 +16,6 @@ namespace ARMExplorer
 
         protected void Application_Start()
         {
-            ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
             WebApiConfig.Register(GlobalConfiguration.Configuration);
         }
 
