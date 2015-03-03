@@ -64,6 +64,7 @@ namespace ARMExplorer.Modules
             // only perform authentication if localhost
             if (!request.Url.IsLoopback)
             {
+                response.Headers["Strict-Transport-Security"] = "max-age=0";
                 principal = new ClaimsPrincipal(new ClaimsIdentity("SCM"));
                 HttpContext.Current.User = principal;
                 Thread.CurrentPrincipal = principal;
