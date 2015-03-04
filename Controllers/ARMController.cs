@@ -76,7 +76,8 @@ namespace ARMExplorer.Controllers
                             return response;
                         }
 
-                        var tenants = await response.Content.ReadAsAsync<JArray>();
+                        var tenantsString = await response.Content.ReadAsStringAsync();
+                        var tenants = JArray.Parse(tenantsString);
                         tenants = SetCurrentTenant(tenants);
                         response = Transfer(response);
                         response.Content = new StringContent(tenants.ToString(), Encoding.UTF8, "application/json");
@@ -94,7 +95,8 @@ namespace ARMExplorer.Controllers
                             return response;
                         }
 
-                        var tenants = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
+                        var tenantsString = await response.Content.ReadAsStringAsync();
+                        var tenants = (JArray)(JObject.Parse(tenantsString))["value"];
                         tenants = SetCurrentTenant(ToTenantDetails(tenants));
                         response = Transfer(response);
                         response.Content = new StringContent(tenants.ToString(), Encoding.UTF8, "application/json");
