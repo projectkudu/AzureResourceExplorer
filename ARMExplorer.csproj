@@ -121,6 +121,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ARMController.cs" />
     <Compile Include="Controllers\HyakUtils.cs" />
+    <Compile Include="Controllers\MetadataObject.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationInfo.cs" />
     <Compile Include="Controllers\Utils.cs" />

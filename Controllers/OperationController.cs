@@ -14,6 +14,7 @@ using System.Web.Hosting;
 using System.Web.Http;
 using Hyak.Common;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace ARMExplorer.Controllers
 {
@@ -33,14 +34,15 @@ namespace ARMExplorer.Controllers
                 .Select(assembly => assembly.GetTypes())
                 .SelectMany(t => t)
                 .Where(type => type.IsSubclassOf(typeof(BaseClient)) && !type.IsAbstract )
-                .Select(client => (JArray) HyakUtils.GetOperationsAsync(hidden, client))
+                .Select(client => HyakUtils.GetOperationsAsync(hidden, client))
                 .SelectMany(j => j);
 
             var speclessCsmApis = await HyakUtils.GetSpeclessCsmOperationsAsync();
-            var json = new JArray(specs.Union(speclessCsmApis));
+
+            var json = specs.Concat(speclessCsmApis);
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(json.ToString(), Encoding.UTF8, "application/json");
+            response.Content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
             response.Headers.Add(Utils.X_MS_Ellapsed, watch.ElapsedMilliseconds + "ms");
             return response;
         }

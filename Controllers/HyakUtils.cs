@@ -11,14 +11,15 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace ARMExplorer.Controllers
 {
     public static class HyakUtils
     {
         static object _lock = new object();
-        static Dictionary<Type, JArray[]> _operations = new Dictionary<Type, JArray[]>();
-        static JArray _speclessCsmApis = null;
+        static Dictionary<Type, IEnumerable<MetadataObject>[]> _operations = new Dictionary<Type, IEnumerable<MetadataObject>[]>();
+        static IEnumerable<MetadataObject> _speclessCsmApis = null;
 
         static HyakUtils()
         {
@@ -31,11 +32,11 @@ namespace ARMExplorer.Controllers
             set;
         }
 
-        public static JArray GetOperationsAsync(bool hidden, Type type)
+        public static IEnumerable<MetadataObject> GetOperationsAsync(bool hidden, Type type)
         {
             lock (_lock)
             {
-                JArray[] cache;
+                IEnumerable<MetadataObject>[] cache;
                 if (_operations.TryGetValue(type, out cache))
                 {
                     return cache[hidden ? 1 : 0];
@@ -44,8 +45,8 @@ namespace ARMExplorer.Controllers
 
             var service = ApiModeler.Instantiate(type);
 
-            JArray array = new JArray();
-            JArray skip = new JArray();
+            var array = new List<MetadataObject>();
+            var skip = new List<MetadataObject>();
             foreach (var method in service.Methods.Values)
             {
                 GenerateMethod(ShouldSkip(method) ? skip : array, method);
@@ -67,72 +68,77 @@ namespace ARMExplorer.Controllers
             return array;
         }
 
-        public static async Task<JArray> GetSpeclessCsmOperationsAsync()
+        public static async Task<IEnumerable<MetadataObject>> GetSpeclessCsmOperationsAsync()
         {
             if (_speclessCsmApis == null)
             {
-                _speclessCsmApis = new JArray();
-                using (var client = GetClient())
-                {
-                    var response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions?api-version=2014-04-01");
-                    if (!response.IsSuccessStatusCode) return _speclessCsmApis;
-
-                    dynamic subscriptions = await response.Content.ReadAsAsync<JObject>();
-                    if (subscriptions.value.Count == 0) return _speclessCsmApis;
-
-                    var subId = subscriptions.value[0].subscriptionId;
-                    response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions/" + subId + "/providers?api-version=2014-04-01");
-                    if (!response.IsSuccessStatusCode) return _speclessCsmApis;
-
-                    var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
-                    var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
-                    var fakeRequestBody = new { properties = new { }, location = string.Empty };
-                    providersList.Where(p => !new[] {
-                        "Microsoft.Web",
-                        "Microsoft.Compute",
-                        "Microsoft.Storage",
-                        "Microsoft.Network"
-                    }.Any(str => p["namespace"].ToString().IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
-                     .Select(provider =>
-                    {
-                        return provider["resourceTypes"].Select((resourceType) =>
-                        {
-                            return new[] { JObject.FromObject(new
-                        {
-                            MethodName = "GET",
-                            HttpMethod = "GET",
-                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b),
-                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
-                        }),
-                        JObject.FromObject(new
-                        {
-                            MethodName = "GET",
-                            HttpMethod = "GET",
-                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
-                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
-                        }),
-                        JObject.FromObject(new
-                        {
-                            MethodName = "CreateOrUpdate",
-                            HttpMethod = "PUT",
-                            RequestBody = fakeRequestBody,
-                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
-                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
-                        }),
-                        JObject.FromObject(new
-                        {
-                            MethodName = "Delete",
-                            HttpMethod = "DELETE",
-                            RequestBody = fakeRequestBody,
-                            Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
-                            ApiVersion = resourceType["apiVersions"].FirstOrDefault()
-                        })};
-                        });
-                    }).SelectMany(i => i).SelectMany(i => i).ToList().ForEach(_speclessCsmApis.Add);
-                }
+                _speclessCsmApis = (await GetRemoteCsmOperations()).Concat(GetMissingApis());
             }
-            AddMissingApis(_speclessCsmApis);
             return _speclessCsmApis;
+        }
+
+        private static async Task<IEnumerable<MetadataObject>> GetRemoteCsmOperations()
+        {
+            using (var client = GetClient())
+            {
+                var response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions?api-version=2014-04-01");
+                if (!response.IsSuccessStatusCode) return Enumerable.Empty<MetadataObject>();
+
+                dynamic subscriptions = await response.Content.ReadAsAsync<JObject>();
+                if (subscriptions.value.Count == 0) return Enumerable.Empty<MetadataObject>();
+
+                var subId = subscriptions.value[0].subscriptionId;
+                response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions/" + subId + "/providers?api-version=2014-04-01");
+                if (!response.IsSuccessStatusCode) return Enumerable.Empty<MetadataObject>();
+
+                var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
+                var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
+                var fakeRequestBody = new { properties = new { }, location = string.Empty };
+                return  providersList.Where(p => !new[] {
+                            "Microsoft.Web",
+                            "Microsoft.Compute",
+                            "Microsoft.Storage",
+                            "Microsoft.Network"
+                        }.Any(str => p["namespace"].ToString().IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
+                         .Select(provider =>
+                         {
+                             return provider["resourceTypes"].Select((resourceType) =>
+                             {
+                                 return new[] { new MetadataObject
+                                     {
+                                         MethodName = "GET",
+                                         HttpMethod = "GET",
+                                         Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b),
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                     },
+                                     new MetadataObject
+                                     {
+                                         MethodName = "GET",
+                                         HttpMethod = "GET",
+                                         Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                     },
+                                     new MetadataObject
+                                     {
+                                         MethodName = "CreateOrUpdate",
+                                         HttpMethod = "PUT",
+                                         RequestBody = fakeRequestBody,
+                                         Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                     },
+                                     new MetadataObject
+                                     {
+                                         MethodName = "Delete",
+                                         HttpMethod = "DELETE",
+                                         Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                     }
+                                 };
+                             });
+                         })
+                         .SelectMany(i => i)
+                         .SelectMany(i => i);
+            }
         }
 
         private static bool ShouldSkip(IMethod method)
@@ -157,34 +163,34 @@ namespace ARMExplorer.Controllers
             }.Any(str => method.Name.IndexOf(str, StringComparison.OrdinalIgnoreCase) >=0 );
         }
 
-        private static void GenerateMethod(JArray array, IMethod method)
+        private static void GenerateMethod(List<MetadataObject> array, IMethod method)
         {
-            var json = new JObject();
-            json["MethodName"] = method.Name;
-            if (method.Documentation != null) json["doc"] = JObject.FromObject(method.Documentation);
-            json["HttpMethod"] = method.HttpMethod.ToString().ToUpper();
-            json["ApiVersion"] = method.Service.ApiVersionExpression == "2013-03-01" ? "2014-12-01-preview" : method.Service.ApiVersionExpression;
+            var json = new MetadataObject();
+            json.MethodName = method.Name;
+            if (method.Documentation != null) json.MethodDoc = method.Documentation;
+            json.HttpMethod = method.HttpMethod.ToString().ToUpper();
+            json.ApiVersion = method.Service.ApiVersionExpression == "2013-03-01" ? "2014-12-01-preview" : method.Service.ApiVersionExpression;
 
             if (method.RequestBodies.Count == 1)
             {
                 var request = (RequestBody)method.RequestBodies.First().Value;
                 var schema = GetJsonSchehma(request.SerializationFormat);
-                json["RequestBody"] = schema;
-                json["RequestBodyDoc"] = GetJsonSchehma(request.SerializationFormat, getDocumentation: true);
+                json.RequestBody = schema;
+                json.RequestBodyDoc = GetJsonSchehma(request.SerializationFormat, getDocumentation: true);
             }
 
             if (method.ResponseBodies.Count == 1)
             {
                 var response = (ResponseBody)method.ResponseBodies.First().Value.First().Value;
                 var schema = GetJsonSchehma(response.SerializationFormat);
-                json["ResponseBody"] = schema;
-                json["ResponseBodyDoc"] = GetJsonSchehma(response.SerializationFormat, getDocumentation: true);
+                json.ResponseBody = schema;
+                json.ResponseBodyDoc = GetJsonSchehma(response.SerializationFormat, getDocumentation: true);
             }
 
             var url = EvaluateExpression(BindingExpression.Bind(method, method.UrlExpression)).ToString();
             url = url.Contains('?') ? url.Substring(0, url.IndexOf('?')) : url;
-
             var urls = new List<string>();
+
             if (url.Contains('['))
             {
                 urls.Add(url.Replace("[", String.Empty).Replace("]", String.Empty));
@@ -197,10 +203,19 @@ namespace ARMExplorer.Controllers
 
             foreach (var item in urls)
             {
-                var clone = json.DeepClone();
-                clone["Url"] = item;
-                array.Add(clone);
+                json.Url = item;
+                json.Query = GetJsonQueryString(method.UrlExpression, method.Parameters);
+                array.Add(json);
             }
+        }
+
+        private static IEnumerable<string> GetJsonQueryString(string expression, IDictionary<string, IParameter> parameter)
+        {
+            if (!expression.Contains('?')) return Enumerable.Empty<string>();
+            var query = expression.Substring(expression.IndexOf("?") + 1);
+            return query.Split('&')
+                        .Select(s => s.Split('=').First())
+                        .Where(q => !q.Equals("api-version", StringComparison.OrdinalIgnoreCase));
         }
 
         private static JToken GetJsonSchehma(ISerializationBase serialization, bool getDocumentation = false)
@@ -212,8 +227,10 @@ namespace ARMExplorer.Controllers
             }
 
             var jsonValue = serialization as Hyak.ServiceModel.JsonValue;
+            
             if (jsonValue != null)
             {
+                
                 var knownObjectType = jsonValue.Type as Hyak.ServiceModel.KnownObjectType;
                 if (knownObjectType != null)
                 {
@@ -377,52 +394,54 @@ namespace ARMExplorer.Controllers
             throw new InvalidOperationException("Should not reach here. " + expression.GetType() + ", " + expression);
         }
 
-        private static void AddMissingApis(JArray array)
+        private static IEnumerable<MetadataObject> GetMissingApis()
         {
             var fakeRequestBody = new { properties = new { }, location = string.Empty };
-            array.Add(JObject.FromObject(new
-            {
-                MethodName = "Delete",
-                HttpMethod = "DELETE",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
-                ApiVersion = Utils.CSMApiVersion
-            }));
-            array.Add(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
-                ApiVersion = Utils.CSMApiVersion
-            }));
-            array.Add(JObject.FromObject(new
-            {
-                MethodName = "CreateOrUpdate",
-                HttpMethod = "PUT",
-                RequestBody = fakeRequestBody,
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
-                ApiVersion = Utils.CSMApiVersion
-            }));
-            array.Add(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups",
-                ApiVersion = Utils.CSMApiVersion
-            }));
-            array.Add(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions",
-                ApiVersion = Utils.CSMApiVersion
-            }));
-            array.Add(JObject.FromObject(new
-            {
-                MethodName = "Get",
-                HttpMethod = "GET",
-                Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}",
-                ApiVersion = Utils.CSMApiVersion
-            }));
+            return new List<MetadataObject> {
+                new MetadataObject
+                {
+                    MethodName = "Delete",
+                    HttpMethod = "DELETE",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
+                    ApiVersion = Utils.CSMApiVersion
+                },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
+                    ApiVersion = Utils.CSMApiVersion
+                },
+                new MetadataObject
+                {
+                    MethodName = "CreateOrUpdate",
+                    HttpMethod = "PUT",
+                    RequestBody = fakeRequestBody,
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
+                    ApiVersion = Utils.CSMApiVersion
+                },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups",
+                    ApiVersion = Utils.CSMApiVersion
+                },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions",
+                    ApiVersion = Utils.CSMApiVersion
+                },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}",
+                    ApiVersion = Utils.CSMApiVersion
+                }
+            };
         }
 
         private static HttpClient GetClient()
