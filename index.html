@@ -109,7 +109,11 @@
                                 </td>
                                 <td>
                                     <pre>{{ action.httpMethod }} {{ action.url + "?api-version=" + apiVersion }}</pre>
-                                    <div id="{{ action.name + '-editor' }}" ng-show="action.requestBody" class="explorer-editor action-editor" ui-ace="aceConfig" ng-model="action.requestBody "><div>
+                                    <div ng-repeat="query in action.query">
+                                        <pre style="float: left; margin-right: 10px">{{ "&" + query + "=" + actionsModel[query] }}</pre>
+                                        <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="actionsModel[query]">
+                                    </div>
+                                    <div id="{{ action.name + '-editor' }}" ng-show="action.requestBody" class="explorer-editor action-editor" ui-ace="aceConfig" ng-model="action.requestBody "></div>
                                 </td>
                             </tr>
                         </tbody>

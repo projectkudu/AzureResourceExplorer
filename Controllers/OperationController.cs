@@ -91,7 +91,7 @@ namespace ARMExplorer.Controllers
 
             using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
             {
-                var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=") != -1 ? string.Empty : "?api-version=" + info.ApiVersion));
+                var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=") != -1 ? string.Empty : "?api-version=" + info.ApiVersion) + (string.IsNullOrEmpty(info.QueryString) ? string.Empty : info.QueryString));
                 if (info.RequestBody != null)
                 {
                     request.Content = new StringContent(info.RequestBody.ToString(), Encoding.UTF8, "application/json");

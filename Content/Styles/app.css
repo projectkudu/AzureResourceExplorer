@@ -315,6 +315,7 @@ pre {
     min-height: 100px;
     border: 1px solid #bcbcbc;
     border-radius: 4px 4px 0px;
+    margin-bottom: 10px;
 }
 
 .action-editor {

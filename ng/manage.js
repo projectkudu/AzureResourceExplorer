@@ -70,6 +70,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.treeControl = {};
         $scope.createModel = {};
+        $scope.actionsModel = {};
         $scope.resourcesDefinitionsTable = [];
         $scope.resources = [];
         $scope.readOnlyMode = true;
@@ -250,7 +251,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                                 httpMethod: "POST",
                                 name: d.resourceName,
                                 url: url + "/" + d.resourceName,
-                                requestBody: (d.requestBody ? stringify(d.requestBody) : undefined)
+                                requestBody: (d.requestBody ? stringify(d.requestBody) : undefined),
+                                query: d.query
                             };
                         }
                     }).filter(function(r) {return r !== undefined;}));
@@ -628,10 +630,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 setStateForInvokeAction();
                 var currentBranch = $scope.treeControl.get_selected_branch();
                 var parent = $scope.treeControl.get_parent_branch(currentBranch);
-                var body;
+                var body, queryString;
                 if (action.requestBody) {
                     var s = ace.edit(action.name + "-editor");
                     body = JSON.parse(s.getValue());
+                }
+                if (action.query) {
+                    queryString = action.query.reduce(function (previous, current) {
+                        return previous + (($scope.actionsModel[current] && $scope.actionsModel[current].trim() != "") ? "&" + current + "=" + $scope.actionsModel[current].trim() : "")
+                    }, "");
                 }
                 userHttp({
                     method: "POST",
@@ -640,12 +647,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         Url: action.url,
                         RequestBody: body,
                         HttpMethod: action.httpMethod,
-                        ApiVersion: $scope.apiVersion
+                        ApiVersion: $scope.apiVersion,
+                        QueryString: queryString
                     }
                 }, function (data, status) {
                     $scope.actionResponse = syntaxHighlight(data);
                     // async DELETE returns 202. That might fail later. So don't remove from the tree
-                    if (action.httpMethod === "DELETE" && status === 200 /*OK*/) {
+                    if (action.httpMethod === "DELETE" && status === 200 /* OK */) {
                         if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
                             $scope.treeControl.select_branch(parent);
                             selectFirstTab(900);
@@ -661,7 +669,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     fadeInAndFadeOutError();
                 }, function () { $scope.loading = false; }, event, confirmed);
             } catch(e) {
-                $scope.actionResponse = syntaxHighlight({error: "Error parsing JSON"});
+                $scope.actionResponse = syntaxHighlight({ error: "Error parsing JSON" });
+                $scope.loading = false;
             }
         }
 
@@ -827,6 +836,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     requestBody: operation ? operation.RequestBody : {},
                     requestBodyDoc: operation ? operation.RequestBodyDoc : {},
                     responseBodyDoc: operation ? operation.ResponseBodyDoc : {},
+                    query: operation ? operation.Query : [],
                     apiVersion: operation && operation.ApiVersion ? operation.ApiVersion : "2014-04-01"
                 };
                 $scope.resourcesDefinitionsTable.push(addedElement);

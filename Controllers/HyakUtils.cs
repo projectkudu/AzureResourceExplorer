@@ -170,6 +170,7 @@ namespace ARMExplorer.Controllers
             if (method.Documentation != null) json.MethodDoc = method.Documentation;
             json.HttpMethod = method.HttpMethod.ToString().ToUpper();
             json.ApiVersion = method.Service.ApiVersionExpression == "2013-03-01" ? "2014-12-01-preview" : method.Service.ApiVersionExpression;
+            json.Query = GetJsonQueryString(method.UrlExpression, method.Parameters);
 
             if (method.RequestBodies.Count == 1)
             {
@@ -203,9 +204,7 @@ namespace ARMExplorer.Controllers
 
             foreach (var item in urls)
             {
-                json.Url = item;
-                json.Query = GetJsonQueryString(method.UrlExpression, method.Parameters);
-                array.Add(json);
+                array.Add(new MetadataObject(json) { Url = item });
             }
         }
 
@@ -397,6 +396,7 @@ namespace ARMExplorer.Controllers
         private static IEnumerable<MetadataObject> GetMissingApis()
         {
             var fakeRequestBody = new { properties = new { }, location = string.Empty };
+            var fakeSwapBody = new { targetSlot = string.Empty };
             return new List<MetadataObject> {
                 new MetadataObject
                 {
@@ -440,6 +440,22 @@ namespace ARMExplorer.Controllers
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}",
                     ApiVersion = Utils.CSMApiVersion
+                },
+                new MetadataObject
+                {
+                    MethodName = "Swap",
+                    HttpMethod = "POST",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{webSiteName}/slotsswap",
+                    ApiVersion = "2014-06-01",
+                    RequestBody = fakeSwapBody
+                },
+                new MetadataObject
+                {
+                    MethodName = "Swap",
+                    HttpMethod = "POST",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{webSiteName}/slots/{slotName}/slotsswap",
+                    ApiVersion = "2014-06-01",
+                    RequestBody = fakeSwapBody
                 }
             };
         }
