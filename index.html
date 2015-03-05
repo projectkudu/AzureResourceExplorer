@@ -95,7 +95,7 @@
                     <tab-heading>
                         <i class="fa fa-bolt"></i> Actions (POST, DELETE)
                     </tab-heading>
-                    <table class="table table-no-border" style="margin: 20px">
+                    <table class="table table-no-border" style="margin: 20px" ng-show="(selectedResource && selectedResource.actionsAndVerbs && selectedResource.actionsAndVerbs.length > 0)">
                         <colgroup>
                             <col class="col-xs-1">
                             <col class="col-xs-7">
@@ -125,18 +125,20 @@
                     <tab-heading>
                         <i class="fa fa-database"></i> Create
                     </tab-heading>
-                    <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate($event)">
-                        Reset
-                    </button>
-                    <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate($event)">
-                        PUT
-                    </button>
-                    <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
-                    <pre>{{ selectedResource.url + "/" + createModel.createdResourceName + "?api-version=" + apiVersion }}</pre>
-                    <div id="json-create-editor" class="explorer-editor"></div>
-                    <h2 ng-show="errorResponse || createError">Error:</h2>
-                    <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
-                    <pre ng-show="createError" ng-bind-html="createError" style="max-height: 400px"></pre>
+                    <div ng-show="creatable">
+                        <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate($event)">
+                            Reset
+                        </button>
+                        <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate($event)">
+                            PUT
+                        </button>
+                        <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
+                        <pre>{{ selectedResource.url + "/" + createModel.createdResourceName + "?api-version=" + apiVersion }}</pre>
+                        <div id="json-create-editor" class="explorer-editor"></div>
+                        <h2 ng-show="errorResponse || createError">Error:</h2>
+                        <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
+                        <pre ng-show="createError" ng-bind-html="createError" style="max-height: 400px"></pre>
+                    </div>
                 </tab>
                 <tab>
                     <tab-heading>

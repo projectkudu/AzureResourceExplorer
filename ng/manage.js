@@ -127,18 +127,19 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         });
 
         $document.on('mouseup', function () {
-            [responseEditor, requestEditor, createEditor].map(function (e) { e.resize() });
+            $timeout(function () {
+                [responseEditor, requestEditor, createEditor].map(function (e) { e.resize() });
+            });
         });
 
         $scope.$createObservableFunction("selectResourceHandler")
             .flatMapLatest(function (args) {
                 var branch = args[0];
                 var event = args[1];
-                var dontClickFirstTab = (args.length === 3 ? args[2] : false);
                 $scope.loading = true;
                 delete $scope.errorResponse;
                 var resourceDefinition = branch.resourceDefinition;
-                if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch, dontClickFirstTab: dontClickFirstTab }));
+                if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch }));
                 $scope.apiVersion = resourceDefinition.apiVersion;
                 var getActions = resourceDefinition.actions.filter(function (a) {
                     return (a === "GET" || a === "GETPOST");
@@ -152,8 +153,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         method: "GET",
                         url: "api" + url.substring(url.indexOf("/subscriptions")),
                         resourceDefinition: resourceDefinition,
-                        filledInUrl: url,
-                        dontClickFirstTab: dontClickFirstTab
+                        filledInUrl: url
                     }
                     : {
                         method: "POST",
@@ -164,17 +164,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             ApiVersion: resourceDefinition.apiVersion
                         },
                         resourceDefinition: resourceDefinition,
-                        filledInUrl: url,
-                        dontClickFirstTab: dontClickFirstTab
+                        filledInUrl: url
                     };
                     $scope.loading = true;
-                    return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction, dontClickFirstTab: dontClickFirstTab }; });
+                    return rx.Observable.fromPromise($http(httpConfig)).map(function (data) { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction}; });
                 }
-                return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition, dontClickFirstTab: dontClickFirstTab }));
+                return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition}));
             })
             .do(function () { }, function (err) {
                 setStateForErrorOnResourceClick();
-                if (!err.config.dontClickFirstTab) selectFirstTab(1);
                 if (err.config && err.config.resourceDefinition) {
                     var resourceDefinition = err.config.resourceDefinition;
                     $scope.putUrl = err.config.filledInUrl;
@@ -191,7 +189,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             .retry()
             .subscribe(function (value) {
                 setStateForClickOnResource();
-                if (!value.dontClickFirstTab) { selectFirstTab(1); delete $scope.actionResponse; }
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
                         responseEditor.customSetValue(stringify(value.resourceDefinition.requestBody));
@@ -486,7 +483,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 }, function () {
                     $scope.treeControl.collapse_branch(selectedBranch);
                     if (selectedBranch.uid === $scope.treeControl.get_selected_branch().uid) {
-                        $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
+                        $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                         fadeInAndFadeOutSuccess();
                     }
                     $timeout(function () {
@@ -656,12 +653,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     if (action.httpMethod === "DELETE" && status === 200 /* OK */) {
                         if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
                             $scope.treeControl.select_branch(parent);
-                            selectFirstTab(900);
                             scrollToTop(900);
                         }
                         parent.children = parent.children.filter(function (branch) { return branch.uid !== currentBranch.uid; });
                     } else {
-                        $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined, /* dontClickFirstTab */ true);
+                        $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                     }
                     fadeInAndFadeOutSuccess();
                 }, function (err) {
@@ -695,12 +691,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         function getCsmNameFromIdAndName(id, name) {
             var splited = (id && id !== null ? decodeURIComponent(id) : name).split("/");
             return splited[splited.length - 1];
-        }
-
-        function selectFirstTab(delay) {
-            $timeout(function () {
-                $("#data-tab").find('a:first').click();
-            }, delay);
         }
 
         function scrollToTop(delay) {
