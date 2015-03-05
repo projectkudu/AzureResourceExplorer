@@ -75,6 +75,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         $scope.resources = [];
         $scope.readOnlyMode = true;
         $scope.editMode = false;
+        $scope.activeTab = [false, false, false, false];
 
         $scope.aceConfig = {
             mode: "json",
@@ -185,6 +186,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     url: $scope.putUrl,
                     httpMethod: "GET"
                 };
+                fixSelectedTabIfNeeded();
             })
             .retry()
             .subscribe(function (value) {
@@ -195,6 +197,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     } else {
                         responseEditor.customSetValue(stringify({ message: "No GET Url" }));
                     }
+                    fixSelectedTabIfNeeded();
                     return;
                 }
                 var resourceDefinition = value.resourceDefinition;
@@ -263,6 +266,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     doc: docArray
                 };
                 $location.path(url.substring("https://management.azure.com/".length));
+                fixSelectedTabIfNeeded();
             });
 
         $scope.handleClick = function (method, event) {
@@ -564,6 +568,16 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         initTenants();
 
         initSettings();
+
+        function fixSelectedTabIfNeeded() {
+            var selectedIndex = $scope.activeTab.indexOf(true);
+            if ((!$scope.creatable && selectedIndex === 2) ||
+                (!($scope.selectedResource && $scope.selectedResource.actionsAndVerbs && $scope.selectedResource.actionsAndVerbs.length > 0) && selectedIndex === 1)) {
+                $timeout(function () {
+                    $scope.activeTab[0] = true;
+                });
+            }
+        }
 
         function initSettings() {
             if ($.cookie("readOnlyMode") !== undefined) {

@@ -76,7 +76,7 @@
                 </span>
             </div>
             <tabset>
-                <tab id="data-tab" select="enterDataTab()">
+                <tab id="data-tab" select="enterDataTab()" active="activeTab[0]">
                     <tab-heading>
                         <i class="fa fa-database"></i> Data (GET, PUT)
                     </tab-heading>
@@ -91,7 +91,7 @@
                     <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
                     <pre ng-show="putError" ng-bind-html="putError" style="max-height: 400px"></pre>
                 </tab>
-                <tab disabled="!(selectedResource && selectedResource.actionsAndVerbs && selectedResource.actionsAndVerbs.length > 0)">
+                <tab disabled="!(selectedResource && selectedResource.actionsAndVerbs && selectedResource.actionsAndVerbs.length > 0)" active="activeTab[1]">
                     <tab-heading>
                         <i class="fa fa-bolt"></i> Actions (POST, DELETE)
                     </tab-heading>
@@ -121,7 +121,7 @@
                     <pre ng-show="actionResponse" ng-bind-html="actionResponse" style="max-height: 400px"></pre>
 
                 </tab>
-                <tab disabled="!creatable" select="enterCreateMode()" deselect="leaveCreateMode()">
+                <tab disabled="!creatable" select="enterCreateMode()" deselect="leaveCreateMode()" active="activeTab[2]">
                     <tab-heading>
                         <i class="fa fa-database"></i> Create
                     </tab-heading>
@@ -140,7 +140,7 @@
                         <pre ng-show="createError" ng-bind-html="createError" style="max-height: 400px"></pre>
                     </div>
                 </tab>
-                <tab>
+                <tab active="activeTab[3]">
                     <tab-heading>
                         Documentation
                     </tab-heading>
