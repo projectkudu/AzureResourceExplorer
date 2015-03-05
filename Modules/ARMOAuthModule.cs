@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Principal;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -64,12 +65,23 @@ namespace ARMExplorer.Modules
             // only perform authentication if localhost
             if (!request.Url.IsLoopback)
             {
-                response.Headers["Strict-Transport-Security"] = "max-age=0";
-                principal = new ClaimsPrincipal(new ClaimsIdentity("SCM"));
+                var displayName = HttpContext.Current.Request.Headers["X-MS-CLIENT-DISPLAY-NAME"];
+                var principalName = HttpContext.Current.Request.Headers["X-MS-CLIENT-PRINCIPAL-NAME"];
+                if (!string.IsNullOrWhiteSpace(principalName) ||
+                    !string.IsNullOrWhiteSpace(displayName))
+                {
+                    principal = new GenericPrincipal(new GenericIdentity(principalName ?? displayName), new[] { "User" });
+                }
+                else
+                {
+                    principal = new ClaimsPrincipal(new ClaimsIdentity("SCM"));
+                }
                 HttpContext.Current.User = principal;
                 Thread.CurrentPrincipal = principal;
                 return;
             }
+
+            response.Headers["Strict-Transport-Security"] = "max-age=0";
 
             if (request.Url.Scheme != "https")
             {
