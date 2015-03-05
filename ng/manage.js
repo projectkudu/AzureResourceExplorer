@@ -561,6 +561,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return ((verb === "GET" || verb === "POST") && !$scope.editMode) || ((verb === "PUT" || verb === "PATCH") && $scope.editMode);
         };
 
+        $scope.logout = function () {
+            window.location.href = "/logout"
+        };
+
+        $scope.refresh = function () {
+            window.location.href = "/";
+        };
+
         // Get resourcesDefinitions
         initResourcesDefinitions();
 
@@ -568,6 +576,22 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         initTenants();
 
         initSettings();
+
+        initUser();
+
+        function initUser() {
+            $http({
+                method: "GET",
+                url: "api/token"
+            }).success(function (data) {
+                $scope.user = {
+                    name: data.name || data.given_name + data.family_name || data.email || data.unique_name || "User",
+                    imageUrl: "https://secure.gravatar.com/avatar/" + CryptoJS.MD5((data.email || data.unique_name || data.upn || "").toString()) + ".jpg?d=mm"
+                };
+            }).error(function () {
+
+            });
+        }
 
         function fixSelectedTabIfNeeded() {
             var selectedIndex = $scope.activeTab.indexOf(true);

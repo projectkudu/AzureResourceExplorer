@@ -9,14 +9,7 @@
   min-height: 568px;
   background-color: white;
 }
-@media (min-width: 768px) {
-  #page-wrapper {
-    position: inherit;
-    margin: 0 0 0 280px;
-    padding: 30px 30px;
-    border-left: 1px solid #e7e7e7;
-  }
-}
+
 .navbar-top-links li {
   display: inline-block;
 }
@@ -95,21 +88,7 @@
 .sidebar .nav-forth-level li a {
   padding-left: 67px;
 }
-@media (min-width: 768px) {
-  .sidebar {
-    z-index: 1;
-    position: absolute;
-    width: 280px;
-    margin-top: 51px;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  .navbar-top-links .dropdown-messages,
-  .navbar-top-links .dropdown-tasks,
-  .navbar-top-links .dropdown-alerts {
-    margin-left: auto;
-  }
-}
+
 .btn-outline {
   color: inherit;
   background-color: transparent;

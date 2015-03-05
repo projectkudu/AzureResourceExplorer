@@ -19,6 +19,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/rxjs/2.3.25/rx.lite.compat.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
 
     <script src="Content/Scripts/abn_tree_directive.js"></script>
     <script src="Content/Scripts/rx.angular.js"></script>
@@ -39,12 +40,12 @@
     <link href="Content/Styles/app.css?v=3" rel="stylesheet" type="text/css">
 </head>
 
-<body>
+<body style="min-width: 1360px">
 
     <div id="wrapper" ng-controller="treeBodyController">
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/" ng-click="clearEnvironment()">Azure Resource Explorer (beta)</a>
+                <a class="navbar-brand" href="/" ng-click="refresh()">Azure Resource Explorer (beta)</a>
                 <select ng-model="selectedTenant" ng-options="tenant.name for tenant in tenants" style="position: relative; top: 15px; float: left" ng-change="tenantSelect()"></select>
                 <div class="switch">
                     <input type="radio" class="switch-input" name="view" id="readOnly" ng-checked="readOnlyMode" ng-click="setReadOnlyMode(true)">
@@ -53,14 +54,23 @@
                     <label for="readWrite" class="switch-label switch-label-on">Read/Write</label>
                     <span class="switch-selection"></span>
                 </div>
+                <ul class="nav navbar-nav navbar-right" style="position: absolute; right: 250px" ng-show="user">
+                    <li class="dropdown">
+                        <img src="{{user.imageUrl}}" style="height: 50px; padding-top: 1px" />
+                        <a href="#" data-toggle="dropdown" style="display: inline">{{ user.name }}</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/logout" ng-click="logout()">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </nav>
         <div id="sidebar" class="navbar-default sidebar" role="navigation">
-            <div class="sidebar-nav navbar-ex1-collapse navbar-collapse collapse" style="white-space: nowrap">
+            <div class="sidebar-nav" style="white-space: nowrap">
                 <abn-tree tree-data="resources" tree-control="treeControl" on-select="selectResourceHandler(branch, event)" on-expand="expandResourceHandler(branch, row, event)" expand-level="0"></abn-tree>
             </div>
         </div>
-        <div id="content">
+        <div id="content" style="min-width: 1360px">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">{{ treeControl.get_selected_branch().label }}</h1>
