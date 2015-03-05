@@ -585,8 +585,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 url: "api/token"
             }).success(function (data) {
                 $scope.user = {
-                    name: data.name || data.given_name + data.family_name || data.email || data.unique_name || "User",
-                    imageUrl: "https://secure.gravatar.com/avatar/" + CryptoJS.MD5((data.email || data.unique_name || data.upn || "").toString()) + ".jpg?d=mm"
+                    name: (data.given_name && data.family_name ? data.given_name + " " + data.family_name : undefined) || data.name || data.email || data.unique_name || "User",
+                    imageUrl: "https://secure.gravatar.com/avatar/" + CryptoJS.MD5((data.email || data.unique_name || data.upn || data.name || "").toString()) + ".jpg?d=mm"
                 };
             }).error(function () {
 
