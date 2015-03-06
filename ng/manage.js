@@ -589,7 +589,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     imageUrl: "https://secure.gravatar.com/avatar/" + CryptoJS.MD5((data.email || data.unique_name || data.upn || data.name || "").toString()) + ".jpg?d=mm"
                 };
             }).error(function () {
-
+                $scope.user = {
+                    name: "User",
+                    imageUrl: "https://secure.gravatar.com/avatar/.jpg?d=mm"
+                };
             });
         }
 
