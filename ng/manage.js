@@ -215,7 +215,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         var dataCopy = jQuery.extend(true, {}, value.data);
                         mergeObject(dataCopy, editable);
                     }
-                    requestEditor.customSetValue(stringify(editable));
+                    requestEditor.customSetValue(stringify(sortByObject(editable, value.data)));
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
@@ -1023,6 +1023,28 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
         }
 
+        function sortByObject(toBeSorted, toSortBy) {
+            if (toBeSorted === toSortBy) return toBeSorted;
+            var sorted = {};
+            for (var key in toSortBy) {
+                if (toSortBy.hasOwnProperty(key)) {
+                    var obj;
+                    if (typeof toSortBy[key] === "object" && !Array.isArray(toSortBy[key]) && toSortBy[key] != null) {
+                        obj = sortByObject(toBeSorted[key], toSortBy[key]);
+                    } else {
+                        obj = toBeSorted[key];
+                    }
+                    sorted[key] = obj;
+                }
+            }
+            for (var key in toBeSorted) {
+                if (toBeSorted.hasOwnProperty(key) && sorted[key] === undefined) {
+                    sorted[key] = toBeSorted[key]
+                }
+            }
+            return sorted;
+        }
+
         function mergeObject(source, target) {
             for (var sourceProperty in source) {
                 if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
@@ -1032,9 +1054,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         var targetModel = target[sourceProperty][0];
                         target[sourceProperty] = source[sourceProperty];
                         target[sourceProperty].push(targetModel);
-                    } else if (!isEmptyObjectorArray(source[sourceProperty])) {
+                    } else {
                         target[sourceProperty] = source[sourceProperty];
                     }
+                } else if (source.hasOwnProperty(sourceProperty)) {
+                    target[sourceProperty] = source[sourceProperty];
                 }
             }
             return target;
