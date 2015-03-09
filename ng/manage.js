@@ -121,6 +121,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     this.container.style.background = "#f5f5f5";
                     this.blur();
                 };
+                e.commands.removeCommand("find");
             });
             responseEditor.setReadOnly();
             responseEditor.customSetValue(stringify({ message: "Select a node to start" }));
