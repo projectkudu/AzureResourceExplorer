@@ -24,7 +24,7 @@ if (!String.prototype.endsWith) {
 }
 
 if (!Array.prototype.includes) {
-    Array.prototype.includes = (searchElement) => {
+    Array.prototype.includes = function(searchElement) {
         if (this === undefined || this === null) {
             throw new TypeError('Cannot convert this value to object');
         }
@@ -46,13 +46,13 @@ if (!Array.prototype.includes) {
     }
 }
 
-Array.prototype.remove = (from, to) =>  {
+Array.prototype.remove = function(from, to) {
     var rest = this.slice((to || from) + 1 || this.length);
     this.length = from < 0 ? this.length + from : from;
     return this.push.apply(this, rest);
 };
 
-Array.prototype.getUnique = (getValue) => {
+Array.prototype.getUnique = function(getValue) {
     var u = {}, a = [];
     for (var i = 0, l = this.length; i < l; ++i) {
         var value = getValue(this[i]);
@@ -130,7 +130,7 @@ Array.prototype.indexOfDelegate = function (predicate, fromIndex) {
 };
 
 if (!Array.prototype.some) {
-    Array.prototype.some = (fun/*, thisArg*/) => {
+    Array.prototype.some = function(fun/*, thisArg*/) {
         'use strict';
 
         if (this == null) {
@@ -156,7 +156,7 @@ if (!Array.prototype.some) {
 }
 
 if (!Array.prototype.last) {
-    Array.prototype.last = () => {
+    Array.prototype.last = function() {
         return this[this.length - 1];
     };
 };
