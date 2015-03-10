@@ -66,9 +66,9 @@ angular.module("mp.resizer", [])
 })
 
 angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ui.ace"])
-    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", ($scope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $q: ng.IQService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService) => {
+    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", ($scope: ArmTreeScope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $q: ng.IQService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService) => {
 
-    $scope.treeControl = {};
+    $scope.treeControl = <ITreeControl>{};
     $scope.createModel = {};
     $scope.actionsModel = {};
     $scope.resourcesDefinitionsTable = [];
@@ -121,13 +121,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 this.container.style.background = "#f5f5f5";
                 this.blur();
             };
+            e.commands.removeCommand("find");
         });
         responseEditor.setReadOnly();
         responseEditor.customSetValue(stringify({ message: "Select a node to start" }));
 
     });
 
-    $document.on('mouseup', () => {
+    $document.on('mouseup',() => {
         $timeout(() => {
             [responseEditor, requestEditor, createEditor].map(e => e.resize());
         });
@@ -212,7 +213,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 var dataCopy = jQuery.extend(true, {}, value.data);
                 mergeObject(dataCopy, editable);
             }
-            requestEditor.customSetValue(stringify(editable));
+            requestEditor.customSetValue(stringify(sortByObject(editable, value.data)));
             if (url.endsWith("list")) {
                 $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
             }
@@ -291,13 +292,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     RequestBody: userObject,
                     ApiVersion: $scope.apiVersion
                 }
-            }, () => {
+            },() => {
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                     fadeInAndFadeOutSuccess();
-                }, (err) => {
+                },(err) => {
                     $scope.putError = syntaxHighlight(err);
                     fadeInAndFadeOutError();
-                }, () => {
+                },() => {
                     $scope.invoking = false;
                     $scope.loading = false;
                 }, event);
@@ -480,7 +481,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     RequestBody: userObject,
                     ApiVersion: $scope.apiVersion
                 }
-            }, () => {
+            },() => {
                     $scope.treeControl.collapse_branch(selectedBranch);
                     if (selectedBranch.uid === $scope.treeControl.get_selected_branch().uid) {
                         $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
@@ -489,10 +490,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $timeout(() => {
                         $scope.expandResourceHandler(selectedBranch);
                     }, 50);
-                }, (err) => {
+                },(err) => {
                     $scope.createError = syntaxHighlight(err);
                     fadeInAndFadeOutError();
-                }, () => {
+                },() => {
                     $scope.invoking = false;
                     $scope.loading = false;
                 }, event);
@@ -684,7 +685,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     ApiVersion: $scope.apiVersion,
                     QueryString: queryString
                 }
-            }, (data, status) => {
+            },(data, status) => {
                     $scope.actionResponse = syntaxHighlight(data);
                     // async DELETE returns 202. That might fail later. So don't remove from the tree
                     if (action.httpMethod === "DELETE" && status === 200 /* OK */) {
@@ -697,10 +698,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                     }
                     fadeInAndFadeOutSuccess();
-                }, (err) => {
+                },(err) => {
                     $scope.actionResponse = syntaxHighlight(err);
                     fadeInAndFadeOutError();
-                }, () => { $scope.loading = false; }, event, confirmed);
+                },() => { $scope.loading = false; }, event, confirmed);
         } catch (e) {
             $scope.actionResponse = syntaxHighlight({ error: "Error parsing JSON" });
             $scope.loading = false;
@@ -738,7 +739,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
     function getResourceDefinitionByNameAndUrl(name, url) {
         var resourceDefinitions = $scope.resourcesDefinitionsTable.filter(r => (r.resourceName === name) && ((r.url === url) || r.url === (url + "/" + name)));
-        if (resourceDefinitions > 1) {
+        if (resourceDefinitions.length > 1) {
             console.log("ASSERT! duplicate ids in resourceDefinitionsTable");
             console.log(resourceDefinitions);
         }
@@ -758,7 +759,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 };
             });
             $scope.selectedTenant = $scope.tenants[$scope.tenants.indexOfDelegate(tenant => tenant.current)];
-            });
+        });
     }
 
     function initResourcesDefinitions() {
@@ -929,7 +930,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         if (typeof json === "string") return escapeHtmlEntities(json);
         var str = stringify(json);
         str = escapeHtmlEntities(str);
-        return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (match) => {
+        return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,(match) => {
             var cls = 'number';
             if (/^"/.test(match)) {
                 if (/:$/.test(match)) {
@@ -1016,7 +1017,29 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function mergeObject(source, target) {
+    function sortByObject(toBeSorted: any, toSortBy: any): any {
+        if (toBeSorted === toSortBy) return toBeSorted;
+        var sorted = {};
+        for (var key in toSortBy) {
+            if (toSortBy.hasOwnProperty(key)) {
+                var obj;
+                if (typeof toSortBy[key] === "object" && !Array.isArray(toSortBy[key]) && toSortBy[key] != null) {
+                    obj = sortByObject(toBeSorted[key], toSortBy[key]);
+                } else {
+                    obj = toBeSorted[key];
+                }
+                sorted[key] = obj;
+            }
+        }
+        for (var key in toBeSorted) {
+            if (toBeSorted.hasOwnProperty(key) && sorted[key] === undefined) {
+                sorted[key] = toBeSorted[key]
+            }
+        }
+        return sorted;
+    }
+
+    function mergeObject(source, target): any {
         for (var sourceProperty in source) {
             if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
                 if (!isEmptyObjectorArray(source[sourceProperty]) && (typeof source[sourceProperty] === "object") && !Array.isArray(source[sourceProperty])) {
@@ -1025,15 +1048,17 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     var targetModel = target[sourceProperty][0];
                     target[sourceProperty] = source[sourceProperty];
                     target[sourceProperty].push(targetModel);
-                } else if (!isEmptyObjectorArray(source[sourceProperty])) {
+                } else {
                     target[sourceProperty] = source[sourceProperty];
                 }
+            } else if (source.hasOwnProperty(sourceProperty)) {
+                target[sourceProperty] = source[sourceProperty];
             }
         }
         return target;
     }
 
-    function stringify(object) {
+    function stringify(object: any): string {
         return JSON.stringify(object, undefined, 2)
     }
 
@@ -1076,7 +1101,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return flattenArray(docArray);
     }
 
-    function flattenArray(array) {
+    function flattenArray(array: any[]): any[] {
         for (var i = 0; i < array.length; i++) {
             if (typeof array[i].doc !== "string") {
                 var flat = flattenObject(array[i].name, array[i].doc);
@@ -1089,7 +1114,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return array;
     }
 
-    function flattenObject(prefix, object) {
+    function flattenObject(prefix: string, object: any): any[] {
         var flat = [];
         if (typeof object === "string") {
             flat.push({
@@ -1127,22 +1152,22 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return flat;
     }
 
-    function isItemOf(branch, elementType) {
+    function isItemOf(branch: ITreeBranch, elementType: string): boolean {
         var parent = $scope.treeControl.get_parent_branch(branch);
         return (parent && parent.resourceDefinition.resourceName === elementType);
     }
 
-    function showExpandingTreeItemIcon(row, branch) {
+    function showExpandingTreeItemIcon(row: any, branch: ITreeBranch): string {
         var originalTreeIcon = row ? row.tree_icon : "icon-plus  glyphicon glyphicon-plus fa fa-plus";
         $(document.getElementById("expand-icon-" + branch.uid)).removeClass(originalTreeIcon).addClass("fa fa-refresh fa-spin");
         return originalTreeIcon;
     }
 
-    function endExpandingTreeItem(branch, originalTreeIcon) {
+    function endExpandingTreeItem(branch: ITreeBranch, originalTreeIcon: string) {
         $(document.getElementById("expand-icon-" + branch.uid)).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
     }
 
-    function getProvidersFilter(branch) {
+    function getProvidersFilter(branch: ITreeBranch): any[] {
         if (!branch) return;
         if (branch.providersFilter) return branch.providersFilter;
         return getProvidersFilter($scope.treeControl.get_parent_branch(branch));
@@ -1195,7 +1220,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         };
 
         promise.error = (fn) => {
-            promise.then(null, (response) => {
+            promise.then(null,(response) => {
                 fn(response);
             });
             return promise;

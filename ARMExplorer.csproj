@@ -136,6 +136,9 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="ng\manage.ts" />
+    <TypeScriptCompile Include="ng\models\IArmTreeScope.ts" />
+    <TypeScriptCompile Include="ng\models\ITreeBranch.ts" />
+    <TypeScriptCompile Include="ng\models\ITreeControl.ts" />
     <TypeScriptCompile Include="ng\polyfill.ts" />
     <TypeScriptCompile Include="ng\typings\ace\ace.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular-animate.d.ts" />

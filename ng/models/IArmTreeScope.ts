@@ -1,0 +1,47 @@
+﻿interface ArmTreeScope extends ng.IScope {
+    treeControl: ITreeControl;
+    createModel: any;
+    actionsModel: any;
+    resourcesDefinitionsTable: any[];
+    resources: any[];
+    readOnlyMode: boolean;
+    editMode: boolean;
+    activeTab: boolean[];
+    aceConfig: any;
+    $createObservableFunction: any;
+    loading: boolean;
+    errorResponse: any;
+    apiVersion: string;
+    putUrl: string;
+    readOnlyResponse: any;
+    selectedResource: any;
+    creatable: any;
+    createMetaData: any;
+    handleClick(method: string, event: Event);
+    invokeAction(action: any, event: Event);
+    selectResourceHandler(branch: ITreeBranch, event?: Event);
+    putError: string;
+    invoking: boolean;
+    expandResourceHandler(branch: ITreeBranch, row?: any, event?: Event, dontExpandChildren?: boolean): ng.IPromise<any>;
+    tenantSelect();
+    enterCreateMode();
+    leaveCreateMode();
+    clearCreate();
+    createMode: boolean;
+    invokeCreate(event: Event);
+    createError: string;
+    enterDataTab();
+    hideDocs();
+    showDocs();
+    hideConfirm();
+    setReadOnlyMode(readOnlyMode: boolean);
+    toggleEditMode();
+    showHttpVerb(verb: string): boolean;
+    logout();
+    refresh();
+    user: any;
+    actionResponse: string;
+    tenants: any[];
+    selectedTenant: any;
+
+}
