@@ -14,6 +14,10 @@ interface Array<T> {
     some(predicate: (val: T) => boolean): boolean;
 }
 
+interface Element {
+    documentOffsetTop(): number;
+}
+
 if (!String.prototype.compare) {
     String.prototype.compare = function (target: string, ignoreCase?: boolean) {
         var selfValue: string = this || "";
@@ -204,5 +208,11 @@ if (!Array.prototype.find) {
             }
         }
         return undefined;
+    };
+}
+
+if (!Element.prototype.documentOffsetTop) {
+    Element.prototype.documentOffsetTop = function () {
+        return this.offsetTop + (this.offsetParent ? this.offsetParent.documentOffsetTop() : 0);
     };
 }

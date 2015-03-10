@@ -168,7 +168,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
         return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
     })
-        .do(() => { }, (err: any) => {
+        .do(() => { },(err: any) => {
         setStateForErrorOnResourceClick();
         if (err.config && err.config.resourceDefinition) {
             var resourceDefinition = err.config.resourceDefinition;
@@ -366,7 +366,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         is_leaf: (childDefinition.children ? false : true),
                         elementUrl: branch.elementUrl + "/" + childName
                     };
-                    });
+                });
 
                 var offset = 0;
                 if (!dontFilterEmpty && filtedList) {
@@ -459,25 +459,35 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     };
 
     $scope.resourceSearch = () => {
-        // trigger a refresh if needed, but do not need to wait for it to finish since cache should already exist
-        refreshResourceSearchCache();
+        // try to trigger cache refresh
+        refreshResourceCache();
 
+        // first performence search from local cache (should cover most of the case)
+        // so that user will have instance result
         var results: IResourceSearchSuggestion[] = [];
         var keyword = $scope.resourceSearchModel.searchKeyword || "";
-
-        results = $scope.resourceSearchCache.data.filter((item) => {
-            return (item.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1
-                || item.type.toLowerCase().indexOf(keyword.toLowerCase()) > -1);
-        });
-
-        results.sort((a, b) => {
+        var suggestionSortFunc = (a: any, b: any): number => {
             var result = a.type.compare(b.type, true /*ignore case*/);
             if (result === 0) {
                 return a.name.compare(b.name, true /*ignore case*/);
             }
 
             return result;
-        });
+        };
+
+        // remember last keyword
+        // when merge latest data into cache and if cache is for current keyword, will also update suggestion list
+        $scope.resourceSearchCache.data.currentKeyword = keyword;
+
+        for (var itemKey in $scope.resourceSearchCache.data) {
+            var item = $scope.resourceSearchCache.data[itemKey];
+            if (item && item.name && item.type
+                && (item.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1 || item.type.toLowerCase().indexOf(keyword.toLowerCase()) > -1)) {
+                results.push(item);
+            }
+        }
+
+        results.sort(suggestionSortFunc);
 
         $scope.resourceSearchModel.suggestions = results;
         if ($scope.resourceSearchModel.suggestions.length > 0) {
@@ -485,20 +495,61 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         } else {
             $scope.resourceSearchModel.isSuggestListDisplay = false;
         }
+
+        // do not trigger search by keyword if input is empty
+        if ($scope.resourceSearchCache.data.currentKeyword) {
+            // request from CSM to get more data, and merge into local cache
+            $http({
+                method: "GET",
+                url: ("api/search?keyword=" + keyword)
+            }).success((response: any[]) => {            
+                // update local cache
+                response.forEach((item) => {
+                    // if not in local cache, and user still searching with current keyword, append to suggestion list
+                    if (keyword === $scope.resourceSearchCache.data.currentKeyword && !$scope.resourceSearchCache.data[item.id]) {
+                        $scope.resourceSearchModel.suggestions.push(<IResourceSearchSuggestion>item);
+                    }
+
+                    $scope.resourceSearchCache.data[item.id] = item;
+                });
+            });
+        }
     };
 
     $scope.$createObservableFunction("delayResourceSearch")
-        .flatMapLatest(() => {
+        .flatMapLatest((event) => {
+
         // set 300 millionseconds gap, since user might still typing, 
         // we want to trigger search only when user stop typing
-        return $timeout(() => { }, 300);
-    }).subscribe(() => {
-        $scope.resourceSearch();
+        return $timeout(() => { return event; }, 300);
+    }).subscribe((event) => {
+        if (!event || event.keyCode !== 13 /* enter key will handle by form-submit */) {
+            $scope.resourceSearch();
+        }
     });
 
     $scope.selectResourceSearch = (item) => {
-        $scope.treeControl.collapse_all();
-        handlePath(item.id.substr(1), true);
+        var itemId = item.id;
+        var currentSelectedBranch = $scope.treeControl.get_selected_branch();
+        if (currentSelectedBranch) {
+            var commonAncestor = findCommonAncestor(item.id, $scope.treeControl.get_selected_branch().elementUrl);
+
+            while (currentSelectedBranch != null && !currentSelectedBranch.elementUrl.toLowerCase().endsWith(commonAncestor)) {
+                currentSelectedBranch = $scope.treeControl.get_parent_branch(currentSelectedBranch);
+            }
+
+            if (currentSelectedBranch) {
+                $scope.treeControl.select_branch(currentSelectedBranch);
+                var subscriptionTokenIndex = currentSelectedBranch.elementUrl.toLowerCase().indexOf("/subscriptions");
+                var currentSelectedBranchPath = currentSelectedBranch.elementUrl.substr(subscriptionTokenIndex);
+                itemId = itemId.substr(currentSelectedBranchPath.length);
+            } else {
+                // shouldn`t happen, but if it did happen, we fallback to collaps_all
+                $scope.treeControl.collapse_all();
+            }
+        }
+
+        handlePath(itemId.substr(1));
         $scope.resourceSearchModel.isSuggestListDisplay = false;
     };
 
@@ -650,8 +701,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             suggestions: []
         };
 
-        refreshResourceSearchCache();
-
+        refreshResourceCache();
         // hide suggestion list when user click somewhere else
         $("body").click(function (event) {
             if (event && event.target
@@ -663,29 +713,34 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $scope.resourceSearchModel.isSuggestListDisplay = false;
             }
         });
-    }
+    };
 
-    // ARM not accept filter, query all data and perform client filter for now
-    var isResourceSearchCacheRefreshing: boolean = false;
-    function refreshResourceSearchCache(): void {
-        // only refresh cache if cache wasn`t there or too old
-        if (!isResourceSearchCacheRefreshing
-            && (!$scope.resourceSearchCache || Date.now() - $scope.resourceSearchCache.timestamp > 10000)) {
+    var resourceCacheExpiration = 5 * 60 * 1000;    // 5 mintues
+    var isResourceCacheRefreshing: boolean = false;
+    function refreshResourceCache(): void {
+        if ((!$scope.resourceSearchCache || !$scope.resourceSearchCache.timestamp || Date.now() - $scope.resourceSearchCache.timestamp > resourceCacheExpiration)
+            && !isResourceCacheRefreshing) {
 
-            isResourceSearchCacheRefreshing = true;
+            isResourceCacheRefreshing = true;
+
             $http({
                 method: "GET",
                 url: "api/search?keyword="
             }).success((response: any[]) => {
                 $scope.resourceSearchCache = <IResearchSearchCache>{
-                    data: response,
+                    data: {},
                     timestamp: Date.now()
                 };
+
+                // turn array into hashmap, to allow easily update cache later
+                response.forEach((item) => {
+                    $scope.resourceSearchCache.data[item.id] = item;
+                });
             }).finally(() => {
-                isResourceSearchCacheRefreshing = false;
+                isResourceCacheRefreshing = false;
             });
         }
-    }
+    };
 
     function initUser() {
         $http({
@@ -720,7 +775,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function handlePath(path: string, startFromRoot?: boolean) {
+    function handlePath(path: string) {
         if (path.length === 0) return;
 
         var index = path.indexOf("/");
@@ -729,7 +784,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var rest = path.substring(index + 1);
         var child: any;
         var selectedBranch = $scope.treeControl.get_selected_branch();
-        if (startFromRoot || !selectedBranch) {
+        if (!selectedBranch) {
             var matches = $scope.treeControl.get_roots().filter(e => e.label.toLocaleUpperCase() === current.toLocaleUpperCase());
             child = (matches.length > 0 ? matches[0] : undefined);
         } else {
@@ -737,12 +792,20 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             child = (matches.length > 0 ? matches[0] : undefined);
         }
 
-        if (!child) return;
+        if (!child) {
+            var top = document.getElementById("expand-icon-" + selectedBranch.uid).documentOffsetTop() - ((window.innerHeight - 50 /*nav bar height*/) / 2);
+            $("#sidebar").scrollTop(top);
+            return;
+        }
         $scope.treeControl.select_branch(child);
         $timeout(() => {
             child = $scope.treeControl.get_selected_branch();
-            var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
-            promis.finally(() => { handlePath(rest); });
+            if (child && $.isArray(child.children) && child.children.length > 0) {
+                handlePath(rest);
+            } else {
+                var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
+                promis.finally(() => { handlePath(rest); });
+            }
         });
     }
 
@@ -1324,7 +1387,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     }
 
     function decoratePromise(promise: ng.IPromise<any>) {
-       (<any> promise).success = (fn: Function) => {
+        (<any> promise).success = (fn: Function) => {
             promise.then((response: any) => {
                 fn(response);
             });
@@ -1338,6 +1401,36 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return promise;
         };
         return promise;
+    }
+
+    function findCommonAncestor(armIdA: string, armIdB: string): string {
+        var getTokensFromId = (url: string): string[]=> {
+            url = url.toLowerCase();
+            var removeTo = 0;   // default is to remove first empty token "/subscriptions/3b94e3c2-9f5b-4a1e-9999-3e0945b8…a9/resourceGroups/brandoogroup3/providers/Microsoft.Web/sites/brandoosite3"
+            if (url.startsWith("http")) {
+                // "https://management.azure.com/subscriptions/3b94e3c2-9f5b-4a1e-9999-3e0945b8…a9/resourceGroups/brandoogroup3/providers/Microsoft.Web/sites/brandoosite3"
+                // if start with "http/https", we will need to ignore the host name
+                removeTo = 2;
+            }
+
+            var tokens = url.split('/');
+            tokens.remove(0, removeTo);
+            return tokens;
+        };
+
+        var tokensA = getTokensFromId(armIdA);
+        var tokensB = getTokensFromId(armIdB);
+        var len = Math.min(tokensA.length, tokensB.length);
+        var commonAncestor = "";
+        for (var i = 0; i < len; i++) {
+            if (tokensA[i] === tokensB[i]) {
+                commonAncestor += "/" + tokensA[i];
+            } else {
+                break;
+            }
+        }
+
+        return commonAncestor;
     }
 }])
     .config(($locationProvider: ng.ILocationProvider) => {

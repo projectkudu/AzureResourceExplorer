@@ -8,7 +8,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using Newtonsoft.Json.Linq;
@@ -81,18 +80,24 @@ namespace ARMExplorer.Controllers
                 List<JObject> results = new List<JObject>();
                 List<Task<HttpResponseMessage>> queryTasks = new List<Task<HttpResponseMessage>>();
                 List<Task<JObject>> readContentTasks = new List<Task<JObject>>();
+
                 foreach (var item in subscriptions.value)
                 {
                     string subscriptionId = item.subscriptionId;
 
                     // ARM not support to filter by resource name, support will come end of March 2015
                     // current support filter: https://msdn.microsoft.com/en-us/library/azure/dn790569.aspx
-                    var requestUri = string.Format(
-                        CultureInfo.InvariantCulture,
-                        "/subscriptions/{0}/resources?$top=1000&api-version={2}",
-                        subscriptionId,
-                        HttpUtility.UrlEncode("tagname eq " + keyword, Encoding.UTF8),
-                        "2015-01-01");
+                    string requestUri = null;
+
+                    if (string.IsNullOrWhiteSpace(keyword))
+                    {
+                        requestUri = string.Format(CultureInfo.InvariantCulture, "/subscriptions/{0}/resources?$top=1000&api-version={1}", subscriptionId, "2015-01-01");
+                    }
+                    else
+                    {
+                        // TODO: update to perform filter by resource name once ARM API has support
+                        requestUri = string.Format(CultureInfo.InvariantCulture, "/subscriptions/{0}/resources?$filter=tagname  eq '{1}'&$top=1000&api-version={2}", subscriptionId, keyword, "2015-01-01");
+                    }
 
                     queryTasks.Add(client.GetAsync(requestUri));
                 }

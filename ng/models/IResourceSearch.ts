@@ -7,7 +7,7 @@
 }
 
 interface IResearchSearchCache {
-    data: any[];
+    data: any;
     timestamp: number;
 }
 

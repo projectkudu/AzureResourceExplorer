@@ -48,7 +48,7 @@
                 <a class="navbar-brand" href="/" ng-click="refresh()">Azure Resource Explorer (beta)</a>
                 <form class="navbar-form navbar-left" role="search" ng-submit="resourceSearch()">
                     <div class="input-group">
-                        <input id="resource-search-input" type="text" class="form-control" placeholder="Search" ng-model="resourceSearchModel.searchKeyword" ng-keyup="delayResourceSearch()">
+                        <input id="resource-search-input" type="text" class="form-control" placeholder="Search" ng-model="resourceSearchModel.searchKeyword" ng-keyup="delayResourceSearch($event)">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
