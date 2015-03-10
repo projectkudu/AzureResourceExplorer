@@ -43,5 +43,8 @@
     actionResponse: string;
     tenants: any[];
     selectedTenant: any;
-
+    resourceSearch();
+    resourceSearchModel: IResourceSearch;
+    resourceSearchCache: IResearchSearchCache;
+    selectResourceSearch(item: IResourceSearchSuggestion);
 }

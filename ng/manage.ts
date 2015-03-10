@@ -436,6 +436,50 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         window.location.href = "api/tenants/" + $scope.selectedTenant.id;
     };
 
+    $scope.resourceSearch = () => {
+        // trigger a refresh if needed, but do not need to wait for it to finish since cache should already exist
+        refreshResourceSearchCache();
+
+        var results: IResourceSearchSuggestion[] = [];
+        var keyword = $scope.resourceSearchModel.searchKeyword || "";
+
+        results = $scope.resourceSearchCache.data.filter((item) => {
+            return (item.name.toLowerCase().indexOf(keyword.toLowerCase()) > -1
+                || item.type.toLowerCase().indexOf(keyword.toLowerCase()) > -1);
+        });
+
+        results.sort((a, b) => {
+            var result = a.type.compare(b.type, true /*ignore case*/);
+            if (result === 0) {
+                return a.name.compare(b.name, true /*ignore case*/);
+            }
+
+            return result;
+        });
+
+        $scope.resourceSearchModel.suggestions = results;
+        if ($scope.resourceSearchModel.suggestions.length > 0) {
+            $scope.resourceSearchModel.isSuggestListDisplay = true;
+        } else {
+            $scope.resourceSearchModel.isSuggestListDisplay = false;
+        }
+    };
+
+    $scope.$createObservableFunction("delayResourceSearch")
+        .flatMapLatest(() => {
+        // set 300 millionseconds gap, since user might still typing, 
+        // we want to trigger search only when user stop typing
+        return $timeout(() => { }, 300);
+    }).subscribe(() => {
+        $scope.resourceSearch();
+    });
+
+    $scope.selectResourceSearch = (item) => {
+        $scope.treeControl.collapse_all();
+        handlePath(item.id.substr(1), true);
+        $scope.resourceSearchModel.isSuggestListDisplay = false;
+    };
+
     $scope.enterCreateMode = () => {
         $scope.createMode = true;
         createEditor.resize();
@@ -576,6 +620,51 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
     initUser();
 
+    initResourceSearch();
+
+    function initResourceSearch(): void {
+        $scope.resourceSearchModel = <IResourceSearch>{
+            isSuggestListDisplay: false,
+            suggestions: []
+        };
+
+        refreshResourceSearchCache();
+
+        // hide suggestion list when user click somewhere else
+        $("body").click(function (event) {
+            if (event && event.target
+                && event.target.getAttribute("id") !== "resource-search-input"
+                && !$.contains($("#resource-search-input")[0], event.target)
+                && event.target.getAttribute("id") !== "resource-search-list"
+                && !$.contains($("#resource-search-list")[0], event.target)) {
+
+                $scope.resourceSearchModel.isSuggestListDisplay = false;
+            }
+        });
+    }
+
+    // ARM not accept filter, query all data and perform client filter for now
+    var isResourceSearchCacheRefreshing: boolean = false;
+    function refreshResourceSearchCache(): void {
+        // only refresh cache if cache wasn`t there or too old
+        if (!isResourceSearchCacheRefreshing
+            && (!$scope.resourceSearchCache || Date.now() - $scope.resourceSearchCache.timestamp > 10000)) {
+
+            isResourceSearchCacheRefreshing = true;
+            $http({
+                method: "GET",
+                url: "api/search?keyword="
+            }).success((response: any[]) => {
+                $scope.resourceSearchCache = <IResearchSearchCache>{
+                    data: response,
+                    timestamp: Date.now()
+                };
+            }).finally(() => {
+                isResourceSearchCacheRefreshing = false;
+            });
+        }
+    }
+
     function initUser() {
         $http({
             method: "GET",
@@ -609,7 +698,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function handlePath(path) {
+    function handlePath(path, startFromRoot?: boolean) {
         if (path.length === 0) return;
 
         var index = path.indexOf("/");
@@ -618,7 +707,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var rest = path.substring(index + 1);
         var child: any;
         var selectedBranch = $scope.treeControl.get_selected_branch();
-        if (!selectedBranch) {
+        if (startFromRoot || !selectedBranch) {
             var matches = $scope.treeControl.get_roots().filter(e => e.label === current);
             child = (matches.length > 0 ? matches[0] : undefined);
         } else {
@@ -1234,7 +1323,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
 
 // Global JS fixes
-$('label.tree-toggler').click(function() {
+$('label.tree-toggler').click(function () {
     $(this).parent().children('ul.tree').toggle(300);
 });
 

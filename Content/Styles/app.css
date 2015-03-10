@@ -321,3 +321,8 @@ pre {
 .action-editor {
     min-height: 50px;
 }
+
+#resource-search-list li:hover {
+    background-color: yellowgreen;
+    cursor: pointer;
+}

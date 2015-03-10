@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -6,6 +8,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Routing;
 using Newtonsoft.Json.Linq;
@@ -58,6 +61,58 @@ namespace ARMExplorer.Controllers
             {
                 var apiVersion = Utils.GetApiVersion(path);
                 return await Utils.Execute(client.GetAsync(path + "?api-version=" + apiVersion));
+            }
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<List<JObject>> Search(string keyword)
+        {
+            var armBaseUri = Utils.GetCSMUrl(Request.RequestUri.Host);
+            using (var client = GetClient(armBaseUri))
+            {
+                HttpResponseMessage subscriptionResponse = await client.GetAsync(string.Format(CultureInfo.InvariantCulture, "/subscriptions?api-version={0}", Utils.CSMApiVersion));
+                if (!subscriptionResponse.IsSuccessStatusCode) return null;
+
+                string stringContent = await subscriptionResponse.Content.ReadAsStringAsync();
+                dynamic subscriptions = await subscriptionResponse.Content.ReadAsAsync<JObject>();
+                if (subscriptions.value.Count == 0) return null;
+
+                List<JObject> results = new List<JObject>();
+                List<Task<HttpResponseMessage>> queryTasks = new List<Task<HttpResponseMessage>>();
+                List<Task<JObject>> readContentTasks = new List<Task<JObject>>();
+                foreach (var item in subscriptions.value)
+                {
+                    string subscriptionId = item.subscriptionId;
+
+                    // ARM not support to filter by resource name, support will come end of March 2015
+                    // current support filter: https://msdn.microsoft.com/en-us/library/azure/dn790569.aspx
+                    var requestUri = string.Format(
+                        CultureInfo.InvariantCulture,
+                        "/subscriptions/{0}/resources?$top=1000&api-version={2}",
+                        subscriptionId,
+                        HttpUtility.UrlEncode("tagname eq " + keyword, Encoding.UTF8),
+                        "2015-01-01");
+
+                    queryTasks.Add(client.GetAsync(requestUri));
+                }
+
+                await Task.WhenAll(queryTasks);
+
+                foreach (var item in queryTasks)
+                {
+                    readContentTasks.Add(item.Result.Content.ReadAsAsync<JObject>());
+                }
+
+                await Task.WhenAll(readContentTasks);
+
+                foreach (var item in readContentTasks)
+                {
+                    dynamic content = item.Result;
+                    results.AddRange(content.value.ToObject<List<JObject>>());
+                }
+
+                return results;
             }
         }
 

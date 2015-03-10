@@ -137,6 +137,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="ng\manage.ts" />
     <TypeScriptCompile Include="ng\models\IArmTreeScope.ts" />
+    <TypeScriptCompile Include="ng\models\IResourceSearch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeBranch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeControl.ts" />
     <TypeScriptCompile Include="ng\polyfill.ts" />
