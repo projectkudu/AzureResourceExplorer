@@ -28,14 +28,15 @@ namespace ARMExplorer.Controllers
             var watch = new Stopwatch();
             watch.Start();
 
-            var specs =
-                Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
-                .Select(Assembly.LoadFile)
-                .Select(assembly => assembly.GetTypes())
-                .SelectMany(t => t)
-                .Where(type => type.IsSubclassOf(typeof(BaseClient)) && !type.IsAbstract )
-                .Select(client => HyakUtils.GetOperationsAsync(hidden, client))
-                .SelectMany(j => j);
+            var specs = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
+                ? Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
+                  .Select(Assembly.LoadFile)
+                  .Select(assembly => assembly.GetTypes())
+                  .SelectMany(t => t)
+                  .Where(type => type.IsSubclassOf(typeof(BaseClient)) && !type.IsAbstract)
+                  .Select(client => HyakUtils.GetOperationsAsync(hidden, client))
+                  .SelectMany(j => j)
+                : Enumerable.Empty<MetadataObject>();
 
             var speclessCsmApis = await HyakUtils.GetSpeclessCsmOperationsAsync();
 
