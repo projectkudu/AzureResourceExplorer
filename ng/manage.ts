@@ -698,7 +698,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function handlePath(path, startFromRoot?: boolean) {
+    function handlePath(path: string, startFromRoot?: boolean) {
         if (path.length === 0) return;
 
         var index = path.indexOf("/");
@@ -708,10 +708,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var child: any;
         var selectedBranch = $scope.treeControl.get_selected_branch();
         if (startFromRoot || !selectedBranch) {
-            var matches = $scope.treeControl.get_roots().filter(e => e.label === current);
+            var matches = $scope.treeControl.get_roots().filter(e => e.label.toLocaleUpperCase() === current.toLocaleUpperCase());
             child = (matches.length > 0 ? matches[0] : undefined);
         } else {
-            var matches = $scope.treeControl.get_children(selectedBranch).filter(e => current === (e.value ? e.value : e.label));
+            var matches = $scope.treeControl.get_children(selectedBranch).filter(e => current.toLocaleUpperCase() === (e.value ? e.value.toLocaleUpperCase() : e.label.toLocaleUpperCase()));
             child = (matches.length > 0 ? matches[0] : undefined);
         }
 
