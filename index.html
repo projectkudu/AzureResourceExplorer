@@ -40,7 +40,7 @@
     <link href="Content/Styles/app.css?v=3" rel="stylesheet" type="text/css">
 </head>
 
-<body style="min-width: 1360px">
+<body style="min-width: 1510px">
 
     <div id="wrapper" ng-controller="treeBodyController" ng-cloak>
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -70,9 +70,9 @@
                     <label for="readWrite" class="switch-label switch-label-on">Read/Write</label>
                     <span class="switch-selection"></span>
                 </div>
-                <ul class="nav navbar-nav navbar-right" style="position: absolute; right: 250px" ng-show="user">
+                <ul class="nav navbar-nav navbar-right" style="position: relative;" ng-show="user">
                     <li class="dropdown">
-                        <img src="{{user.imageUrl}}" style="height: 50px; padding-top: 1px" />
+                        <img ng-src="{{user.imageUrl}}" style="height: 50px; padding-top: 1px" />
                         <a href="#" data-toggle="dropdown" style="display: inline">{{ user.name }}</a>
                         <ul class="dropdown-menu">
                             <li><a target="_blank" href="https://github.com/projectkudu/ARMExplorer/issues">Give feedback</a></li>
@@ -87,7 +87,7 @@
                 <abn-tree tree-data="resources" tree-control="treeControl" on-select="selectResourceHandler(branch, event)" on-expand="expandResourceHandler(branch, row, event)" expand-level="0"></abn-tree>
             </div>
         </div>
-        <div id="content" style="min-width: 1360px">
+        <div id="content">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">{{ treeControl.get_selected_branch().label }}</h1>

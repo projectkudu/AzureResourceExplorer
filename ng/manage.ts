@@ -1,7 +1,5 @@
-﻿
-//http://stackoverflow.com/a/22253161
-angular.module("mp.resizer", [])
-    .directive('resizer', function ($document) {
+﻿//http://stackoverflow.com/a/22253161
+angular.module('mp.resizer', []).directive('resizer', function ($document) {
 
     return function ($scope, $element, $attrs) {
 
@@ -26,19 +24,11 @@ angular.module("mp.resizer", [])
                     left: x + 'px'
                 });
 
-                var offset = 0;
-                if ($attrs.resizerOffsetElement) {
-                    offset = $($attrs.resizerOffsetElement).outerWidth(true);
-                }
-
                 $($attrs.resizerLeft).css({
-                    width: (x - offset) + 'px'
+                    width: x + 'px'
                 });
-
-                var oldLeft = $($attrs.resizerRight).position().left;
                 $($attrs.resizerRight).css({
-                    left: (x + parseInt($attrs.resizerWidth)) + 'px',
-                    width: $($attrs.resizerRight).outerWidth() - ((x + parseInt($attrs.resizerWidth)) - oldLeft) + 'px'
+                    left: (x + parseInt($attrs.resizerWidth)) + 'px'
                 });
 
             } else {
@@ -63,7 +53,7 @@ angular.module("mp.resizer", [])
             $document.unbind('mouseup', mouseup);
         }
     };
-})
+});
 
 angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ui.ace"])
     .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", ($scope: ArmTreeScope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $q: ng.IQService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService) => {
