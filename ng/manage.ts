@@ -775,7 +775,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     QueryString: queryString
                 }
             },(data, status) => {
-                    $scope.actionResponse = syntaxHighlight(data);
+                    if (data) $scope.actionResponse = syntaxHighlight(data);
                     // async DELETE returns 202. That might fail later. So don't remove from the tree
                     if (action.httpMethod === "DELETE" && status === 200 /* OK */) {
                         if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
