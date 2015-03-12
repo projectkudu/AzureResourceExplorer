@@ -199,7 +199,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var resourceDefinition = value.resourceDefinition;
         var url = value.url;
         $scope.putUrl = url;
-        var putActions = resourceDefinition.actions.filter(a => (a === "POST" || a === "PUT"));
+        var putActions = resourceDefinition.actions.filter(a => (a === "PATCH" || a === "PUT"));
         var createActions = resourceDefinition.actions.filter(a => (a === "CREATE"));
         if (putActions.length === 1) {
             var editable;
