@@ -171,3 +171,8 @@ ul.nav.nav-list.abn-tree .level-22 .indented {
   position: relative;
   left: 420px;
 }
+
+.tree-instruction a {
+    color: gray !important;
+    font-size: 12px;
+}

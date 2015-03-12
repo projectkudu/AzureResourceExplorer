@@ -75,6 +75,7 @@ namespace ARMExplorer.Controllers
                 _speclessCsmApis = (await GetRemoteCsmOperations()).Concat(GetMissingApis());
             }
             return _speclessCsmApis;
+            //return (await GetRemoteCsmOperations()).Concat(GetMissingApis());
         }
 
         private static async Task<IEnumerable<MetadataObject>> GetRemoteCsmOperations()

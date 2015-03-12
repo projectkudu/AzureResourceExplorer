@@ -7,7 +7,7 @@
       '$timeout', function ($timeout) {
           return {
               restrict: 'E',
-              template: "<ul class=\"nav nav-list nav-pills nav-stacked abn-tree\">\n  <li ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\" ng-animate=\"'abn-tree-animate'\" ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"abn-tree-row\">\n    <a ng-click=\"user_clicks_branch(row.branch, $event)\">\n      <i id=\"{{'expand-icon-' + row.branch.uid}}\" ng-class=\"row.tree_icon\" ng-click=\"user_expands_branch(row.branch, row, $event)\" class=\"indented tree-icon\"> </i>\n      <i ng-class=\"row.resource_icon\" class=\"indented tree-icon\"></i>\n      <span class=\"indented tree-label\">{{ row.label }} </span>\n    </a>\n  </li>\n</ul>",
+              template: "<ul class=\"nav nav-list nav-pills nav-stacked abn-tree\">\n  <li ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\" ng-animate=\"'abn-tree-animate'\" ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active' : '') + (row.extra_class ? row.extra_class : '')\" class=\"abn-tree-row\">\n    <a ng-click=\"user_clicks_branch(row.branch, $event)\">\n      <i id=\"{{'expand-icon-' + row.branch.uid}}\" ng-class=\"row.tree_icon\" ng-click=\"user_expands_branch(row.branch, row, $event)\" class=\"indented tree-icon\"> </i>\n      <i ng-class=\"row.resource_icon\" class=\"indented tree-icon\"></i>\n      <span class=\"indented tree-label\">{{ row.label }} </span>\n    </a>\n  </li>\n</ul>",
               replace: true,
               scope: {
                   treeData: '=',
@@ -31,6 +31,9 @@
                   }
                   if (attrs.iconLeaf == null) {
                       attrs.iconLeaf = "glyphicon glyphicon-file";
+                  }
+                  if (attrs.iconInstruction == null) {
+                      attrs.iconInstruction = "fa fa-asterisk";
                   }
                   if (attrs.expandLevel == null) {
                       attrs.expandLevel = '3';
@@ -202,7 +205,7 @@
                           }
                       });
                       add_branch_to_list = function (level, branch, visible) {
-                          var child, child_visible, tree_icon, _i, _len, _ref, _results;
+                          var child, child_visible, tree_icon, _i, _len, _ref, _results, extra_class;
                           if (branch.expanded == null) {
                               branch.expanded = false;
                           }
@@ -213,6 +216,9 @@
                               tree_icon = attrs.iconCollapse;
                           } else if (branch.is_leaf) {
                               tree_icon = attrs.iconLeaf;
+                          } else if (branch.is_instruction) {
+                              tree_icon = attrs.iconInstruction;
+                              extra_class = " tree-instruction";
                           } else {
                               tree_icon = attrs.iconExpand;
                           }
@@ -222,8 +228,10 @@
                               branch: branch,
                               label: branch.label,
                               tree_icon: tree_icon,
+                              extra_class: extra_class,
                               resource_icon: branch.resource_icon,
                               visible: visible,
+
                               clear_tree_icon: function () { this.tree_icon = null;}
                           });
                           if (branch.children != null) {
@@ -418,6 +426,17 @@
                               if (b != null) {
                                   if (((_ref = b.children) != null ? _ref.length : void 0) > 0) {
                                       return b.children[0];
+                                  }
+                              }
+                          };
+                          tree.get_first_non_instruction_child = function (b) {
+                              var _ref;
+                              if (b == null) {
+                                  b = selected_branch;
+                              }
+                              if (b != null) {
+                                  if (((_ref = b.children) != null ? _ref.length : void 0) > 0) {
+                                      return b.children.find(function (c) { return !c.is_instruction; });
                                   }
                               }
                           };

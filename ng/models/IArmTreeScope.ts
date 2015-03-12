@@ -22,7 +22,7 @@
     selectResourceHandler(branch: ITreeBranch, event?: Event);
     putError: string;
     invoking: boolean;
-    expandResourceHandler(branch: ITreeBranch, row?: any, event?: Event, dontExpandChildren?: boolean): ng.IPromise<any>;
+    expandResourceHandler(branch: ITreeBranch, row?: any, event?: Event, dontExpandChildren?: boolean, dontFilterEmpty?: boolean): ng.IPromise<any>;
     tenantSelect();
     enterCreateMode();
     leaveCreateMode();

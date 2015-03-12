@@ -27,4 +27,5 @@ interface ITreeControl {
     last_descendant(b: ITreeBranch): ITreeBranch;
     get_prev_branch(b: ITreeBranch): ITreeBranch;
     select_prev_branch(b: ITreeBranch): ITreeBranch;
+    get_first_non_instruction_child(b: ITreeBranch): ITreeBranch;
 }

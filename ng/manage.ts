@@ -136,10 +136,17 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
     $scope.$createObservableFunction("selectResourceHandler")
         .flatMapLatest(args => {
-        var branch = args[0];
+        var branch: ITreeBranch = args[0];
         var event = args[1];
         $scope.loading = true;
         delete $scope.errorResponse;
+        if (branch.is_instruction) {
+            var parent = $scope.treeControl.get_parent_branch(branch);
+            $scope.treeControl.collapse_branch(parent);
+            $timeout(() => {
+                $scope.expandResourceHandler(parent, undefined, undefined, undefined, true /*dontFilterEmpty*/);
+            });
+        }
         var resourceDefinition = branch.resourceDefinition;
         if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch }));
         $scope.apiVersion = resourceDefinition.apiVersion;
@@ -309,7 +316,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     };
 
-    $scope.expandResourceHandler = (branch, row, event, dontExpandChildren: boolean) => {
+    $scope.expandResourceHandler = (branch: ITreeBranch, row: any, event: Event, dontExpandChildren: boolean, dontFilterEmpty: boolean) => {
         var promise: ng.IPromise<any> | ng.IHttpPromise<any> = $q.when();
         if (branch.is_leaf) return promise;
 
@@ -338,13 +345,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 promise = $http({
                     method: "GET",
                     url: "api/operations/providers/" + branch.value
-                }).success((data) => {
+                }).success((data: any[]) => {
                     branch.providersFilter = data;
                 }).finally(() => {
                     endExpandingTreeItem(branch, originalIcon);
                 });
             }
             promise = promise.finally(() => {
+                var filtedList = false;
                 branch.children = resourceDefinition.children.filter((childName) => {
                     var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
                     if (!childDefinition) return false;
@@ -353,27 +361,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         childDefinition.actions.filter(actionName => actionName === "POST").length > 0) {
                         return false;
                     }
-                    var parent = $scope.treeControl.get_parent_branch(branch);
-                    if (branch.label === "providers") {
-                        // filter the providers by providersFilter
-                        var providersFilter = getProvidersFilter(branch);
-                        if (providersFilter) {
-                            var currentResourceGroup = (parent && isItemOf(parent, "resourceGroups") ? parent.label : undefined);
-                            if (currentResourceGroup) {
-                                var currentResourceGroupProviders = providersFilter[currentResourceGroup.toUpperCase()];
-                                if (currentResourceGroupProviders) {
-                                    branch.currentResourceGroupProviders = currentResourceGroupProviders;
-                                    return (currentResourceGroupProviders[childName.toUpperCase()] ? true : false);
-                                } else {
-                                    return false;
-                                }
-                            }
-                        }
-                    } else if (parent && parent.currentResourceGroupProviders) {
-                        return parent.currentResourceGroupProviders[branch.label.toUpperCase()] &&
-                            parent.currentResourceGroupProviders[branch.label.toUpperCase()].some(c => c.toUpperCase() === childName.toUpperCase());
+                    if (!dontFilterEmpty) {
+                        var keepResult = keepChildrenBasedOnExistingResources(branch, childName);
+                        filtedList = filtedList ? filtedList : !keepResult;
+                        return keepResult;
+                    } else {
+                        return true;
                     }
-                    return true;
                 }).map(childName => {
                     var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
                     return {
@@ -382,11 +376,25 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         is_leaf: (childDefinition.children ? false : true),
                         elementUrl: branch.elementUrl + "/" + childName
                     };
-                });
+                    });
+
+                var offset = 0;
+                if (!dontFilterEmpty && filtedList) {
+                    var parent = $scope.treeControl.get_parent_branch(branch);
+                    if (branch.label === "providers" || (parent && parent.currentResourceGroupProviders)) {
+                        branch.children.unshift({
+                            label: "Show all",
+                            is_instruction: true,
+                            resourceDefinition: resourceDefinition
+                        });
+                        offset++;
+                    }
+                }
+
                 $scope.treeControl.expand_branch(branch);
-                if (branch.children.length === 1 && !dontExpandChildren) {
+                if ((branch.children.length - offset) === 1 && !dontExpandChildren) {
                     $timeout(() => {
-                        $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
+                        $scope.expandResourceHandler($scope.treeControl.get_first_non_instruction_child(branch));
                     });
                 }
             });
@@ -431,6 +439,30 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
         return promise;
     };
+
+    function keepChildrenBasedOnExistingResources(branch: ITreeBranch, childName: string): boolean {
+        var parent = $scope.treeControl.get_parent_branch(branch);
+        if (branch.label === "providers") {
+            // filter the providers by providersFilter
+            var providersFilter = getProvidersFilter(branch);
+            if (providersFilter) {
+                var currentResourceGroup = (parent && isItemOf(parent, "resourceGroups") ? parent.label : undefined);
+                if (currentResourceGroup) {
+                    var currentResourceGroupProviders = providersFilter[currentResourceGroup.toUpperCase()];
+                    if (currentResourceGroupProviders) {
+                        branch.currentResourceGroupProviders = currentResourceGroupProviders;
+                        return (currentResourceGroupProviders[childName.toUpperCase()] ? true : false);
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        } else if (parent && parent.currentResourceGroupProviders) {
+            return parent.currentResourceGroupProviders[branch.label.toUpperCase()] &&
+                parent.currentResourceGroupProviders[branch.label.toUpperCase()].some(c => c.toUpperCase() === childName.toUpperCase());
+        }
+        return true;
+    }
 
     $scope.tenantSelect = () => {
         window.location.href = "api/tenants/" + $scope.selectedTenant.id;
