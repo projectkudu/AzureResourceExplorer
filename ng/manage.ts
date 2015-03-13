@@ -125,7 +125,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     });
 
     $scope.$createObservableFunction("selectResourceHandler")
-        .flatMapLatest(args => {
+        .flatMapLatest((args: any[]) => {
         var branch: ITreeBranch = args[0];
         var event = args[1];
         $scope.loading = true;
@@ -164,11 +164,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     filledInUrl: url
                 };
             $scope.loading = true;
-            return rx.Observable.fromPromise($http(httpConfig)).map(data => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
+            return rx.Observable.fromPromise($http(httpConfig)).map((data: any) => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
         }
         return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
     })
-        .do(() => { }, err => {
+        .do(() => { }, (err: any) => {
         setStateForErrorOnResourceClick();
         if (err.config && err.config.resourceDefinition) {
             var resourceDefinition = err.config.resourceDefinition;
@@ -185,7 +185,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         fixSelectedTabIfNeeded();
     })
         .retry()
-        .subscribe(value => {
+        .subscribe((value: any) => {
         setStateForClickOnResource();
         if (value.data === undefined) {
             if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
@@ -196,13 +196,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             fixSelectedTabIfNeeded();
             return;
         }
-        var resourceDefinition = value.resourceDefinition;
+        var resourceDefinition: IResourceDefinition = value.resourceDefinition;
         var url = value.url;
         $scope.putUrl = url;
-        var putActions = resourceDefinition.actions.filter(a => (a === "PATCH" || a === "PUT"));
-        var createActions = resourceDefinition.actions.filter(a => (a === "CREATE"));
-        if (putActions.length === 1) {
-            var editable;
+        if (resourceDefinition.actions.some(a => (a === "PATCH" || a === "PUT"))) {
+            var editable: any;
             if (resourceDefinition.requestBody && isEmptyObjectorArray(resourceDefinition.requestBody.properties)) {
                 editable = value.data;
             } else {
@@ -220,7 +218,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         responseEditor.customSetValue(stringify(value.data));
 
-        if (createActions.length === 1) {
+        if (resourceDefinition.actions.includes("CREATE")) {
             $scope.creatable = true;
             $scope.createMetaData = resourceDefinition.requestBody;
             createEditor.customSetValue(stringify(resourceDefinition.requestBody));
@@ -233,9 +231,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 url: url
             };
         });
-
-        if (Array.isArray(resourceDefinition.children))
-            Array.prototype.push.apply(actionsAndVerbs, resourceDefinition.children.filter(childString => {
+        var children = resourceDefinition.children;
+        if (typeof children !== "string" && Array.isArray(children)) {
+            Array.prototype.push.apply(actionsAndVerbs, children.filter(childString => {
                 var d = $scope.resourcesDefinitionsTable.filter(r => (r.resourceName === childString) && ((r.url === resourceDefinition.url) || r.url === (resourceDefinition.url + "/" + childString)));
                 return d.length === 1;
             }).map(childString => {
@@ -250,6 +248,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     };
                 }
             }).filter(r => r !== undefined));
+        }
         var doc = (resourceDefinition.responseBodyDoc ? resourceDefinition.responseBodyDoc : resourceDefinition.requestBodyDoc);
         var docArray = getDocumentationFlatArray(value.data, doc);
 
@@ -275,7 +274,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         _invokeAction(action, event);
     };
 
-    function invokePutOrPatch(method, event) {
+    function invokePutOrPatch(method: string, event: Event) {
         try {
             setStateForInvokePut();
             var userObject = JSON.parse(requestEditor.getValue());
@@ -326,7 +325,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         // else if string
         //      this means it's a Url that we need to ge fetch and display.
 
-        if (Array.isArray(resourceDefinition.children)) {
+        var children = resourceDefinition.children;
+        if (typeof children !== "string" && Array.isArray(children)) {
             if (isItemOf(branch, "subscriptions")) {
                 // if we are expanding an element of subscriptions (a subscription),
                 // then we need to make a request to the server to get a list of available providers in its resourceGroups
@@ -343,7 +343,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
             promise = promise.finally(() => {
                 var filtedList = false;
-                branch.children = resourceDefinition.children.filter((childName) => {
+                branch.children = children.filter((childName) => {
                     var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
                     if (!childDefinition) return false;
                     if (childDefinition.children === undefined &&
@@ -388,7 +388,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     });
                 }
             });
-        } else if (typeof resourceDefinition.children === "string") {
+        } else if (typeof children === "string") {
             var getUrl = branch.elementUrl;
 
             var originalIcon = showExpandingTreeItemIcon(row, branch);
@@ -407,8 +407,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     }
                 };
             promise = $http(httpConfig).success((data: any) => {
-                var childDefinition = getResourceDefinitionByNameAndUrl(resourceDefinition.children, resourceDefinition.url + "/" + resourceDefinition.children);
-                branch.children = (data.value ? data.value : data).map((d) => {
+                var childDefinition = getResourceDefinitionByNameAndUrl(children, resourceDefinition.url + "/" + resourceDefinition.children);
+                branch.children = (data.value ? data.value : data).map((d: any) => {
                     var csmName = getCsmNameFromIdAndName(d.id, d.name);
                     return {
                         label: (d.displayName ? d.displayName : csmName),
@@ -434,11 +434,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var parent = $scope.treeControl.get_parent_branch(branch);
         if (branch.label === "providers") {
             // filter the providers by providersFilter
-            var providersFilter = getProvidersFilter(branch);
+            var providersFilter: any = getProvidersFilter(branch);
             if (providersFilter) {
                 var currentResourceGroup = (parent && isItemOf(parent, "resourceGroups") ? parent.label : undefined);
                 if (currentResourceGroup) {
-                    var currentResourceGroupProviders = providersFilter[currentResourceGroup.toUpperCase()];
+                    var currentResourceGroupProviders: any = providersFilter[currentResourceGroup.toUpperCase()];
                     if (currentResourceGroupProviders) {
                         branch.currentResourceGroupProviders = currentResourceGroupProviders;
                         return (currentResourceGroupProviders[childName.toUpperCase()] ? true : false);
@@ -449,7 +449,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
         } else if (parent && parent.currentResourceGroupProviders) {
             return parent.currentResourceGroupProviders[branch.label.toUpperCase()] &&
-                parent.currentResourceGroupProviders[branch.label.toUpperCase()].some(c => c.toUpperCase() === childName.toUpperCase());
+                parent.currentResourceGroupProviders[branch.label.toUpperCase()].some((c: string) => c.toUpperCase() === childName.toUpperCase());
         }
         return true;
     }
@@ -771,12 +771,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         $scope.invoking = true;
     }
 
-    function _invokeAction(action, event: Event, confirmed?: boolean) {
+    function _invokeAction(action: IAction, event: Event, confirmed?: boolean) {
         try {
             setStateForInvokeAction();
             var currentBranch = $scope.treeControl.get_selected_branch();
             var parent = $scope.treeControl.get_parent_branch(currentBranch);
-            var body, queryString;
+            var body: any, queryString: string;
             if (action.requestBody) {
                 var s = ace.edit(action.name + "-editor");
                 body = JSON.parse(s.getValue());
@@ -837,18 +837,18 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }, 500);
     }
 
-    function getCsmNameFromIdAndName(id, name) {
+    function getCsmNameFromIdAndName(id: string, name: string) {
         var splited = (id && id !== null ? decodeURIComponent(id) : name).split("/");
         return splited[splited.length - 1];
     }
 
-    function scrollToTop(delay) {
+    function scrollToTop(delay: number) {
         $timeout(() => {
             $("html, body").scrollTop(0);
         }, delay);
     }
 
-    function getResourceDefinitionByNameAndUrl(name, url) {
+    function getResourceDefinitionByNameAndUrl(name: string, url: string) {
         var resourceDefinitions = $scope.resourcesDefinitionsTable.filter(r => (r.resourceName === name) && ((r.url === url) || r.url === (url + "/" + name)));
         if (resourceDefinitions.length > 1) {
             console.log("ASSERT! duplicate ids in resourceDefinitionsTable");
@@ -888,8 +888,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 buildResourcesDefinitionsTable(operation);
 
                 $scope.resourcesDefinitionsTable.map((r) => {
-                    if (Array.isArray(r.children)) {
-                        r.children.sort();
+                    var children = r.children;
+                    if (typeof children !== "string" && Array.isArray(children)) {
+                        children.sort();
                     }
                 });
             });
@@ -907,15 +908,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return {
                 label: urd.url.split("/")[3],
                 resourceDefinition: urd,
-                data: undefined,
+                data: <any>undefined,
                 resource_icon: "fa fa-cube fa-fw",
-                children: [],
+                children: <string[]>[],
                 elementUrl: urd.url
             };
         });
     }
 
-    function fixOperationUrl(operation) {
+    function fixOperationUrl(operation: IMetadataObject) {
         if (operation.Url.indexOf("SourceControls/{name}") !== -1) {
             operation.Url = operation.Url.replace("SourceControls/{name}", "SourceControls/{sourceControlName}");
         }
@@ -931,11 +932,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return operation;
     }
 
-    function buildResourcesDefinitionsTable(operation, url?: string) {
+    function buildResourcesDefinitionsTable(operation: IMetadataObject, url?: string) {
         url = (operation ? operation.Url : url);
         var segments = url.split("/").filter(a => a.length !== 0);
         var resourceName = segments.pop();
-        var addedElement;
+        var addedElement: IResourceDefinition;
 
         if (resourceName === "list" && operation && operation.HttpMethod === "POST") {
             // handle resources that has a "secure GET"
@@ -984,13 +985,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return addedElement;
     };
 
-    function setParent(url, action?: any, requestBody?: any) {
+    function setParent(url: string, action?: string, requestBody?: any) {
         var segments = url.split("/").filter(a => a.length !== 0);
         var resourceName = segments.pop();
         var parentName = url.substring(0, url.lastIndexOf("/"));
         if (parentName === undefined || parentName === "" || resourceName === undefined) return;
         var parents = $scope.resourcesDefinitionsTable.filter(rd => rd.url === parentName);
-        var parent;
+        var parent: IResourceDefinition;
         if (parents.length === 1) {
             parent = parents[0];
             if (resourceName.match(/\{.*\}/g)) {
@@ -1007,8 +1008,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 if (parent.children === undefined) {
                     parent.children = [resourceName];
                 } else if (Array.isArray(parent.children)) {
-                    if (parent.children.filter(c => c === resourceName).length === 0) {
-                        parent.children.push(resourceName);
+                    if ((<string[]>parent.children).filter(c => c === resourceName).length === 0) {
+                        (<string[]>parent.children).push(resourceName);
                     }
                 } else {
                     console.log("ASSERT, typeof parent.children: " + typeof parent.children)
@@ -1029,7 +1030,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function fixWidths(event) {
+    function fixWidths(event: Event) {
         if (!event) return;
         var anchor = $(event.currentTarget);
         var span = $(event.currentTarget).find("span");
@@ -1037,7 +1038,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         anchor.width((width < 280 ? 280 : width) - 20);
     }
 
-    function syntaxHighlight(json) {
+    function syntaxHighlight(json: any) {
         if (typeof json === "string") return escapeHtmlEntities(json);
         var str = stringify(json);
         str = escapeHtmlEntities(str);
@@ -1063,11 +1064,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         });
     }
 
-    function escapeHtmlEntities(str) {
+    function escapeHtmlEntities(str: string) {
         return $('<div/>').text(str).html();
     }
 
-    function getRerouceGroupNameFromWebSpaceName(webSpaceName) {
+    function getRerouceGroupNameFromWebSpaceName(webSpaceName: string) {
         webSpaceName = webSpaceName.toLowerCase();
         if (!webSpaceName.endsWith("webspace")) {
             return undefined;
@@ -1084,14 +1085,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function isEmptyObjectorArray(obj) {
+    function isEmptyObjectorArray(obj: any) {
         if (typeof obj === "number" || typeof obj === "boolean") return false;
         if ($.isEmptyObject(obj)) return true;
         if (obj === null || obj === "" || obj.length === 0) return true;
         return false;
     }
 
-    function cleanObject(obj) {
+    function cleanObject(obj: any) {
         var hadProperties = (obj.properties !== undefined);
         recursiveCleanObject(obj);
         if (hadProperties && !obj.properties) {
@@ -1099,14 +1100,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function recursiveCleanObject(obj) {
+    function recursiveCleanObject(obj: any) {
         for (var property in obj) {
             if (obj.hasOwnProperty(property)) {
                 if (typeof obj[property] === "string" && (/\(.*\)/.test(obj[property]))) {
                     delete obj[property];
                 } else if (Array.isArray(obj[property])) {
-                    var toRemove = [];
-                    obj[property] = obj[property].filter((element) => {
+                    obj[property] = obj[property].filter((element: any) => {
                         if (typeof element === "string" && (/\(.*\)/.test(element))) {
                             return false
                         } else if (typeof element === "object" && !$.isEmptyObject(element)) {
@@ -1130,10 +1130,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
     function sortByObject(toBeSorted: any, toSortBy: any): any {
         if (toBeSorted === toSortBy) return toBeSorted;
-        var sorted = {};
+        var sorted: any = {};
         for (var key in toSortBy) {
             if (toSortBy.hasOwnProperty(key)) {
-                var obj;
+                var obj: any;
                 if (typeof toSortBy[key] === "object" && !Array.isArray(toSortBy[key]) && toSortBy[key] != null) {
                     obj = sortByObject(toBeSorted[key], toSortBy[key]);
                 } else {
@@ -1150,7 +1150,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return sorted;
     }
 
-    function mergeObject(source, target): any {
+    function mergeObject(source: any, target: any): any {
         for (var sourceProperty in source) {
             if (source.hasOwnProperty(sourceProperty) && target.hasOwnProperty(sourceProperty)) {
                 if (!isEmptyObjectorArray(source[sourceProperty]) && (typeof source[sourceProperty] === "object") && !Array.isArray(source[sourceProperty])) {
@@ -1173,15 +1173,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return JSON.stringify(object, undefined, 2)
     }
 
-    function getDocumentationFlatArray(editorData, doc) {
-        var docArray = [];
+    function getDocumentationFlatArray(editorData: any, doc: any) {
+        var docArray: any[] = [];
         if (doc) {
             doc = (doc.properties ? doc.properties : (doc.value ? doc.value[0].properties : {}));
         }
 
         if (editorData && doc) {
             editorData = (editorData.properties ? editorData.properties : ((editorData.value && editorData.value.length > 0) ? editorData.value[0].properties : {}));
-            var set = {};
+            var set: any = {};
             for (var prop in editorData) {
                 if (editorData.hasOwnProperty(prop) && doc[prop]) {
                     docArray.push({
@@ -1226,7 +1226,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     }
 
     function flattenObject(prefix: string, object: any): any[] {
-        var flat = [];
+        var flat: any[] = [];
         if (typeof object === "string") {
             flat.push({
                 name: prefix,
@@ -1310,6 +1310,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 e.preventDefault();
                 $scope.hideConfirm();
                 _invokeAction({
+                    name: "",
                     httpMethod: "DELETE",
                     url: url
                 }, e, true /*confirmed*/);
@@ -1322,15 +1323,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     }
 
-    function decoratePromise(promise) {
-        promise.success = (fn) => {
-            promise.then((response) => {
+    function decoratePromise(promise: ng.IPromise<any>) {
+       (<any> promise).success = (fn: Function) => {
+            promise.then((response: any) => {
                 fn(response);
             });
             return promise;
         };
 
-        promise.error = (fn) => {
+        (<any>promise).error = (fn: Function) => {
             promise.then(null,(response) => {
                 fn(response);
             });
@@ -1339,7 +1340,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return promise;
     }
 }])
-    .config(($routeProvider, $locationProvider) => {
+    .config(($locationProvider: ng.ILocationProvider) => {
     $locationProvider.html5Mode(true);
 });
 

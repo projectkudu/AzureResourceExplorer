@@ -11,6 +11,7 @@ interface Array<T> {
     indexOfDelegate(predicate: (val: T) => boolean, fromIndex?: number): number;
     last(): T;
     find(predicate: (val: T) => boolean): T;
+    some(predicate: (val: T) => boolean): boolean;
 }
 
 if (!String.prototype.compare) {

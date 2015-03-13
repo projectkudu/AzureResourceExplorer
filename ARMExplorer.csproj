@@ -136,7 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="ng\manage.ts" />
+    <TypeScriptCompile Include="ng\models\IAction.ts" />
     <TypeScriptCompile Include="ng\models\IArmTreeScope.ts" />
+    <TypeScriptCompile Include="ng\models\IMetadataObject.ts" />
+    <TypeScriptCompile Include="ng\models\IResourceDefinition.ts" />
     <TypeScriptCompile Include="ng\models\IResourceSearch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeBranch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeControl.ts" />
@@ -162,6 +165,7 @@
     <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
     <TypeScriptOutFile>ng/manage.js</TypeScriptOutFile>
     <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />

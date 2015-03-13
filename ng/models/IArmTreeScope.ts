@@ -2,7 +2,7 @@
     treeControl: ITreeControl;
     createModel: any;
     actionsModel: any;
-    resourcesDefinitionsTable: any[];
+    resourcesDefinitionsTable: IResourceDefinition[];
     resources: any[];
     readOnlyMode: boolean;
     editMode: boolean;
