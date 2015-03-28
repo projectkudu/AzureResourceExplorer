@@ -91,6 +91,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\**\*.dll" />
     <Content Include="Content\Scripts\ui-ace.min.js" />
     <Content Include="Content\Styles\app2.css" />
     <Content Include="ng\manage2.js" />
