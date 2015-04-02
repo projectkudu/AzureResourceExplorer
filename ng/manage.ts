@@ -784,29 +784,41 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var rest = path.substring(index + 1);
         var child: any;
         var selectedBranch = $scope.treeControl.get_selected_branch();
+        var expandPromise: ng.IPromise<any> = $q.when();
+        var expandChild = () => {
+            if (!child) {
+                var top = document.getElementById("expand-icon-" + selectedBranch.uid).documentOffsetTop() - ((window.innerHeight - 50 /*nav bar height*/) / 2);
+                $("#sidebar").scrollTop(top);
+                return;
+            }
+            $scope.treeControl.select_branch(child);
+            $timeout(() => {
+                child = $scope.treeControl.get_selected_branch();
+                if (child && $.isArray(child.children) && child.children.length > 0) {
+                    handlePath(rest);
+                } else {
+                    var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
+                    promis.finally(() => { handlePath(rest); });
+                }
+            });
+        };
+
+
         if (!selectedBranch) {
             var matches = $scope.treeControl.get_roots().filter(e => e.label.toLocaleUpperCase() === current.toLocaleUpperCase());
             child = (matches.length > 0 ? matches[0] : undefined);
+            expandChild();
         } else {
-            var matches = $scope.treeControl.get_children(selectedBranch).filter(e => current.toLocaleUpperCase() === (e.value ? e.value.toLocaleUpperCase() : e.label.toLocaleUpperCase()));
-            child = (matches.length > 0 ? matches[0] : undefined);
-        }
-
-        if (!child) {
-            var top = document.getElementById("expand-icon-" + selectedBranch.uid).documentOffsetTop() - ((window.innerHeight - 50 /*nav bar height*/) / 2);
-            $("#sidebar").scrollTop(top);
-            return;
-        }
-        $scope.treeControl.select_branch(child);
-        $timeout(() => {
-            child = $scope.treeControl.get_selected_branch();
-            if (child && $.isArray(child.children) && child.children.length > 0) {
-                handlePath(rest);
-            } else {
-                var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
-                promis.finally(() => { handlePath(rest); });
+            if (!selectedBranch.expanded) {
+                expandPromise = $scope.expandResourceHandler(selectedBranch, undefined, undefined, true);
             }
-        });
+
+            expandPromise.then(() => {
+                var matches = $scope.treeControl.get_children(selectedBranch).filter(e => current.toLocaleUpperCase() === (e.value ? e.value.toLocaleUpperCase() : e.label.toLocaleUpperCase()));
+                child = (matches.length > 0 ? matches[0] : undefined);
+                expandChild();
+            });
+        }
     }
 
     function setStateForClickOnResource() {
