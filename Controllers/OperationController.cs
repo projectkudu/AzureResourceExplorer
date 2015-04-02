@@ -89,7 +89,7 @@ namespace ARMExplorer.Controllers
         public async Task<HttpResponseMessage> Invoke(OperationInfo info)
         {
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
-
+            LogCsmType(info);
             using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
             {
                 var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=") != -1 ? string.Empty : "?api-version=" + info.ApiVersion) + (string.IsNullOrEmpty(info.QueryString) ? string.Empty : info.QueryString));
@@ -100,6 +100,24 @@ namespace ARMExplorer.Controllers
 
                 return await Utils.Execute(client.SendAsync(request));
             }
+        }
+
+        private void LogCsmType(OperationInfo info)
+        {
+            try
+            {
+                if (info == null || info.Url == null || info.Url.IndexOf("/providers/", StringComparison.OrdinalIgnoreCase) == -1) return;
+                var path = info.Url.Substring(info.Url.IndexOf("/providers/", StringComparison.OrdinalIgnoreCase));
+                var sb = new StringBuilder();
+                var parts = path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                for (var i = 1; i < parts.Length; i++)
+                {
+                    if (i == 1 || i == 2 || i % 2 == 0)
+                        sb.AppendFormat("{0}/", parts[i]);
+                }
+                Trace.TraceInformation("CSM_RESOURCE_TYPE; {0}; ", sb.ToString().Trim(new[] { '/' }));
+            }
+            catch { }
         }
 
         private HttpClient GetClient(string baseUri)
