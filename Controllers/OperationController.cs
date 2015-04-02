@@ -115,7 +115,7 @@ namespace ARMExplorer.Controllers
                     if (i == 1 || i == 2 || i % 2 == 0)
                         sb.AppendFormat("{0}/", parts[i]);
                 }
-                Trace.TraceInformation("CSM_RESOURCE_TYPE; {0}; ", sb.ToString().Trim(new[] { '/' }));
+                Trace.TraceInformation("CSM_RESOURCE_TYPE; {0}; {1}", info.HttpMethod, sb.ToString().Trim(new[] { '/' }));
             }
             catch { }
         }
