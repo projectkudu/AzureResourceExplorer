@@ -15,9 +15,12 @@ using System.Web.Http;
 using Hyak.Common;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using ARMExplorer.Controllers.Telemetry;
+using ARMExplorer.Telemetry;
 
 namespace ARMExplorer.Controllers
 {
+    [UnhandledExceptionFilter]
     public class OperationController : ApiController
     {
         [Authorize]
@@ -115,9 +118,13 @@ namespace ARMExplorer.Controllers
                     if (i == 1 || i == 2 || i % 2 == 0)
                         sb.AppendFormat("{0}/", parts[i]);
                 }
-                Trace.TraceInformation("CSM_RESOURCE_TYPE; {0}; {1}", info.HttpMethod, sb.ToString().Trim(new[] { '/' }));
+                var csmType = sb.ToString().Trim(new [] { '/' });
+                TelemetryHelper.LogInfo(new CsmTypeEvent { Type = csmType, HttpMethod = info.HttpMethod });
             }
-            catch { }
+            catch (Exception e)
+            {
+                TelemetryHelper.LogException(e);
+            }
         }
 
         private HttpClient GetClient(string baseUri)

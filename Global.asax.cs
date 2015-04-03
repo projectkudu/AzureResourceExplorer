@@ -1,4 +1,5 @@
 ﻿using ARMExplorer.App_Start;
+using System.Configuration;
 using System.Web.Http;
 
 namespace ARMExplorer
@@ -8,6 +9,9 @@ namespace ARMExplorer
 
         protected void Application_Start()
         {
+            Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration
+                .Active.InstrumentationKey = ConfigurationManager.AppSettings["AppInsightKey"] ?? System.Environment.GetEnvironmentVariable("AppInsightKey");
+
             WebApiConfig.Register(GlobalConfiguration.Configuration);
         }
     }
