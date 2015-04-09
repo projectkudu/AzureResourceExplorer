@@ -41,8 +41,8 @@
     refresh();
     user: any;
     actionResponse: string;
-    tenants: any[];
-    selectedTenant: any;
+    tenants: ITenantDetails[];
+    selectedTenant: ITenantDetails;
     resourceSearch();
     resourceSearchModel: IResourceSearch;
     resourceSearchCache: IResearchSearchCache;

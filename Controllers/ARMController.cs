@@ -168,10 +168,13 @@ namespace ARMExplorer.Controllers
             {
                 // switch tenant
                 var tenantId = Guid.Parse(parts[1]);
-                var uri = Request.RequestUri.AbsoluteUri;
+                //KeyValuePair is a struct not a class. It can't be null.
+                var contextQuery = Request.GetQueryNameValuePairs().FirstOrDefault(s => s.Key.Equals("cx", StringComparison.OrdinalIgnoreCase)).Value ?? string.Empty;
                 var response = Request.CreateResponse(HttpStatusCode.Redirect);
                 response.Headers.Add("Set-Cookie", String.Format("OAuthTenant={0}; path=/; secure; HttpOnly", tenantId));
-                response.Headers.Location = new Uri(uri.Substring(0, uri.IndexOf("/api/" + parts[0], StringComparison.OrdinalIgnoreCase)));
+                var uri = Request.RequestUri.AbsoluteUri;
+                var baseUri = new Uri(uri.Substring(0, uri.IndexOf("/api/" + parts[0], StringComparison.OrdinalIgnoreCase)));
+                response.Headers.Location = new Uri(baseUri, WebUtility.UrlDecode(contextQuery));
                 return response;
             }
         }
