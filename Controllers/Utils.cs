@@ -13,6 +13,7 @@ namespace ARMExplorer.Controllers
         public const string CSMApiVersion = "2014-04-01";
 
         public const string resourcesTemplate = "{0}/subscriptions/{1}/resources?api-version={2}";
+        public const string subscriptionTemplate = "{0}/subscriptions/{1}?api-version={2}";
 
         public static string GetApiVersion(string path)
         {

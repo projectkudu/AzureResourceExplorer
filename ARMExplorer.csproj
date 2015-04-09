@@ -156,6 +156,7 @@
     <Compile Include="Controllers\MetadataObject.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationInfo.cs" />
+    <Compile Include="Modules\Extensions.cs" />
     <Compile Include="Telemetry\ITelemetryEvent.cs" />
     <Compile Include="Telemetry\CsmTypeEvent.cs" />
     <Compile Include="Telemetry\TelemetryHelper.cs" />
@@ -176,6 +177,7 @@
     <TypeScriptCompile Include="ng\models\IMetadataObject.ts" />
     <TypeScriptCompile Include="ng\models\IResourceDefinition.ts" />
     <TypeScriptCompile Include="ng\models\IResourceSearch.ts" />
+    <TypeScriptCompile Include="ng\models\ITenantDetails.ts" />
     <TypeScriptCompile Include="ng\models\ITreeBranch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeControl.ts" />
     <TypeScriptCompile Include="ng\polyfill.ts" />
