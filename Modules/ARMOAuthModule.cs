@@ -55,6 +55,13 @@ namespace ARMExplorer.Modules
         {
             context.AuthenticateRequest += AuthenticateRequest;
             context.BeginRequest += BeginRequest;
+            context.PreSendRequestHeaders += PreRequestHeaders;
+        }
+
+        public void PreRequestHeaders(object sender, EventArgs e)
+        {
+            var application = (HttpApplication)sender;
+            application.Response.Headers["INSTANCE_NAME"] = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
         }
 
         private bool TryGetTenantForSubscription(string subscriptionId, out string tenantId)
