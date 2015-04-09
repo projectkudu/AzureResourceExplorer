@@ -145,14 +145,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         if (getActions.length === 1) {
             var getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
             var url = (getAction === "POST" ? branch.elementUrl + "/list" : branch.elementUrl);
-            var httpConfig = (url.endsWith("resourceGroups") || url.endsWith("subscriptions") || url.split("/").length === 3)
-                ? {
-                    method: "GET",
-                    url: "api" + url.substring(url.indexOf("/subscriptions")),
-                    resourceDefinition: resourceDefinition,
-                    filledInUrl: url
-                }
-                : {
+            var httpConfig = {
                     method: "POST",
                     url: "api/operations",
                     data: {
@@ -657,7 +650,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
     $scope.setReadOnlyMode = (readOnlyMode) => {
         $scope.readOnlyMode = readOnlyMode;
-        $.cookie("readOnlyMode", readOnlyMode, { expires: 10 * 365 });
+        $.cookie("readOnlyMode", readOnlyMode, { expires: 10 * 365, path: '/' });
     }
 
     $scope.toggleEditMode = () => {
