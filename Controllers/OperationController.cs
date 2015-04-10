@@ -15,7 +15,6 @@ using System.Web.Http;
 using Hyak.Common;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using ARMExplorer.Controllers.Telemetry;
 using ARMExplorer.Telemetry;
 
 namespace ARMExplorer.Controllers
@@ -33,6 +32,7 @@ namespace ARMExplorer.Controllers
 
             var specs = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
                 ? Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
+                  .Where(f => f.EndsWith(".dll"))
                   .Select(Assembly.LoadFile)
                   .Select(assembly => assembly.GetTypes())
                   .SelectMany(t => t)

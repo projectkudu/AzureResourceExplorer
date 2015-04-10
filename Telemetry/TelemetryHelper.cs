@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ARMExplorer.Controllers.Telemetry
+namespace ARMExplorer.Telemetry
 {
     public static class TelemetryHelper
     {

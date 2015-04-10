@@ -1,4 +1,5 @@
 ﻿using ARMExplorer.Controllers;
+using ARMExplorer.Telemetry;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -61,7 +62,7 @@ namespace ARMExplorer.Modules
         public void PreRequestHeaders(object sender, EventArgs e)
         {
             var application = (HttpApplication)sender;
-            application.Response.Headers["INSTANCE_NAME"] = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME");
+            application.Response.Headers["instance-name"] = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME") ?? application.Request.Url.Host;
         }
 
         private bool TryGetTenantForSubscription(string subscriptionId, out string tenantId)
@@ -134,10 +135,17 @@ namespace ARMExplorer.Modules
 
         public void BeginRequest(object sender, EventArgs e)
         {
-            var application = (HttpApplication) sender;
-            if (!application.Request.Url.IsLoopback)
+            try
             {
-                PutOnCorrectTenant(application.Request.Headers["X-MS-OAUTH-TENANTID"]);
+                var application = (HttpApplication)sender;
+                if (!application.Request.Url.IsLoopback)
+                {
+                    PutOnCorrectTenant(application.Request.Headers["X-MS-OAUTH-TENANTID"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                TelemetryHelper.LogException(ex);
             }
         }
 

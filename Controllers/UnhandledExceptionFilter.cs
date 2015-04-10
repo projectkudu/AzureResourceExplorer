@@ -1,4 +1,4 @@
-﻿using ARMExplorer.Controllers.Telemetry;
+﻿using ARMExplorer.Telemetry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
