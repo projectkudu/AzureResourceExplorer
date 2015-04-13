@@ -16,7 +16,7 @@
     <AssemblyName>ARMExplorer</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
+    <IISExpressSSLPort>44306</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -215,7 +215,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>44300</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44300/</IISUrl>
+          <IISUrl>https://localhost:44306/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
