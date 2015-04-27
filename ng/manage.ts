@@ -1070,7 +1070,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 if (parent.children === undefined || typeof parent.children === "string") {
                     parent.children = resourceName;
                 } else {
-                    console.log("ASSERT, typeof parent.children: " + typeof parent.children)
+                    console.log("ASSERT1, typeof parent.children: " + typeof parent.children)
                 }
             } else if (resourceName !== "list") {
                 // this means that the resource is a pre-defined one. the parent.children should be undefined or array
@@ -1082,7 +1082,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         (<string[]>parent.children).push(resourceName);
                     }
                 } else {
-                    console.log("ASSERT, typeof parent.children: " + typeof parent.children)
+                    parent.children = [resourceName];
+                    console.log("ASSERT2, typeof parent.children: " + typeof parent.children)
                 }
             }
         } else {

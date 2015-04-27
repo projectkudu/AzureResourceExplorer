@@ -43,7 +43,15 @@ namespace ARMExplorer.Controllers
 
             var speclessCsmApis = await HyakUtils.GetSpeclessCsmOperationsAsync();
 
-            var json = specs.Concat(speclessCsmApis);
+            var jsonSpecs = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
+                ? Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
+                  .Where(f => f.EndsWith(".json"))
+                  .Select(File.ReadAllText)
+                  .Select(JsonConvert.DeserializeObject<IEnumerable<MetadataObject>>)
+                  .SelectMany(i => i)
+                : Enumerable.Empty<MetadataObject>();
+
+            var json = specs.Concat(speclessCsmApis).Concat(jsonSpecs);
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
@@ -134,6 +142,7 @@ namespace ARMExplorer.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
                 Request.Headers.GetValues(Utils.X_MS_OAUTH_TOKEN).FirstOrDefault());
             client.DefaultRequestHeaders.Add("User-Agent", Request.RequestUri.Host);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
         }
     }
