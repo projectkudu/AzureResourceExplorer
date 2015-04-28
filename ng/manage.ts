@@ -251,7 +251,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             httpMethods: resourceDefinition.actions.filter(e => e !== "DELETE" && e !== "CREATE").map((e) => (e === "GETPOST" ? "POST" : e)).sort(),
             doc: docArray
         };
-        $location.path(url.substring("https://management.azure.com/".length));
+        $location.path(url.replace(/https:\/\/[^\/]*\//, ""));
         fixSelectedTabIfNeeded();
     });
 
