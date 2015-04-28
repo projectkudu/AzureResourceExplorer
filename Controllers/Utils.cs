@@ -50,6 +50,10 @@ namespace ARMExplorer.Controllers
             {
                 return "https://api-dogfood.resources.windows-int.net";
             }
+            else if (host.EndsWith(".waws-ppedf.windows-int.net", StringComparison.OrdinalIgnoreCase))
+            {
+                return "https://api-dogfood.resources.windows-int.net";
+            }
 
             return "https://management.azure.com";
         }
