@@ -304,7 +304,10 @@
                               return b;
                           };
                           tree.get_children = function (b) {
-                              return b.children;
+                              return b.children
+                                  .sort(function (c, d) {
+                                      return c.label.localeCompare(d.label)
+                                  });
                           };
                           tree.select_parent_branch = function (b) {
                               var p;
