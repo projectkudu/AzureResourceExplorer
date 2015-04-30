@@ -410,6 +410,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         is_leaf: (childDefinition.children ? false : true),
                         elementUrl: branch.elementUrl + "/" + (d.subscriptionId ? d.subscriptionId : csmName)
                     };
+                }).sort((a: any, b: any) => {
+                    return a.label.localeCompare(b.label);
                 });
             }).finally(() => {
                 endExpandingTreeItem(branch, originalIcon);
