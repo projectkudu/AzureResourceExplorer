@@ -1173,11 +1173,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     function recursiveCleanObject(obj: any) {
         for (var property in obj) {
             if (obj.hasOwnProperty(property)) {
-                if (typeof obj[property] === "string" && (/\(.*\)/.test(obj[property]))) {
+                if (typeof obj[property] === "string" && (/^\(.*\)$/.test(obj[property]))) {
                     delete obj[property];
                 } else if (Array.isArray(obj[property])) {
                     obj[property] = obj[property].filter((element: any) => {
-                        if (typeof element === "string" && (/\(.*\)/.test(element))) {
+                        if (typeof element === "string" && (/^\(.*\)$/.test(element))) {
                             return false
                         } else if (typeof element === "object" && !$.isEmptyObject(element)) {
                             recursiveCleanObject(element);
