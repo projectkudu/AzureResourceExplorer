@@ -256,7 +256,7 @@ namespace ARMExplorer.Controllers
                 }
                 else if (knownType != null && getDocumentation)
                 {
-                    return jsonValue.PropertyBinding.Documentation != null
+                    return jsonValue.PropertyBinding != null && jsonValue.PropertyBinding.Documentation != null
                         ? jsonValue.PropertyBinding.Documentation.Text
                         : string.Empty;
                 }
