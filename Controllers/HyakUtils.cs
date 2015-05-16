@@ -457,7 +457,14 @@ namespace ARMExplorer.Controllers
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{webSiteName}/slots/{slotName}/slotsswap",
                     ApiVersion = "2014-06-01",
                     RequestBody = fakeSwapBody
-                }
+                },
+                new MetadataObject
+                {
+                    MethodName = "GetInstanceView",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/InstanceView",
+                    ApiVersion = "2015-05-01-preview"
+                },
             };
         }
 
