@@ -7,7 +7,7 @@ interface ITreeControl {
     select_first_branch(): ITreeBranch;
     get_selected_branch(): ITreeBranch;
     get_parent_branch(b: ITreeBranch): ITreeBranch;
-    select_branch(b: ITreeBranch): ITreeBranch;
+    select_branch(b: ITreeBranch, runOnSelect?: boolean): ITreeBranch;
     get_children(b: ITreeBranch): ITreeBranch[];
     select_parent_branch(b: ITreeBranch): ITreeBranch;
     add_branch(parent: ITreeBranch, new_branch: ITreeBranch): ITreeBranch;

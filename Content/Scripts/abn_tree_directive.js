@@ -75,7 +75,8 @@
                       return _results;
                   };
                   selected_branch = null;
-                  select_branch = function (branch, event) {
+                  select_branch = function (branch, event, runOnSelect) {
+                      runOnSelect = typeof runOnSelect !== 'undefined' ? runOnSelect : true;
                       if (!branch) {
                           if (selected_branch != null) {
                               selected_branch.selected = false;
@@ -90,12 +91,12 @@
                           branch.selected = true;
                           selected_branch = branch;
                           expand_all_parents(branch);
-                          if (branch.onSelect != null) {
+                          if (branch.onSelect != null && runOnSelect) {
                               return $timeout(function () {
                                   return branch.onSelect(branch, event);
                               });
                           } else {
-                              if (scope.onSelect != null) {
+                              if (scope.onSelect != null && runOnSelect) {
                                   return $timeout(function () {
                                       return scope.onSelect({
                                           branch: branch,
@@ -299,8 +300,8 @@
                           tree.get_parent_branch = function (b) {
                               return get_parent(b);
                           };
-                          tree.select_branch = function (b) {
-                              select_branch(b);
+                          tree.select_branch = function (b, f) {
+                              select_branch(b, undefined, f);
                               return b;
                           };
                           tree.get_children = function (b) {

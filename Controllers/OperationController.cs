@@ -134,6 +134,7 @@ namespace ARMExplorer.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
                 Request.Headers.GetValues(Utils.X_MS_OAUTH_TOKEN).FirstOrDefault());
             client.DefaultRequestHeaders.Add("User-Agent", Request.RequestUri.Host);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
             return client;
         }
     }

@@ -132,10 +132,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         delete $scope.errorResponse;
         if (branch.is_instruction) {
             var parent = $scope.treeControl.get_parent_branch(branch);
+            parent.children.length = 0;
             $scope.treeControl.collapse_branch(parent);
             $timeout(() => {
-                $scope.expandResourceHandler(parent, undefined, undefined, undefined, true /*dontFilterEmpty*/);
+                $scope.expandResourceHandler(parent, undefined, undefined, undefined, /*filterEmpty*/ false);
             });
+            return rx.Observable.fromPromise($q.when({ branch: branch }));
         }
         var resourceDefinition = branch.resourceDefinition;
         if (!resourceDefinition) return rx.Observable.fromPromise($q.when({ branch: branch }));
@@ -157,25 +159,26 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     filledInUrl: url
                 };
             $scope.loading = true;
-            return rx.Observable.fromPromise($http(httpConfig)).map((data: any) => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
-        }
-        return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
-    })
-        .do(() => { },(err: any) => {
+            return rx.Observable.fromPromise($http(httpConfig).error((data, status, headers, config: any) => {
         setStateForErrorOnResourceClick();
-        if (err.config && err.config.resourceDefinition) {
-            var resourceDefinition = err.config.resourceDefinition;
-            $scope.putUrl = err.config.filledInUrl;
+        if (config && config.resourceDefinition) {
+            var resourceDefinition = config.resourceDefinition;
+            $scope.putUrl = config.filledInUrl;
             responseEditor.customSetValue("");
             $scope.readOnlyResponse = "";
         }
-        delete err.config;
-        $scope.errorResponse = syntaxHighlight(err);
+        $scope.errorResponse = syntaxHighlight({
+            data: data,
+            status: status
+        });
         $scope.selectedResource = {
             url: $scope.putUrl,
             httpMethod: "GET"
         };
         fixSelectedTabIfNeeded();
+    })).map((data: any) => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
+        }
+        return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
     })
         .retry()
         .subscribe((value: any) => {
@@ -298,11 +301,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     };
 
-    $scope.expandResourceHandler = (branch: ITreeBranch, row: any, event: Event, dontExpandChildren: boolean, dontFilterEmpty: boolean) => {
+    $scope.expandResourceHandler = (branch: ITreeBranch, row: any, event: Event, expandChildren: boolean, filterEmpty: boolean, showOneChild: string) => {
+        //Handle default values
+        expandChildren = typeof expandChildren !== 'undefined' ? expandChildren : true;
+        filterEmpty = typeof filterEmpty !== 'undefined' ? filterEmpty : true;
+
         var promise: ng.IPromise<any> | ng.IHttpPromise<any> = $q.when();
         if (branch.is_leaf) return promise;
 
-        if (branch.expanded) {
+        if (branch.expanded && !showOneChild) {
             // clear the children array on collapse
             branch.children.length = 0;
             $scope.treeControl.collapse_branch(branch);
@@ -336,7 +343,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
             promise = promise.finally(() => {
                 var filtedList = false;
-                branch.children = children.filter((childName) => {
+                var newChildren = children.filter(e => {
+                    if (showOneChild) return showOneChild === e;
+                    else return true;
+                }).filter((childName) => {
                     var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
                     if (!childDefinition) return false;
                     if (childDefinition.children === undefined &&
@@ -344,7 +354,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         childDefinition.actions.filter(actionName => actionName === "POST").length > 0) {
                         return false;
                     }
-                    if (!dontFilterEmpty) {
+                    if (filterEmpty) {
                         var keepResult = keepChildrenBasedOnExistingResources(branch, childName);
                         filtedList = filtedList ? filtedList : !keepResult;
                         return keepResult;
@@ -361,10 +371,17 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     };
                 });
 
+                if (branch.children && Array.isArray(branch.children)) {
+                    branch.children = branch.children.concat(newChildren);
+                } else {
+                    branch.children = newChildren;
+                }
+
+
                 var offset = 0;
-                if (!dontFilterEmpty && filtedList) {
+                if (filterEmpty && filtedList) {
                     var parent = $scope.treeControl.get_parent_branch(branch);
-                    if (branch.label === "providers" || (parent && parent.currentResourceGroupProviders)) {
+                    if ((branch.label === "providers" || (parent && parent.currentResourceGroupProviders)) && !branch.children[0].is_instruction) {
                         branch.children.unshift({
                             label: "Show all",
                             is_instruction: true,
@@ -372,10 +389,16 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         });
                         offset++;
                     }
+                } else if (showOneChild && !branch.children[0].is_instruction) {
+                    branch.children.unshift({
+                        label: "Show all",
+                        is_instruction: true,
+                        resourceDefinition: resourceDefinition
+                    });
                 }
 
                 $scope.treeControl.expand_branch(branch);
-                if ((branch.children.length - offset) === 1 && !dontExpandChildren) {
+                if ((branch.children.length - offset) === 1 && expandChildren) {
                     $timeout(() => {
                         $scope.expandResourceHandler($scope.treeControl.get_first_non_instruction_child(branch));
                     });
@@ -383,6 +406,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             });
         } else if (typeof children === "string") {
             var getUrl = branch.elementUrl;
+            if (showOneChild)
+                getUrl = getUrl + "/" + showOneChild;
 
             var originalIcon = showExpandingTreeItemIcon(row, branch);
             var httpConfig = (getUrl.endsWith("resourceGroups") || getUrl.endsWith("subscriptions") || getUrl.split("/").length === 3)
@@ -401,7 +426,16 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 };
             promise = $http(httpConfig).success((data: any) => {
                 var childDefinition = getResourceDefinitionByNameAndUrl(children, resourceDefinition.url + "/" + resourceDefinition.children);
-                branch.children = (data.value ? data.value : data).map((d: any) => {
+                var newChildren = showOneChild ? [{
+                        label: (data.displayName ? data.displayName : getCsmNameFromIdAndName(data.id, data.name)),
+                        resourceDefinition: childDefinition,
+                        value: (data.subscriptionId ? data.subscriptionId :getCsmNameFromIdAndName(data.id, data.name)),
+                        is_leaf: (childDefinition.children ? false : true),
+                        elementUrl: branch.elementUrl + "/" + (data.subscriptionId ? data.subscriptionId :getCsmNameFromIdAndName(data.id, data.name))
+                    }] : (data.value ? data.value : data).filter(e => {
+                    if (showOneChild) return showOneChild === getCsmNameFromIdAndName(e.id, e.name);
+                    else return true;
+                }).map((d: any) => {
                     var csmName = getCsmNameFromIdAndName(d.id, d.name);
                     return {
                         label: (d.displayName ? d.displayName : csmName),
@@ -412,11 +446,33 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     };
                 }).sort((a: any, b: any) => {
                     return a.label.localeCompare(b.label);
-                });
+                        });
+
+                if (branch.children && Array.isArray(branch.children)) {
+                    branch.children = branch.children.concat(newChildren);
+                } else {
+                    branch.children = newChildren;
+                }
+
+                    if (showOneChild && !branch.children[0].is_instruction) {
+                        branch.children.unshift({
+                            label: "Show all",
+                            is_instruction: true,
+                            resourceDefinition: resourceDefinition
+                        });
+                    }
+            }).error(() => {
+                if (showOneChild) {
+                    branch.children = [{
+                        label: "Show all",
+                        is_instruction: true,
+                        resourceDefinition: resourceDefinition
+                    }];
+                }
             }).finally(() => {
                 endExpandingTreeItem(branch, originalIcon);
                 $scope.treeControl.expand_branch(branch);
-                if (branch.children && branch.children.length === 1 && !dontExpandChildren)
+                if (branch.children && branch.children.length === 1 && expandChildren)
                     $timeout(() => {
                         $scope.expandResourceHandler($scope.treeControl.get_first_child(branch));
                     });
@@ -777,6 +833,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         index = (index === -1 ? undefined : index);
         var current = path.substring(0, index);
         var rest = path.substring(index + 1);
+        index = rest.indexOf("/");
+        index = (index === -1 ? undefined : index);
+        var next = rest.substring(0, index);
         var child: any;
         var selectedBranch = $scope.treeControl.get_selected_branch();
         var expandPromise: ng.IPromise<any> = $q.when();
@@ -786,13 +845,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 $("#sidebar").scrollTop(top);
                 return;
             }
-            $scope.treeControl.select_branch(child);
+            $scope.treeControl.select_branch(child, /*runOnSelect*/ child.label === rest || rest === "list");
             $timeout(() => {
                 child = $scope.treeControl.get_selected_branch();
                 if (child && $.isArray(child.children) && child.children.length > 0) {
                     handlePath(rest);
                 } else {
-                    var promis = $scope.expandResourceHandler(child, undefined, undefined, true);
+                    var promis = $scope.expandResourceHandler(child, /*row*/ undefined, /*event*/ undefined, /*expandChildren*/ false, false, next);
                     promis.finally(() => { handlePath(rest); });
                 }
             });
@@ -804,12 +863,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             child = (matches.length > 0 ? matches[0] : undefined);
             expandChild();
         } else {
+            var matches = $scope.treeControl.get_children(selectedBranch).filter(e => current.toLocaleUpperCase() === (e.value ? e.value.toLocaleUpperCase() : e.label.toLocaleUpperCase()));
             if (!selectedBranch.expanded) {
-                expandPromise = $scope.expandResourceHandler(selectedBranch, undefined, undefined, true);
+                expandPromise = $scope.expandResourceHandler(selectedBranch, /*row*/ undefined, /*event*/ undefined, /*expandChildren*/ false, false, next);
+            } else if (matches.length === 0) {
+                expandPromise = $scope.expandResourceHandler(selectedBranch, /*row*/ undefined, /*event*/ undefined, /*expandChildren*/ false, false, current);
             }
 
             expandPromise.then(() => {
-                var matches = $scope.treeControl.get_children(selectedBranch).filter(e => current.toLocaleUpperCase() === (e.value ? e.value.toLocaleUpperCase() : e.label.toLocaleUpperCase()));
+                matches = $scope.treeControl.get_children(selectedBranch).filter(e => current.toLocaleUpperCase() === (e.value ? e.value.toLocaleUpperCase() : e.label.toLocaleUpperCase()));
                 child = (matches.length > 0 ? matches[0] : undefined);
                 expandChild();
             });
@@ -1082,6 +1144,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         (<string[]>parent.children).push(resourceName);
                     }
                 } else {
+                    parent.children = [resourceName];
                     console.log("ASSERT, typeof parent.children: " + typeof parent.children)
                 }
             }
