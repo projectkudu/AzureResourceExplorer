@@ -308,7 +308,7 @@ namespace ARMExplorer.Controllers
             var enumType = knownType as Hyak.ServiceModel.EnumType;
             if (enumType != null)
             {
-                return String.Format("({0})", String.Join("|", enumType.Values.Keys.ToArray()));
+                return String.Format("({0})", String.Join("|", enumType.Values.Values.Select(v => v.SerializedValue)));
             }
 
             if (Nullable.GetUnderlyingType(knownType.UnderlyingType) != null)
