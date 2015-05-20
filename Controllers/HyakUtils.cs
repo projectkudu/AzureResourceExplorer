@@ -252,7 +252,7 @@ namespace ARMExplorer.Controllers
                 var knownType = jsonValue.Type as Hyak.ServiceModel.KnownType;
                 if (knownType != null && !getDocumentation)
                 {
-                    return GetJsonSchehma(knownType);
+                    return GetJsonSchema(knownType);
                 }
                 else if (knownType != null && getDocumentation)
                 {
@@ -277,7 +277,7 @@ namespace ARMExplorer.Controllers
                     var knownType = jsonArray.Type.GenericParameters[0] as Hyak.ServiceModel.KnownType;
                     if (knownType != null && !getDocumentation)
                     {
-                        schema.Add(GetJsonSchehma(knownType));
+                        schema.Add(GetJsonSchema(knownType));
                     }
                     else if (knownType != null && getDocumentation)
                     {
@@ -303,7 +303,7 @@ namespace ARMExplorer.Controllers
             throw new InvalidOperationException("Should not reach here for " + serialization.GetType());
         }
 
-        private static JToken GetJsonSchehma(Hyak.ServiceModel.KnownType knownType)
+        private static JToken GetJsonSchema(Hyak.ServiceModel.KnownType knownType)
         {
             var enumType = knownType as Hyak.ServiceModel.EnumType;
             if (enumType != null)
