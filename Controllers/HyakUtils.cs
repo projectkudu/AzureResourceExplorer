@@ -308,7 +308,7 @@ namespace ARMExplorer.Controllers
             var enumType = knownType as Hyak.ServiceModel.EnumType;
             if (enumType != null)
             {
-                return String.Format("({0})", String.Join("|", enumType.Values.Values.Select(v => v.SerializedValue)));
+                return String.Format("({0})", String.Join("|", enumType.Values.Values.Select(GetEnumSerializedValue)));
             }
 
             if (Nullable.GetUnderlyingType(knownType.UnderlyingType) != null)
@@ -317,6 +317,12 @@ namespace ARMExplorer.Controllers
             }
 
             return String.Format("({0})", knownType.UnderlyingType.Name.ToLowerInvariant());
+        }
+
+        private static string GetEnumSerializedValue(EnumValue enumVal)
+        {
+            // Use the serialized value if available, falling back to the name
+            return !String.IsNullOrEmpty(enumVal.SerializedValue) ? enumVal.SerializedValue : enumVal.Name;
         }
 
         private static object EvaluateExpression(BindingExpression expression)
