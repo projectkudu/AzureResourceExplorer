@@ -448,22 +448,6 @@ namespace ARMExplorer.Controllers
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}",
                     ApiVersion = Utils.CSMApiVersion
                 },
-                //new MetadataObject
-                //{
-                //    MethodName = "Swap",
-                //    HttpMethod = "POST",
-                //    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{webSiteName}/slotsswap",
-                //    ApiVersion = "2014-06-01",
-                //    RequestBody = fakeSwapBody
-                //},
-                //new MetadataObject
-                //{
-                //    MethodName = "Swap",
-                //    HttpMethod = "POST",
-                //    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{webSiteName}/slots/{slotName}/slotsswap",
-                //    ApiVersion = "2014-06-01",
-                //    RequestBody = fakeSwapBody
-                //}
                 new MetadataObject
                 {
                     MethodName = "GetInstanceView",
