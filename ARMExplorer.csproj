@@ -121,13 +121,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\**\*.dll" />
+    <Content Include="App_Data\HydraSpecs\*.dll" />
     <Content Include="Content\Scripts\ui-ace.min.js" />
     <Content Include="Content\Styles\app2.css" />
     <Content Include="ng\manage2.js" />
     <Content Include="applicationHost.xdt" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
+    <Content Include="App_Data\JsonSpecs\*.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
