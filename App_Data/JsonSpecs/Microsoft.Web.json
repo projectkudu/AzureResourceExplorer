@@ -4447,6 +4447,18 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list",
+        "ApiVersion": "2015-02-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/publishingcredentials/list",
+        "ApiVersion": "2015-02-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
         "ApiVersion": "2015-02-01"
     },
