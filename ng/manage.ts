@@ -157,28 +157,34 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     filledInUrl: url
                 };
             $scope.loading = true;
-            return rx.Observable.fromPromise($http(httpConfig)).map((data: any) => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; });
+            return rx.Observable.fromPromise($http(httpConfig))
+                //http://stackoverflow.com/a/30878646/3234163
+                .map((data: any) => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; })
+                .catch(error => rx.Observable.of({ error: error }));
         }
-        return rx.Observable.fromPromise($q.when({ branch: branch, resourceDefinition: resourceDefinition }));
-    })
-        .do(() => { },(err: any) => {
-        setStateForErrorOnResourceClick();
-        if (err.config && err.config.resourceDefinition) {
-            var resourceDefinition = err.config.resourceDefinition;
-            $scope.putUrl = err.config.filledInUrl;
-            responseEditor.customSetValue("");
-            $scope.readOnlyResponse = "";
-        }
-        delete err.config;
-        $scope.errorResponse = syntaxHighlight(err);
-        $scope.selectedResource = {
-            url: $scope.putUrl,
-            httpMethod: "GET"
-        };
-        fixSelectedTabIfNeeded();
-    })
+        return rx.Observable.of({ branch: branch, resourceDefinition: resourceDefinition });
+        })
         .retry()
         .subscribe((value: any) => {
+        if (value.error) {
+            var error = value.error;
+            setStateForErrorOnResourceClick();
+            if (error.config && error.config.resourceDefinition) {
+                $scope.putUrl = error.config.filledInUrl;
+                responseEditor.customSetValue("");
+                $scope.readOnlyResponse = "";
+            }
+            $scope.errorResponse = syntaxHighlight({
+                data: error.data,
+                status: error.status
+            });
+            $scope.selectedResource = {
+                url: $scope.putUrl,
+                httpMethod: "GET"
+            };
+            fixSelectedTabIfNeeded();
+            return;
+        }
         setStateForClickOnResource();
         if (value.data === undefined) {
             if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
