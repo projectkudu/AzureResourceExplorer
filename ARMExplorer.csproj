@@ -179,6 +179,7 @@
     <TypeScriptCompile Include="ng\models\IMetadataObject.ts" />
     <TypeScriptCompile Include="ng\models\IResourceDefinition.ts" />
     <TypeScriptCompile Include="ng\models\IResourceSearch.ts" />
+    <TypeScriptCompile Include="ng\models\ISelectHandlerReturn.ts" />
     <TypeScriptCompile Include="ng\models\ITenantDetails.ts" />
     <TypeScriptCompile Include="ng\models\ITreeBranch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeControl.ts" />

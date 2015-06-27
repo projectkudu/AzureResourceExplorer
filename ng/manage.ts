@@ -81,12 +81,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
     };
 
-    var responseEditor, requestEditor, createEditor;
+    var responseEditor, requestEditor, createEditor, powershellEditor;
     $timeout(() => {
         responseEditor = ace.edit("response-json-editor");
         requestEditor = ace.edit("request-json-editor");
         createEditor = ace.edit("json-create-editor");
-        [responseEditor, requestEditor, createEditor].map((e) => {
+        powershellEditor = ace.edit("powershell-editor");
+        [responseEditor, requestEditor, createEditor, powershellEditor].map((e) => {
             e.setOptions({
                 maxLines: Infinity,
                 fontSize: 15,
@@ -95,12 +96,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             });
             e.setTheme("ace/theme/tomorrow");
             e.getSession().setMode("ace/mode/json");
+            e.getSession().setNewLineMode("windows")
             e.customSetValue = function (stringValue) {
                 this.setValue(stringValue);
                 this.session.selection.clearSelection();
                 this.moveCursorTo(0, 0);
             };
-            e.setReadOnly = function () {
+            e.setReadOnly = function (setBackground?: boolean) {
+                setBackground = typeof setBackground !== 'undefined' ? setBackground : true;
                 this.setOptions({
                     readOnly: true,
                     highlightActiveLine: false,
@@ -108,24 +111,29 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 });
                 this.renderer.$cursorLayer.element.style.opacity = 0;
                 this.renderer.setStyle("disabled", true);
-                this.container.style.background = "#f5f5f5";
+                if (setBackground) this.container.style.background = "#f5f5f5";
                 this.blur();
             };
             e.commands.removeCommand("find");
         });
         responseEditor.setReadOnly();
         responseEditor.customSetValue(stringify({ message: "Select a node to start" }));
+        powershellEditor.setReadOnly(false);
+        powershellEditor.getSession().setMode("ace/mode/powershell");
+        powershellEditor.setTheme("ace/theme/tomorrow_night_blue");
+        powershellEditor.
+        powershellEditor.customSetValue("# PowerShell equivilant script");
 
     });
 
     $document.on('mouseup',() => {
         $timeout(() => {
-            [responseEditor, requestEditor, createEditor].map(e => e.resize());
+            [responseEditor, requestEditor, createEditor, powershellEditor].map(e => e.resize());
         });
     });
 
     $scope.$createObservableFunction("selectResourceHandler")
-        .flatMapLatest((args: any[]) => {
+        .flatMapLatest((args: any[])  => {
         var branch: ITreeBranch = args[0];
         var event = args[1];
         $scope.loading = true;
@@ -152,20 +160,17 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         Url: url,
                         HttpMethod: getAction,
                         ApiVersion: resourceDefinition.apiVersion
-                    },
-                    resourceDefinition: resourceDefinition,
-                    filledInUrl: url
+                    }
                 };
             $scope.loading = true;
             return rx.Observable.fromPromise($http(httpConfig))
                 //http://stackoverflow.com/a/30878646/3234163
-                .map((data: any) => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; })
+                .map(data => { return { resourceDefinition: resourceDefinition, data: data.data, url: url, branch: branch, httpMethod: getAction }; })
                 .catch(error => rx.Observable.of({ error: error }));
         }
         return rx.Observable.of({ branch: branch, resourceDefinition: resourceDefinition });
         })
-        .retry()
-        .subscribe((value: any) => {
+        .subscribe((value: ISelelctHandlerReturn) => {
         if (value.error) {
             var error = value.error;
             setStateForErrorOnResourceClick();
@@ -258,6 +263,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             doc: docArray
         };
         $location.path(url.replace(/https:\/\/[^\/]*\//, ""));
+
+        powershellEditor.customSetValue(getPowerShellFromResource(value, actionsAndVerbs));
         fixSelectedTabIfNeeded();
     });
 
@@ -1449,8 +1456,93 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 }])
     .config(($locationProvider: ng.ILocationProvider) => {
     $locationProvider.html5Mode(true);
-});
+    });
 
+function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IAction[]): string {
+    var returnString = "# PowerShell equivilant script\n";
+
+    // handle secure GET
+    var resourceInfo = (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1)
+        ? resourceInfo = GetResourceTypeAndName(value.url.replace("/list", ""))
+        : GetResourceTypeAndName(value.url);
+
+    // add GET related cmdlet if available
+    if (value.httpMethod.toLowerCase().indexOf("get") != -1) {
+        returnString += "# GET " + value.url + "\n";
+        returnString += "Get-AzureResource " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + "\n\n";
+    }
+    else if (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1) {
+        returnString += "# List " + value.url.replace("/list", "") + "\n";
+        returnString += "$resource = Invoke-AzureResourceAction " + resourceInfo + " -Action list -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n";
+        returnString += "$resource.Properties\n\n";
+    }
+
+    // add CREATE related cmdlet if available
+    if (value.resourceDefinition.actions.includes("CREATE")) {
+        returnString += "# CREATE " + value.url + "\n";
+        returnString += "$ResourceLocation = \"West US\"\n$ResourceName = \"New" + GetResourceName(value.url) + "\"\n$PropertiesObject = @{\n\t#Property = value;\n}\n";
+        returnString += "New-AzureResource -Name $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+    }
+
+    // add ACTIONS related Cmdlets if available
+    if (actions.length > 0) {
+        returnString += "# Actions available on that object\n\n";
+        actions.forEach(action => {
+            returnString += "# " + action.httpMethod + " " + action.url + "\n";
+            if (action.httpMethod.toLocaleLowerCase() === "delete") {
+                returnString += "Remove-AzureResource " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+            }
+            else if (action.httpMethod.toLocaleLowerCase() === "post") {
+                if (action.requestBody) {
+                    returnString += "$PropertiesObject = @{\n\t#Property = value;\n}\n";
+                }
+                returnString += "Invoke-AzureResourceAction " + resourceInfo + " -Action " + action.name + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
+            }
+        })
+    }
+
+    // add SET related cmdlet if available
+    if (value.resourceDefinition.actions.some(a => (a === "PATCH" || a === "PUT"))) {
+        returnString += "# SET " + value.url + "\n";
+        returnString += "$PropertiesObject = @{\n\t#Property = value;\n}\n";
+
+        // handle secure GET
+        if (value.resourceDefinition.actions.includes("GET")) {
+            returnString += "Set-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        }
+        else {
+            returnString += "New-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        }
+    }
+    return returnString;
+}
+
+function GetResourceName(url: string): string {
+    return url.substr(url.lastIndexOf("/")+1, url.length - url.lastIndexOf("/")-2);
+}
+
+function GetResourceTypeAndName(url: string): string {
+    var urlParts = url.split("/");
+    if (urlParts.length < 8) return "-ResourceId " + url.replace("https://management.azure.com", "");
+    var result = "-ResourceGroupName ";
+    result += urlParts[6] // set ResourceGroup
+    var resourceType = "", resourceName = "";
+    for (var i = 7; i < urlParts.length ; i += 2) {
+        if (urlParts[i].toLowerCase().indexOf("providers") != 0) {
+            resourceType += urlParts[i] + "/";
+            if (urlParts[i + 1]) resourceName += urlParts[i + 1] + "/"; // in case of odd length of urlparts
+        }
+        else {
+            resourceType += urlParts[i + 1] + "/";
+        }
+    }
+
+    // Remove the trailing slash
+    resourceType = " -ResourceType " + resourceType.substring(0, resourceType.length - 1);
+    if (resourceName) resourceName = " -ResourceName " + resourceName.substring(0, resourceName.length - 1);
+    result += resourceType + resourceName; 
+    return result;
+}
 
 // Global JS fixes
 $('label.tree-toggler').click(function () {
