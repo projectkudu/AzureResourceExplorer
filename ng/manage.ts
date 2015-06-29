@@ -121,7 +121,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         powershellEditor.setReadOnly(false);
         powershellEditor.getSession().setMode("ace/mode/powershell");
         powershellEditor.setTheme("ace/theme/tomorrow_night_blue");
-        powershellEditor.
+        powershellEditor.renderer.setShowGutter(false); 
         powershellEditor.customSetValue("# PowerShell equivilant script");
 
     });
@@ -1459,7 +1459,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     });
 
 function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IAction[]): string {
-    var returnString = "# PowerShell equivilant script\n";
+    var returnString = "# PowerShell equivilant script\nSwitch-AzureMode -Name AzureResourceManager\n\n";
 
     // handle secure GET
     var resourceInfo = (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1)
@@ -1468,42 +1468,43 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
 
     // add GET related cmdlet if available
     if (value.httpMethod.toLowerCase().indexOf("get") != -1) {
-        returnString += "# GET " + value.url + "\n";
+        returnString += "# GET " + GetActionName(value.url) + "\n";
         returnString += "Get-AzureResource " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + "\n\n";
     }
     else if (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1) {
-        returnString += "# List " + value.url.replace("/list", "") + "\n";
+        returnString += "# List " + GetActionName(value.url.replace("/list", "")) + "\n";
         returnString += "$resource = Invoke-AzureResourceAction " + resourceInfo + " -Action list -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n";
         returnString += "$resource.Properties\n\n";
     }
 
     // add CREATE related cmdlet if available
     if (value.resourceDefinition.actions.includes("CREATE")) {
-        returnString += "# CREATE " + value.url + "\n";
+        returnString += "# CREATE " + GetActionName(value.url) + "\n";
         returnString += "$ResourceLocation = \"West US\"\n$ResourceName = \"New" + GetResourceName(value.url) + "\"\n$PropertiesObject = @{\n\t#Property = value;\n}\n";
-        returnString += "New-AzureResource -Name $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        returnString += "New-AzureResource -Name $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
     }
 
     // add ACTIONS related Cmdlets if available
     if (actions.length > 0) {
         returnString += "# Actions available on that object\n\n";
         actions.forEach(action => {
-            returnString += "# " + action.httpMethod + " " + action.url + "\n";
             if (action.httpMethod.toLocaleLowerCase() === "delete") {
+                returnString += "# Delete " + GetActionName(action.url) + "\n";
                 returnString += "Remove-AzureResource " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
             }
             else if (action.httpMethod.toLocaleLowerCase() === "post") {
+                returnString += "# Action " + GetActionName(action.url) + "\n";
                 if (action.requestBody) {
-                    returnString += "$PropertiesObject = @{\n\t#Property = value;\n}\n";
+                    returnString += "$ParametersObject = @" + GETPSObjectFromJSON(action.requestBody) + "\n";
                 }
-                returnString += "Invoke-AzureResourceAction " + resourceInfo + " -Action " + action.name + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
+                returnString += "Invoke-AzureResourceAction " + resourceInfo + " -Action " + action.name + (action.requestBody ? " -Parameters $ParametersObject": "") + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
             }
         })
     }
 
     // add SET related cmdlet if available
     if (value.resourceDefinition.actions.some(a => (a === "PATCH" || a === "PUT"))) {
-        returnString += "# SET " + value.url + "\n";
+        returnString += "# SET " + GetActionName(value.url) + "\n";
         returnString += "$PropertiesObject = @{\n\t#Property = value;\n}\n";
 
         // handle secure GET
@@ -1519,6 +1520,10 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
 
 function GetResourceName(url: string): string {
     return url.substr(url.lastIndexOf("/")+1, url.length - url.lastIndexOf("/")-2);
+}
+
+function GetActionName(url: string): string {
+    return url.substr(url.lastIndexOf("/") + 1, url.length - url.lastIndexOf("/") - 1);
 }
 
 function GetResourceTypeAndName(url: string): string {
@@ -1542,6 +1547,18 @@ function GetResourceTypeAndName(url: string): string {
     if (resourceName) resourceName = " -ResourceName " + resourceName.substring(0, resourceName.length - 1);
     result += resourceType + resourceName; 
     return result;
+}
+
+function GETPSObjectFromJSON(json: string) : string {
+    var propertyNameRegEx = new RegExp("\"([a-zA-Z].*?)\":\s*([^,}])", "gm");
+    var propertyValueRegEx = new RegExp("(:.*)", "gm");
+    var propertyNames = json.match(propertyNameRegEx);
+    var propertyValues = json.match(propertyValueRegEx);
+    var objString = "";
+    for (var i = 0; i < propertyNames.length; i++) {
+        objString += "\t" + propertyNames[i].replace(":", "").replace("\"", "").replace("\"", "") + " =" + propertyValues[i].replace(":", "") + "\n";
+    }
+    return propertyNames ? "{\n" + objString + "}\n": "";
 }
 
 // Global JS fixes
