@@ -122,7 +122,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         powershellEditor.getSession().setMode("ace/mode/powershell");
         powershellEditor.setTheme("ace/theme/tomorrow_night_blue");
         powershellEditor.renderer.setShowGutter(false); 
-        powershellEditor.customSetValue("# PowerShell equivilant script");
+        powershellEditor.customSetValue("# PowerShell equivalent script");
 
     });
 
@@ -1459,7 +1459,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     });
 
 function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IAction[]): string {
-    var returnString = "# PowerShell equivilant script\nSwitch-AzureMode -Name AzureResourceManager\n\n";
+    var returnString = "# PowerShell equivalent script\nSwitch-AzureMode -Name AzureResourceManager\n\n";
 
     // handle secure GET
     var resourceInfo = (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1)
