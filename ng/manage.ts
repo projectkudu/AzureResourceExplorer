@@ -1017,6 +1017,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
     function buildResourcesDefinitionsTable(operation: IMetadataObject, url?: string) {
         url = (operation ? operation.Url : url);
+        url = url.replace(/{.*?}/g, "{name}");
         var segments = url.split("/").filter(a => a.length !== 0);
         var resourceName = segments.pop();
         var addedElement: IResourceDefinition;
