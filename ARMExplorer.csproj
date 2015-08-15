@@ -129,6 +129,7 @@
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Data\JsonSpecs\*.json" />
+    <Content Include="App_Data\ProvidersSepcs\ProvidersList.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

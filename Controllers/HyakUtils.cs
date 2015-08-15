@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -10,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Web;
+using System.Web.Hosting;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -82,17 +84,10 @@ namespace ARMExplorer.Controllers
         {
             using (var client = GetClient())
             {
-                var response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions?api-version=2014-04-01");
-                if (!response.IsSuccessStatusCode) return Enumerable.Empty<MetadataObject>();
+                var sReader = new StreamReader(HostingEnvironment.MapPath("~/App_Data/ProvidersSpecs/ProvidersList.json"));
+                var providersSpecs = sReader.ReadToEnd();
 
-                dynamic subscriptions = await response.Content.ReadAsAsync<JObject>();
-                if (subscriptions.value.Count == 0) return Enumerable.Empty<MetadataObject>();
-
-                var subId = subscriptions.value[0].subscriptionId;
-                response = await client.GetAsync(HyakUtils.CSMUrl + "/subscriptions/" + subId + "/providers?api-version=2014-04-01");
-                if (!response.IsSuccessStatusCode) return Enumerable.Empty<MetadataObject>();
-
-                var providersList = (JArray)(await response.Content.ReadAsAsync<JObject>())["value"];
+                var providersList = (JArray)(JsonConvert.DeserializeObject<JObject>(providersSpecs))["value"];
                 var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
                 var fakeRequestBody = new { properties = new { }, location = string.Empty };
                 return  providersList.Where(p => !new[] {
