@@ -133,7 +133,7 @@
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Data\JsonSpecs\*.json" />
-    <Content Include="App_Data\ProvidersSepcs\ProvidersList.json" />
+    <Content Include="App_Data\ProvidersSpecs\ProvidersList.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -203,6 +203,7 @@
     <TypeScriptCompile Include="ng\typings\jquery.cookie\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="ng\typings\jquery\jquery.d.ts" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
