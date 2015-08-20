@@ -3,19 +3,24 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -47,6 +52,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -77,19 +87,24 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -121,6 +136,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -151,43 +171,48 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/classicMobileServices",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/classicMobileServices/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/classicMobileServices/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -298,6 +323,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -407,19 +437,24 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -530,6 +565,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -639,61 +679,66 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}/operationresults/{operationId}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/geoRegions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/serverfarms",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/sites",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/hostingEnvironments",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/classicMobileServices",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/domains",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/generateSsoRequest",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/validateDomainRegistrationInformation",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -805,6 +850,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -915,7 +965,7 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -927,7 +977,7 @@
         "RequestBodyDoc": {
             "name": "Name of the object"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -941,7 +991,7 @@
             "keywords": "Keywords to be used for generating domain recommendations",
             "maxDomainRecommendations": "Maximum number of recommendations"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -958,19 +1008,24 @@
                 null
             ]
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -994,6 +1049,11 @@
                 "multiRoleCount": "(integer)",
                 "workerPools": [
                     {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
                         "sku": {
                             "name": "(string)",
                             "tier": "(string)",
@@ -1058,6 +1118,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1081,6 +1146,11 @@
                 "multiRoleCount": "Number of front-end instances",
                 "workerPools": [
                     {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
                         "sku": {
                             "name": "Name for the App Service Plan SKU",
                             "tier": "Service Tier for the App Service Plan",
@@ -1139,79 +1209,84 @@
                 "suspended": "True/false indicating whether the hostingEnvironment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\r\n            (most likely because NSG blocked the incoming traffic)"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/compute",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/virtualip",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/reboot",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/sites",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/serverfarms",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -1228,6 +1303,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1243,25 +1323,30 @@
                 ]
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/skus",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -1278,6 +1363,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1293,55 +1383,60 @@
                 ]
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}/skus",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}/instances/{instance}/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/instances/{instance}/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/suspend",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/resume",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols/{sourceControlType}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols/{sourceControlType}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -1356,6 +1451,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1369,25 +1469,30 @@
                 "expirationTime": "OAuth Token Expiration"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -1414,6 +1519,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1439,49 +1549,54 @@
                 "tags": {}
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -1495,6 +1610,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1507,19 +1627,24 @@
                 "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -1533,6 +1658,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1545,43 +1675,48 @@
                 "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/sites",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/restartSites",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/operationresults/{operationId}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -1614,6 +1749,11 @@
                 "serverFarmId": "(string)",
                 "lastModifiedTimeUtc": "(string)",
                 "siteConfig": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
                     "sku": {
                         "name": "(string)",
                         "tier": "(string)",
@@ -1779,6 +1919,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -1810,6 +1955,11 @@
                 "serverFarm": "App service plan web app is assoicated with",
                 "lastModifiedTimeUtc": "Last time web app was modified in UTC",
                 "siteConfig": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
                     "sku": {
                         "name": "Name for the App Service Plan SKU",
                         "tier": "Service Tier for the App Service Plan",
@@ -1966,25 +2116,30 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -2017,6 +2172,11 @@
                 "serverFarmId": "(string)",
                 "lastModifiedTimeUtc": "(string)",
                 "siteConfig": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
                     "sku": {
                         "name": "(string)",
                         "tier": "(string)",
@@ -2182,6 +2342,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -2213,6 +2378,11 @@
                 "serverFarm": "App service plan web app is assoicated with",
                 "lastModifiedTimeUtc": "Last time web app was modified in UTC",
                 "siteConfig": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
                     "sku": {
                         "name": "Name for the App Service Plan SKU",
                         "tier": "Service Tier for the App Service Plan",
@@ -2369,13 +2539,13 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -2391,7 +2561,7 @@
             "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
             "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -2407,43 +2577,48 @@
             "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
             "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -2460,6 +2635,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -2475,25 +2655,30 @@
                 "hostNameType": "Host name type"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -2510,6 +2695,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -2525,25 +2715,30 @@
                 "hostNameType": "Host name type"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -2678,6 +2873,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -2803,13 +3003,18 @@
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -2944,6 +3149,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3069,19 +3279,24 @@
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -3216,6 +3431,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3341,13 +3561,18 @@
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -3482,6 +3707,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3607,19 +3837,24 @@
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -3634,6 +3869,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3647,19 +3887,24 @@
                 "isMercurial": "Mercurial or Git repository type"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -3674,6 +3919,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3687,19 +3937,24 @@
                 "isMercurial": "Mercurial or Git repository type"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -3714,6 +3969,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3727,19 +3987,24 @@
                 "isMercurial": "Mercurial or Git repository type"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -3754,6 +4019,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3767,19 +4037,19 @@
                 "isMercurial": "Mercurial or Git repository type"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3787,7 +4057,7 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings",
         "RequestBody": {},
         "RequestBodyDoc": {},
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3795,19 +4065,19 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings",
         "RequestBody": {},
         "RequestBodyDoc": {},
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3815,7 +4085,7 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings",
         "RequestBody": {},
         "RequestBodyDoc": {},
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3823,31 +4093,31 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings",
         "RequestBody": {},
         "RequestBodyDoc": {},
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/publishingcredentials/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3855,7 +4125,7 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
         "RequestBody": {},
         "RequestBodyDoc": {},
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3863,19 +4133,24 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
         "RequestBody": {},
         "RequestBodyDoc": {},
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -3917,6 +4192,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -3957,19 +4237,24 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4011,6 +4296,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4051,25 +4341,25 @@
                 }
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4097,19 +4387,19 @@
             },
             "properties": {}
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4137,25 +4427,25 @@
             },
             "properties": {}
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/metricdefinitions",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4167,7 +4457,7 @@
         "RequestBodyDoc": {
             "format": "Name of the format. Valid values are: \r\n            FileZilla3\r\n            WebDeploy -- default\r\n            Ftp"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4179,79 +4469,84 @@
         "RequestBodyDoc": {
             "format": "Name of the format. Valid values are: \r\n            FileZilla3\r\n            WebDeploy -- default\r\n            Ftp"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/restart",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/restart",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/start",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/start",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sync",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sync",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/newpassword",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4268,6 +4563,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4275,19 +4575,24 @@
             },
             "properties": {}
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4304,6 +4609,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4311,19 +4621,24 @@
             },
             "properties": {}
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entityName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entityName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4340,6 +4655,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4347,19 +4667,24 @@
             },
             "properties": {}
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entityName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entityName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4376,6 +4701,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4383,31 +4713,36 @@
             },
             "properties": {}
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4419,6 +4754,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4429,13 +4769,18 @@
                 "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4447,6 +4792,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4457,19 +4807,24 @@
                 "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4481,6 +4836,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4491,13 +4851,18 @@
                 "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4509,6 +4874,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4519,19 +4889,24 @@
                 "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4544,6 +4919,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4555,19 +4935,24 @@
                 "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4580,6 +4965,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4591,19 +4981,24 @@
                 "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4616,6 +5011,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4627,19 +5027,24 @@
                 "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "sku": {
                 "name": "(string)",
                 "tier": "(string)",
@@ -4652,6 +5057,11 @@
             }
         },
         "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
             "sku": {
                 "name": "Name for the App Service Plan SKU",
                 "tier": "Service Tier for the App Service Plan",
@@ -4663,19 +5073,19 @@
                 "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
             }
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4689,7 +5099,7 @@
             "targetSlot": "Set the destination deployment slot during swap operation",
             "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4703,7 +5113,7 @@
             "targetSlot": "Set the destination deployment slot during swap operation",
             "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4717,7 +5127,7 @@
             "targetSlot": "Set the destination deployment slot during swap operation",
             "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4731,7 +5141,7 @@
             "targetSlot": "Set the destination deployment slot during swap operation",
             "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4745,7 +5155,7 @@
             "targetSlot": "Set the destination deployment slot during swap operation",
             "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4759,37 +5169,37 @@
             "targetSlot": "Set the destination deployment slot during swap operation",
             "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains/{name}",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4801,12 +5211,12 @@
         "RequestBodyDoc": {
             "includePrivacy": "If true then the list of agreements will inclue agreements for domain privacy as well."
         },
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web.Admin/systems/{webSystemName}/usage",
-        "ApiVersion": "2015-07-01"
+        "ApiVersion": "2015-08-01"
     }
 ]

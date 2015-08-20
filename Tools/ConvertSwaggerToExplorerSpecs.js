@@ -51,7 +51,6 @@ function getResponseBody(swagger, isDoc) {
             if (swagger.responses["202"]) {
                 console.error("Async operation not supported");
             } else {
-		//console.error(JSON.stringify(swagger, undefined, 4));
                 console.error("unknown error");
             }
         } else {
@@ -74,8 +73,9 @@ function getRequestBody(swagger, isDoc) {
 
 function shouldSkip(path){
     var blackList= [
-                "backup",
-                "restore",
+				"backup",
+				"restore",
+	            "backup/config",
                 "discover",
                 "slotConfigNames",
                 "metrics",
@@ -108,8 +108,6 @@ function shouldSkip(path){
                 "/extensions/{extensionApiMethod}"
                 ];
 
-                //"publishingcredentials",
-
     return blackList.some(function(e) {
         return path.toLowerCase().indexOf(e.toLowerCase()) !== -1;
     });
@@ -121,8 +119,17 @@ function getOperationObject(schema, isDoc) {
         return isDoc ? schema.description : "(" + schema.type + ")";
     }
 
-    if (schema.type === "object" || schema.properties) {
+    if (schema.type === "object" || schema.properties || schema.allOf) {
         var obj = {};
+		if (schema.allOf){
+			schema.allOf.forEach(function(item) {
+				for (var prop in item.properties) {
+					if (item.properties.hasOwnProperty(prop)) {
+						obj[prop] = getOperationObject(item.properties[prop], isDoc);
+					}
+				}
+			})
+		}
         for (var prop in schema.properties) {
             if (schema.properties.hasOwnProperty(prop)) {
                 obj[prop] = getOperationObject(schema.properties[prop], isDoc);

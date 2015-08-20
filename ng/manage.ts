@@ -1028,7 +1028,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return;
         } else if (operation && (operation.MethodName.startsWith("Create") || operation.MethodName.startsWith("BeginCreate") || operation.MethodName.startsWith("Put")) && operation.HttpMethod === "PUT") {
             // handle resources that has a CreateOrUpdate
-            setParent(url, "CREATE", operation.RequestBody);
+            setParent(url, "CREATE", operation.RequestBody, operation.RequestBodyDoc);
             if (operation.MethodName.indexOf("Updat") === -1) {
                 return;
             }
@@ -1069,7 +1069,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return addedElement;
     };
 
-    function setParent(url: string, action?: string, requestBody?: any) {
+    function setParent(url: string, action?: string, requestBody?: any, requestBodyDoc?: any) {
         var segments = url.split("/").filter(a => a.length !== 0);
         var resourceName = segments.pop();
         var parentName = url.substring(0, url.lastIndexOf("/"));
@@ -1112,6 +1112,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         if (requestBody && parent && !parent.requestBody) {
             parent.requestBody = requestBody;
+        }
+
+        if (requestBodyDoc && parent && !parent.requestBodyDoc) {
+            parent.requestBodyDoc = requestBodyDoc;
         }
     }
 

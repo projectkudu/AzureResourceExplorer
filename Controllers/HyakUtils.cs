@@ -82,9 +82,8 @@ namespace ARMExplorer.Controllers
 
         private static async Task<IEnumerable<MetadataObject>> GetRemoteCsmOperations()
         {
-            using (var client = GetClient())
+            using (var sReader = new StreamReader(HostingEnvironment.MapPath("~/App_Data/ProvidersSpecs/ProvidersList.json")))
             {
-                var sReader = new StreamReader(HostingEnvironment.MapPath("~/App_Data/ProvidersSpecs/ProvidersList.json"));
                 var providersSpecs = sReader.ReadToEnd();
 
                 var providersList = (JArray)(JsonConvert.DeserializeObject<JObject>(providersSpecs))["value"];
