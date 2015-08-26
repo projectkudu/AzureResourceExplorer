@@ -21,11 +21,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "friendlyName": "(string)",
                 "subjectName": "(string)",
@@ -43,12 +38,13 @@
                 "valid": "(boolean)",
                 "cerBlob": "(string)",
                 "publicKeyHash": "(string)",
-                "hostingEnvironment": "(string)",
                 "hostingEnvironmentProfile": {
                     "id": "(string)",
                     "name": "(string)",
                     "type": "(string)"
-                }
+                },
+                "name": "(string)",
+                "tags": {}
             }
         },
         "RequestBodyDoc": {
@@ -57,11 +53,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "friendlyName": "Friendly name of the certificate",
                 "subjectName": "Subject name of the certificate",
@@ -79,12 +70,13 @@
                 "valid": "Is the certificate valid?",
                 "cerBlob": "Raw bytes of .cer file",
                 "publicKeyHash": "Public key hash",
-                "hostingEnvironment": "The hosting environment (App Service Environment) the certificate exists on",
                 "hostingEnvironmentProfile": {
                     "id": "Resource id of the hostingEnvironment (App Service Environment)",
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
-                }
+                },
+                "name": "Resource name of the certificate",
+                "tags": {}
             }
         },
         "ApiVersion": "2015-08-01"
@@ -105,11 +97,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "friendlyName": "(string)",
                 "subjectName": "(string)",
@@ -127,12 +114,13 @@
                 "valid": "(boolean)",
                 "cerBlob": "(string)",
                 "publicKeyHash": "(string)",
-                "hostingEnvironment": "(string)",
                 "hostingEnvironmentProfile": {
                     "id": "(string)",
                     "name": "(string)",
                     "type": "(string)"
-                }
+                },
+                "name": "(string)",
+                "tags": {}
             }
         },
         "RequestBodyDoc": {
@@ -141,11 +129,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "friendlyName": "Friendly name of the certificate",
                 "subjectName": "Subject name of the certificate",
@@ -163,12 +146,13 @@
                 "valid": "Is the certificate valid?",
                 "cerBlob": "Raw bytes of .cer file",
                 "publicKeyHash": "Public key hash",
-                "hostingEnvironment": "The hosting environment (App Service Environment) the certificate exists on",
                 "hostingEnvironmentProfile": {
                     "id": "Resource id of the hostingEnvironment (App Service Environment)",
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
-                }
+                },
+                "name": "Resource name of the certificate",
+                "tags": {}
             }
         },
         "ApiVersion": "2015-08-01"
@@ -213,11 +197,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "contactAdmin": {
                     "addressMailing": {
@@ -328,11 +307,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "contactAdmin": {
                     "addressMailing": {
@@ -455,11 +429,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "contactAdmin": {
                     "addressMailing": {
@@ -570,11 +539,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "contactAdmin": {
                     "addressMailing": {
@@ -718,6 +682,22 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/checknameavailability",
+        "RequestBody": {
+            "name": "(string)",
+            "type": "(string)",
+            "isFqdn": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "name": "Resource name to verify",
+            "type": "Resource type used for verification",
+            "isFqdn": "Is fully qualified domain name"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/domains",
@@ -739,11 +719,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "contactAdmin": {
@@ -855,11 +830,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "Name of the domain",
                 "contactAdmin": {
@@ -1026,11 +996,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "location": "(string)",
@@ -1054,11 +1019,6 @@
                         "location": "(string)",
                         "type": "(string)",
                         "tags": {},
-                        "sku": {
-                            "name": "(string)",
-                            "tier": "(string)",
-                            "capacity": "(integer)"
-                        },
                         "properties": {
                             "workerSizeId": "(integer)",
                             "computeMode": "(string)",
@@ -1067,6 +1027,13 @@
                             "instanceNames": [
                                 "(string)"
                             ]
+                        },
+                        "sku": {
+                            "name": "(string)",
+                            "tier": "(string)",
+                            "size": "(string)",
+                            "family": "(string)",
+                            "capacity": "(integer)"
                         }
                     }
                 ],
@@ -1123,11 +1090,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "Name of the hostingEnvironment (App Service Environment)",
                 "location": "Location of the hostingEnvironment (App Service Environment), e.g. \"West US\"",
@@ -1151,11 +1113,6 @@
                         "location": "Resource Location",
                         "type": "Resource type",
                         "tags": {},
-                        "sku": {
-                            "name": "Name for the App Service Plan SKU",
-                            "tier": "Service Tier for the App Service Plan",
-                            "capacity": "Current number of workers assigned to the App Service Plan"
-                        },
                         "properties": {
                             "workerSizeId": "Worker size id for referencing this worker pool",
                             "computeMode": "Shared or dedicated web app hosting",
@@ -1164,6 +1121,13 @@
                             "instanceNames": [
                                 null
                             ]
+                        },
+                        "sku": {
+                            "name": "Name of the resource sku",
+                            "tier": "Service Tier of the resource sku",
+                            "size": "Size specifier of the resource sku",
+                            "family": "Family code of the resource sku",
+                            "capacity": "Current number of instances assigned to the resource"
                         }
                     }
                 ],
@@ -1287,11 +1251,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "workerSizeId": "(integer)",
                 "computeMode": "(string)",
@@ -1300,6 +1259,13 @@
                 "instanceNames": [
                     "(string)"
                 ]
+            },
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)"
             }
         },
         "RequestBodyDoc": {
@@ -1308,11 +1274,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "workerSizeId": "Worker size id for referencing this worker pool",
                 "computeMode": "Shared or dedicated web app hosting",
@@ -1321,6 +1282,13 @@
                 "instanceNames": [
                     null
                 ]
+            },
+            "sku": {
+                "name": "Name of the resource sku",
+                "tier": "Service Tier of the resource sku",
+                "size": "Size specifier of the resource sku",
+                "family": "Family code of the resource sku",
+                "capacity": "Current number of instances assigned to the resource"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -1347,11 +1315,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "workerSizeId": "(integer)",
                 "computeMode": "(string)",
@@ -1360,6 +1323,13 @@
                 "instanceNames": [
                     "(string)"
                 ]
+            },
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)"
             }
         },
         "RequestBodyDoc": {
@@ -1368,11 +1338,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "workerSizeId": "Worker size id for referencing this worker pool",
                 "computeMode": "Shared or dedicated web app hosting",
@@ -1381,6 +1346,13 @@
                 "instanceNames": [
                     null
                 ]
+            },
+            "sku": {
+                "name": "Name of the resource sku",
+                "tier": "Service Tier of the resource sku",
+                "size": "Size specifier of the resource sku",
+                "family": "Family code of the resource sku",
+                "capacity": "Current number of instances assigned to the resource"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -1437,11 +1409,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "token": "(string)",
@@ -1456,11 +1423,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "Name or Source Control Type",
                 "token": "OAuth Access Token",
@@ -1493,19 +1455,12 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "serverFarmId": "(integer)",
                 "name": "(string)",
-                "workerSizeId": "(integer)",
                 "status": "(string)",
                 "subscription": "(string)",
                 "adminSiteName": "(string)",
-                "hostingEnvironment": "(string)",
                 "hostingEnvironmentProfile": {
                     "id": "(string)",
                     "name": "(string)",
@@ -1515,7 +1470,15 @@
                 "geoRegion": "(string)",
                 "perSiteScaling": "(boolean)",
                 "numberOfSites": "(integer)",
-                "tags": {}
+                "tags": {},
+                "resourceGroup": "(string)"
+            },
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)"
             }
         },
         "RequestBodyDoc": {
@@ -1524,19 +1487,12 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "serverFarmId": "App Service Plan ARM resource ID",
                 "name": "Name for the App Service Plan",
-                "workerSizeId": "Size of the compute resources assigned to the App Service Plan",
                 "status": "App Service Plan Status",
                 "subscription": "App Service Plan Subscription",
                 "adminSiteName": "App Service Plan administration site",
-                "hostingEnvironment": "Name for the hostingEnvironment (App Service Environment) hosting this App Service Plan\r\n            Value is Null when hosted on public environment",
                 "hostingEnvironmentProfile": {
                     "id": "Resource id of the hostingEnvironment (App Service Environment)",
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
@@ -1546,7 +1502,15 @@
                 "geoRegion": "Geographical location for the App Service Plan",
                 "perSiteScaling": "If True apps assigned to this App Service Plan can be scaled independently\r\n            If False apps assigned to this App Service Plan will scale to all instances of the plan",
                 "numberOfSites": "Number of web apps assigned to this App Service Plan",
-                "tags": {}
+                "tags": {},
+                "resourceGroup": "Resource group of the serverfarm"
+            },
+            "sku": {
+                "name": "Name of the resource sku",
+                "tier": "Service Tier of the resource sku",
+                "size": "Size specifier of the resource sku",
+                "family": "Family code of the resource sku",
+                "capacity": "Current number of instances assigned to the resource"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -1597,11 +1561,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "startAddress": "(string)",
@@ -1615,11 +1574,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
                 "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
@@ -1645,11 +1599,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "startAddress": "(string)",
@@ -1663,11 +1612,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
                 "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
@@ -1717,11 +1661,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "state": "(string)",
@@ -1745,7 +1684,6 @@
                         "toUpdateIpBasedSsl": "(boolean)"
                     }
                 ],
-                "serverFarm": "(string)",
                 "serverFarmId": "(string)",
                 "lastModifiedTimeUtc": "(string)",
                 "siteConfig": {
@@ -1754,11 +1692,6 @@
                     "location": "(string)",
                     "type": "(string)",
                     "tags": {},
-                    "sku": {
-                        "name": "(string)",
-                        "tier": "(string)",
-                        "capacity": "(integer)"
-                    },
                     "properties": {
                         "numberOfWorkers": "(integer)",
                         "defaultDocuments": [
@@ -1893,7 +1826,6 @@
                 "premiumAppDeployed": "(boolean)",
                 "scmSiteAlsoStopped": "(boolean)",
                 "targetSwapSlot": "(string)",
-                "hostingEnvironment": "(string)",
                 "hostingEnvironmentProfile": {
                     "id": "(string)",
                     "name": "(string)",
@@ -1903,7 +1835,9 @@
                 "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
-                "kind": "(string)",
+                "domainVerificationIdentifiers": [
+                    "(string)"
+                ],
                 "outboundIpAddresses": "(string)",
                 "cloningInfo": {
                     "correlationId": "(string)",
@@ -1913,8 +1847,10 @@
                     "sourceWebAppId": "(string)",
                     "hostingEnvironment": "(string)",
                     "appSettingsOverrides": {},
+                    "configureLoadBalancing": "(boolean)",
                     "trafficManagerProfileId": "(string)",
-                    "trafficManagerProfileName": "(string)"
+                    "trafficManagerProfileName": "(string)",
+                    "ignoreQuotas": "(boolean)"
                 }
             }
         },
@@ -1924,11 +1860,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "Name of web app",
                 "state": "State of the web app",
@@ -1952,7 +1883,6 @@
                         "toUpdateIpBasedSsl": "Set this flag to update existing host name"
                     }
                 ],
-                "serverFarm": "App service plan web app is assoicated with",
                 "lastModifiedTimeUtc": "Last time web app was modified in UTC",
                 "siteConfig": {
                     "id": "Resource Id",
@@ -1960,11 +1890,6 @@
                     "location": "Resource Location",
                     "type": "Resource type",
                     "tags": {},
-                    "sku": {
-                        "name": "Name for the App Service Plan SKU",
-                        "tier": "Service Tier for the App Service Plan",
-                        "capacity": "Current number of workers assigned to the App Service Plan"
-                    },
                     "properties": {
                         "numberOfWorkers": "Number of workers",
                         "defaultDocuments": [
@@ -2091,7 +2016,6 @@
                 "premiumAppDeployed": "If set indicates whether web app is deployed as a premium app",
                 "scmSiteAlsoStopped": "If set indicates whether to stop SCM (KUDU) site when the web app is stopped. Default is false.",
                 "targetSwapSlot": "Read-only property that specifies which slot this app will swap into",
-                "hostingEnvironment": "Name of hosting environment (App Service Environment) the web app belongs to",
                 "hostingEnvironmentProfile": {
                     "id": "Resource id of the hostingEnvironment (App Service Environment)",
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
@@ -2101,7 +2025,9 @@
                 "gatewaySiteName": "Name of gateway app associated with web app",
                 "clientAffinityEnabled": "Specifies if the client affinity is enabled when load balancing http request for multiple instances of the web app",
                 "clientCertEnabled": "Specifies if the client certificate is enabled for the web app",
-                "kind": "Kind of resource",
+                "domainVerificationIdentifiers": [
+                    null
+                ],
                 "outboundIpAddresses": "List of comma separated IP addresses that this web app uses for outbound connections. Those can be used when configuring firewall rules for databases accessed by this web app.",
                 "cloningInfo": {
                     "correlationId": "Correlation Id of cloning operation. This id ties multiple cloning operations\r\n            together to use the same snapshot",
@@ -2111,8 +2037,10 @@
                     "sourceWebAppId": "ARM resource id of the source web app. Web app resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName} for production slots and \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/slots/{slotName} for other slots",
                     "hostingEnvironment": "Hosting environment",
                     "appSettingsOverrides": {},
-                    "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficmanagerprofiles/{profileName}",
-                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist"
+                    "configureLoadBalancing": "If specified configure load balancing for source and clone site",
+                    "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficManagerProfiles/{profileName}",
+                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist",
+                    "ignoreQuotas": "Whether quotas should be ignored."
                 }
             }
         },
@@ -2140,11 +2068,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "state": "(string)",
@@ -2168,7 +2091,6 @@
                         "toUpdateIpBasedSsl": "(boolean)"
                     }
                 ],
-                "serverFarm": "(string)",
                 "serverFarmId": "(string)",
                 "lastModifiedTimeUtc": "(string)",
                 "siteConfig": {
@@ -2177,11 +2099,6 @@
                     "location": "(string)",
                     "type": "(string)",
                     "tags": {},
-                    "sku": {
-                        "name": "(string)",
-                        "tier": "(string)",
-                        "capacity": "(integer)"
-                    },
                     "properties": {
                         "numberOfWorkers": "(integer)",
                         "defaultDocuments": [
@@ -2316,7 +2233,6 @@
                 "premiumAppDeployed": "(boolean)",
                 "scmSiteAlsoStopped": "(boolean)",
                 "targetSwapSlot": "(string)",
-                "hostingEnvironment": "(string)",
                 "hostingEnvironmentProfile": {
                     "id": "(string)",
                     "name": "(string)",
@@ -2326,7 +2242,9 @@
                 "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
-                "kind": "(string)",
+                "domainVerificationIdentifiers": [
+                    "(string)"
+                ],
                 "outboundIpAddresses": "(string)",
                 "cloningInfo": {
                     "correlationId": "(string)",
@@ -2336,8 +2254,10 @@
                     "sourceWebAppId": "(string)",
                     "hostingEnvironment": "(string)",
                     "appSettingsOverrides": {},
+                    "configureLoadBalancing": "(boolean)",
                     "trafficManagerProfileId": "(string)",
-                    "trafficManagerProfileName": "(string)"
+                    "trafficManagerProfileName": "(string)",
+                    "ignoreQuotas": "(boolean)"
                 }
             }
         },
@@ -2347,11 +2267,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "Name of web app",
                 "state": "State of the web app",
@@ -2375,7 +2290,6 @@
                         "toUpdateIpBasedSsl": "Set this flag to update existing host name"
                     }
                 ],
-                "serverFarm": "App service plan web app is assoicated with",
                 "lastModifiedTimeUtc": "Last time web app was modified in UTC",
                 "siteConfig": {
                     "id": "Resource Id",
@@ -2383,11 +2297,6 @@
                     "location": "Resource Location",
                     "type": "Resource type",
                     "tags": {},
-                    "sku": {
-                        "name": "Name for the App Service Plan SKU",
-                        "tier": "Service Tier for the App Service Plan",
-                        "capacity": "Current number of workers assigned to the App Service Plan"
-                    },
                     "properties": {
                         "numberOfWorkers": "Number of workers",
                         "defaultDocuments": [
@@ -2514,7 +2423,6 @@
                 "premiumAppDeployed": "If set indicates whether web app is deployed as a premium app",
                 "scmSiteAlsoStopped": "If set indicates whether to stop SCM (KUDU) site when the web app is stopped. Default is false.",
                 "targetSwapSlot": "Read-only property that specifies which slot this app will swap into",
-                "hostingEnvironment": "Name of hosting environment (App Service Environment) the web app belongs to",
                 "hostingEnvironmentProfile": {
                     "id": "Resource id of the hostingEnvironment (App Service Environment)",
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
@@ -2524,7 +2432,9 @@
                 "gatewaySiteName": "Name of gateway app associated with web app",
                 "clientAffinityEnabled": "Specifies if the client affinity is enabled when load balancing http request for multiple instances of the web app",
                 "clientCertEnabled": "Specifies if the client certificate is enabled for the web app",
-                "kind": "Kind of resource",
+                "domainVerificationIdentifiers": [
+                    null
+                ],
                 "outboundIpAddresses": "List of comma separated IP addresses that this web app uses for outbound connections. Those can be used when configuring firewall rules for databases accessed by this web app.",
                 "cloningInfo": {
                     "correlationId": "Correlation Id of cloning operation. This id ties multiple cloning operations\r\n            together to use the same snapshot",
@@ -2534,8 +2444,10 @@
                     "sourceWebAppId": "ARM resource id of the source web app. Web app resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName} for production slots and \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/slots/{slotName} for other slots",
                     "hostingEnvironment": "Hosting environment",
                     "appSettingsOverrides": {},
-                    "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficmanagerprofiles/{profileName}",
-                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist"
+                    "configureLoadBalancing": "If specified configure load balancing for source and clone site",
+                    "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficManagerProfiles/{profileName}",
+                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist",
+                    "ignoreQuotas": "Whether quotas should be ignored."
                 }
             }
         },
@@ -2545,6 +2457,22 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/recover",
+        "RequestBody": {
+            "snapshotTime": "(string)",
+            "siteName": "(string)",
+            "slotName": "(string)"
+        },
+        "RequestBodyDoc": {
+            "snapshotTime": "Point in time in which the site recover should be attempted.",
+            "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
+            "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2564,19 +2492,27 @@
         "ApiVersion": "2015-08-01"
     },
     {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/recover",
-        "RequestBody": {
-            "snapshotTime": "(string)",
-            "siteName": "(string)",
-            "slotName": "(string)"
-        },
-        "RequestBodyDoc": {
-            "snapshotTime": "Point in time in which the site recover should be attempted.",
-            "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
-            "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
-        },
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/restorableSnapshots",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/restorableSnapshots",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/snapshots",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/snapshots",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2619,11 +2555,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "siteName": "(string)",
@@ -2640,11 +2571,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "Hostname",
                 "siteName": "Web app name",
@@ -2679,11 +2605,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "name": "(string)",
                 "siteName": "(string)",
@@ -2700,11 +2621,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "name": "Hostname",
                 "siteName": "Web app name",
@@ -2726,24 +2642,19 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "numberOfWorkers": "(integer)",
                 "defaultDocuments": [
@@ -2878,11 +2789,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "numberOfWorkers": "Number of workers",
                 "defaultDocuments": [
@@ -3008,18 +2914,13 @@
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "numberOfWorkers": "(integer)",
                 "defaultDocuments": [
@@ -3154,11 +3055,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "numberOfWorkers": "Number of workers",
                 "defaultDocuments": [
@@ -3284,24 +3180,19 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "numberOfWorkers": "(integer)",
                 "defaultDocuments": [
@@ -3436,11 +3327,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "numberOfWorkers": "Number of workers",
                 "defaultDocuments": [
@@ -3566,18 +3452,13 @@
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "numberOfWorkers": "(integer)",
                 "defaultDocuments": [
@@ -3712,11 +3593,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "numberOfWorkers": "Number of workers",
                 "defaultDocuments": [
@@ -3855,11 +3731,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "repoUrl": "(string)",
                 "branch": "(string)",
@@ -3874,11 +3745,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "repoUrl": "Repository or source control url",
                 "branch": "Name of branch to use for deployment",
@@ -3905,11 +3771,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "repoUrl": "(string)",
                 "branch": "(string)",
@@ -3924,11 +3785,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "repoUrl": "Repository or source control url",
                 "branch": "Name of branch to use for deployment",
@@ -3955,11 +3811,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "repoUrl": "(string)",
                 "branch": "(string)",
@@ -3974,11 +3825,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "repoUrl": "Repository or source control url",
                 "branch": "Name of branch to use for deployment",
@@ -4005,11 +3851,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "repoUrl": "(string)",
                 "branch": "(string)",
@@ -4024,11 +3865,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "repoUrl": "Repository or source control url",
                 "branch": "Name of branch to use for deployment",
@@ -4055,22 +3891,44 @@
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings",
-        "RequestBody": {},
-        "RequestBodyDoc": {},
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings",
-        "RequestBody": {},
-        "RequestBodyDoc": {},
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings/list",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4080,25 +3938,53 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings",
-        "RequestBody": {},
-        "RequestBodyDoc": {},
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings",
-        "RequestBody": {},
-        "RequestBodyDoc": {},
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4110,7 +3996,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4120,42 +4006,71 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
-        "RequestBody": {},
-        "RequestBodyDoc": {},
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
-        "RequestBody": {},
-        "RequestBodyDoc": {},
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
             "properties": {
                 "applicationLogs": {
                     "fileSystem": {
@@ -4197,11 +4112,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "applicationLogs": {
                     "fileSystem": {
@@ -4242,24 +4152,19 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "applicationLogs": {
                     "fileSystem": {
@@ -4301,11 +4206,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "applicationLogs": {
                     "fileSystem": {
@@ -4341,12 +4241,6 @@
                 }
             }
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4358,41 +4252,7 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "RequestBody": {
-            "location": "(string)",
-            "tags": {},
-            "plan": {
-                "name": "(string)",
-                "publisher": "(string)",
-                "product": "(string)",
-                "promotionCode": "(string)"
-            },
-            "properties": {}
-        },
-        "RequestBodyDoc": {
-            "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
-            "tags": {},
-            "plan": {
-                "name": "The name",
-                "publisher": "The publisher",
-                "product": "The product",
-                "promotionCode": "The promotion code"
-            },
-            "properties": {}
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4412,9 +4272,17 @@
                 "name": "(string)",
                 "publisher": "(string)",
                 "product": "(string)",
-                "promotionCode": "(string)"
+                "promotionCode": "(string)",
+                "version": "(string)"
             },
-            "properties": {}
+            "properties": {},
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)"
+            }
         },
         "RequestBodyDoc": {
             "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
@@ -4423,9 +4291,17 @@
                 "name": "The name",
                 "publisher": "The publisher",
                 "product": "The product",
-                "promotionCode": "The promotion code"
+                "promotionCode": "The promotion code",
+                "version": "Version of product"
             },
-            "properties": {}
+            "properties": {},
+            "sku": {
+                "name": "Name of the resource sku",
+                "tier": "Service Tier of the resource sku",
+                "size": "Size specifier of the resource sku",
+                "family": "Family code of the resource sku",
+                "capacity": "Current number of instances assigned to the resource"
+            }
         },
         "ApiVersion": "2015-08-01"
     },
@@ -4433,6 +4309,62 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "RequestBody": {
+            "location": "(string)",
+            "tags": {},
+            "plan": {
+                "name": "(string)",
+                "publisher": "(string)",
+                "product": "(string)",
+                "promotionCode": "(string)",
+                "version": "(string)"
+            },
+            "properties": {},
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
+            "tags": {},
+            "plan": {
+                "name": "The name",
+                "publisher": "The publisher",
+                "product": "The product",
+                "promotionCode": "The promotion code",
+                "version": "Version of product"
+            },
+            "properties": {},
+            "sku": {
+                "name": "Name of the resource sku",
+                "tier": "Service Tier of the resource sku",
+                "size": "Size specifier of the resource sku",
+                "family": "Family code of the resource sku",
+                "capacity": "Current number of instances assigned to the resource"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4450,18 +4382,6 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/publishxml",
-        "RequestBody": {
-            "format": "(string)"
-        },
-        "RequestBodyDoc": {
-            "format": "Name of the format. Valid values are: \r\n            FileZilla3\r\n            WebDeploy -- default\r\n            Ftp"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/publishxml",
         "RequestBody": {
             "format": "(string)"
@@ -4474,7 +4394,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/restart",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/publishxml",
+        "RequestBody": {
+            "format": "(string)"
+        },
+        "RequestBodyDoc": {
+            "format": "Name of the format. Valid values are: \r\n            FileZilla3\r\n            WebDeploy -- default\r\n            Ftp"
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4486,7 +4412,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/start",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/restart",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4498,13 +4424,19 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/start",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4547,11 +4479,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "entityName": "(string)",
                 "entityConnectionString": "(string)",
@@ -4568,11 +4495,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {}
         },
         "ApiVersion": "2015-08-01"
@@ -4593,11 +4515,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "entityName": "(string)",
                 "entityConnectionString": "(string)",
@@ -4614,11 +4531,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {}
         },
         "ApiVersion": "2015-08-01"
@@ -4639,11 +4551,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "entityName": "(string)",
                 "entityConnectionString": "(string)",
@@ -4660,11 +4567,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {}
         },
         "ApiVersion": "2015-08-01"
@@ -4685,11 +4587,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "entityName": "(string)",
                 "entityConnectionString": "(string)",
@@ -4706,19 +4603,8 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {}
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4730,83 +4616,7 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
-            "properties": {
-                "vnetName": "(string)",
-                "vpnPackageUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
-            "properties": {
-                "vnetName": "The VNET name.",
-                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Update",
-        "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
-            "properties": {
-                "vnetName": "(string)",
-                "vpnPackageUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
-            "properties": {
-                "vnetName": "The VNET name.",
-                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
-            }
-        },
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4825,11 +4635,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "vnetName": "(string)",
                 "vpnPackageUri": "(string)"
@@ -4841,11 +4646,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "vnetName": "The VNET name.",
                 "vpnPackageUri": "The URI where the Vpn package can be downloaded"
@@ -4863,11 +4663,6 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "vnetName": "(string)",
                 "vpnPackageUri": "(string)"
@@ -4879,11 +4674,6 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "vnetName": "The VNET name.",
                 "vpnPackageUri": "The URI where the Vpn package can be downloaded"
@@ -4894,28 +4684,22 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)"
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -4924,44 +4708,26 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
+                "vnetName": "The VNET name.",
+                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)"
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -4970,15 +4736,9 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
+                "vnetName": "The VNET name.",
+                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -4999,15 +4759,25 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "vnetResourceId": "(string)",
                 "certThumbprint": "(string)",
-                "certBlob": "(string)"
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
@@ -5016,15 +4786,25 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "vnetResourceId": "The vnet resource id",
                 "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -5045,15 +4825,25 @@
             "location": "(string)",
             "type": "(string)",
             "tags": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "capacity": "(integer)"
-            },
             "properties": {
                 "vnetResourceId": "(string)",
                 "certThumbprint": "(string)",
-                "certBlob": "(string)"
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
@@ -5062,15 +4852,157 @@
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
-            "sku": {
-                "name": "Name for the App Service Plan SKU",
-                "tier": "Service Tier for the App Service Plan",
-                "capacity": "Current number of workers assigned to the App Service Plan"
-            },
             "properties": {
                 "vnetResourceId": "The vnet resource id",
                 "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection."
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -5085,6 +5017,30 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/networkFeatures/{view}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkFeatures/{view}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5118,7 +5074,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsdiffs",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsdiffs",
         "RequestBody": {
             "targetSlot": "(string)",
             "preserveVnet": "(boolean)"
@@ -5132,7 +5088,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsdiffs",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsdiffs",
         "RequestBody": {
             "targetSlot": "(string)",
             "preserveVnet": "(boolean)"
@@ -5216,7 +5172,7 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web.Admin/systems/{webSystemName}/usage",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web.Admin/environments/{environmentName}/usage",
         "ApiVersion": "2015-08-01"
     }
 ]
