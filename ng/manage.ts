@@ -1483,6 +1483,20 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
         returnString += "$resource.Properties\n\n";
     }
 
+    // add SET related cmdlet if available
+    if (value.resourceDefinition.actions.some(a => (a === "PATCH" || a === "PUT"))) {
+        returnString += "# SET " + GetActionName(value.url) + "\n";
+        returnString += "$PropertiesObject = @{\n\t#Property = value;\n}\n";
+
+        // handle secure GET
+        if (value.resourceDefinition.actions.includes("GET")) {
+            returnString += "Set-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        }
+        else {
+            returnString += "New-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        }
+    }
+
     // add CREATE related cmdlet if available
     if (value.resourceDefinition.actions.includes("CREATE")) {
         returnString += "# CREATE " + GetActionName(value.url) + "\n";
@@ -1506,20 +1520,6 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
                 returnString += "Invoke-AzureResourceAction " + resourceInfo + " -Action " + action.name + (action.requestBody ? " -Parameters $ParametersObject": "") + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
             }
         })
-    }
-
-    // add SET related cmdlet if available
-    if (value.resourceDefinition.actions.some(a => (a === "PATCH" || a === "PUT"))) {
-        returnString += "# SET " + GetActionName(value.url) + "\n";
-        returnString += "$PropertiesObject = @{\n\t#Property = value;\n}\n";
-
-        // handle secure GET
-        if (value.resourceDefinition.actions.includes("GET")) {
-            returnString += "Set-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
-        }
-        else {
-            returnString += "New-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
-        }
     }
     return returnString;
 }
