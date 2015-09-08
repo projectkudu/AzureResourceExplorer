@@ -1040,6 +1040,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             //it's there, update it's actions
             if (operation) {
                 elements[0].requestBody = (elements[0].requestBody ? elements[0].requestBody : operation.RequestBody);
+                elements[0].apiVersion = operation.ApiVersion;
                 if (elements[0].actions.filter(c => c === operation.HttpMethod).length === 0) {
                     elements[0].actions.push(operation.HttpMethod);
                 }
@@ -1059,7 +1060,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 requestBodyDoc: operation ? operation.RequestBodyDoc : {},
                 responseBodyDoc: operation ? operation.ResponseBodyDoc : {},
                 query: operation ? operation.Query : [],
-                apiVersion: operation && operation.ApiVersion ? operation.ApiVersion : "2014-04-01"
+                apiVersion: operation && operation.ApiVersion ? operation.ApiVersion : undefined
             };
             $scope.resourcesDefinitionsTable.push(addedElement);
         }
