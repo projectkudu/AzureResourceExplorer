@@ -1562,7 +1562,7 @@ function GETPSObjectFromJSON(json: string) : string {
     var propertyValues = json.match(propertyValueRegEx);
     var objString = "";
     for (var i = 0; i < propertyNames.length; i++) {
-        objString += "\t" + propertyNames[i].replace(":", "").replace("\"", "").replace("\"", "") + " =" + propertyValues[i].replace(":", "") + "\n";
+        objString += "\t" + propertyNames[i].replace(":", "").replace("\"", "").replace("\"", "") + " =" + propertyValues[i].replace(":", "").replace(",", "") + "\n";
     }
     return propertyNames ? "{\n" + objString + "}\n": "";
 }
