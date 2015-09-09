@@ -757,7 +757,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }).success((data: any) => {
             $scope.user = {
                 name: (data.given_name && data.family_name ? data.given_name + " " + data.family_name : undefined) || data.name || data.email || data.unique_name || "User",
-                imageUrl: "https://secure.gravatar.com/avatar/" + CryptoJS.MD5((data.email || data.unique_name || data.upn || data.name || "").toString()) + ".jpg?d=mm"
+                imageUrl: "https://secure.gravatar.com/avatar/" + CryptoJS.MD5((data.email || data.unique_name || data.upn || data.name || "").toString()) + ".jpg?d=mm",
+                email: "(" + (data.upn ? data.upn : data.email) + ")"
             };
         }).error(() => {
             $scope.user = {
