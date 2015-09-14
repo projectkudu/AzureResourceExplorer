@@ -1467,11 +1467,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
 function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IAction[]): string {
     var returnString = "# PowerShell equivalent script\nSwitch-AzureMode -Name AzureResourceManager\n\n";
-
-    // handle secure GET
-    var resourceInfo = (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1)
-        ? resourceInfo = GetResourceTypeAndName(value.url.replace("/list", ""))
-        : GetResourceTypeAndName(value.url);
+    var resourceInfo = GetResourceTypeAndName(value);
 
     // add GET related cmdlet if available
     if (value.httpMethod.toLowerCase().indexOf("get") != -1) {
@@ -1533,7 +1529,13 @@ function GetActionName(url: string): string {
     return url.substr(url.lastIndexOf("/") + 1, url.length - url.lastIndexOf("/") - 1);
 }
 
-function GetResourceTypeAndName(url: string): string {
+function GetResourceTypeAndName(value: ISelelctHandlerReturn): string {
+    var url = value.url;
+
+    // handle secure GET
+    if ((value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1)) {
+        url.replace("/list", "");
+    }
     var urlParts = url.split("/");
     if (urlParts.length < 8) return "-ResourceId " + url.replace("https://management.azure.com", "");
     var result = "-ResourceGroupName ";
@@ -1552,7 +1554,13 @@ function GetResourceTypeAndName(url: string): string {
     // Remove the trailing slash
     resourceType = " -ResourceType " + resourceType.substring(0, resourceType.length - 1);
     if (resourceName) resourceName = " -ResourceName " + resourceName.substring(0, resourceName.length - 1);
-    result += resourceType + resourceName; 
+    result += resourceType + resourceName;
+
+    // if the resource is a collection set the -isCollection switch to direct the call to the RP instead of CSM cache
+    var children = value.resourceDefinition.children;
+    if (typeof children === "string" && !Array.isArray(children)) {
+        result += " -isCollection";
+    }
     return result;
 }
 
