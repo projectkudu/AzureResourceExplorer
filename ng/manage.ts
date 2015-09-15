@@ -196,9 +196,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 responseEditor.customSetValue(stringify(value.resourceDefinition.requestBody));
             } else {
                 responseEditor.customSetValue(stringify({ message: "No GET Url" }));
+                powershellEditor.customSetValue("");
             }
             fixSelectedTabIfNeeded();
-            return;
+            return; 
         }
         var resourceDefinition: IResourceDefinition = value.resourceDefinition;
         var url = value.url;
