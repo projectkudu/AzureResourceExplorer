@@ -1026,7 +1026,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         if (resourceName === "list" && operation && operation.HttpMethod === "POST") {
             // handle resources that has a "secure GET"
-            setParent(url, "GETPOST");
+            setParent(url, "GETPOST", operation.RequestBody, operation.RequestBodyDoc, operation.ApiVersion);
             return;
         } else if (operation && (operation.MethodName.startsWith("Create") || operation.MethodName.startsWith("BeginCreate") || operation.MethodName.startsWith("Put")) && operation.HttpMethod === "PUT") {
             // handle resources that has a CreateOrUpdate
@@ -1072,7 +1072,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return addedElement;
     };
 
-    function setParent(url: string, action?: string, requestBody?: any, requestBodyDoc?: any) {
+    function setParent(url: string, action?: string, requestBody?: any, requestBodyDoc?: any, apiVersion?: string) {
         var segments = url.split("/").filter(a => a.length !== 0);
         var resourceName = segments.pop();
         var parentName = url.substring(0, url.lastIndexOf("/"));
@@ -1119,6 +1119,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         if (requestBodyDoc && parent && !parent.requestBodyDoc) {
             parent.requestBodyDoc = requestBodyDoc;
+        }
+
+        if (apiVersion && parent && !parent.apiVersion) {
+            parent.apiVersion = apiVersion;
         }
     }
 
