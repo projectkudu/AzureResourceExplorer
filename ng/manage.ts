@@ -1037,7 +1037,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         //set the element itself
-        var elements = $scope.resourcesDefinitionsTable.filter(r => r.url === url);
+        var elements = $scope.resourcesDefinitionsTable.filter(r => r.url.toLowerCase() === url.toLowerCase());
         if (elements.length === 1) {
             //it's there, update it's actions
             if (operation) {
@@ -1077,7 +1077,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var resourceName = segments.pop();
         var parentName = url.substring(0, url.lastIndexOf("/"));
         if (parentName === undefined || parentName === "" || resourceName === undefined) return;
-        var parents = $scope.resourcesDefinitionsTable.filter(rd => rd.url === parentName);
+        var parents = $scope.resourcesDefinitionsTable.filter(rd => rd.url.toLowerCase() === parentName.toLowerCase());
         var parent: IResourceDefinition;
         if (parents.length === 1) {
             parent = parents[0];
