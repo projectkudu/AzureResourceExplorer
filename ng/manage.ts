@@ -934,7 +934,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     }
 
     function getResourceDefinitionByNameAndUrl(name: string, url: string) {
-        var resourceDefinitions = $scope.resourcesDefinitionsTable.filter(r => (r.resourceName === name) && ((r.url === url) || r.url === (url + "/" + name)));
+        var resourceDefinitions = $scope.resourcesDefinitionsTable.filter(r => (r.resourceName === name) && ((r.url.toLowerCase() === url.toLowerCase()) || r.url.toLowerCase() === (url.toLowerCase() + "/" + name.toLowerCase())));
         if (resourceDefinitions.length > 1) {
             console.log("ASSERT! duplicate ids in resourceDefinitionsTable");
             console.log(resourceDefinitions);
