@@ -42,6 +42,9 @@ Test with localhost
 5. To test, simply browse to the website and append the query string "?repository=<url of your Git repository>"
 
 ## Adding Swagger based specs
+
+Swagger files can be found on https://github.com/Azure/azure-rest-api-specs
+
 ```
 cd Tools
 npm install
