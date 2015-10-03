@@ -1517,7 +1517,7 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
             else if (action.httpMethod.toLocaleLowerCase() === "post") {
                 returnString += "# Action " + GetActionName(action.url) + "\n";
                 if (action.requestBody) {
-                    returnString += "$ParametersObject = @" + GETPSObjectFromJSON(action.requestBody) + "\n";
+                    returnString += "$ParametersObject = " + GETPSObjectFromJSON(action.requestBody, 0) + "\n";
                 }
                 returnString += "Invoke-AzureResourceAction " + resourceInfo + " -Action " + action.name + (action.requestBody ? " -Parameters $ParametersObject": "") + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
             }
@@ -1569,16 +1569,38 @@ function GetResourceTypeAndName(value: ISelelctHandlerReturn): string {
     return result;
 }
 
-function GETPSObjectFromJSON(json: string) : string {
-    var propertyNameRegEx = new RegExp("\"([a-zA-Z].*?)\":\s*([^,}])", "gm");
-    var propertyValueRegEx = new RegExp("(:.*)", "gm");
-    var propertyNames = json.match(propertyNameRegEx);
-    var propertyValues = json.match(propertyValueRegEx);
-    var objString = "";
-    for (var i = 0; i < propertyNames.length; i++) {
-        objString += "\t" + propertyNames[i].replace(":", "").replace("\"", "").replace("\"", "") + " =" + propertyValues[i].replace(":", "").replace(",", "") + "\n";
+function GETPSObjectFromJSON(json: string, nestingLevel: number): string {
+    var tabs = "";
+    for (var i = 0; i < nestingLevel; i++) {
+        tabs += "\t";
     }
-    return propertyNames ? "{\n" + objString + "}\n": "";
+    var jsonObj = JSON.parse(json);
+    if (typeof jsonObj === "string") {
+        return "\"" + jsonObj + "\"";
+    }
+    else if (typeof jsonObj === "boolean") {
+        return jsonObj.toString();
+    }
+    else if (typeof jsonObj === "number") {
+        return jsonObj.toString();
+    }
+    else if (Array.isArray(jsonObj)) {
+        var result = "(\n";
+        for (var i = 0; i < jsonObj.length; i++) {
+            result += tabs + "\t" + GETPSObjectFromJSON(JSON.stringify(jsonObj[i]), nestingLevel + 1) + "\n";
+        }
+        return result + tabs + ")\n";
+    }
+    else if (typeof jsonObj === "object") {
+        var result = "@{\n";
+        for (var prop in jsonObj) {
+            if (jsonObj.hasOwnProperty(prop)) {
+                result += tabs + "\t" + prop + " = " + GETPSObjectFromJSON(JSON.stringify(jsonObj[prop]), nestingLevel + 1) + "\n";
+            }
+        }
+        return result + tabs + "}\n";
+    }
+    return json;
 }
 
 // Global JS fixes
