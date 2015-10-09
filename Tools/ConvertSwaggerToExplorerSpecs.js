@@ -106,8 +106,8 @@ function shouldSkip(path){
                 "/workers/{workerName}",
                 "/operations/{operationId}",
                 "/extensions/{extensionApiMethod}",
-				"/snapshots",
-				"/restorablesnapshots"
+                "/snapshots",
+                "/restorablesnapshots"
                 ];
 
     return blackList.some(function(e) {
