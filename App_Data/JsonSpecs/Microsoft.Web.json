@@ -2,6 +2,214 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "keyVaultCsmId": "(string)",
+                "keyVaultSecretName": "(string)",
+                "provisioningState": "(string)",
+                "thumbprint": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultSecretName": "Key Vault secret name",
+                "provisioningState": "Status of the Key Vault secret",
+                "thumbprint": "Thumbprint of the certificate stored in KeyVault"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "keyVaultCsmId": "(string)",
+                "keyVaultSecretName": "(string)",
+                "provisioningState": "(string)",
+                "thumbprint": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultSecretName": "Key Vault secret name",
+                "provisioningState": "Status of the Key Vault secret",
+                "thumbprint": "Thumbprint of the certificate stored in KeyVault"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "(string)",
+                "domainVerificationToken": "(string)",
+                "validityInYears": "(integer)",
+                "keySize": "(integer)",
+                "productType": "(string)",
+                "status": "(string)",
+                "signedCertificate": "(string)",
+                "csr": "(string)",
+                "intermediate": "(string)",
+                "root": "(string)",
+                "serialNumber": "(string)",
+                "action": "(string)",
+                "keyVaultCsmId": "(string)",
+                "delayExistingRevokeInHours": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "Certificate distinguished name",
+                "domainVerificationToken": "Domain Verification Token",
+                "validityInYears": "Duration in years (must be between 1 and 3)",
+                "keySize": "Certificate Key Size",
+                "productType": "Certificate product type",
+                "status": "Current order status",
+                "signedCertificate": "Signed certificate",
+                "csr": "Last CSR that was created for this order",
+                "intermediate": "Intermediate certificate",
+                "root": "Root certificate",
+                "serialNumber": "Current serial number of the certificate",
+                "action": "Requested action on existing certificate order",
+                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "(string)",
+                "domainVerificationToken": "(string)",
+                "validityInYears": "(integer)",
+                "keySize": "(integer)",
+                "productType": "(string)",
+                "status": "(string)",
+                "signedCertificate": "(string)",
+                "csr": "(string)",
+                "intermediate": "(string)",
+                "root": "(string)",
+                "serialNumber": "(string)",
+                "action": "(string)",
+                "keyVaultCsmId": "(string)",
+                "delayExistingRevokeInHours": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "Certificate distinguished name",
+                "domainVerificationToken": "Domain Verification Token",
+                "validityInYears": "Duration in years (must be between 1 and 3)",
+                "keySize": "Certificate Key Size",
+                "productType": "Certificate product type",
+                "status": "Current order status",
+                "signedCertificate": "Signed certificate",
+                "csr": "Last CSR that was created for this order",
+                "intermediate": "Intermediate certificate",
+                "root": "Root certificate",
+                "serialNumber": "Current serial number of the certificate",
+                "action": "Requested action on existing certificate order",
+                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates",
         "ApiVersion": "2015-08-01"
     },
@@ -43,8 +251,8 @@
                     "name": "(string)",
                     "type": "(string)"
                 },
-                "name": "(string)",
-                "tags": {}
+                "keyVaultCsmId": "(string)",
+                "keyVaultSecretName": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -75,8 +283,8 @@
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
                 },
-                "name": "Resource name of the certificate",
-                "tags": {}
+                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultSecretName": "Key Vault secret name"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -119,8 +327,8 @@
                     "name": "(string)",
                     "type": "(string)"
                 },
-                "name": "(string)",
-                "tags": {}
+                "keyVaultCsmId": "(string)",
+                "keyVaultSecretName": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -151,8 +359,8 @@
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
                 },
-                "name": "Resource name of the certificate",
-                "tags": {}
+                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultSecretName": "Key Vault secret name"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -700,6 +908,12 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.CertificateRegistration/certificateOrders",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/domains",
         "ApiVersion": "2015-08-01"
     },
@@ -1081,6 +1295,7 @@
                 "environmentIsHealthy": "(boolean)",
                 "environmentStatus": "(string)",
                 "resourceGroup": "(string)",
+                "apiManagementAccountId": "(string)",
                 "suspended": "(boolean)"
             }
         },
@@ -1170,6 +1385,7 @@
                 "environmentIsHealthy": "True/false indicating whether the hostingEnvironment (App Service Environment) is healthy",
                 "environmentStatus": "Detailed message about with results of the last check of the hostingEnvironment (App Service Environment)",
                 "resourceGroup": "Resource group of the hostingEnvironment (App Service Environment)",
+                "apiManagementAccountId": "Api Management Account associated with this Hosting Environment",
                 "suspended": "True/false indicating whether the hostingEnvironment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\r\n            (most likely because NSG blocked the incoming traffic)"
             }
         },
@@ -1179,6 +1395,18 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics/{diagnosticsName}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -1208,6 +1436,12 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/operations",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/metricdefinitions",
         "ApiVersion": "2015-08-01"
     },
@@ -1220,7 +1454,7 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}/metricdefinitions",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/metricdefinitions",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -1233,6 +1467,12 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/serverfarms",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -1302,13 +1542,19 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -1360,13 +1606,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}/skus",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/skus",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerSizeId}/instances/{instance}/metricdefinitions",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/instances/{instance}/metricdefinitions",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -1456,7 +1702,6 @@
             "type": "(string)",
             "tags": {},
             "properties": {
-                "serverFarmId": "(integer)",
                 "name": "(string)",
                 "status": "(string)",
                 "subscription": "(string)",
@@ -1470,7 +1715,6 @@
                 "geoRegion": "(string)",
                 "perSiteScaling": "(boolean)",
                 "numberOfSites": "(integer)",
-                "tags": {},
                 "resourceGroup": "(string)"
             },
             "sku": {
@@ -1488,7 +1732,6 @@
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "serverFarmId": "App Service Plan ARM resource ID",
                 "name": "Name for the App Service Plan",
                 "status": "App Service Plan Status",
                 "subscription": "App Service Plan Subscription",
@@ -1502,7 +1745,6 @@
                 "geoRegion": "Geographical location for the App Service Plan",
                 "perSiteScaling": "If True apps assigned to this App Service Plan can be scaled independently\r\n            If False apps assigned to this App Service Plan will scale to all instances of the plan",
                 "numberOfSites": "Number of web apps assigned to this App Service Plan",
-                "tags": {},
                 "resourceGroup": "Resource group of the serverfarm"
             },
             "sku": {
@@ -1624,6 +1866,40 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetName": "The VNET name.",
+                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/sites",
         "ApiVersion": "2015-08-01"
     },
@@ -1637,6 +1913,12 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/operationresults/{operationId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -1835,9 +2117,6 @@
                 "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
-                "domainVerificationIdentifiers": [
-                    "(string)"
-                ],
                 "outboundIpAddresses": "(string)",
                 "cloningInfo": {
                     "correlationId": "(string)",
@@ -1849,8 +2128,7 @@
                     "appSettingsOverrides": {},
                     "configureLoadBalancing": "(boolean)",
                     "trafficManagerProfileId": "(string)",
-                    "trafficManagerProfileName": "(string)",
-                    "ignoreQuotas": "(boolean)"
+                    "trafficManagerProfileName": "(string)"
                 }
             }
         },
@@ -2025,9 +2303,6 @@
                 "gatewaySiteName": "Name of gateway app associated with web app",
                 "clientAffinityEnabled": "Specifies if the client affinity is enabled when load balancing http request for multiple instances of the web app",
                 "clientCertEnabled": "Specifies if the client certificate is enabled for the web app",
-                "domainVerificationIdentifiers": [
-                    null
-                ],
                 "outboundIpAddresses": "List of comma separated IP addresses that this web app uses for outbound connections. Those can be used when configuring firewall rules for databases accessed by this web app.",
                 "cloningInfo": {
                     "correlationId": "Correlation Id of cloning operation. This id ties multiple cloning operations\r\n            together to use the same snapshot",
@@ -2039,8 +2314,7 @@
                     "appSettingsOverrides": {},
                     "configureLoadBalancing": "If specified configure load balancing for source and clone site",
                     "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficManagerProfiles/{profileName}",
-                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist",
-                    "ignoreQuotas": "Whether quotas should be ignored."
+                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist"
                 }
             }
         },
@@ -2242,9 +2516,6 @@
                 "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
-                "domainVerificationIdentifiers": [
-                    "(string)"
-                ],
                 "outboundIpAddresses": "(string)",
                 "cloningInfo": {
                     "correlationId": "(string)",
@@ -2256,8 +2527,7 @@
                     "appSettingsOverrides": {},
                     "configureLoadBalancing": "(boolean)",
                     "trafficManagerProfileId": "(string)",
-                    "trafficManagerProfileName": "(string)",
-                    "ignoreQuotas": "(boolean)"
+                    "trafficManagerProfileName": "(string)"
                 }
             }
         },
@@ -2432,9 +2702,6 @@
                 "gatewaySiteName": "Name of gateway app associated with web app",
                 "clientAffinityEnabled": "Specifies if the client affinity is enabled when load balancing http request for multiple instances of the web app",
                 "clientCertEnabled": "Specifies if the client certificate is enabled for the web app",
-                "domainVerificationIdentifiers": [
-                    null
-                ],
                 "outboundIpAddresses": "List of comma separated IP addresses that this web app uses for outbound connections. Those can be used when configuring firewall rules for databases accessed by this web app.",
                 "cloningInfo": {
                     "correlationId": "Correlation Id of cloning operation. This id ties multiple cloning operations\r\n            together to use the same snapshot",
@@ -2446,8 +2713,7 @@
                     "appSettingsOverrides": {},
                     "configureLoadBalancing": "If specified configure load balancing for source and clone site",
                     "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficManagerProfiles/{profileName}",
-                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist",
-                    "ignoreQuotas": "Whether quotas should be ignored."
+                    "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist"
                 }
             }
         },
@@ -2457,22 +2723,6 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/recover",
-        "RequestBody": {
-            "snapshotTime": "(string)",
-            "siteName": "(string)",
-            "slotName": "(string)"
-        },
-        "RequestBodyDoc": {
-            "snapshotTime": "Point in time in which the site recover should be attempted.",
-            "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
-            "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
-        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2492,27 +2742,19 @@
         "ApiVersion": "2015-08-01"
     },
     {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/restorableSnapshots",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/restorableSnapshots",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/snapshots",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/snapshots",
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/recover",
+        "RequestBody": {
+            "snapshotTime": "(string)",
+            "siteName": "(string)",
+            "slotName": "(string)"
+        },
+        "RequestBodyDoc": {
+            "snapshotTime": "Point in time in which the site recover should be attempted.",
+            "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
+            "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2530,18 +2772,18 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
         "ApiVersion": "2015-08-01"
     },
@@ -2637,544 +2879,6 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "numberOfWorkers": "(integer)",
-                "defaultDocuments": [
-                    "(string)"
-                ],
-                "netFrameworkVersion": "(string)",
-                "phpVersion": "(string)",
-                "pythonVersion": "(string)",
-                "requestTracingEnabled": "(boolean)",
-                "requestTracingExpirationTime": "(string)",
-                "remoteDebuggingEnabled": "(boolean)",
-                "remoteDebuggingVersion": "(string)",
-                "httpLoggingEnabled": "(boolean)",
-                "logsDirectorySizeLimit": "(integer)",
-                "detailedErrorLoggingEnabled": "(boolean)",
-                "publishingUsername": "(string)",
-                "publishingPassword": "(string)",
-                "appSettings": [
-                    {
-                        "name": "(string)",
-                        "value": "(string)"
-                    }
-                ],
-                "metadata": [
-                    {
-                        "name": "(string)",
-                        "value": "(string)"
-                    }
-                ],
-                "connectionStrings": [
-                    {
-                        "name": "(string)",
-                        "connectionString": "(string)",
-                        "type": "(string)"
-                    }
-                ],
-                "handlerMappings": [
-                    {
-                        "extension": "(string)",
-                        "scriptProcessor": "(string)",
-                        "arguments": "(string)"
-                    }
-                ],
-                "documentRoot": "(string)",
-                "scmType": "(string)",
-                "use32BitWorkerProcess": "(boolean)",
-                "webSocketsEnabled": "(boolean)",
-                "alwaysOn": "(boolean)",
-                "javaVersion": "(string)",
-                "javaContainer": "(string)",
-                "javaContainerVersion": "(string)",
-                "managedPipelineMode": "(string)",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "(string)",
-                        "physicalPath": "(string)",
-                        "preloadEnabled": "(boolean)",
-                        "virtualDirectories": [
-                            {
-                                "virtualPath": "(string)",
-                                "physicalPath": "(string)"
-                            }
-                        ]
-                    }
-                ],
-                "loadBalancing": "(string)",
-                "experiments": {
-                    "rampUpRules": [
-                        {
-                            "actionHostName": "(string)",
-                            "reroutePercentage": "(number)",
-                            "changeStep": "(number)",
-                            "changeIntervalInMinutes": "(integer)",
-                            "minReroutePercentage": "(number)",
-                            "maxReroutePercentage": "(number)",
-                            "changeDecisionCallbackUrl": "(string)",
-                            "name": "(string)"
-                        }
-                    ]
-                },
-                "limits": {
-                    "maxPercentageCpu": "(number)",
-                    "maxMemoryInMb": "(integer)",
-                    "maxDiskSizeInMb": "(integer)"
-                },
-                "autoHealEnabled": "(boolean)",
-                "autoHealRules": {
-                    "triggers": {
-                        "requests": {
-                            "count": "(integer)",
-                            "timeInterval": "(string)"
-                        },
-                        "privateBytesInKB": "(integer)",
-                        "statusCodes": [
-                            {
-                                "status": "(integer)",
-                                "subStatus": "(integer)",
-                                "win32Status": "(integer)",
-                                "count": "(integer)",
-                                "timeInterval": "(string)"
-                            }
-                        ],
-                        "slowRequests": {
-                            "timeTaken": "(string)",
-                            "count": "(integer)",
-                            "timeInterval": "(string)"
-                        }
-                    },
-                    "actions": {
-                        "actionType": "(string)",
-                        "customAction": {
-                            "exe": "(string)",
-                            "parameters": "(string)"
-                        }
-                    }
-                },
-                "tracingOptions": "(string)",
-                "vnetName": "(string)",
-                "siteAuthEnabled": "(boolean)",
-                "siteAuthSettings": {
-                    "clientId": "(string)",
-                    "issuer": "(string)",
-                    "aadClientId": "(string)",
-                    "openIdIssuer": "(string)"
-                },
-                "autoSwapSlotName": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "numberOfWorkers": "Number of workers",
-                "defaultDocuments": [
-                    null
-                ],
-                "netFrameworkVersion": "Net Framework Version",
-                "phpVersion": "Version of PHP",
-                "pythonVersion": "Version of Python",
-                "requestTracingEnabled": "Enable request tracing",
-                "requestTracingExpirationTime": "Request tracing expiration time",
-                "remoteDebuggingEnabled": "Remote Debugging Enabled",
-                "remoteDebuggingVersion": "Remote Debugging Version",
-                "httpLoggingEnabled": "HTTP logging Enabled",
-                "logsDirectorySizeLimit": "HTTP Logs Directory size limit",
-                "detailedErrorLoggingEnabled": "Detailed error logging enabled",
-                "publishingUsername": "Publishing user name",
-                "publishingPassword": "Publishing password",
-                "appSettings": [
-                    {
-                        "name": "Pair name",
-                        "value": "Pair value"
-                    }
-                ],
-                "metadata": [
-                    {
-                        "name": "Pair name",
-                        "value": "Pair value"
-                    }
-                ],
-                "connectionStrings": [
-                    {
-                        "name": "Name of connection string",
-                        "connectionString": "Connection string value",
-                        "type": "Type of database"
-                    }
-                ],
-                "handlerMappings": [
-                    {
-                        "extension": "Requests with this extension will be handled using the specified FastCGI application.",
-                        "scriptProcessor": "The absolute path to the FastCGI application.",
-                        "arguments": "Command-line arguments to be passed to the script processor."
-                    }
-                ],
-                "documentRoot": "Document root",
-                "scmType": "SCM type",
-                "use32BitWorkerProcess": "Use 32 bit worker process",
-                "webSocketsEnabled": "Web socket enabled.",
-                "alwaysOn": "Always On",
-                "javaVersion": "Java version",
-                "javaContainer": "Java container",
-                "javaContainerVersion": "Java container version",
-                "managedPipelineMode": "Managed pipeline mode",
-                "virtualApplications": [
-                    {
-                        "virtualDirectories": [
-                            {}
-                        ]
-                    }
-                ],
-                "loadBalancing": "Site load balancing",
-                "experiments": {
-                    "rampUpRules": [
-                        {
-                            "actionHostName": "Hostname of a slot to which the traffic will be redirected if decided to. E.g. mysite-stage.azurewebsites.net",
-                            "reroutePercentage": "Percentage of the traffic which will be redirected to {Microsoft.Web.Hosting.Administration.RampUpRule.ActionHostName}",
-                            "changeStep": "[Optional] In auto ramp up scenario this is the step to to add/remove from {Microsoft.Web.Hosting.Administration.RampUpRule.ReroutePercentage} until it reaches \r\n            {Microsoft.Web.Hosting.Administration.RampUpRule.MinReroutePercentage} or {Microsoft.Web.Hosting.Administration.RampUpRule.MaxReroutePercentage}. Site metrics are checked every N minutes specificed in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeIntervalInMinutes}.\r\n            Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeDecisionCallbackUrl}",
-                            "changeIntervalInMinutes": "[Optional] Specifies interval in mimuntes to reevaluate ReroutePercentage",
-                            "minReroutePercentage": "[Optional] Specifies lower boundary above which ReroutePercentage will stay.",
-                            "maxReroutePercentage": "[Optional] Specifies upper boundary below which ReroutePercentage will stay.",
-                            "changeDecisionCallbackUrl": "Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified. See TiPCallback site extension for the scaffold and contracts.\r\n            https://www.siteextensions.net/packages/TiPCallback/",
-                            "name": "Name of the routing rule. The recommended name would be to point to the slot which will receive the traffic in the experiment."
-                        }
-                    ]
-                },
-                "limits": {
-                    "maxPercentageCpu": "Maximum allowed CPU usage percentage",
-                    "maxMemoryInMb": "Maximum allowed memory usage in MB",
-                    "maxDiskSizeInMb": "Maximum allowed disk size usage in MB"
-                },
-                "autoHealEnabled": "Auto heal enabled",
-                "autoHealRules": {
-                    "triggers": {
-                        "requests": {
-                            "count": "Count",
-                            "timeInterval": "TimeInterval"
-                        },
-                        "privateBytesInKB": "PrivateBytesInKB - Defines a rule based on private bytes",
-                        "statusCodes": [
-                            {
-                                "status": "HTTP status code",
-                                "subStatus": "SubStatus",
-                                "win32Status": "Win32 error code",
-                                "count": "Count",
-                                "timeInterval": "TimeInterval"
-                            }
-                        ],
-                        "slowRequests": {
-                            "timeTaken": "TimeTaken",
-                            "count": "Count",
-                            "timeInterval": "TimeInterval"
-                        }
-                    },
-                    "actions": {
-                        "actionType": "ActionType - predefined action to be taken",
-                        "customAction": {
-                            "exe": "Executable to be run",
-                            "parameters": "Parameters for the executable"
-                        }
-                    }
-                },
-                "tracingOptions": "Tracing options",
-                "vnetName": "Vnet name",
-                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                "siteAuthSettings": {
-                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                },
-                "autoSwapSlotName": "Auto swap slot name"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Update",
-        "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "numberOfWorkers": "(integer)",
-                "defaultDocuments": [
-                    "(string)"
-                ],
-                "netFrameworkVersion": "(string)",
-                "phpVersion": "(string)",
-                "pythonVersion": "(string)",
-                "requestTracingEnabled": "(boolean)",
-                "requestTracingExpirationTime": "(string)",
-                "remoteDebuggingEnabled": "(boolean)",
-                "remoteDebuggingVersion": "(string)",
-                "httpLoggingEnabled": "(boolean)",
-                "logsDirectorySizeLimit": "(integer)",
-                "detailedErrorLoggingEnabled": "(boolean)",
-                "publishingUsername": "(string)",
-                "publishingPassword": "(string)",
-                "appSettings": [
-                    {
-                        "name": "(string)",
-                        "value": "(string)"
-                    }
-                ],
-                "metadata": [
-                    {
-                        "name": "(string)",
-                        "value": "(string)"
-                    }
-                ],
-                "connectionStrings": [
-                    {
-                        "name": "(string)",
-                        "connectionString": "(string)",
-                        "type": "(string)"
-                    }
-                ],
-                "handlerMappings": [
-                    {
-                        "extension": "(string)",
-                        "scriptProcessor": "(string)",
-                        "arguments": "(string)"
-                    }
-                ],
-                "documentRoot": "(string)",
-                "scmType": "(string)",
-                "use32BitWorkerProcess": "(boolean)",
-                "webSocketsEnabled": "(boolean)",
-                "alwaysOn": "(boolean)",
-                "javaVersion": "(string)",
-                "javaContainer": "(string)",
-                "javaContainerVersion": "(string)",
-                "managedPipelineMode": "(string)",
-                "virtualApplications": [
-                    {
-                        "virtualPath": "(string)",
-                        "physicalPath": "(string)",
-                        "preloadEnabled": "(boolean)",
-                        "virtualDirectories": [
-                            {
-                                "virtualPath": "(string)",
-                                "physicalPath": "(string)"
-                            }
-                        ]
-                    }
-                ],
-                "loadBalancing": "(string)",
-                "experiments": {
-                    "rampUpRules": [
-                        {
-                            "actionHostName": "(string)",
-                            "reroutePercentage": "(number)",
-                            "changeStep": "(number)",
-                            "changeIntervalInMinutes": "(integer)",
-                            "minReroutePercentage": "(number)",
-                            "maxReroutePercentage": "(number)",
-                            "changeDecisionCallbackUrl": "(string)",
-                            "name": "(string)"
-                        }
-                    ]
-                },
-                "limits": {
-                    "maxPercentageCpu": "(number)",
-                    "maxMemoryInMb": "(integer)",
-                    "maxDiskSizeInMb": "(integer)"
-                },
-                "autoHealEnabled": "(boolean)",
-                "autoHealRules": {
-                    "triggers": {
-                        "requests": {
-                            "count": "(integer)",
-                            "timeInterval": "(string)"
-                        },
-                        "privateBytesInKB": "(integer)",
-                        "statusCodes": [
-                            {
-                                "status": "(integer)",
-                                "subStatus": "(integer)",
-                                "win32Status": "(integer)",
-                                "count": "(integer)",
-                                "timeInterval": "(string)"
-                            }
-                        ],
-                        "slowRequests": {
-                            "timeTaken": "(string)",
-                            "count": "(integer)",
-                            "timeInterval": "(string)"
-                        }
-                    },
-                    "actions": {
-                        "actionType": "(string)",
-                        "customAction": {
-                            "exe": "(string)",
-                            "parameters": "(string)"
-                        }
-                    }
-                },
-                "tracingOptions": "(string)",
-                "vnetName": "(string)",
-                "siteAuthEnabled": "(boolean)",
-                "siteAuthSettings": {
-                    "clientId": "(string)",
-                    "issuer": "(string)",
-                    "aadClientId": "(string)",
-                    "openIdIssuer": "(string)"
-                },
-                "autoSwapSlotName": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "numberOfWorkers": "Number of workers",
-                "defaultDocuments": [
-                    null
-                ],
-                "netFrameworkVersion": "Net Framework Version",
-                "phpVersion": "Version of PHP",
-                "pythonVersion": "Version of Python",
-                "requestTracingEnabled": "Enable request tracing",
-                "requestTracingExpirationTime": "Request tracing expiration time",
-                "remoteDebuggingEnabled": "Remote Debugging Enabled",
-                "remoteDebuggingVersion": "Remote Debugging Version",
-                "httpLoggingEnabled": "HTTP logging Enabled",
-                "logsDirectorySizeLimit": "HTTP Logs Directory size limit",
-                "detailedErrorLoggingEnabled": "Detailed error logging enabled",
-                "publishingUsername": "Publishing user name",
-                "publishingPassword": "Publishing password",
-                "appSettings": [
-                    {
-                        "name": "Pair name",
-                        "value": "Pair value"
-                    }
-                ],
-                "metadata": [
-                    {
-                        "name": "Pair name",
-                        "value": "Pair value"
-                    }
-                ],
-                "connectionStrings": [
-                    {
-                        "name": "Name of connection string",
-                        "connectionString": "Connection string value",
-                        "type": "Type of database"
-                    }
-                ],
-                "handlerMappings": [
-                    {
-                        "extension": "Requests with this extension will be handled using the specified FastCGI application.",
-                        "scriptProcessor": "The absolute path to the FastCGI application.",
-                        "arguments": "Command-line arguments to be passed to the script processor."
-                    }
-                ],
-                "documentRoot": "Document root",
-                "scmType": "SCM type",
-                "use32BitWorkerProcess": "Use 32 bit worker process",
-                "webSocketsEnabled": "Web socket enabled.",
-                "alwaysOn": "Always On",
-                "javaVersion": "Java version",
-                "javaContainer": "Java container",
-                "javaContainerVersion": "Java container version",
-                "managedPipelineMode": "Managed pipeline mode",
-                "virtualApplications": [
-                    {
-                        "virtualDirectories": [
-                            {}
-                        ]
-                    }
-                ],
-                "loadBalancing": "Site load balancing",
-                "experiments": {
-                    "rampUpRules": [
-                        {
-                            "actionHostName": "Hostname of a slot to which the traffic will be redirected if decided to. E.g. mysite-stage.azurewebsites.net",
-                            "reroutePercentage": "Percentage of the traffic which will be redirected to {Microsoft.Web.Hosting.Administration.RampUpRule.ActionHostName}",
-                            "changeStep": "[Optional] In auto ramp up scenario this is the step to to add/remove from {Microsoft.Web.Hosting.Administration.RampUpRule.ReroutePercentage} until it reaches \r\n            {Microsoft.Web.Hosting.Administration.RampUpRule.MinReroutePercentage} or {Microsoft.Web.Hosting.Administration.RampUpRule.MaxReroutePercentage}. Site metrics are checked every N minutes specificed in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeIntervalInMinutes}.\r\n            Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeDecisionCallbackUrl}",
-                            "changeIntervalInMinutes": "[Optional] Specifies interval in mimuntes to reevaluate ReroutePercentage",
-                            "minReroutePercentage": "[Optional] Specifies lower boundary above which ReroutePercentage will stay.",
-                            "maxReroutePercentage": "[Optional] Specifies upper boundary below which ReroutePercentage will stay.",
-                            "changeDecisionCallbackUrl": "Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified. See TiPCallback site extension for the scaffold and contracts.\r\n            https://www.siteextensions.net/packages/TiPCallback/",
-                            "name": "Name of the routing rule. The recommended name would be to point to the slot which will receive the traffic in the experiment."
-                        }
-                    ]
-                },
-                "limits": {
-                    "maxPercentageCpu": "Maximum allowed CPU usage percentage",
-                    "maxMemoryInMb": "Maximum allowed memory usage in MB",
-                    "maxDiskSizeInMb": "Maximum allowed disk size usage in MB"
-                },
-                "autoHealEnabled": "Auto heal enabled",
-                "autoHealRules": {
-                    "triggers": {
-                        "requests": {
-                            "count": "Count",
-                            "timeInterval": "TimeInterval"
-                        },
-                        "privateBytesInKB": "PrivateBytesInKB - Defines a rule based on private bytes",
-                        "statusCodes": [
-                            {
-                                "status": "HTTP status code",
-                                "subStatus": "SubStatus",
-                                "win32Status": "Win32 error code",
-                                "count": "Count",
-                                "timeInterval": "TimeInterval"
-                            }
-                        ],
-                        "slowRequests": {
-                            "timeTaken": "TimeTaken",
-                            "count": "Count",
-                            "timeInterval": "TimeInterval"
-                        }
-                    },
-                    "actions": {
-                        "actionType": "ActionType - predefined action to be taken",
-                        "customAction": {
-                            "exe": "Executable to be run",
-                            "parameters": "Parameters for the executable"
-                        }
-                    }
-                },
-                "tracingOptions": "Tracing options",
-                "vnetName": "Vnet name",
-                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                "siteAuthSettings": {
-                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                },
-                "autoSwapSlotName": "Auto swap slot name"
-            }
-        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3453,6 +3157,544 @@
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "numberOfWorkers": "(integer)",
+                "defaultDocuments": [
+                    "(string)"
+                ],
+                "netFrameworkVersion": "(string)",
+                "phpVersion": "(string)",
+                "pythonVersion": "(string)",
+                "requestTracingEnabled": "(boolean)",
+                "requestTracingExpirationTime": "(string)",
+                "remoteDebuggingEnabled": "(boolean)",
+                "remoteDebuggingVersion": "(string)",
+                "httpLoggingEnabled": "(boolean)",
+                "logsDirectorySizeLimit": "(integer)",
+                "detailedErrorLoggingEnabled": "(boolean)",
+                "publishingUsername": "(string)",
+                "publishingPassword": "(string)",
+                "appSettings": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)"
+                    }
+                ],
+                "metadata": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)"
+                    }
+                ],
+                "connectionStrings": [
+                    {
+                        "name": "(string)",
+                        "connectionString": "(string)",
+                        "type": "(string)"
+                    }
+                ],
+                "handlerMappings": [
+                    {
+                        "extension": "(string)",
+                        "scriptProcessor": "(string)",
+                        "arguments": "(string)"
+                    }
+                ],
+                "documentRoot": "(string)",
+                "scmType": "(string)",
+                "use32BitWorkerProcess": "(boolean)",
+                "webSocketsEnabled": "(boolean)",
+                "alwaysOn": "(boolean)",
+                "javaVersion": "(string)",
+                "javaContainer": "(string)",
+                "javaContainerVersion": "(string)",
+                "managedPipelineMode": "(string)",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "(string)",
+                        "physicalPath": "(string)",
+                        "preloadEnabled": "(boolean)",
+                        "virtualDirectories": [
+                            {
+                                "virtualPath": "(string)",
+                                "physicalPath": "(string)"
+                            }
+                        ]
+                    }
+                ],
+                "loadBalancing": "(string)",
+                "experiments": {
+                    "rampUpRules": [
+                        {
+                            "actionHostName": "(string)",
+                            "reroutePercentage": "(number)",
+                            "changeStep": "(number)",
+                            "changeIntervalInMinutes": "(integer)",
+                            "minReroutePercentage": "(number)",
+                            "maxReroutePercentage": "(number)",
+                            "changeDecisionCallbackUrl": "(string)",
+                            "name": "(string)"
+                        }
+                    ]
+                },
+                "limits": {
+                    "maxPercentageCpu": "(number)",
+                    "maxMemoryInMb": "(integer)",
+                    "maxDiskSizeInMb": "(integer)"
+                },
+                "autoHealEnabled": "(boolean)",
+                "autoHealRules": {
+                    "triggers": {
+                        "requests": {
+                            "count": "(integer)",
+                            "timeInterval": "(string)"
+                        },
+                        "privateBytesInKB": "(integer)",
+                        "statusCodes": [
+                            {
+                                "status": "(integer)",
+                                "subStatus": "(integer)",
+                                "win32Status": "(integer)",
+                                "count": "(integer)",
+                                "timeInterval": "(string)"
+                            }
+                        ],
+                        "slowRequests": {
+                            "timeTaken": "(string)",
+                            "count": "(integer)",
+                            "timeInterval": "(string)"
+                        }
+                    },
+                    "actions": {
+                        "actionType": "(string)",
+                        "customAction": {
+                            "exe": "(string)",
+                            "parameters": "(string)"
+                        }
+                    }
+                },
+                "tracingOptions": "(string)",
+                "vnetName": "(string)",
+                "siteAuthEnabled": "(boolean)",
+                "siteAuthSettings": {
+                    "clientId": "(string)",
+                    "issuer": "(string)",
+                    "aadClientId": "(string)",
+                    "openIdIssuer": "(string)"
+                },
+                "autoSwapSlotName": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "numberOfWorkers": "Number of workers",
+                "defaultDocuments": [
+                    null
+                ],
+                "netFrameworkVersion": "Net Framework Version",
+                "phpVersion": "Version of PHP",
+                "pythonVersion": "Version of Python",
+                "requestTracingEnabled": "Enable request tracing",
+                "requestTracingExpirationTime": "Request tracing expiration time",
+                "remoteDebuggingEnabled": "Remote Debugging Enabled",
+                "remoteDebuggingVersion": "Remote Debugging Version",
+                "httpLoggingEnabled": "HTTP logging Enabled",
+                "logsDirectorySizeLimit": "HTTP Logs Directory size limit",
+                "detailedErrorLoggingEnabled": "Detailed error logging enabled",
+                "publishingUsername": "Publishing user name",
+                "publishingPassword": "Publishing password",
+                "appSettings": [
+                    {
+                        "name": "Pair name",
+                        "value": "Pair value"
+                    }
+                ],
+                "metadata": [
+                    {
+                        "name": "Pair name",
+                        "value": "Pair value"
+                    }
+                ],
+                "connectionStrings": [
+                    {
+                        "name": "Name of connection string",
+                        "connectionString": "Connection string value",
+                        "type": "Type of database"
+                    }
+                ],
+                "handlerMappings": [
+                    {
+                        "extension": "Requests with this extension will be handled using the specified FastCGI application.",
+                        "scriptProcessor": "The absolute path to the FastCGI application.",
+                        "arguments": "Command-line arguments to be passed to the script processor."
+                    }
+                ],
+                "documentRoot": "Document root",
+                "scmType": "SCM type",
+                "use32BitWorkerProcess": "Use 32 bit worker process",
+                "webSocketsEnabled": "Web socket enabled.",
+                "alwaysOn": "Always On",
+                "javaVersion": "Java version",
+                "javaContainer": "Java container",
+                "javaContainerVersion": "Java container version",
+                "managedPipelineMode": "Managed pipeline mode",
+                "virtualApplications": [
+                    {
+                        "virtualDirectories": [
+                            {}
+                        ]
+                    }
+                ],
+                "loadBalancing": "Site load balancing",
+                "experiments": {
+                    "rampUpRules": [
+                        {
+                            "actionHostName": "Hostname of a slot to which the traffic will be redirected if decided to. E.g. mysite-stage.azurewebsites.net",
+                            "reroutePercentage": "Percentage of the traffic which will be redirected to {Microsoft.Web.Hosting.Administration.RampUpRule.ActionHostName}",
+                            "changeStep": "[Optional] In auto ramp up scenario this is the step to to add/remove from {Microsoft.Web.Hosting.Administration.RampUpRule.ReroutePercentage} until it reaches \r\n            {Microsoft.Web.Hosting.Administration.RampUpRule.MinReroutePercentage} or {Microsoft.Web.Hosting.Administration.RampUpRule.MaxReroutePercentage}. Site metrics are checked every N minutes specificed in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeIntervalInMinutes}.\r\n            Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeDecisionCallbackUrl}",
+                            "changeIntervalInMinutes": "[Optional] Specifies interval in mimuntes to reevaluate ReroutePercentage",
+                            "minReroutePercentage": "[Optional] Specifies lower boundary above which ReroutePercentage will stay.",
+                            "maxReroutePercentage": "[Optional] Specifies upper boundary below which ReroutePercentage will stay.",
+                            "changeDecisionCallbackUrl": "Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified. See TiPCallback site extension for the scaffold and contracts.\r\n            https://www.siteextensions.net/packages/TiPCallback/",
+                            "name": "Name of the routing rule. The recommended name would be to point to the slot which will receive the traffic in the experiment."
+                        }
+                    ]
+                },
+                "limits": {
+                    "maxPercentageCpu": "Maximum allowed CPU usage percentage",
+                    "maxMemoryInMb": "Maximum allowed memory usage in MB",
+                    "maxDiskSizeInMb": "Maximum allowed disk size usage in MB"
+                },
+                "autoHealEnabled": "Auto heal enabled",
+                "autoHealRules": {
+                    "triggers": {
+                        "requests": {
+                            "count": "Count",
+                            "timeInterval": "TimeInterval"
+                        },
+                        "privateBytesInKB": "PrivateBytesInKB - Defines a rule based on private bytes",
+                        "statusCodes": [
+                            {
+                                "status": "HTTP status code",
+                                "subStatus": "SubStatus",
+                                "win32Status": "Win32 error code",
+                                "count": "Count",
+                                "timeInterval": "TimeInterval"
+                            }
+                        ],
+                        "slowRequests": {
+                            "timeTaken": "TimeTaken",
+                            "count": "Count",
+                            "timeInterval": "TimeInterval"
+                        }
+                    },
+                    "actions": {
+                        "actionType": "ActionType - predefined action to be taken",
+                        "customAction": {
+                            "exe": "Executable to be run",
+                            "parameters": "Parameters for the executable"
+                        }
+                    }
+                },
+                "tracingOptions": "Tracing options",
+                "vnetName": "Vnet name",
+                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
+                "siteAuthSettings": {
+                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
+                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
+                },
+                "autoSwapSlotName": "Auto swap slot name"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "numberOfWorkers": "(integer)",
+                "defaultDocuments": [
+                    "(string)"
+                ],
+                "netFrameworkVersion": "(string)",
+                "phpVersion": "(string)",
+                "pythonVersion": "(string)",
+                "requestTracingEnabled": "(boolean)",
+                "requestTracingExpirationTime": "(string)",
+                "remoteDebuggingEnabled": "(boolean)",
+                "remoteDebuggingVersion": "(string)",
+                "httpLoggingEnabled": "(boolean)",
+                "logsDirectorySizeLimit": "(integer)",
+                "detailedErrorLoggingEnabled": "(boolean)",
+                "publishingUsername": "(string)",
+                "publishingPassword": "(string)",
+                "appSettings": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)"
+                    }
+                ],
+                "metadata": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)"
+                    }
+                ],
+                "connectionStrings": [
+                    {
+                        "name": "(string)",
+                        "connectionString": "(string)",
+                        "type": "(string)"
+                    }
+                ],
+                "handlerMappings": [
+                    {
+                        "extension": "(string)",
+                        "scriptProcessor": "(string)",
+                        "arguments": "(string)"
+                    }
+                ],
+                "documentRoot": "(string)",
+                "scmType": "(string)",
+                "use32BitWorkerProcess": "(boolean)",
+                "webSocketsEnabled": "(boolean)",
+                "alwaysOn": "(boolean)",
+                "javaVersion": "(string)",
+                "javaContainer": "(string)",
+                "javaContainerVersion": "(string)",
+                "managedPipelineMode": "(string)",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "(string)",
+                        "physicalPath": "(string)",
+                        "preloadEnabled": "(boolean)",
+                        "virtualDirectories": [
+                            {
+                                "virtualPath": "(string)",
+                                "physicalPath": "(string)"
+                            }
+                        ]
+                    }
+                ],
+                "loadBalancing": "(string)",
+                "experiments": {
+                    "rampUpRules": [
+                        {
+                            "actionHostName": "(string)",
+                            "reroutePercentage": "(number)",
+                            "changeStep": "(number)",
+                            "changeIntervalInMinutes": "(integer)",
+                            "minReroutePercentage": "(number)",
+                            "maxReroutePercentage": "(number)",
+                            "changeDecisionCallbackUrl": "(string)",
+                            "name": "(string)"
+                        }
+                    ]
+                },
+                "limits": {
+                    "maxPercentageCpu": "(number)",
+                    "maxMemoryInMb": "(integer)",
+                    "maxDiskSizeInMb": "(integer)"
+                },
+                "autoHealEnabled": "(boolean)",
+                "autoHealRules": {
+                    "triggers": {
+                        "requests": {
+                            "count": "(integer)",
+                            "timeInterval": "(string)"
+                        },
+                        "privateBytesInKB": "(integer)",
+                        "statusCodes": [
+                            {
+                                "status": "(integer)",
+                                "subStatus": "(integer)",
+                                "win32Status": "(integer)",
+                                "count": "(integer)",
+                                "timeInterval": "(string)"
+                            }
+                        ],
+                        "slowRequests": {
+                            "timeTaken": "(string)",
+                            "count": "(integer)",
+                            "timeInterval": "(string)"
+                        }
+                    },
+                    "actions": {
+                        "actionType": "(string)",
+                        "customAction": {
+                            "exe": "(string)",
+                            "parameters": "(string)"
+                        }
+                    }
+                },
+                "tracingOptions": "(string)",
+                "vnetName": "(string)",
+                "siteAuthEnabled": "(boolean)",
+                "siteAuthSettings": {
+                    "clientId": "(string)",
+                    "issuer": "(string)",
+                    "aadClientId": "(string)",
+                    "openIdIssuer": "(string)"
+                },
+                "autoSwapSlotName": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "numberOfWorkers": "Number of workers",
+                "defaultDocuments": [
+                    null
+                ],
+                "netFrameworkVersion": "Net Framework Version",
+                "phpVersion": "Version of PHP",
+                "pythonVersion": "Version of Python",
+                "requestTracingEnabled": "Enable request tracing",
+                "requestTracingExpirationTime": "Request tracing expiration time",
+                "remoteDebuggingEnabled": "Remote Debugging Enabled",
+                "remoteDebuggingVersion": "Remote Debugging Version",
+                "httpLoggingEnabled": "HTTP logging Enabled",
+                "logsDirectorySizeLimit": "HTTP Logs Directory size limit",
+                "detailedErrorLoggingEnabled": "Detailed error logging enabled",
+                "publishingUsername": "Publishing user name",
+                "publishingPassword": "Publishing password",
+                "appSettings": [
+                    {
+                        "name": "Pair name",
+                        "value": "Pair value"
+                    }
+                ],
+                "metadata": [
+                    {
+                        "name": "Pair name",
+                        "value": "Pair value"
+                    }
+                ],
+                "connectionStrings": [
+                    {
+                        "name": "Name of connection string",
+                        "connectionString": "Connection string value",
+                        "type": "Type of database"
+                    }
+                ],
+                "handlerMappings": [
+                    {
+                        "extension": "Requests with this extension will be handled using the specified FastCGI application.",
+                        "scriptProcessor": "The absolute path to the FastCGI application.",
+                        "arguments": "Command-line arguments to be passed to the script processor."
+                    }
+                ],
+                "documentRoot": "Document root",
+                "scmType": "SCM type",
+                "use32BitWorkerProcess": "Use 32 bit worker process",
+                "webSocketsEnabled": "Web socket enabled.",
+                "alwaysOn": "Always On",
+                "javaVersion": "Java version",
+                "javaContainer": "Java container",
+                "javaContainerVersion": "Java container version",
+                "managedPipelineMode": "Managed pipeline mode",
+                "virtualApplications": [
+                    {
+                        "virtualDirectories": [
+                            {}
+                        ]
+                    }
+                ],
+                "loadBalancing": "Site load balancing",
+                "experiments": {
+                    "rampUpRules": [
+                        {
+                            "actionHostName": "Hostname of a slot to which the traffic will be redirected if decided to. E.g. mysite-stage.azurewebsites.net",
+                            "reroutePercentage": "Percentage of the traffic which will be redirected to {Microsoft.Web.Hosting.Administration.RampUpRule.ActionHostName}",
+                            "changeStep": "[Optional] In auto ramp up scenario this is the step to to add/remove from {Microsoft.Web.Hosting.Administration.RampUpRule.ReroutePercentage} until it reaches \r\n            {Microsoft.Web.Hosting.Administration.RampUpRule.MinReroutePercentage} or {Microsoft.Web.Hosting.Administration.RampUpRule.MaxReroutePercentage}. Site metrics are checked every N minutes specificed in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeIntervalInMinutes}.\r\n            Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified in {Microsoft.Web.Hosting.Administration.RampUpRule.ChangeDecisionCallbackUrl}",
+                            "changeIntervalInMinutes": "[Optional] Specifies interval in mimuntes to reevaluate ReroutePercentage",
+                            "minReroutePercentage": "[Optional] Specifies lower boundary above which ReroutePercentage will stay.",
+                            "maxReroutePercentage": "[Optional] Specifies upper boundary below which ReroutePercentage will stay.",
+                            "changeDecisionCallbackUrl": "Custom decision algorithm can be provided in TiPCallback site extension which Url can be specified. See TiPCallback site extension for the scaffold and contracts.\r\n            https://www.siteextensions.net/packages/TiPCallback/",
+                            "name": "Name of the routing rule. The recommended name would be to point to the slot which will receive the traffic in the experiment."
+                        }
+                    ]
+                },
+                "limits": {
+                    "maxPercentageCpu": "Maximum allowed CPU usage percentage",
+                    "maxMemoryInMb": "Maximum allowed memory usage in MB",
+                    "maxDiskSizeInMb": "Maximum allowed disk size usage in MB"
+                },
+                "autoHealEnabled": "Auto heal enabled",
+                "autoHealRules": {
+                    "triggers": {
+                        "requests": {
+                            "count": "Count",
+                            "timeInterval": "TimeInterval"
+                        },
+                        "privateBytesInKB": "PrivateBytesInKB - Defines a rule based on private bytes",
+                        "statusCodes": [
+                            {
+                                "status": "HTTP status code",
+                                "subStatus": "SubStatus",
+                                "win32Status": "Win32 error code",
+                                "count": "Count",
+                                "timeInterval": "TimeInterval"
+                            }
+                        ],
+                        "slowRequests": {
+                            "timeTaken": "TimeTaken",
+                            "count": "Count",
+                            "timeInterval": "TimeInterval"
+                        }
+                    },
+                    "actions": {
+                        "actionType": "ActionType - predefined action to be taken",
+                        "customAction": {
+                            "exe": "Executable to be run",
+                            "parameters": "Parameters for the executable"
+                        }
+                    }
+                },
+                "tracingOptions": "Tracing options",
+                "vnetName": "Vnet name",
+                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
+                "siteAuthSettings": {
+                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
+                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
+                },
+                "autoSwapSlotName": "Auto swap slot name"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -3934,13 +4176,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings/list",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings/list",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings/list",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings/list",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3990,25 +4232,25 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/publishingcredentials/list",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/publishingcredentials/list",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4058,100 +4300,6 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "applicationLogs": {
-                    "fileSystem": {
-                        "level": "(string)"
-                    },
-                    "azureTableStorage": {
-                        "level": "(string)",
-                        "sasUrl": "(string)"
-                    },
-                    "azureBlobStorage": {
-                        "level": "(string)",
-                        "sasUrl": "(string)",
-                        "retentionInDays": "(integer)"
-                    }
-                },
-                "httpLogs": {
-                    "fileSystem": {
-                        "retentionInMb": "(integer)",
-                        "retentionInDays": "(integer)",
-                        "enabled": "(boolean)"
-                    },
-                    "azureBlobStorage": {
-                        "sasUrl": "(string)",
-                        "retentionInDays": "(integer)",
-                        "enabled": "(boolean)"
-                    }
-                },
-                "failedRequestsTracing": {
-                    "enabled": "(boolean)"
-                },
-                "detailedErrorMessages": {
-                    "enabled": "(boolean)"
-                }
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "applicationLogs": {
-                    "fileSystem": {
-                        "level": "Log level"
-                    },
-                    "azureTableStorage": {
-                        "level": "Log level",
-                        "sasUrl": "SAS url to an azure table with add/query/delete permissions"
-                    },
-                    "azureBlobStorage": {
-                        "level": "Log level",
-                        "sasUrl": "SAS url to a azure blob container with read/write/list/delete permissions",
-                        "retentionInDays": "Retention in days.\r\n            Remove blobs older than X days.\r\n            0 or lower means no retention."
-                    }
-                },
-                "httpLogs": {
-                    "fileSystem": {
-                        "retentionInMb": "Maximum size in megabytes that http log files can use.\r\n            When reached old log files will be removed to make space for new ones.\r\n            Value can range between 25 and 100.",
-                        "retentionInDays": "Retention in days.\r\n            Remove files older than X days.\r\n            0 or lower means no retention.",
-                        "enabled": "Enabled"
-                    },
-                    "azureBlobStorage": {
-                        "sasUrl": "SAS url to a azure blob container with read/write/list/delete permissions",
-                        "retentionInDays": "Retention in days.\r\n            Remove blobs older than X days.\r\n            0 or lower means no retention.",
-                        "enabled": "Enabled"
-                    }
-                },
-                "failedRequestsTracing": {
-                    "enabled": "Enabled"
-                },
-                "detailedErrorMessages": {
-                    "enabled": "Enabled"
-                }
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
         "ApiVersion": "2015-08-01"
     },
@@ -4246,13 +4394,107 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "applicationLogs": {
+                    "fileSystem": {
+                        "level": "(string)"
+                    },
+                    "azureTableStorage": {
+                        "level": "(string)",
+                        "sasUrl": "(string)"
+                    },
+                    "azureBlobStorage": {
+                        "level": "(string)",
+                        "sasUrl": "(string)",
+                        "retentionInDays": "(integer)"
+                    }
+                },
+                "httpLogs": {
+                    "fileSystem": {
+                        "retentionInMb": "(integer)",
+                        "retentionInDays": "(integer)",
+                        "enabled": "(boolean)"
+                    },
+                    "azureBlobStorage": {
+                        "sasUrl": "(string)",
+                        "retentionInDays": "(integer)",
+                        "enabled": "(boolean)"
+                    }
+                },
+                "failedRequestsTracing": {
+                    "enabled": "(boolean)"
+                },
+                "detailedErrorMessages": {
+                    "enabled": "(boolean)"
+                }
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "applicationLogs": {
+                    "fileSystem": {
+                        "level": "Log level"
+                    },
+                    "azureTableStorage": {
+                        "level": "Log level",
+                        "sasUrl": "SAS url to an azure table with add/query/delete permissions"
+                    },
+                    "azureBlobStorage": {
+                        "level": "Log level",
+                        "sasUrl": "SAS url to a azure blob container with read/write/list/delete permissions",
+                        "retentionInDays": "Retention in days.\r\n            Remove blobs older than X days.\r\n            0 or lower means no retention."
+                    }
+                },
+                "httpLogs": {
+                    "fileSystem": {
+                        "retentionInMb": "Maximum size in megabytes that http log files can use.\r\n            When reached old log files will be removed to make space for new ones.\r\n            Value can range between 25 and 100.",
+                        "retentionInDays": "Retention in days.\r\n            Remove files older than X days.\r\n            0 or lower means no retention.",
+                        "enabled": "Enabled"
+                    },
+                    "azureBlobStorage": {
+                        "sasUrl": "SAS url to a azure blob container with read/write/list/delete permissions",
+                        "retentionInDays": "Retention in days.\r\n            Remove blobs older than X days.\r\n            0 or lower means no retention.",
+                        "enabled": "Enabled"
+                    }
+                },
+                "failedRequestsTracing": {
+                    "enabled": "Enabled"
+                },
+                "detailedErrorMessages": {
+                    "enabled": "Enabled"
+                }
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4430,19 +4672,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sync",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4454,7 +4690,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sync",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4464,75 +4700,9 @@
         "ApiVersion": "2015-08-01"
     },
     {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "entityName": "(string)",
-                "entityConnectionString": "(string)",
-                "resourceType": "(string)",
-                "resourceConnectionString": "(string)",
-                "hostname": "(string)",
-                "port": "(integer)",
-                "biztalkUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {}
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Update",
-        "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "entityName": "(string)",
-                "entityConnectionString": "(string)",
-                "resourceType": "(string)",
-                "resourceConnectionString": "(string)",
-                "hostname": "(string)",
-                "port": "(integer)",
-                "biztalkUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {}
-        },
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4581,6 +4751,78 @@
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entityName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "entityName": "(string)",
+                "entityConnectionString": "(string)",
+                "resourceType": "(string)",
+                "resourceConnectionString": "(string)",
+                "hostname": "(string)",
+                "port": "(integer)",
+                "biztalkUri": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "entityName": "(string)",
+                "entityConnectionString": "(string)",
+                "resourceType": "(string)",
+                "resourceConnectionString": "(string)",
+                "hostname": "(string)",
+                "port": "(integer)",
+                "biztalkUri": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4622,68 +4864,6 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "vnetName": "(string)",
-                "vpnPackageUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "vnetName": "The VNET name.",
-                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Update",
-        "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "vnetName": "(string)",
-                "vpnPackageUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "vnetName": "The VNET name.",
-                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "ApiVersion": "2015-08-01"
     },
@@ -4746,13 +4926,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4760,24 +4940,8 @@
             "type": "(string)",
             "tags": {},
             "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)",
-                "routes": [
-                    {
-                        "id": "(string)",
-                        "name": "(string)",
-                        "location": "(string)",
-                        "type": "(string)",
-                        "tags": {},
-                        "properties": {
-                            "name": "(string)",
-                            "startAddress": "(string)",
-                            "endAddress": "(string)",
-                            "routeType": "(string)"
-                        }
-                    }
-                ]
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -4787,38 +4951,16 @@
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
-                "routes": [
-                    {
-                        "id": "Resource Id",
-                        "name": "Resource Name",
-                        "location": "Resource Location",
-                        "type": "Resource type",
-                        "tags": {},
-                        "properties": {
-                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
-                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
-                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
-                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
-                        }
-                    }
-                ]
+                "vnetName": "The VNET name.",
+                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4826,24 +4968,8 @@
             "type": "(string)",
             "tags": {},
             "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)",
-                "routes": [
-                    {
-                        "id": "(string)",
-                        "name": "(string)",
-                        "location": "(string)",
-                        "type": "(string)",
-                        "tags": {},
-                        "properties": {
-                            "name": "(string)",
-                            "startAddress": "(string)",
-                            "endAddress": "(string)",
-                            "routeType": "(string)"
-                        }
-                    }
-                ]
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -4853,24 +4979,8 @@
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
-                "routes": [
-                    {
-                        "id": "Resource Id",
-                        "name": "Resource Name",
-                        "location": "Resource Location",
-                        "type": "Resource type",
-                        "tags": {},
-                        "properties": {
-                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
-                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
-                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
-                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
-                        }
-                    }
-                ]
+                "vnetName": "The VNET name.",
+                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -4951,6 +5061,138 @@
         "MethodName": "Update",
         "HttpMethod": "PATCH",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -5034,13 +5276,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5074,20 +5316,6 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsdiffs",
-        "RequestBody": {
-            "targetSlot": "(string)",
-            "preserveVnet": "(boolean)"
-        },
-        "RequestBodyDoc": {
-            "targetSlot": "Set the destination deployment slot during swap operation",
-            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsdiffs",
         "RequestBody": {
             "targetSlot": "(string)",
@@ -5102,7 +5330,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/applySlotConfig",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsdiffs",
         "RequestBody": {
             "targetSlot": "(string)",
             "preserveVnet": "(boolean)"
@@ -5130,6 +5358,20 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/applySlotConfig",
+        "RequestBody": {
+            "targetSlot": "(string)",
+            "preserveVnet": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "targetSlot": "Set the destination deployment slot during swap operation",
+            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
         "ApiVersion": "2015-08-01"
     },
@@ -5137,12 +5379,6 @@
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots",
         "ApiVersion": "2015-08-01"
     },
     {
