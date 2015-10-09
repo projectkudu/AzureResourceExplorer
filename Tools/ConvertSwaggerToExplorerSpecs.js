@@ -105,7 +105,9 @@ function shouldSkip(path){
                 "deletedSites",
                 "/workers/{workerName}",
                 "/operations/{operationId}",
-                "/extensions/{extensionApiMethod}"
+                "/extensions/{extensionApiMethod}",
+				"/snapshots",
+				"/restorablesnapshots"
                 ];
 
     return blackList.some(function(e) {
