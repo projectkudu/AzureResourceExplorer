@@ -77,7 +77,6 @@ function shouldSkip(path){
 				"restore",
 	            "backup/config",
                 "discover",
-                "slotConfigNames",
                 "metrics",
                 "repository",
                 "usages",

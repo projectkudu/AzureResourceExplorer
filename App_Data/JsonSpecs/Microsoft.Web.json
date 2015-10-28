@@ -886,6 +886,12 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/managedHostingEnvironments",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/classicMobileServices",
         "ApiVersion": "2015-08-01"
     },
@@ -1636,6 +1642,233 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/managedHostingEnvironments/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/managedHostingEnvironments/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "location": "(string)",
+                "status": "(string)",
+                "vnetName": "(string)",
+                "vnetResourceGroupName": "(string)",
+                "vnetSubnetName": "(string)",
+                "virtualNetwork": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)",
+                    "subnet": "(string)"
+                },
+                "internalLoadBalancingMode": "(string)",
+                "multiSize": "(string)",
+                "multiRoleCount": "(integer)",
+                "workerPools": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "workerSizeId": "(integer)",
+                            "computeMode": "(string)",
+                            "workerSize": "(string)",
+                            "workerCount": "(integer)",
+                            "instanceNames": [
+                                "(string)"
+                            ]
+                        },
+                        "sku": {
+                            "name": "(string)",
+                            "tier": "(string)",
+                            "size": "(string)",
+                            "family": "(string)",
+                            "capacity": "(integer)"
+                        }
+                    }
+                ],
+                "ipsslAddressCount": "(integer)",
+                "databaseEdition": "(string)",
+                "databaseServiceObjective": "(string)",
+                "upgradeDomains": "(integer)",
+                "subscriptionId": "(string)",
+                "dnsSuffix": "(string)",
+                "lastAction": "(string)",
+                "lastActionResult": "(string)",
+                "allowedMultiSizes": "(string)",
+                "allowedWorkerSizes": "(string)",
+                "maximumNumberOfMachines": "(integer)",
+                "vipMappings": [
+                    {
+                        "virtualIP": "(string)",
+                        "internalHttpPort": "(integer)",
+                        "internalHttpsPort": "(integer)",
+                        "inUse": "(boolean)"
+                    }
+                ],
+                "environmentCapacities": [
+                    {
+                        "name": "(string)",
+                        "availableCapacity": "(integer)",
+                        "totalCapacity": "(integer)",
+                        "unit": "(string)",
+                        "computeMode": "(string)",
+                        "workerSize": "(string)",
+                        "workerSizeId": "(integer)",
+                        "excludeFromCapacityAllocation": "(boolean)",
+                        "isApplicableForAllComputeModes": "(boolean)",
+                        "siteMode": "(string)"
+                    }
+                ],
+                "networkAccessControlList": [
+                    {
+                        "action": "(string)",
+                        "description": "(string)",
+                        "order": "(integer)",
+                        "remoteSubnet": "(string)"
+                    }
+                ],
+                "environmentIsHealthy": "(boolean)",
+                "environmentStatus": "(string)",
+                "resourceGroup": "(string)",
+                "apiManagementAccountId": "(string)",
+                "suspended": "(boolean)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the hostingEnvironment (App Service Environment)",
+                "location": "Location of the hostingEnvironment (App Service Environment), e.g. \"West US\"",
+                "status": "Current status of the hostingEnvironment (App Service Environment)",
+                "vnetName": "Name of the hostingEnvironment's (App Service Environment) virtual network",
+                "vnetResourceGroupName": "Resource group of the hostingEnvironment's (App Service Environment) virtual network",
+                "vnetSubnetName": "Subnet of the hostingEnvironment's (App Service Environment) virtual network",
+                "virtualNetwork": {
+                    "id": "Resource id of the virtual network",
+                    "name": "Name of the virtual network (read-only)",
+                    "type": "Resource type of the virtual network (read-only)",
+                    "subnet": "Subnet within the virtual network"
+                },
+                "internalLoadBalancingMode": "Specifies which endpoints to serve internally in the hostingEnvironment's (App Service Environment) VNET",
+                "multiSize": "Front-end VM size, e.g. \"Medium\", \"Large\"",
+                "multiRoleCount": "Number of front-end instances",
+                "workerPools": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "workerSizeId": "Worker size id for referencing this worker pool",
+                            "computeMode": "Shared or dedicated web app hosting",
+                            "workerSize": "VM size of the worker pool instances",
+                            "workerCount": "Number of instances in the worker pool",
+                            "instanceNames": [
+                                null
+                            ]
+                        },
+                        "sku": {
+                            "name": "Name of the resource sku",
+                            "tier": "Service Tier of the resource sku",
+                            "size": "Size specifier of the resource sku",
+                            "family": "Family code of the resource sku",
+                            "capacity": "Current number of instances assigned to the resource"
+                        }
+                    }
+                ],
+                "ipsslAddressCount": "Number of IP SSL addresses reserved for this hostingEnvironment (App Service Environment)",
+                "databaseEdition": "Edition of the metadata database for the hostingEnvironment (App Service Environment) e.g. \"Standard\"",
+                "databaseServiceObjective": "Service objective of the metadata database for the hostingEnvironment (App Service Environment) e.g. \"S0\"",
+                "upgradeDomains": "Number of upgrade domains of this hostingEnvironment (App Service Environment)",
+                "subscriptionId": "Subscription of the hostingEnvironment (App Service Environment)",
+                "dnsSuffix": "DNS suffix of the hostingEnvironment (App Service Environment)",
+                "lastAction": "Last deployment action on this hostingEnvironment (App Service Environment)",
+                "lastActionResult": "Result of the last deployment action on this hostingEnvironment (App Service Environment)",
+                "allowedMultiSizes": "List of comma separated strings describing which VM sizes are allowed for front-ends",
+                "allowedWorkerSizes": "List of comma separated strings describing which VM sizes are allowed for workers",
+                "maximumNumberOfMachines": "Maximum number of VMs in this hostingEnvironment (App Service Environment)",
+                "vipMappings": [
+                    {
+                        "virtualIP": "Virtual IP address",
+                        "internalHttpPort": "Internal HTTP port",
+                        "internalHttpsPort": "Internal HTTPS port",
+                        "inUse": "Is VIP mapping in use"
+                    }
+                ],
+                "environmentCapacities": [
+                    {
+                        "name": "Name of the stamp",
+                        "availableCapacity": "Available capacity (# of machines, bytes of storage etc...)",
+                        "totalCapacity": "Total capacity (# of machines, bytes of storage etc...)",
+                        "unit": "Name of the unit",
+                        "computeMode": "Shared/Dedicated workers",
+                        "workerSize": "Size of the machines",
+                        "workerSizeId": "Size Id of machines: \r\n            0 - Small\r\n            1 - Medium\r\n            2 - Large",
+                        "excludeFromCapacityAllocation": "If true it includes basic sites\r\n            Basic sites are not used for capacity allocation.",
+                        "isApplicableForAllComputeModes": "Is capacity applicable for all sites?",
+                        "siteMode": "Shared or Dedicated"
+                    }
+                ],
+                "networkAccessControlList": [
+                    {}
+                ],
+                "environmentIsHealthy": "True/false indicating whether the hostingEnvironment (App Service Environment) is healthy",
+                "environmentStatus": "Detailed message about with results of the last check of the hostingEnvironment (App Service Environment)",
+                "resourceGroup": "Resource group of the hostingEnvironment (App Service Environment)",
+                "apiManagementAccountId": "Api Management Account associated with this Hosting Environment",
+                "suspended": "True/false indicating whether the hostingEnvironment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\r\n            (most likely because NSG blocked the incoming traffic)"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/managedHostingEnvironments/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/managedHostingEnvironments",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/managedHostingEnvironments/{name}/capacities/virtualip",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/managedHostingEnvironments/{name}/sites",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/managedHostingEnvironments/{name}/serverfarms",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols",
         "ApiVersion": "2015-08-01"
     },
@@ -1675,6 +1908,50 @@
                 "tokenSecret": "OAuth Access Token Secret",
                 "refreshToken": "OAuth Refresh Token",
                 "expirationTime": "OAuth Token Expiration"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/publishingUsers/web",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/publishingUsers/web",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "publishingUserName": "(string)",
+                "publishingPassword": "(string)",
+                "lastUpdatedTime": "(string)",
+                "metadata": "(string)",
+                "isDeleted": "(boolean)",
+                "scmUri": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Username (internal)",
+                "publishingUserName": "Username used for publishing",
+                "publishingPassword": "Password used for publishing",
+                "lastUpdatedTime": "Timestamp when publishing credentials were last modified (internal)",
+                "metadata": "User metadata (internal)",
+                "isDeleted": "Indicates if user has been marked for deletion (internal)",
+                "scmUri": "Url of SCM site (internal)"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -1916,6 +2193,144 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsswap",
+        "RequestBody": {
+            "targetSlot": "(string)",
+            "preserveVnet": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "targetSlot": "Set the destination deployment slot during swap operation",
+            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsswap",
+        "RequestBody": {
+            "targetSlot": "(string)",
+            "preserveVnet": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "targetSlot": "Set the destination deployment slot during swap operation",
+            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsdiffs",
+        "RequestBody": {
+            "targetSlot": "(string)",
+            "preserveVnet": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "targetSlot": "Set the destination deployment slot during swap operation",
+            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsdiffs",
+        "RequestBody": {
+            "targetSlot": "(string)",
+            "preserveVnet": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "targetSlot": "Set the destination deployment slot during swap operation",
+            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/applySlotConfig",
+        "RequestBody": {
+            "targetSlot": "(string)",
+            "preserveVnet": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "targetSlot": "Set the destination deployment slot during swap operation",
+            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/applySlotConfig",
+        "RequestBody": {
+            "targetSlot": "(string)",
+            "preserveVnet": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "targetSlot": "Set the destination deployment slot during swap operation",
+            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/slotConfigNames",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/slotConfigNames",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "connectionStringNames": [
+                    "(string)"
+                ],
+                "appSettingNames": [
+                    "(string)"
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "connectionStringNames": [
+                    null
+                ],
+                "appSettingNames": [
+                    null
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots",
@@ -2092,13 +2507,6 @@
                         },
                         "tracingOptions": "(string)",
                         "vnetName": "(string)",
-                        "siteAuthEnabled": "(boolean)",
-                        "siteAuthSettings": {
-                            "clientId": "(string)",
-                            "issuer": "(string)",
-                            "aadClientId": "(string)",
-                            "openIdIssuer": "(string)"
-                        },
                         "autoSwapSlotName": "(string)"
                     }
                 },
@@ -2280,11 +2688,6 @@
                         },
                         "tracingOptions": "Tracing options",
                         "vnetName": "Vnet name",
-                        "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                        "siteAuthSettings": {
-                            "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                            "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                        },
                         "autoSwapSlotName": "Auto swap slot name"
                     }
                 },
@@ -2491,13 +2894,6 @@
                         },
                         "tracingOptions": "(string)",
                         "vnetName": "(string)",
-                        "siteAuthEnabled": "(boolean)",
-                        "siteAuthSettings": {
-                            "clientId": "(string)",
-                            "issuer": "(string)",
-                            "aadClientId": "(string)",
-                            "openIdIssuer": "(string)"
-                        },
                         "autoSwapSlotName": "(string)"
                     }
                 },
@@ -2679,11 +3075,6 @@
                         },
                         "tracingOptions": "Tracing options",
                         "vnetName": "Vnet name",
-                        "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                        "siteAuthSettings": {
-                            "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                            "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                        },
                         "autoSwapSlotName": "Auto swap slot name"
                     }
                 },
@@ -2772,63 +3163,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "siteName": "(string)",
-                "domainId": "(string)",
-                "azureResourceName": "(string)",
-                "azureResourceType": "(string)",
-                "customHostNameDnsRecordType": "(string)",
-                "hostNameType": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Hostname",
-                "siteName": "Web app name",
-                "domainId": "Fully qualified ARM domain resource URI",
-                "azureResourceName": "Azure resource name",
-                "azureResourceType": "Azure resource type",
-                "customHostNameDnsRecordType": "Custom DNS record type",
-                "hostNameType": "Host name type"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2879,6 +3220,56 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "siteName": "(string)",
+                "domainId": "(string)",
+                "azureResourceName": "(string)",
+                "azureResourceType": "(string)",
+                "customHostNameDnsRecordType": "(string)",
+                "hostNameType": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Hostname",
+                "siteName": "Web app name",
+                "domainId": "Fully qualified ARM domain resource URI",
+                "azureResourceName": "Azure resource name",
+                "azureResourceType": "Azure resource type",
+                "customHostNameDnsRecordType": "Custom DNS record type",
+                "hostNameType": "Host name type"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3015,13 +3406,6 @@
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
-                "siteAuthEnabled": "(boolean)",
-                "siteAuthSettings": {
-                    "clientId": "(string)",
-                    "issuer": "(string)",
-                    "aadClientId": "(string)",
-                    "openIdIssuer": "(string)"
-                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -3143,11 +3527,6 @@
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
-                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                "siteAuthSettings": {
-                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -3281,13 +3660,6 @@
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
-                "siteAuthEnabled": "(boolean)",
-                "siteAuthSettings": {
-                    "clientId": "(string)",
-                    "issuer": "(string)",
-                    "aadClientId": "(string)",
-                    "openIdIssuer": "(string)"
-                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -3409,11 +3781,6 @@
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
-                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                "siteAuthSettings": {
-                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -3553,13 +3920,6 @@
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
-                "siteAuthEnabled": "(boolean)",
-                "siteAuthSettings": {
-                    "clientId": "(string)",
-                    "issuer": "(string)",
-                    "aadClientId": "(string)",
-                    "openIdIssuer": "(string)"
-                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -3681,11 +4041,6 @@
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
-                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                "siteAuthSettings": {
-                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -3819,13 +4174,6 @@
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
-                "siteAuthEnabled": "(boolean)",
-                "siteAuthSettings": {
-                    "clientId": "(string)",
-                    "issuer": "(string)",
-                    "aadClientId": "(string)",
-                    "openIdIssuer": "(string)"
-                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -3947,11 +4295,6 @@
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
-                "siteAuthEnabled": "App Service Authentication / Authorization enabled",
-                "siteAuthSettings": {
-                    "clientId": "Gets or sets the unique ID of this relying party application, known as the client_id.",
-                    "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer."
-                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -4232,6 +4575,166 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings",
+        "RequestBody": {
+            "enabled": "(boolean)",
+            "httpApiPrefixPath": "(string)",
+            "unauthenticatedClientAction": "(string)",
+            "tokenStoreEnabled": "(boolean)",
+            "allowedExternalRedirectUrls": [
+                "(string)"
+            ],
+            "defaultProvider": "(string)",
+            "clientId": "(string)",
+            "clientSecret": "(string)",
+            "issuer": "(string)",
+            "allowedAudiences": [
+                "(string)"
+            ],
+            "aadClientId": "(string)",
+            "openIdIssuer": "(string)",
+            "googleClientId": "(string)",
+            "googleClientSecret": "(string)",
+            "googleOAuthScopes": [
+                "(string)"
+            ],
+            "facebookAppId": "(string)",
+            "facebookAppSecret": "(string)",
+            "facebookOAuthScopes": [
+                "(string)"
+            ],
+            "twitterConsumerKey": "(string)",
+            "twitterConsumerSecret": "(string)",
+            "microsoftAccountClientId": "(string)",
+            "microsoftAccountClientSecret": "(string)",
+            "microsoftAccountOAuthScopes": [
+                "(string)"
+            ]
+        },
+        "RequestBodyDoc": {
+            "enabled": "Gets or sets a value indicating whether the Authentication / Authorization feature is enabled for the current app.",
+            "httpApiPrefixPath": "Gets or sets the relative path prefix used by platform HTTP APIs.\r\n            Changing this value is not recommended except for compatibility reasons.",
+            "unauthenticatedClientAction": "Gets or sets the action to take when an unauthenticated client attempts to access the app.",
+            "tokenStoreEnabled": "Gets or sets a value indicating whether to durably store platform-specific security tokens\r\n            obtained during login flows. This capability is disabled by default.",
+            "allowedExternalRedirectUrls": [
+                null
+            ],
+            "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This settings is only needed if multiple providers are configured if the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
+            "clientId": "Gets or sets the Client ID of this relying party application, known as the client_id.\r\n            This setting is required for enabling OpenID Connection authentication with Azure Active Directory or \r\n            other 3rd party OpenID Connect providers.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
+            "clientSecret": "Gets or sets the Client Secret of this relying party application (in Azure Active Directory, this is also referred to as the Key).\r\n            This setting is optional. If no client secret is configured, the OpenID Connect implicit auth flow is used to authenticate end users.\r\n            Otherwise, the OpenID Connect Authorization Code Flow is used to authenticate end users.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
+            "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer.\r\n            More information on OpenID Connect Discovery: http://openid.net/specs/openid-connect-discovery-1_0.html",
+            "allowedAudiences": [
+                null
+            ],
+            "googleClientId": "Gets or sets the OpenID Connect Client ID for the Google web application.\r\n            This setting is required for enabling Google Sign-In.\r\n            Google Sign-In documentation: https://developers.google.com/identity/sign-in/web/",
+            "googleClientSecret": "Gets or sets the client secret associated with the Google web application.\r\n            This setting is required for enabling Google Sign-In.\r\n            Google Sign-In documentation: https://developers.google.com/identity/sign-in/web/",
+            "googleOAuthScopes": [
+                null
+            ],
+            "facebookAppId": "Gets or sets the App ID of the Facebook app used for login.\r\n            This setting is required for enabling Facebook Login.\r\n            Facebook Login documentation: https://developers.facebook.com/docs/facebook-login",
+            "facebookAppSecret": "Gets or sets the App Secret of the Facebook app used for Facebook Login.\r\n            This setting is required for enabling Facebook Login.\r\n            Facebook Login documentation: https://developers.facebook.com/docs/facebook-login",
+            "facebookOAuthScopes": [
+                null
+            ],
+            "twitterConsumerKey": "Gets or sets the OAuth 1.0a consumer key of the Twitter application used for sign-in.\r\n            This setting is required for enabling Twitter Sign-In.\r\n            Twitter Sign-In documentation: https://dev.twitter.com/web/sign-in",
+            "twitterConsumerSecret": "Gets or sets the OAuth 1.0a consumer secret of the Twitter application used for sign-in.\r\n            This setting is required for enabling Twitter Sign-In.\r\n            Twitter Sign-In documentation: https://dev.twitter.com/web/sign-in",
+            "microsoftAccountClientId": "Gets or sets the OAuth 2.0 client ID that was created for the app used for authentication.\r\n            This setting is required for enabling Microsoft Account authentication.\r\n            Microsoft Account OAuth documentation: https://dev.onedrive.com/auth/msa_oauth.htm",
+            "microsoftAccountClientSecret": "Gets or sets the OAuth 2.0 client secret that was created for the app used for authentication.\r\n            This setting is required for enabling Microsoft Account authentication.\r\n            Microsoft Account OAuth documentation: https://dev.onedrive.com/auth/msa_oauth.htm",
+            "microsoftAccountOAuthScopes": [
+                null
+            ]
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings",
+        "RequestBody": {
+            "enabled": "(boolean)",
+            "httpApiPrefixPath": "(string)",
+            "unauthenticatedClientAction": "(string)",
+            "tokenStoreEnabled": "(boolean)",
+            "allowedExternalRedirectUrls": [
+                "(string)"
+            ],
+            "defaultProvider": "(string)",
+            "clientId": "(string)",
+            "clientSecret": "(string)",
+            "issuer": "(string)",
+            "allowedAudiences": [
+                "(string)"
+            ],
+            "aadClientId": "(string)",
+            "openIdIssuer": "(string)",
+            "googleClientId": "(string)",
+            "googleClientSecret": "(string)",
+            "googleOAuthScopes": [
+                "(string)"
+            ],
+            "facebookAppId": "(string)",
+            "facebookAppSecret": "(string)",
+            "facebookOAuthScopes": [
+                "(string)"
+            ],
+            "twitterConsumerKey": "(string)",
+            "twitterConsumerSecret": "(string)",
+            "microsoftAccountClientId": "(string)",
+            "microsoftAccountClientSecret": "(string)",
+            "microsoftAccountOAuthScopes": [
+                "(string)"
+            ]
+        },
+        "RequestBodyDoc": {
+            "enabled": "Gets or sets a value indicating whether the Authentication / Authorization feature is enabled for the current app.",
+            "httpApiPrefixPath": "Gets or sets the relative path prefix used by platform HTTP APIs.\r\n            Changing this value is not recommended except for compatibility reasons.",
+            "unauthenticatedClientAction": "Gets or sets the action to take when an unauthenticated client attempts to access the app.",
+            "tokenStoreEnabled": "Gets or sets a value indicating whether to durably store platform-specific security tokens\r\n            obtained during login flows. This capability is disabled by default.",
+            "allowedExternalRedirectUrls": [
+                null
+            ],
+            "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This settings is only needed if multiple providers are configured if the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
+            "clientId": "Gets or sets the Client ID of this relying party application, known as the client_id.\r\n            This setting is required for enabling OpenID Connection authentication with Azure Active Directory or \r\n            other 3rd party OpenID Connect providers.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
+            "clientSecret": "Gets or sets the Client Secret of this relying party application (in Azure Active Directory, this is also referred to as the Key).\r\n            This setting is optional. If no client secret is configured, the OpenID Connect implicit auth flow is used to authenticate end users.\r\n            Otherwise, the OpenID Connect Authorization Code Flow is used to authenticate end users.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
+            "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer.\r\n            More information on OpenID Connect Discovery: http://openid.net/specs/openid-connect-discovery-1_0.html",
+            "allowedAudiences": [
+                null
+            ],
+            "googleClientId": "Gets or sets the OpenID Connect Client ID for the Google web application.\r\n            This setting is required for enabling Google Sign-In.\r\n            Google Sign-In documentation: https://developers.google.com/identity/sign-in/web/",
+            "googleClientSecret": "Gets or sets the client secret associated with the Google web application.\r\n            This setting is required for enabling Google Sign-In.\r\n            Google Sign-In documentation: https://developers.google.com/identity/sign-in/web/",
+            "googleOAuthScopes": [
+                null
+            ],
+            "facebookAppId": "Gets or sets the App ID of the Facebook app used for login.\r\n            This setting is required for enabling Facebook Login.\r\n            Facebook Login documentation: https://developers.facebook.com/docs/facebook-login",
+            "facebookAppSecret": "Gets or sets the App Secret of the Facebook app used for Facebook Login.\r\n            This setting is required for enabling Facebook Login.\r\n            Facebook Login documentation: https://developers.facebook.com/docs/facebook-login",
+            "facebookOAuthScopes": [
+                null
+            ],
+            "twitterConsumerKey": "Gets or sets the OAuth 1.0a consumer key of the Twitter application used for sign-in.\r\n            This setting is required for enabling Twitter Sign-In.\r\n            Twitter Sign-In documentation: https://dev.twitter.com/web/sign-in",
+            "twitterConsumerSecret": "Gets or sets the OAuth 1.0a consumer secret of the Twitter application used for sign-in.\r\n            This setting is required for enabling Twitter Sign-In.\r\n            Twitter Sign-In documentation: https://dev.twitter.com/web/sign-in",
+            "microsoftAccountClientId": "Gets or sets the OAuth 2.0 client ID that was created for the app used for authentication.\r\n            This setting is required for enabling Microsoft Account authentication.\r\n            Microsoft Account OAuth documentation: https://dev.onedrive.com/auth/msa_oauth.htm",
+            "microsoftAccountClientSecret": "Gets or sets the OAuth 2.0 client secret that was created for the app used for authentication.\r\n            This setting is required for enabling Microsoft Account authentication.\r\n            Microsoft Account OAuth documentation: https://dev.onedrive.com/auth/msa_oauth.htm",
+            "microsoftAccountOAuthScopes": [
+                null
+            ]
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list",
         "ApiVersion": "2015-08-01"
     },
@@ -4256,7 +4759,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4278,7 +4781,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4500,13 +5003,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
         "RequestBody": {
             "location": "(string)",
             "tags": {},
@@ -4550,19 +5053,19 @@
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
         "RequestBody": {
             "location": "(string)",
             "tags": {},
@@ -4606,7 +5109,7 @@
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4672,25 +5175,25 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sync",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sync",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sync",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4988,13 +5491,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -5054,13 +5557,13 @@
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -5120,13 +5623,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -5186,13 +5689,13 @@
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -5283,102 +5786,6 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsswap",
-        "RequestBody": {
-            "targetSlot": "(string)",
-            "preserveVnet": "(boolean)"
-        },
-        "RequestBodyDoc": {
-            "targetSlot": "Set the destination deployment slot during swap operation",
-            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsswap",
-        "RequestBody": {
-            "targetSlot": "(string)",
-            "preserveVnet": "(boolean)"
-        },
-        "RequestBodyDoc": {
-            "targetSlot": "Set the destination deployment slot during swap operation",
-            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsdiffs",
-        "RequestBody": {
-            "targetSlot": "(string)",
-            "preserveVnet": "(boolean)"
-        },
-        "RequestBodyDoc": {
-            "targetSlot": "Set the destination deployment slot during swap operation",
-            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/slotsdiffs",
-        "RequestBody": {
-            "targetSlot": "(string)",
-            "preserveVnet": "(boolean)"
-        },
-        "RequestBodyDoc": {
-            "targetSlot": "Set the destination deployment slot during swap operation",
-            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/applySlotConfig",
-        "RequestBody": {
-            "targetSlot": "(string)",
-            "preserveVnet": "(boolean)"
-        },
-        "RequestBodyDoc": {
-            "targetSlot": "Set the destination deployment slot during swap operation",
-            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/applySlotConfig",
-        "RequestBody": {
-            "targetSlot": "(string)",
-            "preserveVnet": "(boolean)"
-        },
-        "RequestBodyDoc": {
-            "targetSlot": "Set the destination deployment slot during swap operation",
-            "preserveVnet": "Get or set the flag indicating it should preserve VNet to the slot during swap"
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
         "ApiVersion": "2015-08-01"
     },
     {
