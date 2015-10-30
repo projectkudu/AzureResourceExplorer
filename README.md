@@ -43,7 +43,7 @@ Test with localhost
 
 ## Adding Swagger based specs
 
-Swagger files can be found on https://github.com/Azure/azure-rest-api-specs
+Swagger files can be found on https://github.com/Azure/azure-rest-api-specs. The raw file for Web Apps is [here](https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/arm-web/2015-08-01/swagger/service.json).
 
 ```
 cd Tools
