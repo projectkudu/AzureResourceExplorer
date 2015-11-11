@@ -1471,17 +1471,17 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     });
 
 function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IAction[]): string {
-    var returnString = "# PowerShell equivalent script\nSwitch-AzureMode -Name AzureResourceManager\n\n";
+    var returnString = "# PowerShell equivalent script\n\n";
     var resourceInfo = GetResourceTypeAndName(value);
 
     // add GET related cmdlet if available
     if (value.httpMethod.toLowerCase().indexOf("get") != -1) {
         returnString += "# GET " + GetActionName(value.url) + "\n";
-        returnString += "Get-AzureResource " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + "\n\n";
+        returnString += "Get-AzureRmResource " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + "\n\n";
     }
     else if (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1) {
         returnString += "# List " + GetActionName(value.url.replace("/list", "")) + "\n";
-        returnString += "$resource = Invoke-AzureResourceAction " + resourceInfo + " -Action list -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n";
+        returnString += "$resource = Invoke-AzureRmResourceAction " + resourceInfo + " -Action list -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n";
         returnString += "$resource.Properties\n\n";
     }
 
@@ -1492,10 +1492,10 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
 
         // handle secure GET
         if (value.resourceDefinition.actions.includes("GET")) {
-            returnString += "Set-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+            returnString += "Set-AzureRmResource -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
         }
         else {
-            returnString += "New-AzureResource -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+            returnString += "New-AzureRmResource -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
         }
     }
 
@@ -1503,7 +1503,7 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
     if (value.resourceDefinition.actions.includes("CREATE")) {
         returnString += "# CREATE " + GetActionName(value.url) + "\n";
         returnString += "$ResourceLocation = \"West US\"\n$ResourceName = \"New" + GetResourceName(value.url) + "\"\n$PropertiesObject = @{\n\t#Property = value;\n}\n";
-        returnString += "New-AzureResource -Name $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -OutputObjectFormat New -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        returnString += "New-AzureRmResource -Name $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
     }
 
     // add ACTIONS related Cmdlets if available
@@ -1512,14 +1512,14 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
         actions.forEach(action => {
             if (action.httpMethod.toLocaleLowerCase() === "delete") {
                 returnString += "# Delete " + GetActionName(action.url) + "\n";
-                returnString += "Remove-AzureResource " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+                returnString += "Remove-AzureRmResource " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
             }
             else if (action.httpMethod.toLocaleLowerCase() === "post") {
                 returnString += "# Action " + GetActionName(action.url) + "\n";
                 if (action.requestBody) {
                     returnString += "$ParametersObject = " + GETPSObjectFromJSON(action.requestBody, 0) + "\n";
                 }
-                returnString += "Invoke-AzureResourceAction " + resourceInfo + " -Action " + action.name + (action.requestBody ? " -Parameters $ParametersObject": "") + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
+                returnString += "Invoke-AzureRmResourceAction " + resourceInfo + " -Action " + action.name + (action.requestBody ? " -Parameters $ParametersObject": "") + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
             }
         })
     }
