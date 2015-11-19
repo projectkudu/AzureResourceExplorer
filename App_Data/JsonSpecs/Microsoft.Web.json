@@ -16,7 +16,7 @@
             "type": "(string)",
             "tags": {},
             "properties": {
-                "keyVaultCsmId": "(string)",
+                "keyVaultId": "(string)",
                 "keyVaultSecretName": "(string)",
                 "provisioningState": "(string)",
                 "thumbprint": "(string)"
@@ -29,7 +29,7 @@
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultId": "Key Vault Csm resource Id",
                 "keyVaultSecretName": "Key Vault secret name",
                 "provisioningState": "Status of the Key Vault secret",
                 "thumbprint": "Thumbprint of the certificate stored in KeyVault"
@@ -54,7 +54,7 @@
             "type": "(string)",
             "tags": {},
             "properties": {
-                "keyVaultCsmId": "(string)",
+                "keyVaultId": "(string)",
                 "keyVaultSecretName": "(string)",
                 "provisioningState": "(string)",
                 "thumbprint": "(string)"
@@ -67,7 +67,7 @@
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultId": "Key Vault Csm resource Id",
                 "keyVaultSecretName": "Key Vault secret name",
                 "provisioningState": "Status of the Key Vault secret",
                 "thumbprint": "Thumbprint of the certificate stored in KeyVault"
@@ -98,15 +98,14 @@
                 "validityInYears": "(integer)",
                 "keySize": "(integer)",
                 "productType": "(string)",
+                "autoRenew": "(boolean)",
+                "provisioningState": "(string)",
                 "status": "(string)",
                 "signedCertificate": "(string)",
                 "csr": "(string)",
                 "intermediate": "(string)",
                 "root": "(string)",
-                "serialNumber": "(string)",
-                "action": "(string)",
-                "keyVaultCsmId": "(string)",
-                "delayExistingRevokeInHours": "(integer)"
+                "serialNumber": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -122,15 +121,14 @@
                 "validityInYears": "Duration in years (must be between 1 and 3)",
                 "keySize": "Certificate Key Size",
                 "productType": "Certificate product type",
+                "autoRenew": "Auto renew",
+                "provisioningState": "Status of certificate order",
                 "status": "Current order status",
                 "signedCertificate": "Signed certificate",
                 "csr": "Last CSR that was created for this order",
                 "intermediate": "Intermediate certificate",
                 "root": "Root certificate",
-                "serialNumber": "Current serial number of the certificate",
-                "action": "Requested action on existing certificate order",
-                "keyVaultCsmId": "Key Vault Csm resource Id",
-                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued"
+                "serialNumber": "Current serial number of the certificate"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -158,15 +156,14 @@
                 "validityInYears": "(integer)",
                 "keySize": "(integer)",
                 "productType": "(string)",
+                "autoRenew": "(boolean)",
+                "provisioningState": "(string)",
                 "status": "(string)",
                 "signedCertificate": "(string)",
                 "csr": "(string)",
                 "intermediate": "(string)",
                 "root": "(string)",
-                "serialNumber": "(string)",
-                "action": "(string)",
-                "keyVaultCsmId": "(string)",
-                "delayExistingRevokeInHours": "(integer)"
+                "serialNumber": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -182,15 +179,14 @@
                 "validityInYears": "Duration in years (must be between 1 and 3)",
                 "keySize": "Certificate Key Size",
                 "productType": "Certificate product type",
+                "autoRenew": "Auto renew",
+                "provisioningState": "Status of certificate order",
                 "status": "Current order status",
                 "signedCertificate": "Signed certificate",
                 "csr": "Last CSR that was created for this order",
                 "intermediate": "Intermediate certificate",
                 "root": "Root certificate",
-                "serialNumber": "Current serial number of the certificate",
-                "action": "Requested action on existing certificate order",
-                "keyVaultCsmId": "Key Vault Csm resource Id",
-                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued"
+                "serialNumber": "Current serial number of the certificate"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -205,6 +201,62 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/reissue",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "keySize": "(integer)",
+                "delayExistingRevokeInHours": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "keySize": "Certificate Key Size",
+                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/renew",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "keySize": "(integer)",
+                "delayExistingRevokeInHours": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "keySize": "Certificate Key Size",
+                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued"
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -251,7 +303,7 @@
                     "name": "(string)",
                     "type": "(string)"
                 },
-                "keyVaultCsmId": "(string)",
+                "keyVaultId": "(string)",
                 "keyVaultSecretName": "(string)"
             }
         },
@@ -283,7 +335,7 @@
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
                 },
-                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultId": "Key Vault Csm resource Id",
                 "keyVaultSecretName": "Key Vault secret name"
             }
         },
@@ -327,7 +379,7 @@
                     "name": "(string)",
                     "type": "(string)"
                 },
-                "keyVaultCsmId": "(string)",
+                "keyVaultId": "(string)",
                 "keyVaultSecretName": "(string)"
             }
         },
@@ -359,7 +411,7 @@
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
                 },
-                "keyVaultCsmId": "Key Vault Csm resource Id",
+                "keyVaultId": "Key Vault Csm resource Id",
                 "keyVaultSecretName": "Key Vault secret name"
             }
         },
@@ -479,6 +531,7 @@
                     "phone": "(string)"
                 },
                 "registrationStatus": "(string)",
+                "provisioningState": "(string)",
                 "nameServers": [
                     "(string)"
                 ],
@@ -589,6 +642,7 @@
                     "phone": "Phone number"
                 },
                 "registrationStatus": "Domain registration status",
+                "provisioningState": "Domain provisioning state",
                 "nameServers": [
                     null
                 ],
@@ -711,6 +765,7 @@
                     "phone": "(string)"
                 },
                 "registrationStatus": "(string)",
+                "provisioningState": "(string)",
                 "nameServers": [
                     "(string)"
                 ],
@@ -821,6 +876,7 @@
                     "phone": "Phone number"
                 },
                 "registrationStatus": "Domain registration status",
+                "provisioningState": "Domain provisioning state",
                 "nameServers": [
                     null
                 ],
@@ -863,6 +919,122 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/geoRegions",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/certificates",
+        "ResponseBody": [
+            {
+                "id": "(string)",
+                "name": "(string)",
+                "type": "(string)",
+                "location": "(string)",
+                "tags": {},
+                "plan": {
+                    "name": "(string)",
+                    "publisher": "(string)",
+                    "product": "(string)",
+                    "promotionCode": "(string)",
+                    "version": "(string)"
+                },
+                "properties": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "friendlyName": "(string)",
+                        "subjectName": "(string)",
+                        "hostNames": [
+                            "(string)"
+                        ],
+                        "pfxBlob": "(string)",
+                        "siteName": "(string)",
+                        "selfLink": "(string)",
+                        "issuer": "(string)",
+                        "issueDate": "(string)",
+                        "expirationDate": "(string)",
+                        "password": "(string)",
+                        "thumbprint": "(string)",
+                        "valid": "(boolean)",
+                        "cerBlob": "(string)",
+                        "publicKeyHash": "(string)",
+                        "hostingEnvironmentProfile": {
+                            "id": "(string)",
+                            "name": "(string)",
+                            "type": "(string)"
+                        },
+                        "keyVaultId": "(string)",
+                        "keyVaultSecretName": "(string)"
+                    }
+                },
+                "sku": {
+                    "name": "(string)",
+                    "tier": "(string)",
+                    "size": "(string)",
+                    "family": "(string)",
+                    "capacity": "(integer)"
+                }
+            }
+        ],
+        "ResponseBodyDoc": [
+            {
+                "id": "Resource Id. Typically id is populated only for responses to GET requests. Caller is responsible for passing in this\r\n            value for GET requests only.\r\n            For example: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupId}/providers/Microsoft.Web/sites/{sitename}",
+                "name": "Name of resource",
+                "type": "Type of resource e.g Microsoft.Web/sites",
+                "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
+                "tags": {},
+                "plan": {
+                    "name": "The name",
+                    "publisher": "The publisher",
+                    "product": "The product",
+                    "promotionCode": "The promotion code",
+                    "version": "Version of product"
+                },
+                "properties": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "friendlyName": "Friendly name of the certificate",
+                        "subjectName": "Subject name of the certificate",
+                        "hostNames": [
+                            null
+                        ],
+                        "pfxBlob": "Pfx blob",
+                        "siteName": "App name",
+                        "selfLink": "Self link",
+                        "issuer": "Certificate issuer",
+                        "issueDate": "Certificate issue Date",
+                        "expirationDate": "Certificate expriration date",
+                        "password": "Certificate password",
+                        "thumbprint": "Certificate thumbprint",
+                        "valid": "Is the certificate valid?",
+                        "cerBlob": "Raw bytes of .cer file",
+                        "publicKeyHash": "Public key hash",
+                        "hostingEnvironmentProfile": {
+                            "id": "Resource id of the hostingEnvironment (App Service Environment)",
+                            "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
+                            "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
+                        },
+                        "keyVaultId": "Key Vault Csm resource Id",
+                        "keyVaultSecretName": "Key Vault secret name"
+                    }
+                },
+                "sku": {
+                    "name": "Name of the resource sku",
+                    "tier": "Service Tier of the resource sku",
+                    "size": "Size specifier of the resource sku",
+                    "family": "Family code of the resource sku",
+                    "capacity": "Current number of instances assigned to the resource"
+                }
+            }
+        ],
         "ApiVersion": "2015-08-01"
     },
     {
@@ -915,6 +1087,58 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.CertificateRegistration/certificateOrders",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.CertificateRegistration/validateCertificateRegistrationInformation",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "(string)",
+                "domainVerificationToken": "(string)",
+                "validityInYears": "(integer)",
+                "keySize": "(integer)",
+                "productType": "(string)",
+                "autoRenew": "(boolean)",
+                "provisioningState": "(string)",
+                "status": "(string)",
+                "signedCertificate": "(string)",
+                "csr": "(string)",
+                "intermediate": "(string)",
+                "root": "(string)",
+                "serialNumber": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "Certificate distinguished name",
+                "domainVerificationToken": "Domain Verification Token",
+                "validityInYears": "Duration in years (must be between 1 and 3)",
+                "keySize": "Certificate Key Size",
+                "productType": "Certificate product type",
+                "autoRenew": "Auto renew",
+                "provisioningState": "Status of certificate order",
+                "status": "Current order status",
+                "signedCertificate": "Signed certificate",
+                "csr": "Last CSR that was created for this order",
+                "intermediate": "Intermediate certificate",
+                "root": "Root certificate",
+                "serialNumber": "Current serial number of the certificate"
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -1014,6 +1238,7 @@
                     "phone": "(string)"
                 },
                 "registrationStatus": "(string)",
+                "provisioningState": "(string)",
                 "nameServers": [
                     "(string)"
                 ],
@@ -1125,6 +1350,7 @@
                     "phone": "Phone number"
                 },
                 "registrationStatus": "Domain registration status",
+                "provisioningState": "Domain provisioning state",
                 "nameServers": [
                     null
                 ],
@@ -1931,11 +2157,7 @@
             "properties": {
                 "name": "(string)",
                 "publishingUserName": "(string)",
-                "publishingPassword": "(string)",
-                "lastUpdatedTime": "(string)",
-                "metadata": "(string)",
-                "isDeleted": "(boolean)",
-                "scmUri": "(string)"
+                "publishingPassword": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -1947,11 +2169,7 @@
             "properties": {
                 "name": "Username (internal)",
                 "publishingUserName": "Username used for publishing",
-                "publishingPassword": "Password used for publishing",
-                "lastUpdatedTime": "Timestamp when publishing credentials were last modified (internal)",
-                "metadata": "User metadata (internal)",
-                "isDeleted": "Indicates if user has been marked for deletion (internal)",
-                "scmUri": "Url of SCM site (internal)"
+                "publishingPassword": "Password used for publishing"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -2193,6 +2411,18 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slotsswap",
@@ -2251,7 +2481,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/applySlotConfig",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/applySlotConfig",
         "RequestBody": {
             "targetSlot": "(string)",
             "preserveVnet": "(boolean)"
@@ -2265,7 +2495,7 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/applySlotConfig",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/applySlotConfig",
         "RequestBody": {
             "targetSlot": "(string)",
             "preserveVnet": "(boolean)"
@@ -2502,11 +2732,20 @@
                                 "customAction": {
                                     "exe": "(string)",
                                     "parameters": "(string)"
-                                }
+                                },
+                                "minProcessExecutionTime": "(string)"
                             }
                         },
                         "tracingOptions": "(string)",
                         "vnetName": "(string)",
+                        "cors": {
+                            "allowedOrigins": [
+                                "(string)"
+                            ]
+                        },
+                        "apiDefinition": {
+                            "url": "(string)"
+                        },
                         "autoSwapSlotName": "(string)"
                     }
                 },
@@ -2683,11 +2922,20 @@
                                 "customAction": {
                                     "exe": "Executable to be run",
                                     "parameters": "Parameters for the executable"
-                                }
+                                },
+                                "minProcessExecutionTime": "MinProcessExecutionTime - minimum time the process must execute\r\n            before taking the action"
                             }
                         },
                         "tracingOptions": "Tracing options",
                         "vnetName": "Vnet name",
+                        "cors": {
+                            "allowedOrigins": [
+                                null
+                            ]
+                        },
+                        "apiDefinition": {
+                            "url": "The URL of the API definition."
+                        },
                         "autoSwapSlotName": "Auto swap slot name"
                     }
                 },
@@ -2889,11 +3137,20 @@
                                 "customAction": {
                                     "exe": "(string)",
                                     "parameters": "(string)"
-                                }
+                                },
+                                "minProcessExecutionTime": "(string)"
                             }
                         },
                         "tracingOptions": "(string)",
                         "vnetName": "(string)",
+                        "cors": {
+                            "allowedOrigins": [
+                                "(string)"
+                            ]
+                        },
+                        "apiDefinition": {
+                            "url": "(string)"
+                        },
                         "autoSwapSlotName": "(string)"
                     }
                 },
@@ -3070,11 +3327,20 @@
                                 "customAction": {
                                     "exe": "Executable to be run",
                                     "parameters": "Parameters for the executable"
-                                }
+                                },
+                                "minProcessExecutionTime": "MinProcessExecutionTime - minimum time the process must execute\r\n            before taking the action"
                             }
                         },
                         "tracingOptions": "Tracing options",
                         "vnetName": "Vnet name",
+                        "cors": {
+                            "allowedOrigins": [
+                                null
+                            ]
+                        },
+                        "apiDefinition": {
+                            "url": "The URL of the API definition."
+                        },
                         "autoSwapSlotName": "Auto swap slot name"
                     }
                 },
@@ -3151,6 +3417,102 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances",
         "ApiVersion": "2015-08-01"
     },
@@ -3163,63 +3525,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "siteName": "(string)",
-                "domainId": "(string)",
-                "azureResourceName": "(string)",
-                "azureResourceType": "(string)",
-                "customHostNameDnsRecordType": "(string)",
-                "hostNameType": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Hostname",
-                "siteName": "Web app name",
-                "domainId": "Fully qualified ARM domain resource URI",
-                "azureResourceName": "Azure resource name",
-                "azureResourceType": "Azure resource type",
-                "customHostNameDnsRecordType": "Custom DNS record type",
-                "hostNameType": "Host name type"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3270,6 +3582,56 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "siteName": "(string)",
+                "domainId": "(string)",
+                "azureResourceName": "(string)",
+                "azureResourceType": "(string)",
+                "customHostNameDnsRecordType": "(string)",
+                "hostNameType": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Hostname",
+                "siteName": "Web app name",
+                "domainId": "Fully qualified ARM domain resource URI",
+                "azureResourceName": "Azure resource name",
+                "azureResourceType": "Azure resource type",
+                "customHostNameDnsRecordType": "Custom DNS record type",
+                "hostNameType": "Host name type"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3401,11 +3763,20 @@
                         "customAction": {
                             "exe": "(string)",
                             "parameters": "(string)"
-                        }
+                        },
+                        "minProcessExecutionTime": "(string)"
                     }
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
+                "cors": {
+                    "allowedOrigins": [
+                        "(string)"
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "(string)"
+                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -3522,11 +3893,20 @@
                         "customAction": {
                             "exe": "Executable to be run",
                             "parameters": "Parameters for the executable"
-                        }
+                        },
+                        "minProcessExecutionTime": "MinProcessExecutionTime - minimum time the process must execute\r\n            before taking the action"
                     }
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
+                "cors": {
+                    "allowedOrigins": [
+                        null
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "The URL of the API definition."
+                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -3655,11 +4035,20 @@
                         "customAction": {
                             "exe": "(string)",
                             "parameters": "(string)"
-                        }
+                        },
+                        "minProcessExecutionTime": "(string)"
                     }
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
+                "cors": {
+                    "allowedOrigins": [
+                        "(string)"
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "(string)"
+                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -3776,11 +4165,20 @@
                         "customAction": {
                             "exe": "Executable to be run",
                             "parameters": "Parameters for the executable"
-                        }
+                        },
+                        "minProcessExecutionTime": "MinProcessExecutionTime - minimum time the process must execute\r\n            before taking the action"
                     }
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
+                "cors": {
+                    "allowedOrigins": [
+                        null
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "The URL of the API definition."
+                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -3915,11 +4313,20 @@
                         "customAction": {
                             "exe": "(string)",
                             "parameters": "(string)"
-                        }
+                        },
+                        "minProcessExecutionTime": "(string)"
                     }
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
+                "cors": {
+                    "allowedOrigins": [
+                        "(string)"
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "(string)"
+                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -4036,11 +4443,20 @@
                         "customAction": {
                             "exe": "Executable to be run",
                             "parameters": "Parameters for the executable"
-                        }
+                        },
+                        "minProcessExecutionTime": "MinProcessExecutionTime - minimum time the process must execute\r\n            before taking the action"
                     }
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
+                "cors": {
+                    "allowedOrigins": [
+                        null
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "The URL of the API definition."
+                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -4169,11 +4585,20 @@
                         "customAction": {
                             "exe": "(string)",
                             "parameters": "(string)"
-                        }
+                        },
+                        "minProcessExecutionTime": "(string)"
                     }
                 },
                 "tracingOptions": "(string)",
                 "vnetName": "(string)",
+                "cors": {
+                    "allowedOrigins": [
+                        "(string)"
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "(string)"
+                },
                 "autoSwapSlotName": "(string)"
             }
         },
@@ -4290,11 +4715,20 @@
                         "customAction": {
                             "exe": "Executable to be run",
                             "parameters": "Parameters for the executable"
-                        }
+                        },
+                        "minProcessExecutionTime": "MinProcessExecutionTime - minimum time the process must execute\r\n            before taking the action"
                     }
                 },
                 "tracingOptions": "Tracing options",
                 "vnetName": "Vnet name",
+                "cors": {
+                    "allowedOrigins": [
+                        null
+                    ]
+                },
+                "apiDefinition": {
+                    "url": "The URL of the API definition."
+                },
                 "autoSwapSlotName": "Auto swap slot name"
             }
         },
@@ -4475,7 +4909,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4497,7 +4931,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4531,7 +4965,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4553,7 +4987,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4631,7 +5065,7 @@
             "allowedExternalRedirectUrls": [
                 null
             ],
-            "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This settings is only needed if multiple providers are configured if the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
+            "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This setting is only needed if multiple providers are configured and the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
             "clientId": "Gets or sets the Client ID of this relying party application, known as the client_id.\r\n            This setting is required for enabling OpenID Connection authentication with Azure Active Directory or \r\n            other 3rd party OpenID Connect providers.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "clientSecret": "Gets or sets the Client Secret of this relying party application (in Azure Active Directory, this is also referred to as the Key).\r\n            This setting is optional. If no client secret is configured, the OpenID Connect implicit auth flow is used to authenticate end users.\r\n            Otherwise, the OpenID Connect Authorization Code Flow is used to authenticate end users.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer.\r\n            More information on OpenID Connect Discovery: http://openid.net/specs/openid-connect-discovery-1_0.html",
@@ -4705,7 +5139,7 @@
             "allowedExternalRedirectUrls": [
                 null
             ],
-            "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This settings is only needed if multiple providers are configured if the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
+            "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This setting is only needed if multiple providers are configured and the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
             "clientId": "Gets or sets the Client ID of this relying party application, known as the client_id.\r\n            This setting is required for enabling OpenID Connection authentication with Azure Active Directory or \r\n            other 3rd party OpenID Connect providers.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "clientSecret": "Gets or sets the Client Secret of this relying party application (in Azure Active Directory, this is also referred to as the Key).\r\n            This setting is optional. If no client secret is configured, the OpenID Connect implicit auth flow is used to authenticate end users.\r\n            Otherwise, the OpenID Connect Authorization Code Flow is used to authenticate end users.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer.\r\n            More information on OpenID Connect Discovery: http://openid.net/specs/openid-connect-discovery-1_0.html",
@@ -4747,19 +5181,19 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4781,7 +5215,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -5113,6 +5547,558 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/backup/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/backup/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/backup",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/backup",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backup",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backup",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backup",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backup",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups/{backupId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups/{backupId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups/{backupId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups/{backupId}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups/{backupId}/list",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups/{backupId}/list",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "enabled": "(boolean)",
+                "storageAccountUrl": "(string)",
+                "backupSchedule": {
+                    "frequencyInterval": "(integer)",
+                    "frequencyUnit": "(string)",
+                    "keepAtLeastOneBackup": "(boolean)",
+                    "retentionPeriodInDays": "(integer)",
+                    "startTime": "(string)",
+                    "lastExecutionTime": "(string)"
+                },
+                "databases": [
+                    {
+                        "databaseType": "(string)",
+                        "name": "(string)",
+                        "connectionStringName": "(string)",
+                        "connectionString": "(string)"
+                    }
+                ],
+                "type": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "name": "Name of the backup",
+                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
+                "storageAccountUrl": "SAS URL to the container",
+                "backupSchedule": {
+                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
+                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
+                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
+                    "retentionPeriodInDays": "After how many days backups should be deleted",
+                    "startTime": "When the schedule should start working",
+                    "lastExecutionTime": "The last time when this schedule was triggered"
+                },
+                "databases": [
+                    {
+                        "databaseType": "SqlAzure / MySql",
+                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
+                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
+                    }
+                ],
+                "type": "Type of the backup"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/metricdefinitions",
@@ -5199,13 +6185,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/newpassword",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/newpassword",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5774,18 +6760,6 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkFeatures/{view}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
         "ApiVersion": "2015-08-01"
     },
     {

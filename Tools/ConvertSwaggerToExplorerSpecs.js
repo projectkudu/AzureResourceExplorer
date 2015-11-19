@@ -2,6 +2,7 @@ var parser = require("swagger-parser");
 
 parser.parse(process.argv[2], function (err, api, metadata) {
     var operations = [];
+    console.error(err);
     if (api) {
         for (var path in api.paths) {
           if (!shouldSkip(path)) {
@@ -73,9 +74,8 @@ function getRequestBody(swagger, isDoc) {
 
 function shouldSkip(path){
     var blackList= [
-				"backup",
-				"restore",
-	            "backup/config",
+                "restore",
+                "backup/config",
                 "discover",
                 "metrics",
                 "repository",
