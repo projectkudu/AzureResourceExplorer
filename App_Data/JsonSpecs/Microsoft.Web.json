@@ -2413,6 +2413,282 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "(string)",
+                "certThumbprint": "(string)",
+                "certBlob": "(string)",
+                "routes": [
+                    {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "location": "(string)",
+                        "type": "(string)",
+                        "tags": {},
+                        "properties": {
+                            "name": "(string)",
+                            "startAddress": "(string)",
+                            "endAddress": "(string)",
+                            "routeType": "(string)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "vnetResourceId": "The vnet resource id",
+                "certThumbprint": "The client certificate thumbprint",
+                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
+                "routes": [
+                    {
+                        "id": "Resource Id",
+                        "name": "Resource Name",
+                        "location": "Resource Location",
+                        "type": "Resource type",
+                        "tags": {},
+                        "properties": {
+                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkFeatures/{view}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/networkFeatures/{view}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
         "ApiVersion": "2015-08-01"
     },
@@ -2509,13 +2785,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3417,12 +3693,6 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments",
         "ApiVersion": "2015-08-01"
     },
@@ -3441,6 +3711,12 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
         "ApiVersion": "2015-08-01"
     },
@@ -3448,6 +3724,44 @@
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "id": "(string)",
+                "status": "(integer)",
+                "message": "(string)",
+                "author": "(string)",
+                "deployer": "(string)",
+                "author_email": "(string)",
+                "start_time": "(string)",
+                "end_time": "(string)",
+                "active": "(boolean)",
+                "details": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "id": "Id",
+                "status": "Status",
+                "message": "Message",
+                "author": "Author",
+                "deployer": "Deployer",
+                "author_email": "AuthorEmail",
+                "start_time": "StartTime",
+                "end_time": "EndTime",
+                "active": "Active",
+                "details": "Detail"
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3466,6 +3780,44 @@
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "id": "(string)",
+                "status": "(integer)",
+                "message": "(string)",
+                "author": "(string)",
+                "deployer": "(string)",
+                "author_email": "(string)",
+                "start_time": "(string)",
+                "end_time": "(string)",
+                "active": "(boolean)",
+                "details": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "id": "Id",
+                "status": "Status",
+                "message": "Message",
+                "author": "Author",
+                "deployer": "Deployer",
+                "author_email": "AuthorEmail",
+                "start_time": "StartTime",
+                "end_time": "EndTime",
+                "active": "Active",
+                "details": "Detail"
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3484,6 +3836,44 @@
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "id": "(string)",
+                "status": "(integer)",
+                "message": "(string)",
+                "author": "(string)",
+                "deployer": "(string)",
+                "author_email": "(string)",
+                "start_time": "(string)",
+                "end_time": "(string)",
+                "active": "(boolean)",
+                "details": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "id": "Id",
+                "status": "Status",
+                "message": "Message",
+                "author": "Author",
+                "deployer": "Deployer",
+                "author_email": "AuthorEmail",
+                "start_time": "StartTime",
+                "end_time": "EndTime",
+                "active": "Active",
+                "details": "Detail"
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3502,6 +3892,44 @@
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments/{id}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "id": "(string)",
+                "status": "(integer)",
+                "message": "(string)",
+                "author": "(string)",
+                "deployer": "(string)",
+                "author_email": "(string)",
+                "start_time": "(string)",
+                "end_time": "(string)",
+                "active": "(boolean)",
+                "details": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "id": "Id",
+                "status": "Status",
+                "message": "Message",
+                "author": "Author",
+                "deployer": "Deployer",
+                "author_email": "AuthorEmail",
+                "start_time": "StartTime",
+                "end_time": "EndTime",
+                "active": "Active",
+                "details": "Detail"
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
@@ -4909,7 +5337,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -4931,7 +5359,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -5021,7 +5449,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings",
         "RequestBody": {
             "enabled": "(boolean)",
             "httpApiPrefixPath": "(string)",
@@ -5095,7 +5523,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings",
         "RequestBody": {
             "enabled": "(boolean)",
             "httpApiPrefixPath": "(string)",
@@ -5181,35 +5609,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {}
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {}
-        },
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5235,6 +5641,28 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
@@ -5420,12 +5848,6 @@
                 }
             }
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5437,57 +5859,7 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "RequestBody": {
-            "location": "(string)",
-            "tags": {},
-            "plan": {
-                "name": "(string)",
-                "publisher": "(string)",
-                "product": "(string)",
-                "promotionCode": "(string)",
-                "version": "(string)"
-            },
-            "properties": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "size": "(string)",
-                "family": "(string)",
-                "capacity": "(integer)"
-            }
-        },
-        "RequestBodyDoc": {
-            "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
-            "tags": {},
-            "plan": {
-                "name": "The name",
-                "publisher": "The publisher",
-                "product": "The product",
-                "promotionCode": "The promotion code",
-                "version": "Version of product"
-            },
-            "properties": {},
-            "sku": {
-                "name": "Name of the resource sku",
-                "tier": "Service Tier of the resource sku",
-                "size": "Size specifier of the resource sku",
-                "family": "Family code of the resource sku",
-                "capacity": "Current number of instances assigned to the resource"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5547,555 +5919,59 @@
         "ApiVersion": "2015-08-01"
     },
     {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/backup/list",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/backup/list",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/backup",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/backup",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backup",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backup",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backup",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backup",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups/{backupId}",
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "RequestBody": {
+            "location": "(string)",
+            "tags": {},
+            "plan": {
+                "name": "(string)",
+                "publisher": "(string)",
+                "product": "(string)",
+                "promotionCode": "(string)",
+                "version": "(string)"
+            },
+            "properties": {},
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
+            "tags": {},
+            "plan": {
+                "name": "The name",
+                "publisher": "The publisher",
+                "product": "The product",
+                "promotionCode": "The promotion code",
+                "version": "Version of product"
+            },
+            "properties": {},
+            "sku": {
+                "name": "Name of the resource sku",
+                "tier": "Service Tier of the resource sku",
+                "size": "Size specifier of the resource sku",
+                "family": "Family code of the resource sku",
+                "capacity": "Current number of instances assigned to the resource"
+            }
+        },
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups/{backupId}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups/{backupId}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups/{backupId}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/backups/{backupId}/list",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/backups/{backupId}/list",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "name": "(string)",
-                "enabled": "(boolean)",
-                "storageAccountUrl": "(string)",
-                "backupSchedule": {
-                    "frequencyInterval": "(integer)",
-                    "frequencyUnit": "(string)",
-                    "keepAtLeastOneBackup": "(boolean)",
-                    "retentionPeriodInDays": "(integer)",
-                    "startTime": "(string)",
-                    "lastExecutionTime": "(string)"
-                },
-                "databases": [
-                    {
-                        "databaseType": "(string)",
-                        "name": "(string)",
-                        "connectionStringName": "(string)",
-                        "connectionString": "(string)"
-                    }
-                ],
-                "type": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "name": "Name of the backup",
-                "enabled": "True if the backup schedule is enabled (must be included in that case), false if the backup schedule should be disabled",
-                "storageAccountUrl": "SAS URL to the container",
-                "backupSchedule": {
-                    "frequencyInterval": "How often should be the backup executed (e.g. for weekly backup, this should be set to 7 and FrequencyUnit should be set to Day)",
-                    "frequencyUnit": "How often should be the backup executed (e.g. for weekly backup, this should be set to Day and FrequencyInterval should be set to 7)",
-                    "keepAtLeastOneBackup": "True if the retention policy should always keep at least one backup in the storage account, regardless how old it is; false otherwise.",
-                    "retentionPeriodInDays": "After how many days backups should be deleted",
-                    "startTime": "When the schedule should start working",
-                    "lastExecutionTime": "The last time when this schedule was triggered"
-                },
-                "databases": [
-                    {
-                        "databaseType": "SqlAzure / MySql",
-                        "connectionStringName": "Contains a connection string name that is linked to the SiteConfig.ConnectionStrings.\r\n            This is used during restore with overwrite connection strings options.",
-                        "connectionString": "Contains a connection string to a database which is being backed up/restored. If the restore should happen to a new database, the database name inside is the new one."
-                    }
-                ],
-                "type": "Type of the backup"
-            }
-        },
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -6149,25 +6025,25 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/start",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/start",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/start",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -6341,75 +6217,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "vnetName": "(string)",
-                "vpnPackageUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "vnetName": "The VNET name.",
-                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Update",
-        "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "vnetName": "(string)",
-                "vpnPackageUri": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "vnetName": "The VNET name.",
-                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
-            }
-        },
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -6477,13 +6291,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -6491,24 +6305,8 @@
             "type": "(string)",
             "tags": {},
             "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)",
-                "routes": [
-                    {
-                        "id": "(string)",
-                        "name": "(string)",
-                        "location": "(string)",
-                        "type": "(string)",
-                        "tags": {},
-                        "properties": {
-                            "name": "(string)",
-                            "startAddress": "(string)",
-                            "endAddress": "(string)",
-                            "routeType": "(string)"
-                        }
-                    }
-                ]
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -6518,38 +6316,16 @@
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
-                "routes": [
-                    {
-                        "id": "Resource Id",
-                        "name": "Resource Name",
-                        "location": "Resource Location",
-                        "type": "Resource type",
-                        "tags": {},
-                        "properties": {
-                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
-                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
-                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
-                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
-                        }
-                    }
-                ]
+                "vnetName": "The VNET name.",
+                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Update",
         "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
@@ -6557,24 +6333,8 @@
             "type": "(string)",
             "tags": {},
             "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)",
-                "routes": [
-                    {
-                        "id": "(string)",
-                        "name": "(string)",
-                        "location": "(string)",
-                        "type": "(string)",
-                        "tags": {},
-                        "properties": {
-                            "name": "(string)",
-                            "startAddress": "(string)",
-                            "endAddress": "(string)",
-                            "routeType": "(string)"
-                        }
-                    }
-                ]
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -6584,156 +6344,8 @@
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
-                "routes": [
-                    {
-                        "id": "Resource Id",
-                        "name": "Resource Name",
-                        "location": "Resource Location",
-                        "type": "Resource type",
-                        "tags": {},
-                        "properties": {
-                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
-                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
-                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
-                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
-                        }
-                    }
-                ]
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)",
-                "routes": [
-                    {
-                        "id": "(string)",
-                        "name": "(string)",
-                        "location": "(string)",
-                        "type": "(string)",
-                        "tags": {},
-                        "properties": {
-                            "name": "(string)",
-                            "startAddress": "(string)",
-                            "endAddress": "(string)",
-                            "routeType": "(string)"
-                        }
-                    }
-                ]
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
-                "routes": [
-                    {
-                        "id": "Resource Id",
-                        "name": "Resource Name",
-                        "location": "Resource Location",
-                        "type": "Resource type",
-                        "tags": {},
-                        "properties": {
-                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
-                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
-                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
-                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
-                        }
-                    }
-                ]
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Update",
-        "HttpMethod": "PATCH",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "vnetResourceId": "(string)",
-                "certThumbprint": "(string)",
-                "certBlob": "(string)",
-                "routes": [
-                    {
-                        "id": "(string)",
-                        "name": "(string)",
-                        "location": "(string)",
-                        "type": "(string)",
-                        "tags": {},
-                        "properties": {
-                            "name": "(string)",
-                            "startAddress": "(string)",
-                            "endAddress": "(string)",
-                            "routeType": "(string)"
-                        }
-                    }
-                ]
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "vnetResourceId": "The vnet resource id",
-                "certThumbprint": "The client certificate thumbprint",
-                "certBlob": "A certificate file (.cer) blob containing the public key of the private key used to authenticate a \r\n            Point-To-Site VPN connection.",
-                "routes": [
-                    {
-                        "id": "Resource Id",
-                        "name": "Resource Name",
-                        "location": "Resource Location",
-                        "type": "Resource type",
-                        "tags": {},
-                        "properties": {
-                            "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
-                            "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
-                            "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
-                            "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
-                        }
-                    }
-                ]
+                "vnetName": "The VNET name.",
+                "vpnPackageUri": "The URI where the Vpn package can be downloaded"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -6748,18 +6360,6 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/networkFeatures/{view}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkFeatures/{view}",
         "ApiVersion": "2015-08-01"
     },
     {

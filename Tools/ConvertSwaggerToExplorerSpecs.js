@@ -64,7 +64,9 @@ function getResponseBody(swagger, isDoc) {
 }
 
 function getRequestBody(swagger, isDoc) {
-    if (swagger.consumes.filter(function(e) { return (e === "application/json" || e == "text/json"); }).length > 0 ) {
+    if (swagger.consumes.filter(function(e) { 
+        return (e === "application/json" || e == "text/json"); 
+    }).length > 0 ) {
         var parameter = swagger.parameters.filter(function(e) { return e.in === "body"; })[0];
         if (parameter && parameter.schema) {
             return getOperationObject(parameter.schema, isDoc);
@@ -74,6 +76,7 @@ function getRequestBody(swagger, isDoc) {
 
 function shouldSkip(path){
     var blackList= [
+                "backup",
                 "restore",
                 "backup/config",
                 "discover",
