@@ -1539,7 +1539,7 @@ function GetResourceTypeAndName(value: ISelelctHandlerReturn): string {
 
     // handle secure GET
     if ((value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1)) {
-        url.replace("/list", "");
+        url = url.replace("/list", "");
     }
     var urlParts = url.split("/");
     if (urlParts.length < 8) return "-ResourceId " + url.replace("https://management.azure.com", "");
