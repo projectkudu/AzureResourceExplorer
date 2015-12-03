@@ -1473,11 +1473,18 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IAction[]): string {
     var returnString = "# PowerShell equivalent script\n\n";
     var resourceInfo = GetResourceTypeAndName(value);
+    var children = value.resourceDefinition.children;
 
     // add GET related cmdlet if available
+    var getCmdlet = "Get-AzureRmResource ";
+    var apiVersion = value.resourceDefinition.apiVersion;
     if (value.httpMethod.toLowerCase().indexOf("get") != -1) {
         returnString += "# GET " + GetActionName(value.url) + "\n";
-        returnString += "Get-AzureRmResource " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + "\n\n";
+        if (typeof children === "string" && !Array.isArray(children) && value.url.split("/").length > 7) {
+            getCmdlet = "Find-AzureRmResource ";
+            apiVersion = "2015-11-01";
+        }
+        returnString += getCmdlet + resourceInfo + " -ApiVersion " + apiVersion + "\n\n";
     }
     else if (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1) {
         returnString += "# List " + GetActionName(value.url.replace("/list", "")) + "\n";
@@ -1561,11 +1568,6 @@ function GetResourceTypeAndName(value: ISelelctHandlerReturn): string {
     if (resourceName) resourceName = " -ResourceName " + resourceName.substring(0, resourceName.length - 1);
     result += resourceType + resourceName;
 
-    // if the resource is a collection set the -isCollection switch to direct the call to the RP instead of CSM cache
-    var children = value.resourceDefinition.children;
-    if (typeof children === "string" && !Array.isArray(children)) {
-        result += " -isCollection";
-    }
     return result;
 }
 
