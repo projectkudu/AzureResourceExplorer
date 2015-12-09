@@ -82,7 +82,6 @@ function shouldSkip(path){
                 "discover",
                 "metrics",
                 "repository",
-                "usages",
                 "Clone",
                 "GetOperation",
                 "register",

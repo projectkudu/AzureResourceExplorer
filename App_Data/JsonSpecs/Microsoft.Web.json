@@ -1680,6 +1680,12 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/usages",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/metricdefinitions",
         "ApiVersion": "2015-08-01"
     },
@@ -1687,6 +1693,18 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/metricdefinitions",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/usages",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/usages",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5972,6 +5990,18 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/usages",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/usages",
         "ApiVersion": "2015-08-01"
     },
     {
