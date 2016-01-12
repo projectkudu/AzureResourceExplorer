@@ -449,6 +449,34 @@ namespace ARMExplorer.Controllers
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/InstanceView",
                     ApiVersion = "2015-05-01-preview"
                 },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments",
+                    ApiVersion = "2015-11-01"
+                },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}",
+                    ApiVersion = "2015-11-01"
+                },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/operations",
+                    ApiVersion = "2015-11-01"
+                },
+                new MetadataObject
+                {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/operations/{operationId}",
+                    ApiVersion = "2015-11-01"
+                },
             };
         }
 

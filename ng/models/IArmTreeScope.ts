@@ -47,4 +47,5 @@
     resourceSearchModel: IResourceSearch;
     resourceSearchCache: IResearchSearchCache;
     selectResourceSearch(item: IResourceSearchSuggestion);
+    treeBranchDataOverrides: ITreeBranchDataOverrides[];
 }

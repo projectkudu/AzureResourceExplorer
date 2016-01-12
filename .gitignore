@@ -27,3 +27,4 @@ ng/*.js
 ng/*.js.map
 ng/*/*.js
 ng/*/*.js.map
+.vs/

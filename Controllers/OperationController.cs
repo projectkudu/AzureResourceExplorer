@@ -92,6 +92,18 @@ namespace ARMExplorer.Controllers
                         result[resourceGroup][provider].Add(collection);
                     }
                 }
+                // Add Microsoft.Resources/deployments to the response
+                // This makes the Microsoft.Resources provider show up for any groups that have other resources
+                foreach (var group in result.Values)
+                {
+                    group.Add(
+                                "MICROSOFT.RESOURCES",
+                                new HashSet<string>
+                                {
+                                    "DEPLOYMENTS",
+                                }
+                    );
+                }
                 return Request.CreateResponse(HttpStatusCode.OK, result);
             }
         }
@@ -128,7 +140,7 @@ namespace ARMExplorer.Controllers
                     if (i == 1 || i == 2 || i % 2 == 0)
                         sb.AppendFormat("{0}/", parts[i]);
                 }
-                var csmType = sb.ToString().Trim(new [] { '/' });
+                var csmType = sb.ToString().Trim(new[] { '/' });
                 TelemetryHelper.LogInfo(new CsmTypeEvent { Type = csmType, HttpMethod = info.HttpMethod });
             }
             catch (Exception e)

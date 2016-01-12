@@ -66,6 +66,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     $scope.readOnlyMode = true;
     $scope.editMode = false;
     $scope.activeTab = [false, false, false, false];
+    $scope.treeBranchDataOverrides = getTreeBranchDataOverrides();
 
     $scope.aceConfig = {
         mode: "json",
@@ -371,7 +372,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         label: childName,
                         resourceDefinition: childDefinition,
                         is_leaf: (childDefinition.children ? false : true),
-                        elementUrl: branch.elementUrl + "/" + childName
+                        elementUrl: branch.elementUrl + "/" + childName,
+                        sortValue: childName,
                     };
                 });
 
@@ -382,7 +384,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         branch.children.unshift({
                             label: "Show all",
                             is_instruction: true,
-                            resourceDefinition: resourceDefinition
+                            resourceDefinition: resourceDefinition,
+                            sortValue: null,
                         });
                         offset++;
                     }
@@ -413,19 +416,25 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         ApiVersion: resourceDefinition.apiVersion
                     }
                 };
+            
             promise = $http(httpConfig).success((data: any) => {
                 var childDefinition = getResourceDefinitionByNameAndUrl(children, resourceDefinition.url + "/" + resourceDefinition.children);
+                // TODO - need to generalise the handling of resource types
+                var treeBranchDataOverride = getTreeBranchDataOverride(childDefinition);
+
                 branch.children = (data.value ? data.value : data).map((d: any) => {
                     var csmName = getCsmNameFromIdAndName(d.id, d.name);
+                    var label = treeBranchDataOverride.getLabel(d, csmName);
                     return {
-                        label: (d.displayName ? d.displayName : csmName),
+                        label: label,
                         resourceDefinition: childDefinition,
                         value: (d.subscriptionId ? d.subscriptionId : csmName),
                         is_leaf: (childDefinition.children ? false : true),
-                        elementUrl: branch.elementUrl + "/" + (d.subscriptionId ? d.subscriptionId : csmName)
+                        elementUrl: branch.elementUrl + "/" + (d.subscriptionId ? d.subscriptionId : csmName),
+                        sortValue: treeBranchDataOverride.getSortKey(d, label),
                     };
                 }).sort((a: any, b: any) => {
-                    return a.label.localeCompare(b.label);
+                    return a.sortValue.localeCompare(b.sortValue) * treeBranchDataOverride.sortOrder;
                 });
             }).finally(() => {
                 endExpandingTreeItem(branch, originalIcon);
@@ -1464,6 +1473,42 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         return commonAncestor;
+    }
+    function getTreeBranchDataOverrides(): ITreeBranchDataOverrides[] {
+        return [
+            {
+                childDefinitionUrlSuffix: "providers/Microsoft.Resources/deployments/{name}", // deployments
+                getLabel: null,
+                getSortKey: (d: any, label: string) => d.properties.timestamp,
+                sortOrder: -1
+            },
+            {
+                childDefinitionUrlSuffix: "providers/Microsoft.Resources/deployments/{name}/operations/{name}", // operations
+                getLabel: (d: any, csmName: string) => d.properties.targetResource.resourceName + " (" + d.properties.targetResource.resourceType + ")" ,
+                getSortKey: (d: any, label: string) => d.properties.timestamp,
+                sortOrder: -1
+            }              
+        ];
+    }
+    function getTreeBranchDataOverride(childDefinition) : ITreeBranchDataOverrides {
+        var overrides = $scope.treeBranchDataOverrides
+            .filter(t=> childDefinition.url.endsWith(t.childDefinitionUrlSuffix));
+
+        var override = overrides.length > 0
+            ? overrides[0]
+            : {
+                childDefinitionUrlSuffix: null,
+                getLabel: null,
+                getSortKey: null,
+                sortOrder: 1
+            }
+        if (override.getLabel == null) {
+            override.getLabel = (d: any, csmName: string) => (d.displayName ? d.displayName : csmName);
+        }
+        if (override.getSortKey == null) {
+            override.getSortKey = (d: any, label: string) => label;
+        }
+        return override;
     }
 }])
     .config(($locationProvider: ng.ILocationProvider) => {
