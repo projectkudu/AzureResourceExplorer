@@ -99,6 +99,9 @@ namespace ARMExplorer.Controllers
         [Authorize]
         public async Task<HttpResponseMessage> Invoke(OperationInfo info)
         {
+            // escapeuristring does not escape '#' as it is a valid special character
+            // will not be legit in our case so escaping explicitly.
+            info.Url = Uri.EscapeUriString(info.Url).Replace("#", "%23");
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
             LogCsmType(info);
             using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
