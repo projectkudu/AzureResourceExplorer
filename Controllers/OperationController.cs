@@ -99,6 +99,8 @@ namespace ARMExplorer.Controllers
         [Authorize]
         public async Task<HttpResponseMessage> Invoke(OperationInfo info)
         {
+            // escaping "#" as it may appear in some resource names
+            info.Url = info.Url.Replace("#", "%23");
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
             LogCsmType(info);
             using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
