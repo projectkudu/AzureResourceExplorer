@@ -419,22 +419,23 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             
             promise = $http(httpConfig).success((data: any) => {
                 var childDefinition = getResourceDefinitionByNameAndUrl(children, resourceDefinition.url + "/" + resourceDefinition.children);
-                // TODO - need to generalise the handling of resource types
-                var treeBranchDataOverride = getTreeBranchDataOverride(childDefinition);
+                
+                // get the project to use for the current node (i.e. functions to provide label, sort key, ...)
+                var treeBranchProjection = getTreeBranchProjection(childDefinition);
 
                 branch.children = (data.value ? data.value : data).map((d: any) => {
                     var csmName = getCsmNameFromIdAndName(d.id, d.name);
-                    var label = treeBranchDataOverride.getLabel(d, csmName);
+                    var label = treeBranchProjection.getLabel(d, csmName);
                     return {
                         label: label,
                         resourceDefinition: childDefinition,
                         value: (d.subscriptionId ? d.subscriptionId : csmName),
                         is_leaf: (childDefinition.children ? false : true),
                         elementUrl: branch.elementUrl + "/" + (d.subscriptionId ? d.subscriptionId : csmName),
-                        sortValue: treeBranchDataOverride.getSortKey(d, label),
+                        sortValue: treeBranchProjection.getSortKey(d, label),
                     };
                 }).sort((a: any, b: any) => {
-                    return a.sortValue.localeCompare(b.sortValue) * treeBranchDataOverride.sortOrder;
+                    return a.sortValue.localeCompare(b.sortValue) * treeBranchProjection.sortOrder;
                 });
             }).finally(() => {
                 endExpandingTreeItem(branch, originalIcon);
@@ -1475,6 +1476,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return commonAncestor;
     }
     function getTreeBranchDataOverrides(): ITreeBranchDataOverrides[] {
+        // Define any overrides for display label and sort key/order for tree nodes
+        // Rule matching is performing by checking whether the childDefinition.url ends with the childDefinitionUrlSuffix
+        //  - getLabel is called to provide the node label. Provide a function that takes the node data and csmName and returns the label
+        //  - getSortKey is called to provide the node sort key. Provide a function that takes the node data and label and returns the sort key
+        //  - sortOrder: 1 to sort ascending, -1 to sort descending 
         return [
             {
                 childDefinitionUrlSuffix: "providers/Microsoft.Resources/deployments/{name}", // deployments
@@ -1490,7 +1496,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }              
         ];
     }
-    function getTreeBranchDataOverride(childDefinition) : ITreeBranchDataOverrides {
+    function getTreeBranchProjection(childDefinition) : ITreeBranchDataOverrides {
+        // look up to see whether the current node in the tree has any overrides for the
+        // display label or sort key/order
         var overrides = $scope.treeBranchDataOverrides
             .filter(t=> childDefinition.url.endsWith(t.childDefinitionUrlSuffix));
 
@@ -1502,6 +1510,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 getSortKey: null,
                 sortOrder: 1
             }
+
+        // Apply default behaviors
+        //  - label uses displayname with a fallback to csmName
+        //  - sort is by label
         if (override.getLabel == null) {
             override.getLabel = (d: any, csmName: string) => (d.displayName ? d.displayName : csmName);
         }
