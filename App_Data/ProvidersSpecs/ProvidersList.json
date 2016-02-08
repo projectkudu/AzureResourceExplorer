@@ -863,6 +863,48 @@
       "registrationState": "Registered"
     },
     {
+      "id": "/subscriptions/1402be24-4f35-4ab7-a212-2cd496ebdf14/providers/Microsoft.HDInsight",
+      "namespace": "Microsoft.HDInsight",
+      "resourceTypes": [
+        {
+          "resourceType": "clusters",
+          "locations": [
+            "East Asia",
+            "Southeast Asia",
+            "East US",
+            "East US 2",
+            "West US",
+            "North Central US",
+            "South Central US",
+            "Central US",
+            "North Europe",
+            "West Europe",
+            "Japan East",
+            "Japan West",
+            "Brazil South"
+          ],
+          "apiVersions": [
+            "2015-03-01-preview"
+          ]
+        },
+        {
+          "resourceType": "clusters/operationresults",
+          "locations": [],
+          "apiVersions": [
+            "2015-03-01-preview"
+          ]
+        },
+        {
+          "resourceType": "locations",
+          "locations": [],
+          "apiVersions": [
+            "2015-03-01-preview"
+          ]
+        }
+      ],
+      "registrationState": "Registered"
+    },
+    {
       "id": "/subscriptions/1402be24-4f35-4ab7-a212-2cd496ebdf14/providers/Microsoft.Insights",
       "namespace": "Microsoft.Insights",
       "authorization": {
