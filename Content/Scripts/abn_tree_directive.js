@@ -205,17 +205,26 @@
                           }
                       });
                       add_branch_to_list = function (level, branch, visible) {
-                          var child, child_visible, tree_icon, _i, _len, _ref, _results, extra_class;
+                          var child, child_visible, tree_icon, _i, _len, _ref, _results, extra_class, resource_icon;
                           if (branch.expanded == null) {
                               branch.expanded = false;
                           }
+
+                          resource_icon = branch.resource_icon == undefined ? branch.iconNameOverride : branch.resource_icon;
+
                           //if (!branch.children || branch.children.length === 0) {
                           //    tree_icon = attrs.iconLeaf;
                           //} else {
                           if (branch.expanded) {
                               tree_icon = attrs.iconCollapse;
                           } else if (branch.is_leaf) {
-                              tree_icon = attrs.iconLeaf;
+                              if (resource_icon == null) {
+                                  tree_icon = attrs.iconLeaf;
+                              } else {
+                                  // rather than showing the basic leaf icon _and_ the resource icon, just show the resource icon
+                                  tree_icon = resource_icon;
+                                  resource_icon = null;
+                              }
                           } else if (branch.is_instruction) {
                               tree_icon = attrs.iconInstruction;
                               extra_class = " tree-instruction";
@@ -229,7 +238,7 @@
                               label: branch.label,
                               tree_icon: tree_icon,
                               extra_class: extra_class,
-                              resource_icon: branch.resource_icon,
+                              resource_icon: resource_icon,
                               visible: visible,
 
                               clear_tree_icon: function () { this.tree_icon = null;}

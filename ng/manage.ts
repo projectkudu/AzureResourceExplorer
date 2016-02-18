@@ -374,6 +374,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         is_leaf: (childDefinition.children ? false : true),
                         elementUrl: branch.elementUrl + "/" + childName,
                         sortValue: childName,
+                        iconNameOverride: null
                     };
                 });
 
@@ -386,6 +387,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             is_instruction: true,
                             resourceDefinition: resourceDefinition,
                             sortValue: null,
+                            iconNameOverride: null
                         });
                         offset++;
                     }
@@ -420,7 +422,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             promise = $http(httpConfig).success((data: any) => {
                 var childDefinition = getResourceDefinitionByNameAndUrl(children, resourceDefinition.url + "/" + resourceDefinition.children);
                 
-                // get the project to use for the current node (i.e. functions to provide label, sort key, ...)
+                // get the projection to use for the current node (i.e. functions to provide label, sort key, ...)
                 var treeBranchProjection = getTreeBranchProjection(childDefinition);
 
                 branch.children = (data.value ? data.value : data).map((d: any) => {
@@ -433,6 +435,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         is_leaf: (childDefinition.children ? false : true),
                         elementUrl: branch.elementUrl + "/" + (d.subscriptionId ? d.subscriptionId : csmName),
                         sortValue: treeBranchProjection.getSortKey(d, label),
+                        iconNameOverride: treeBranchProjection.getIconNameOverride(d),
+                        
                     };
                 }).sort((a: any, b: any) => {
                     return a.sortValue.localeCompare(b.sortValue) * treeBranchProjection.sortOrder;
@@ -1486,12 +1490,28 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 childDefinitionUrlSuffix: "providers/Microsoft.Resources/deployments/{name}", // deployments
                 getLabel: null,
                 getSortKey: (d: any, label: string) => d.properties.timestamp,
+                getIconNameOverride: (d: any) => {
+                    switch (d.properties.provisioningState) {
+                        case "Succeeded": return "glyphicon glyphicon-ok-circle";
+                        case "Running": return "glyphicon glyphicon-play-circle";
+                        case "Failed": return "glyphicon glyphicon-remove-circle";
+                        default: return null;
+                    }
+                },
                 sortOrder: -1
             },
             {
                 childDefinitionUrlSuffix: "providers/Microsoft.Resources/deployments/{name}/operations/{name}", // operations
                 getLabel: (d: any, csmName: string) => d.properties.targetResource.resourceName + " (" + d.properties.targetResource.resourceType + ")" ,
                 getSortKey: (d: any, label: string) => d.properties.timestamp,
+                getIconNameOverride: (d: any) => {
+                    switch (d.properties.provisioningState) {
+                        case "Succeeded": return "glyphicon glyphicon-ok-circle";
+                        case "Running": return "glyphicon glyphicon-play-circle";
+                        case "Failed": return "glyphicon glyphicon-remove-circle";
+                        default: return null;
+                    }
+                },
                 sortOrder: -1
             }              
         ];
@@ -1508,6 +1528,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 childDefinitionUrlSuffix: null,
                 getLabel: null,
                 getSortKey: null,
+                getIconNameOverride: null,
                 sortOrder: 1
             }
 
@@ -1519,6 +1540,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
         if (override.getSortKey == null) {
             override.getSortKey = (d: any, label: string) => label;
+        }
+        if (override.getIconNameOverride == null) {
+            override.getIconNameOverride = (d: any) => null;
         }
         return override;
     }
