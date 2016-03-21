@@ -1502,7 +1502,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             },
             {
                 childDefinitionUrlSuffix: "providers/Microsoft.Resources/deployments/{name}/operations/{name}", // operations
-                getLabel: (d: any, csmName: string) => d.properties.targetResource.resourceName + " (" + d.properties.targetResource.resourceType + ")" ,
+                getLabel: (d: any, csmName: string) => {
+                    if (d.properties.targetResource !== undefined && d.properties.targetResource.resourceName !== undefined) {
+                        return d.properties.targetResource.resourceName + " (" + d.properties.targetResource.resourceType + ")";
+                    } else {
+                        return d.properties.provisioningOperation + " (" + d.operationId + ")"
+                    }
+                },
                 getSortKey: (d: any, label: string) => d.properties.timestamp,
                 getIconNameOverride: (d: any) => {
                     switch (d.properties.provisioningState) {
