@@ -47,13 +47,15 @@ function getMethodNameFromHttpVerb(verb) {
 }
 
 function getResponseBody(swagger, isDoc) {
-    if (swagger.produces.filter(function (e) { return (e === "application/json" || e === "text/json"); }).length > 0 ) {
-        if (!swagger.responses["200"] || swagger.responses["200"].schema.properties === undefined) {
-            if (swagger.responses["202"]) {
-                console.error("Async operation not supported");
-            } else {
-                console.error("unknown error");
+    if (!swagger.produces || swagger.produces.filter(function (e) { return (e === "application/json" || e === "text/json"); }).length > 0 ) {
+        if (!swagger.responses["200"] || swagger.responses["200"].schema === undefined || swagger.responses["200"].schema.properties === undefined) {
+            if (!isDoc) {console.error("error processing response body for operation: " + swagger.operationId);}
+            if (!swagger.responses["200"]) {
+                if (!isDoc) {console.error("Async operation or non 200 responses not supported. responses list is :" + JSON.stringify(swagger.responses));}
+            } else if (swagger.responses["200"].schema === undefined || swagger.responses["200"].schema.properties === undefined){
+                if (!isDoc) {console.error("200 response has undefined schema or properties");}
             }
+            console.error("");
         } else {
             var schema = swagger.responses["200"].schema.properties.contentObject;
             if (schema) {
@@ -64,7 +66,7 @@ function getResponseBody(swagger, isDoc) {
 }
 
 function getRequestBody(swagger, isDoc) {
-    if (swagger.consumes.filter(function(e) { 
+    if (!swagger.consumes || swagger.consumes.filter(function(e) { 
         return (e === "application/json" || e == "text/json"); 
     }).length > 0 ) {
         var parameter = swagger.parameters.filter(function(e) { return e.in === "body"; })[0];
@@ -124,15 +126,15 @@ function getOperationObject(schema, isDoc) {
 
     if (schema.type === "object" || schema.properties || schema.allOf) {
         var obj = {};
-		if (schema.allOf){
-			schema.allOf.forEach(function(item) {
-				for (var prop in item.properties) {
-					if (item.properties.hasOwnProperty(prop)) {
-						obj[prop] = getOperationObject(item.properties[prop], isDoc);
-					}
-				}
-			})
-		}
+        if (schema.allOf){
+            schema.allOf.forEach(function(item) {
+                for (var prop in item.properties) {
+                    if (item.properties.hasOwnProperty(prop)) {
+                        obj[prop] = getOperationObject(item.properties[prop], isDoc);
+                    }
+                }
+            })
+        }
         for (var prop in schema.properties) {
             if (schema.properties.hasOwnProperty(prop)) {
                 obj[prop] = getOperationObject(schema.properties[prop], isDoc);

@@ -1,0 +1,360 @@
+[
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Cdn/profiles",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}",
+        "RequestBody": {
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "sku": {
+                    "name": "(string)"
+                }
+            }
+        },
+        "RequestBodyDoc": {
+            "location": "Profile location",
+            "tags": {},
+            "properties": {
+                "sku": {
+                    "name": "Name of the pricing tier"
+                }
+            }
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}",
+        "RequestBody": {
+            "tags": {}
+        },
+        "RequestBodyDoc": {
+            "tags": {}
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/generateSsoUri",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}",
+        "RequestBody": {
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "originHostHeader": "(string)",
+                "originPath": "(string)",
+                "contentTypesToCompress": [
+                    "(string)"
+                ],
+                "isCompressionEnabled": "(boolean)",
+                "isHttpAllowed": "(boolean)",
+                "isHttpsAllowed": "(boolean)",
+                "queryStringCachingBehavior": "(string)",
+                "origins": [
+                    {
+                        "name": "(string)",
+                        "properties": {
+                            "hostName": "(string)",
+                            "httpPort": "(integer)",
+                            "httpsPort": "(integer)"
+                        }
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "location": "Endpoint location",
+            "tags": {},
+            "properties": {
+                "originHostHeader": "The host header CDN provider will send along with content requests to origins. The default value is the host name of the origin.",
+                "originPath": "The path used for origin requests.",
+                "contentTypesToCompress": [
+                    null
+                ],
+                "isCompressionEnabled": "Indicates whether content compression is enabled. Default value is false. If compression is enabled, the content transferred from the CDN endpoint to the end user will be compressed. The requested content must be larger than 1 byte and smaller than 1 MB.",
+                "isHttpAllowed": "Indicates whether HTTP traffic is allowed on the endpoint. Default value is true. At least one protocol (HTTP or HTTPS) must be allowed.",
+                "isHttpsAllowed": "Indicates whether https traffic is allowed on the endpoint. Default value is true. At least one protocol (HTTP or HTTPS) must be allowed.",
+                "queryStringCachingBehavior": "Defines the query string caching behavior.",
+                "origins": [
+                    {
+                        "name": "Origin name",
+                        "properties": {
+                            "hostName": "The address of the origin. Domain names, IPv4 addresses, and IPv6 addresses are supported.",
+                            "httpPort": "The value of the HTTP port. Must be between 1 and 65535",
+                            "httpsPort": "The value of the HTTPS port. Must be between 1 and 65535"
+                        }
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}",
+        "RequestBody": {
+            "tags": {},
+            "properties": {
+                "originHostHeader": "(string)",
+                "originPath": "(string)",
+                "contentTypesToCompress": [
+                    "(string)"
+                ],
+                "isCompressionEnabled": "(boolean)",
+                "isHttpAllowed": "(boolean)",
+                "isHttpsAllowed": "(boolean)",
+                "queryStringCachingBehavior": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "tags": {},
+            "properties": {
+                "originHostHeader": "The host header the CDN provider will send along with content requests to origins. The default value is the host name of the origin.",
+                "originPath": "The path used for origin requests.",
+                "contentTypesToCompress": [
+                    null
+                ],
+                "isCompressionEnabled": "Indicates whether content compression is enabled. Default value is false. If compression is enabled, the content transferred from the CDN endpoint to the end user will be compressed. The requested content must be larger than 1 byte and smaller than 1 MB.",
+                "isHttpAllowed": "Indicates whether HTTP traffic is allowed on the endpoint. Default value is true. At least one protocol (HTTP or HTTPS) must be allowed.",
+                "isHttpsAllowed": "Indicates whether HTTPS traffic is allowed on the endpoint. Default value is true. At least one protocol (HTTP or HTTPS) must be allowed.",
+                "queryStringCachingBehavior": "Defines the query string caching behavior."
+            }
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/start",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/stop",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/purge",
+        "RequestBody": {
+            "contentPaths": [
+                "(string)"
+            ]
+        },
+        "RequestBodyDoc": {
+            "contentPaths": [
+                null
+            ]
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/load",
+        "RequestBody": {
+            "contentPaths": [
+                "(string)"
+            ]
+        },
+        "RequestBodyDoc": {
+            "contentPaths": [
+                null
+            ]
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/validateCustomDomain",
+        "RequestBody": {
+            "hostName": "(string)"
+        },
+        "RequestBodyDoc": {
+            "hostName": "The host name of the custom domain. Must be a domain name."
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}",
+        "RequestBody": {
+            "properties": {
+                "hostName": "(string)",
+                "httpPort": "(integer)",
+                "httpsPort": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "properties": {
+                "hostName": "The address of the origin. Domain names, IPv4 addresses, and IPv6 addresses are supported.",
+                "httpPort": "The value of the HTTP port. Must be between 1 and 65535.",
+                "httpsPort": "The value of the HTTPS port. Must be between 1 and 65535."
+            }
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}",
+        "RequestBody": {
+            "properties": {
+                "hostName": "(string)",
+                "httpPort": "(integer)",
+                "httpsPort": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "properties": {
+                "hostName": "The address of the origin. Domain names, IPv4 addresses, and IPv6 addresses are supported.",
+                "httpPort": "The value of the HTTP port. Must be between 1 and 65535.",
+                "httpsPort": "The value of the HTTPS port. Must be between 1 and 65535."
+            }
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/origins/{originName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/customDomains",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/customDomains/{customDomainName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/customDomains/{customDomainName}",
+        "RequestBody": {
+            "properties": {
+                "hostName": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "properties": {
+                "hostName": "The host name of the custom domain. Must be a domain name."
+            }
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/customDomains/{customDomainName}",
+        "RequestBody": {
+            "properties": {
+                "hostName": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "properties": {
+                "hostName": "The host name of the custom domain. Must be a domain name."
+            }
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Cdn/profiles/{profileName}/endpoints/{endpointName}/customDomains/{customDomainName}",
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/providers/Microsoft.Cdn/checkNameAvailability",
+        "RequestBody": {
+            "name": "(string)",
+            "type": "(string)"
+        },
+        "RequestBodyDoc": {
+            "name": "The resource name to validate.",
+            "type": "Type of CDN resource used in CheckNameAvailability."
+        },
+        "ApiVersion": "2015-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/providers/Microsoft.Cdn/operations",
+        "ApiVersion": "2015-06-01"
+    }
+]
