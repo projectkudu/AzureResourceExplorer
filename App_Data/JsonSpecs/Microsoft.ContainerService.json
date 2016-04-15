@@ -1,0 +1,120 @@
+[
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/containerServices/{containerServiceName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "provisioningState": "(string)",
+                "orchestratorProfile": {
+                    "orchestratorType": "(string)"
+                },
+                "masterProfile": {
+                    "count": "(integer)",
+                    "dnsPrefix": "(string)",
+                    "fqdn": "(string)"
+                },
+                "agentPoolProfiles": [
+                    {
+                        "name": "(string)",
+                        "count": "(integer)",
+                        "vmSize": "(string)",
+                        "dnsPrefix": "(string)",
+                        "fqdn": "(string)"
+                    }
+                ],
+                "windowsProfile": {
+                    "adminUsername": "(string)",
+                    "adminPassword": "(string)"
+                },
+                "linuxProfile": {
+                    "adminUsername": "(string)",
+                    "ssh": {
+                        "publicKeys": [
+                            {
+                                "keyData": "(string)"
+                            }
+                        ]
+                    }
+                },
+                "diagnosticsProfile": {
+                    "vmDiagnostics": {
+                        "enabled": "(boolean)",
+                        "storageUri": "(string)"
+                    }
+                }
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource name",
+            "type": "Resource type",
+            "location": "Resource location",
+            "tags": {},
+            "properties": {
+                "provisioningState": "Gets the provisioning state, which only appears in the response.",
+                "orchestratorProfile": {
+                    "orchestratorType": "Specifies what orchestrator will be used to manage container cluster resources."
+                },
+                "masterProfile": {
+                    "count": "Number of masters (VMs) in the container cluster",
+                    "dnsPrefix": "DNS prefix to be used to create FQDN for master",
+                    "fqdn": "FDQN for the master"
+                },
+                "agentPoolProfiles": [
+                    {
+                        "name": "Unique name of the agent pool profile within the context of the subscription and resource group",
+                        "count": "No. of agents (VMs) that will host docker containers",
+                        "vmSize": "Size of agent VMs",
+                        "dnsPrefix": "DNS prefix to be used to create FQDN for this agent pool",
+                        "fqdn": "FDQN for the agent pool"
+                    }
+                ],
+                "windowsProfile": {
+                    "adminUsername": "The administrator username to use for Windows VMs",
+                    "adminPassword": "The administrator password to use for Windows VMs"
+                },
+                "linuxProfile": {
+                    "adminUsername": "The administrator username to use for all Linux VMs",
+                    "ssh": {
+                        "publicKeys": [
+                            {
+                                "keyData": "Gets or sets Certificate public key used to authenticate with VM through SSH. The certificate must be in Pem format with or without headers."
+                            }
+                        ]
+                    }
+                },
+                "diagnosticsProfile": {
+                    "vmDiagnostics": {
+                        "enabled": "Gets or sets whether VM Diagnostic Agent should be provisioned on the Virtual Machine.",
+                        "storageUri": "Gets or sets whether VM Diagnostic Agent should be provisioned on the Virtual Machine."
+                    }
+                }
+            }
+        },
+        "ApiVersion": "2016-03-30"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/containerServices/{containerServiceName}",
+        "ApiVersion": "2016-03-30"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/containerServices/{containerServiceName}",
+        "ApiVersion": "2016-03-30"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ContainerService/containerServices",
+        "ApiVersion": "2016-03-30"
+    }
+]
