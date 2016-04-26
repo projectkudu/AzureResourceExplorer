@@ -12,27 +12,27 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
             "properties": {
                 "keyVaultId": "(string)",
                 "keyVaultSecretName": "(string)",
-                "provisioningState": "(string)",
-                "thumbprint": "(string)"
+                "provisioningState": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
             "properties": {
                 "keyVaultId": "Key Vault Csm resource Id",
                 "keyVaultSecretName": "Key Vault secret name",
-                "provisioningState": "Status of the Key Vault secret",
-                "thumbprint": "Thumbprint of the certificate stored in KeyVault"
+                "provisioningState": "Status of the Key Vault secret"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -50,27 +50,27 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
             "properties": {
                 "keyVaultId": "(string)",
                 "keyVaultSecretName": "(string)",
-                "provisioningState": "(string)",
-                "thumbprint": "(string)"
+                "provisioningState": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
             "properties": {
                 "keyVaultId": "Key Vault Csm resource Id",
                 "keyVaultSecretName": "Key Vault secret name",
-                "provisioningState": "Status of the Key Vault secret",
-                "thumbprint": "Thumbprint of the certificate stored in KeyVault"
+                "provisioningState": "Status of the Key Vault secret"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -88,6 +88,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -101,16 +102,73 @@
                 "autoRenew": "(boolean)",
                 "provisioningState": "(string)",
                 "status": "(string)",
-                "signedCertificate": "(string)",
+                "signedCertificate": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
                 "csr": "(string)",
-                "intermediate": "(string)",
-                "root": "(string)",
-                "serialNumber": "(string)"
+                "intermediate": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
+                "root": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
+                "serialNumber": "(string)",
+                "lastCertificateIssuanceTime": "(string)",
+                "expirationTime": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -124,11 +182,67 @@
                 "autoRenew": "Auto renew",
                 "provisioningState": "Status of certificate order",
                 "status": "Current order status",
-                "signedCertificate": "Signed certificate",
+                "signedCertificate": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
                 "csr": "Last CSR that was created for this order",
-                "intermediate": "Intermediate certificate",
-                "root": "Root certificate",
-                "serialNumber": "Current serial number of the certificate"
+                "intermediate": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
+                "root": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
+                "serialNumber": "Current serial number of the certificate",
+                "lastCertificateIssuanceTime": "Certificate last issuance time",
+                "expirationTime": "Certificate expiration time"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -146,6 +260,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -159,16 +274,73 @@
                 "autoRenew": "(boolean)",
                 "provisioningState": "(string)",
                 "status": "(string)",
-                "signedCertificate": "(string)",
+                "signedCertificate": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
                 "csr": "(string)",
-                "intermediate": "(string)",
-                "root": "(string)",
-                "serialNumber": "(string)"
+                "intermediate": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
+                "root": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
+                "serialNumber": "(string)",
+                "lastCertificateIssuanceTime": "(string)",
+                "expirationTime": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -182,11 +354,67 @@
                 "autoRenew": "Auto renew",
                 "provisioningState": "Status of certificate order",
                 "status": "Current order status",
-                "signedCertificate": "Signed certificate",
+                "signedCertificate": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
                 "csr": "Last CSR that was created for this order",
-                "intermediate": "Intermediate certificate",
-                "root": "Root certificate",
-                "serialNumber": "Current serial number of the certificate"
+                "intermediate": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
+                "root": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
+                "serialNumber": "Current serial number of the certificate",
+                "lastCertificateIssuanceTime": "Certificate last issuance time",
+                "expirationTime": "Certificate expiration time"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -210,6 +438,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -221,6 +450,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -238,25 +468,49 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
             "properties": {
-                "keySize": "(integer)",
-                "delayExistingRevokeInHours": "(integer)"
+                "keySize": "(integer)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
             "properties": {
-                "keySize": "Certificate Key Size",
-                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued"
+                "keySize": "Certificate Key Size"
             }
         },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/retrieveCertificateActions",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/retrieveEmailHistory",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/resendEmail",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/verifyDomainOwnership",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -278,6 +532,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -302,14 +557,13 @@
                     "id": "(string)",
                     "name": "(string)",
                     "type": "(string)"
-                },
-                "keyVaultId": "(string)",
-                "keyVaultSecretName": "(string)"
+                }
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -334,9 +588,7 @@
                     "id": "Resource id of the hostingEnvironment (App Service Environment)",
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
-                },
-                "keyVaultId": "Key Vault Csm resource Id",
-                "keyVaultSecretName": "Key Vault secret name"
+                }
             }
         },
         "ApiVersion": "2015-08-01"
@@ -354,6 +606,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -378,14 +631,13 @@
                     "id": "(string)",
                     "name": "(string)",
                     "type": "(string)"
-                },
-                "keyVaultId": "(string)",
-                "keyVaultSecretName": "(string)"
+                }
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -410,9 +662,7 @@
                     "id": "Resource id of the hostingEnvironment (App Service Environment)",
                     "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
                     "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
-                },
-                "keyVaultId": "Key Vault Csm resource Id",
-                "keyVaultSecretName": "Key Vault secret name"
+                }
             }
         },
         "ApiVersion": "2015-08-01"
@@ -454,6 +704,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -559,12 +810,16 @@
                     ],
                     "agreedBy": "(string)",
                     "agreedAt": "(string)"
-                }
+                },
+                "domainNotRenewableReasons": [
+                    "(string)"
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -670,7 +925,10 @@
                     ],
                     "agreedBy": "Client IP address",
                     "agreedAt": "Timestamp when the agreements were accepted"
-                }
+                },
+                "domainNotRenewableReasons": [
+                    null
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -688,6 +946,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -793,12 +1052,16 @@
                     ],
                     "agreedBy": "(string)",
                     "agreedAt": "(string)"
-                }
+                },
+                "domainNotRenewableReasons": [
+                    "(string)"
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -904,7 +1167,10 @@
                     ],
                     "agreedBy": "Client IP address",
                     "agreedAt": "Timestamp when the agreements were accepted"
-                }
+                },
+                "domainNotRenewableReasons": [
+                    null
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -925,116 +1191,6 @@
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/certificates",
-        "ResponseBody": [
-            {
-                "id": "(string)",
-                "name": "(string)",
-                "type": "(string)",
-                "location": "(string)",
-                "tags": {},
-                "plan": {
-                    "name": "(string)",
-                    "publisher": "(string)",
-                    "product": "(string)",
-                    "promotionCode": "(string)",
-                    "version": "(string)"
-                },
-                "properties": {
-                    "id": "(string)",
-                    "name": "(string)",
-                    "location": "(string)",
-                    "type": "(string)",
-                    "tags": {},
-                    "properties": {
-                        "friendlyName": "(string)",
-                        "subjectName": "(string)",
-                        "hostNames": [
-                            "(string)"
-                        ],
-                        "pfxBlob": "(string)",
-                        "siteName": "(string)",
-                        "selfLink": "(string)",
-                        "issuer": "(string)",
-                        "issueDate": "(string)",
-                        "expirationDate": "(string)",
-                        "password": "(string)",
-                        "thumbprint": "(string)",
-                        "valid": "(boolean)",
-                        "cerBlob": "(string)",
-                        "publicKeyHash": "(string)",
-                        "hostingEnvironmentProfile": {
-                            "id": "(string)",
-                            "name": "(string)",
-                            "type": "(string)"
-                        },
-                        "keyVaultId": "(string)",
-                        "keyVaultSecretName": "(string)"
-                    }
-                },
-                "sku": {
-                    "name": "(string)",
-                    "tier": "(string)",
-                    "size": "(string)",
-                    "family": "(string)",
-                    "capacity": "(integer)"
-                }
-            }
-        ],
-        "ResponseBodyDoc": [
-            {
-                "id": "Resource Id. Typically id is populated only for responses to GET requests. Caller is responsible for passing in this\r\n            value for GET requests only.\r\n            For example: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupId}/providers/Microsoft.Web/sites/{sitename}",
-                "name": "Name of resource",
-                "type": "Type of resource e.g Microsoft.Web/sites",
-                "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
-                "tags": {},
-                "plan": {
-                    "name": "The name",
-                    "publisher": "The publisher",
-                    "product": "The product",
-                    "promotionCode": "The promotion code",
-                    "version": "Version of product"
-                },
-                "properties": {
-                    "id": "Resource Id",
-                    "name": "Resource Name",
-                    "location": "Resource Location",
-                    "type": "Resource type",
-                    "tags": {},
-                    "properties": {
-                        "friendlyName": "Friendly name of the certificate",
-                        "subjectName": "Subject name of the certificate",
-                        "hostNames": [
-                            null
-                        ],
-                        "pfxBlob": "Pfx blob",
-                        "siteName": "App name",
-                        "selfLink": "Self link",
-                        "issuer": "Certificate issuer",
-                        "issueDate": "Certificate issue Date",
-                        "expirationDate": "Certificate expriration date",
-                        "password": "Certificate password",
-                        "thumbprint": "Certificate thumbprint",
-                        "valid": "Is the certificate valid?",
-                        "cerBlob": "Raw bytes of .cer file",
-                        "publicKeyHash": "Public key hash",
-                        "hostingEnvironmentProfile": {
-                            "id": "Resource id of the hostingEnvironment (App Service Environment)",
-                            "name": "Name of the hostingEnvironment (App Service Environment) (read only)",
-                            "type": "Resource type of the hostingEnvironment (App Service Environment) (read only)"
-                        },
-                        "keyVaultId": "Key Vault Csm resource Id",
-                        "keyVaultSecretName": "Key Vault secret name"
-                    }
-                },
-                "sku": {
-                    "name": "Name of the resource sku",
-                    "tier": "Service Tier of the resource sku",
-                    "size": "Size specifier of the resource sku",
-                    "family": "Family code of the resource sku",
-                    "capacity": "Current number of instances assigned to the resource"
-                }
-            }
-        ],
         "ApiVersion": "2015-08-01"
     },
     {
@@ -1096,6 +1252,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -1109,16 +1266,73 @@
                 "autoRenew": "(boolean)",
                 "provisioningState": "(string)",
                 "status": "(string)",
-                "signedCertificate": "(string)",
+                "signedCertificate": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
                 "csr": "(string)",
-                "intermediate": "(string)",
-                "root": "(string)",
-                "serialNumber": "(string)"
+                "intermediate": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
+                "root": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "kind": "(string)",
+                    "location": "(string)",
+                    "type": "(string)",
+                    "tags": {},
+                    "properties": {
+                        "version": "(integer)",
+                        "serialNumber": "(string)",
+                        "thumbprint": "(string)",
+                        "subject": "(string)",
+                        "notBefore": "(string)",
+                        "notAfter": "(string)",
+                        "signatureAlgorithm": "(string)",
+                        "issuer": "(string)",
+                        "rawData": "(string)"
+                    }
+                },
+                "serialNumber": "(string)",
+                "lastCertificateIssuanceTime": "(string)",
+                "expirationTime": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -1132,11 +1346,67 @@
                 "autoRenew": "Auto renew",
                 "provisioningState": "Status of certificate order",
                 "status": "Current order status",
-                "signedCertificate": "Signed certificate",
+                "signedCertificate": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
                 "csr": "Last CSR that was created for this order",
-                "intermediate": "Intermediate certificate",
-                "root": "Root certificate",
-                "serialNumber": "Current serial number of the certificate"
+                "intermediate": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
+                "root": {
+                    "id": "Resource Id",
+                    "name": "Resource Name",
+                    "kind": "Kind of resource",
+                    "location": "Resource Location",
+                    "type": "Resource type",
+                    "tags": {},
+                    "properties": {
+                        "version": "Version",
+                        "serialNumber": "Serial Number",
+                        "thumbprint": "Thumbprint",
+                        "subject": "Subject",
+                        "notBefore": "Valid from",
+                        "notAfter": "Valid to",
+                        "signatureAlgorithm": "Signature Algorithm",
+                        "issuer": "Issuer",
+                        "rawData": "Raw certificate data"
+                    }
+                },
+                "serialNumber": "Current serial number of the certificate",
+                "lastCertificateIssuanceTime": "Certificate last issuance time",
+                "expirationTime": "Certificate expiration time"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -1160,6 +1430,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -1266,12 +1537,16 @@
                     ],
                     "agreedBy": "(string)",
                     "agreedAt": "(string)"
-                }
+                },
+                "domainNotRenewableReasons": [
+                    "(string)"
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -1378,7 +1653,10 @@
                     ],
                     "agreedBy": "Client IP address",
                     "agreedAt": "Timestamp when the agreements were accepted"
-                }
+                },
+                "domainNotRenewableReasons": [
+                    null
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -1439,12 +1717,14 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
             "properties": {
                 "name": "(string)",
                 "location": "(string)",
+                "provisioningState": "(string)",
                 "status": "(string)",
                 "vnetName": "(string)",
                 "vnetResourceGroupName": "(string)",
@@ -1462,6 +1742,7 @@
                     {
                         "id": "(string)",
                         "name": "(string)",
+                        "kind": "(string)",
                         "location": "(string)",
                         "type": "(string)",
                         "tags": {},
@@ -1528,18 +1809,26 @@
                 "environmentStatus": "(string)",
                 "resourceGroup": "(string)",
                 "apiManagementAccountId": "(string)",
-                "suspended": "(boolean)"
+                "suspended": "(boolean)",
+                "clusterSettings": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)"
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
             "properties": {
                 "name": "Name of the hostingEnvironment (App Service Environment)",
                 "location": "Location of the hostingEnvironment (App Service Environment), e.g. \"West US\"",
+                "provisioningState": "Provisioning state of the hostingEnvironment (App Service Environment)",
                 "status": "Current status of the hostingEnvironment (App Service Environment)",
                 "vnetName": "Name of the hostingEnvironment's (App Service Environment) virtual network",
                 "vnetResourceGroupName": "Resource group of the hostingEnvironment's (App Service Environment) virtual network",
@@ -1557,6 +1846,7 @@
                     {
                         "id": "Resource Id",
                         "name": "Resource Name",
+                        "kind": "Kind of resource",
                         "location": "Resource Location",
                         "type": "Resource type",
                         "tags": {},
@@ -1618,7 +1908,13 @@
                 "environmentStatus": "Detailed message about with results of the last check of the hostingEnvironment (App Service Environment)",
                 "resourceGroup": "Resource group of the hostingEnvironment (App Service Environment)",
                 "apiManagementAccountId": "Api Management Account associated with this Hosting Environment",
-                "suspended": "True/false indicating whether the hostingEnvironment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\r\n            (most likely because NSG blocked the incoming traffic)"
+                "suspended": "True/false indicating whether the hostingEnvironment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\r\n            (most likely because NSG blocked the incoming traffic)",
+                "clusterSettings": [
+                    {
+                        "name": "Pair name",
+                        "value": "Pair value"
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -1738,6 +2034,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -1761,6 +2058,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -1808,6 +2106,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -1831,6 +2130,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -1896,12 +2196,14 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
             "properties": {
                 "name": "(string)",
                 "location": "(string)",
+                "provisioningState": "(string)",
                 "status": "(string)",
                 "vnetName": "(string)",
                 "vnetResourceGroupName": "(string)",
@@ -1919,6 +2221,7 @@
                     {
                         "id": "(string)",
                         "name": "(string)",
+                        "kind": "(string)",
                         "location": "(string)",
                         "type": "(string)",
                         "tags": {},
@@ -1985,18 +2288,26 @@
                 "environmentStatus": "(string)",
                 "resourceGroup": "(string)",
                 "apiManagementAccountId": "(string)",
-                "suspended": "(boolean)"
+                "suspended": "(boolean)",
+                "clusterSettings": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)"
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
             "properties": {
                 "name": "Name of the hostingEnvironment (App Service Environment)",
                 "location": "Location of the hostingEnvironment (App Service Environment), e.g. \"West US\"",
+                "provisioningState": "Provisioning state of the hostingEnvironment (App Service Environment)",
                 "status": "Current status of the hostingEnvironment (App Service Environment)",
                 "vnetName": "Name of the hostingEnvironment's (App Service Environment) virtual network",
                 "vnetResourceGroupName": "Resource group of the hostingEnvironment's (App Service Environment) virtual network",
@@ -2014,6 +2325,7 @@
                     {
                         "id": "Resource Id",
                         "name": "Resource Name",
+                        "kind": "Kind of resource",
                         "location": "Resource Location",
                         "type": "Resource type",
                         "tags": {},
@@ -2075,7 +2387,13 @@
                 "environmentStatus": "Detailed message about with results of the last check of the hostingEnvironment (App Service Environment)",
                 "resourceGroup": "Resource group of the hostingEnvironment (App Service Environment)",
                 "apiManagementAccountId": "Api Management Account associated with this Hosting Environment",
-                "suspended": "True/false indicating whether the hostingEnvironment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\r\n            (most likely because NSG blocked the incoming traffic)"
+                "suspended": "True/false indicating whether the hostingEnvironment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\r\n            (most likely because NSG blocked the incoming traffic)",
+                "clusterSettings": [
+                    {
+                        "name": "Pair name",
+                        "value": "Pair value"
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -2129,6 +2447,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2143,6 +2462,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2169,6 +2489,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2181,6 +2502,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2190,6 +2512,30 @@
                 "publishingPassword": "Password used for publishing"
             }
         },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/recommendations",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendations/{name}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendations",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendationHistory",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2211,11 +2557,13 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
             "properties": {
                 "name": "(string)",
+                "workerTierName": "(string)",
                 "status": "(string)",
                 "subscription": "(string)",
                 "adminSiteName": "(string)",
@@ -2241,11 +2589,13 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
             "properties": {
                 "name": "Name for the App Service Plan",
+                "workerTierName": "Target worker tier assigned to the App Service Plan",
                 "status": "App Service Plan Status",
                 "subscription": "App Service Plan Subscription",
                 "adminSiteName": "App Service Plan administration site",
@@ -2313,6 +2663,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2326,6 +2677,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2351,6 +2703,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2364,6 +2717,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2389,6 +2743,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2400,6 +2755,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2441,6 +2797,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2452,6 +2809,7 @@
                     {
                         "id": "(string)",
                         "name": "(string)",
+                        "kind": "(string)",
                         "location": "(string)",
                         "type": "(string)",
                         "tags": {},
@@ -2462,12 +2820,15 @@
                             "routeType": "(string)"
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "(boolean)",
+                "dnsServers": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2479,6 +2840,7 @@
                     {
                         "id": "Resource Id",
                         "name": "Resource Name",
+                        "kind": "Kind of resource",
                         "location": "Resource Location",
                         "type": "Resource type",
                         "tags": {},
@@ -2489,7 +2851,9 @@
                             "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "Flag to determine if a resync is required",
+                "dnsServers": "Dns servers to be used by this VNET. This should be a comma-separated list of IP addresses."
             }
         },
         "ApiVersion": "2015-08-01"
@@ -2507,6 +2871,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2518,6 +2883,7 @@
                     {
                         "id": "(string)",
                         "name": "(string)",
+                        "kind": "(string)",
                         "location": "(string)",
                         "type": "(string)",
                         "tags": {},
@@ -2528,12 +2894,15 @@
                             "routeType": "(string)"
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "(boolean)",
+                "dnsServers": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2545,6 +2914,7 @@
                     {
                         "id": "Resource Id",
                         "name": "Resource Name",
+                        "kind": "Kind of resource",
                         "location": "Resource Location",
                         "type": "Resource type",
                         "tags": {},
@@ -2555,7 +2925,9 @@
                             "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "Flag to determine if a resync is required",
+                "dnsServers": "Dns servers to be used by this VNET. This should be a comma-separated list of IP addresses."
             }
         },
         "ApiVersion": "2015-08-01"
@@ -2573,6 +2945,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2584,6 +2957,7 @@
                     {
                         "id": "(string)",
                         "name": "(string)",
+                        "kind": "(string)",
                         "location": "(string)",
                         "type": "(string)",
                         "tags": {},
@@ -2594,12 +2968,15 @@
                             "routeType": "(string)"
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "(boolean)",
+                "dnsServers": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2611,6 +2988,7 @@
                     {
                         "id": "Resource Id",
                         "name": "Resource Name",
+                        "kind": "Kind of resource",
                         "location": "Resource Location",
                         "type": "Resource type",
                         "tags": {},
@@ -2621,7 +2999,9 @@
                             "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "Flag to determine if a resync is required",
+                "dnsServers": "Dns servers to be used by this VNET. This should be a comma-separated list of IP addresses."
             }
         },
         "ApiVersion": "2015-08-01"
@@ -2639,6 +3019,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2650,6 +3031,7 @@
                     {
                         "id": "(string)",
                         "name": "(string)",
+                        "kind": "(string)",
                         "location": "(string)",
                         "type": "(string)",
                         "tags": {},
@@ -2660,12 +3042,15 @@
                             "routeType": "(string)"
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "(boolean)",
+                "dnsServers": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2677,6 +3062,7 @@
                     {
                         "id": "Resource Id",
                         "name": "Resource Name",
+                        "kind": "Kind of resource",
                         "location": "Resource Location",
                         "type": "Resource type",
                         "tags": {},
@@ -2687,7 +3073,9 @@
                             "routeType": "The type of route this is:\r\n            DEFAULT - By default, every web app has routes to the local address ranges specified by RFC1918\r\n            INHERITED - Routes inherited from the real Virtual Network routes\r\n            STATIC - Static route set on the web app only\r\n            \r\n            These values will be used for syncing a Web App's routes with those from a Virtual Network. This operation will clear all DEFAULT and INHERITED routes and replace them\r\n            with new INHERITED routes."
                         }
                     }
-                ]
+                ],
+                "resyncRequired": "Flag to determine if a resync is required",
+                "dnsServers": "Dns servers to be used by this VNET. This should be a comma-separated list of IP addresses."
             }
         },
         "ApiVersion": "2015-08-01"
@@ -2707,13 +3095,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/operationresults/{operationId}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/operationresults/{operationId}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2803,13 +3191,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -2825,6 +3213,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2840,6 +3229,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -2879,6 +3269,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -2901,8 +3292,7 @@
                         "sslState": "(string)",
                         "virtualIP": "(string)",
                         "thumbprint": "(string)",
-                        "toUpdate": "(boolean)",
-                        "toUpdateIpBasedSsl": "(boolean)"
+                        "toUpdate": "(boolean)"
                     }
                 ],
                 "serverFarmId": "(string)",
@@ -2910,6 +3300,7 @@
                 "siteConfig": {
                     "id": "(string)",
                     "name": "(string)",
+                    "kind": "(string)",
                     "location": "(string)",
                     "type": "(string)",
                     "tags": {},
@@ -3040,7 +3431,14 @@
                         "apiDefinition": {
                             "url": "(string)"
                         },
-                        "autoSwapSlotName": "(string)"
+                        "autoSwapSlotName": "(string)",
+                        "localMySqlEnabled": "(boolean)",
+                        "ipSecurityRestrictions": [
+                            {
+                                "ipAddress": "(string)",
+                                "subnetMask": "(string)"
+                            }
+                        ]
                     }
                 },
                 "trafficManagerHostNames": [
@@ -3058,7 +3456,10 @@
                 "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
+                "hostNamesDisabled": "(boolean)",
                 "outboundIpAddresses": "(string)",
+                "containerSize": "(integer)",
+                "maxNumberOfWorkers": "(integer)",
                 "cloningInfo": {
                     "correlationId": "(string)",
                     "overwrite": "(boolean)",
@@ -3070,12 +3471,16 @@
                     "configureLoadBalancing": "(boolean)",
                     "trafficManagerProfileId": "(string)",
                     "trafficManagerProfileName": "(string)"
-                }
+                },
+                "resourceGroup": "(string)",
+                "isDefaultContainer": "(boolean)",
+                "defaultHostName": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -3098,14 +3503,14 @@
                         "sslState": "SSL type",
                         "virtualIP": "Virtual IP address assigned to the host name if IP based SSL is enabled",
                         "thumbprint": "SSL cert thumbprint",
-                        "toUpdate": "Set this flag to update existing host name",
-                        "toUpdateIpBasedSsl": "Set this flag to update existing host name"
+                        "toUpdate": "Set this flag to update existing host name"
                     }
                 ],
                 "lastModifiedTimeUtc": "Last time web app was modified in UTC",
                 "siteConfig": {
                     "id": "Resource Id",
                     "name": "Resource Name",
+                    "kind": "Kind of resource",
                     "location": "Resource Location",
                     "type": "Resource type",
                     "tags": {},
@@ -3230,7 +3635,14 @@
                         "apiDefinition": {
                             "url": "The URL of the API definition."
                         },
-                        "autoSwapSlotName": "Auto swap slot name"
+                        "autoSwapSlotName": "Auto swap slot name",
+                        "localMySqlEnabled": "Local mysql enabled",
+                        "ipSecurityRestrictions": [
+                            {
+                                "ipAddress": "IP address the security restriction is valid for",
+                                "subnetMask": "Subnet mask for the range of IP addresses the restriction is valid for"
+                            }
+                        ]
                     }
                 },
                 "trafficManagerHostNames": [
@@ -3248,7 +3660,10 @@
                 "gatewaySiteName": "Name of gateway app associated with web app",
                 "clientAffinityEnabled": "Specifies if the client affinity is enabled when load balancing http request for multiple instances of the web app",
                 "clientCertEnabled": "Specifies if the client certificate is enabled for the web app",
+                "hostNamesDisabled": "Specifies if the public hostnames are disabled the web app.\r\n            If set to true the app is only accessible via API Management process",
                 "outboundIpAddresses": "List of comma separated IP addresses that this web app uses for outbound connections. Those can be used when configuring firewall rules for databases accessed by this web app.",
+                "containerSize": "Size of a function container",
+                "maxNumberOfWorkers": "Maximum number of workers\r\n            This only applies to function container",
                 "cloningInfo": {
                     "correlationId": "Correlation Id of cloning operation. This id ties multiple cloning operations\r\n            together to use the same snapshot",
                     "overwrite": "Overwrite destination web app",
@@ -3260,7 +3675,10 @@
                     "configureLoadBalancing": "If specified configure load balancing for source and clone site",
                     "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficManagerProfiles/{profileName}",
                     "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist"
-                }
+                },
+                "resourceGroup": "Resource group web app belongs to",
+                "isDefaultContainer": "Site is a default container",
+                "defaultHostName": "Default hostname of the web app"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -3284,6 +3702,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -3306,8 +3725,7 @@
                         "sslState": "(string)",
                         "virtualIP": "(string)",
                         "thumbprint": "(string)",
-                        "toUpdate": "(boolean)",
-                        "toUpdateIpBasedSsl": "(boolean)"
+                        "toUpdate": "(boolean)"
                     }
                 ],
                 "serverFarmId": "(string)",
@@ -3315,6 +3733,7 @@
                 "siteConfig": {
                     "id": "(string)",
                     "name": "(string)",
+                    "kind": "(string)",
                     "location": "(string)",
                     "type": "(string)",
                     "tags": {},
@@ -3445,7 +3864,14 @@
                         "apiDefinition": {
                             "url": "(string)"
                         },
-                        "autoSwapSlotName": "(string)"
+                        "autoSwapSlotName": "(string)",
+                        "localMySqlEnabled": "(boolean)",
+                        "ipSecurityRestrictions": [
+                            {
+                                "ipAddress": "(string)",
+                                "subnetMask": "(string)"
+                            }
+                        ]
                     }
                 },
                 "trafficManagerHostNames": [
@@ -3463,7 +3889,10 @@
                 "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
+                "hostNamesDisabled": "(boolean)",
                 "outboundIpAddresses": "(string)",
+                "containerSize": "(integer)",
+                "maxNumberOfWorkers": "(integer)",
                 "cloningInfo": {
                     "correlationId": "(string)",
                     "overwrite": "(boolean)",
@@ -3475,12 +3904,16 @@
                     "configureLoadBalancing": "(boolean)",
                     "trafficManagerProfileId": "(string)",
                     "trafficManagerProfileName": "(string)"
-                }
+                },
+                "resourceGroup": "(string)",
+                "isDefaultContainer": "(boolean)",
+                "defaultHostName": "(string)"
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -3503,14 +3936,14 @@
                         "sslState": "SSL type",
                         "virtualIP": "Virtual IP address assigned to the host name if IP based SSL is enabled",
                         "thumbprint": "SSL cert thumbprint",
-                        "toUpdate": "Set this flag to update existing host name",
-                        "toUpdateIpBasedSsl": "Set this flag to update existing host name"
+                        "toUpdate": "Set this flag to update existing host name"
                     }
                 ],
                 "lastModifiedTimeUtc": "Last time web app was modified in UTC",
                 "siteConfig": {
                     "id": "Resource Id",
                     "name": "Resource Name",
+                    "kind": "Kind of resource",
                     "location": "Resource Location",
                     "type": "Resource type",
                     "tags": {},
@@ -3635,7 +4068,14 @@
                         "apiDefinition": {
                             "url": "The URL of the API definition."
                         },
-                        "autoSwapSlotName": "Auto swap slot name"
+                        "autoSwapSlotName": "Auto swap slot name",
+                        "localMySqlEnabled": "Local mysql enabled",
+                        "ipSecurityRestrictions": [
+                            {
+                                "ipAddress": "IP address the security restriction is valid for",
+                                "subnetMask": "Subnet mask for the range of IP addresses the restriction is valid for"
+                            }
+                        ]
                     }
                 },
                 "trafficManagerHostNames": [
@@ -3653,7 +4093,10 @@
                 "gatewaySiteName": "Name of gateway app associated with web app",
                 "clientAffinityEnabled": "Specifies if the client affinity is enabled when load balancing http request for multiple instances of the web app",
                 "clientCertEnabled": "Specifies if the client certificate is enabled for the web app",
+                "hostNamesDisabled": "Specifies if the public hostnames are disabled the web app.\r\n            If set to true the app is only accessible via API Management process",
                 "outboundIpAddresses": "List of comma separated IP addresses that this web app uses for outbound connections. Those can be used when configuring firewall rules for databases accessed by this web app.",
+                "containerSize": "Size of a function container",
+                "maxNumberOfWorkers": "Maximum number of workers\r\n            This only applies to function container",
                 "cloningInfo": {
                     "correlationId": "Correlation Id of cloning operation. This id ties multiple cloning operations\r\n            together to use the same snapshot",
                     "overwrite": "Overwrite destination web app",
@@ -3665,7 +4108,10 @@
                     "configureLoadBalancing": "If specified configure load balancing for source and clone site",
                     "trafficManagerProfileId": "ARM resource id of the traffic manager profile to use if it exists. Traffic manager resource id is of the form \r\n            /subscriptions/{subId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/trafficManagerProfiles/{profileName}",
                     "trafficManagerProfileName": "Name of traffic manager profile to create. This is only needed if traffic manager profile does not already exist"
-                }
+                },
+                "resourceGroup": "Resource group web app belongs to",
+                "isDefaultContainer": "Site is a default container",
+                "defaultHostName": "Default hostname of the web app"
             }
         },
         "ApiVersion": "2015-08-01"
@@ -3682,11 +4128,13 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/recover",
         "RequestBody": {
             "snapshotTime": "(string)",
+            "recoverConfig": "(boolean)",
             "siteName": "(string)",
             "slotName": "(string)"
         },
         "RequestBodyDoc": {
             "snapshotTime": "Point in time in which the site recover should be attempted.",
+            "recoverConfig": "If true, then the website's configuration will be reverted to its state at SnapshotTime",
             "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
             "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
         },
@@ -3698,11 +4146,13 @@
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/recover",
         "RequestBody": {
             "snapshotTime": "(string)",
+            "recoverConfig": "(boolean)",
             "siteName": "(string)",
             "slotName": "(string)"
         },
         "RequestBodyDoc": {
             "snapshotTime": "Point in time in which the site recover should be attempted.",
+            "recoverConfig": "If true, then the website's configuration will be reverted to its state at SnapshotTime",
             "siteName": "[Optional] Destination web app name into which web app should be recovered. This is case when new web app should be created instead.",
             "slotName": "[Optional] Destination web app slot name into which web app should be recovered"
         },
@@ -3735,16 +4185,17 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -3764,6 +4215,65 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {
+                "id": "Id",
+                "status": "Status",
+                "message": "Message",
+                "author": "Author",
+                "deployer": "Deployer",
+                "author_email": "AuthorEmail",
+                "start_time": "StartTime",
+                "end_time": "EndTime",
+                "active": "Active",
+                "details": "Detail"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "id": "(string)",
+                "status": "(integer)",
+                "message": "(string)",
+                "author": "(string)",
+                "deployer": "(string)",
+                "author_email": "(string)",
+                "start_time": "(string)",
+                "end_time": "(string)",
+                "active": "(boolean)",
+                "details": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -3801,6 +4311,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -3820,6 +4331,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -3842,62 +4354,6 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {
-                "id": "(string)",
-                "status": "(integer)",
-                "message": "(string)",
-                "author": "(string)",
-                "deployer": "(string)",
-                "author_email": "(string)",
-                "start_time": "(string)",
-                "end_time": "(string)",
-                "active": "(boolean)",
-                "details": "(string)"
-            }
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {
-                "id": "Id",
-                "status": "Status",
-                "message": "Message",
-                "author": "Author",
-                "deployer": "Deployer",
-                "author_email": "AuthorEmail",
-                "start_time": "StartTime",
-                "end_time": "EndTime",
-                "active": "Active",
-                "details": "Detail"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -3913,6 +4369,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -3932,6 +4389,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -3971,18 +4429,18 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
         "ApiVersion": "2015-08-01"
     },
@@ -3993,6 +4451,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -4009,6 +4468,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -4043,6 +4503,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -4059,6 +4520,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -4093,6 +4555,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -4223,12 +4686,20 @@
                 "apiDefinition": {
                     "url": "(string)"
                 },
-                "autoSwapSlotName": "(string)"
+                "autoSwapSlotName": "(string)",
+                "localMySqlEnabled": "(boolean)",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "(string)",
+                        "subnetMask": "(string)"
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -4353,7 +4824,14 @@
                 "apiDefinition": {
                     "url": "The URL of the API definition."
                 },
-                "autoSwapSlotName": "Auto swap slot name"
+                "autoSwapSlotName": "Auto swap slot name",
+                "localMySqlEnabled": "Local mysql enabled",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "IP address the security restriction is valid for",
+                        "subnetMask": "Subnet mask for the range of IP addresses the restriction is valid for"
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -4365,6 +4843,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -4495,12 +4974,20 @@
                 "apiDefinition": {
                     "url": "(string)"
                 },
-                "autoSwapSlotName": "(string)"
+                "autoSwapSlotName": "(string)",
+                "localMySqlEnabled": "(boolean)",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "(string)",
+                        "subnetMask": "(string)"
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -4625,7 +5112,14 @@
                 "apiDefinition": {
                     "url": "The URL of the API definition."
                 },
-                "autoSwapSlotName": "Auto swap slot name"
+                "autoSwapSlotName": "Auto swap slot name",
+                "localMySqlEnabled": "Local mysql enabled",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "IP address the security restriction is valid for",
+                        "subnetMask": "Subnet mask for the range of IP addresses the restriction is valid for"
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -4643,6 +5137,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -4773,12 +5268,20 @@
                 "apiDefinition": {
                     "url": "(string)"
                 },
-                "autoSwapSlotName": "(string)"
+                "autoSwapSlotName": "(string)",
+                "localMySqlEnabled": "(boolean)",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "(string)",
+                        "subnetMask": "(string)"
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -4903,7 +5406,14 @@
                 "apiDefinition": {
                     "url": "The URL of the API definition."
                 },
-                "autoSwapSlotName": "Auto swap slot name"
+                "autoSwapSlotName": "Auto swap slot name",
+                "localMySqlEnabled": "Local mysql enabled",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "IP address the security restriction is valid for",
+                        "subnetMask": "Subnet mask for the range of IP addresses the restriction is valid for"
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -4915,6 +5425,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5045,12 +5556,20 @@
                 "apiDefinition": {
                     "url": "(string)"
                 },
-                "autoSwapSlotName": "(string)"
+                "autoSwapSlotName": "(string)",
+                "localMySqlEnabled": "(boolean)",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "(string)",
+                        "subnetMask": "(string)"
+                    }
+                ]
             }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5175,7 +5694,14 @@
                 "apiDefinition": {
                     "url": "The URL of the API definition."
                 },
-                "autoSwapSlotName": "Auto swap slot name"
+                "autoSwapSlotName": "Auto swap slot name",
+                "localMySqlEnabled": "Local mysql enabled",
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "IP address the security restriction is valid for",
+                        "subnetMask": "Subnet mask for the range of IP addresses the restriction is valid for"
+                    }
+                ]
             }
         },
         "ApiVersion": "2015-08-01"
@@ -5193,6 +5719,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5207,6 +5734,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5233,6 +5761,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5247,6 +5776,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5273,6 +5803,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5287,6 +5818,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5313,6 +5845,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5327,6 +5860,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5338,12 +5872,6 @@
                 "isMercurial": "Mercurial or Git repository type"
             }
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings/list",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5353,12 +5881,19 @@
         "ApiVersion": "2015-08-01"
     },
     {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings/list",
+        "ApiVersion": "2015-08-01"
+    },
+    {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5367,6 +5902,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5381,6 +5917,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5389,6 +5926,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5411,10 +5949,11 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5423,6 +5962,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5433,10 +5973,11 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5445,6 +5986,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5467,7 +6009,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings",
         "RequestBody": {
             "enabled": "(boolean)",
             "httpApiPrefixPath": "(string)",
@@ -5477,10 +6019,14 @@
                 "(string)"
             ],
             "defaultProvider": "(string)",
+            "tokenRefreshExtensionHours": "(number)",
             "clientId": "(string)",
             "clientSecret": "(string)",
             "issuer": "(string)",
             "allowedAudiences": [
+                "(string)"
+            ],
+            "additionalLoginParams": [
                 "(string)"
             ],
             "aadClientId": "(string)",
@@ -5512,10 +6058,14 @@
                 null
             ],
             "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This setting is only needed if multiple providers are configured and the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
+            "tokenRefreshExtensionHours": "Gets or sets the number of hours after session token expiration that a session token can be used to\r\n            call the token refresh API. The default is 72 hours.",
             "clientId": "Gets or sets the Client ID of this relying party application, known as the client_id.\r\n            This setting is required for enabling OpenID Connection authentication with Azure Active Directory or \r\n            other 3rd party OpenID Connect providers.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "clientSecret": "Gets or sets the Client Secret of this relying party application (in Azure Active Directory, this is also referred to as the Key).\r\n            This setting is optional. If no client secret is configured, the OpenID Connect implicit auth flow is used to authenticate end users.\r\n            Otherwise, the OpenID Connect Authorization Code Flow is used to authenticate end users.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer.\r\n            More information on OpenID Connect Discovery: http://openid.net/specs/openid-connect-discovery-1_0.html",
             "allowedAudiences": [
+                null
+            ],
+            "additionalLoginParams": [
                 null
             ],
             "googleClientId": "Gets or sets the OpenID Connect Client ID for the Google web application.\r\n            This setting is required for enabling Google Sign-In.\r\n            Google Sign-In documentation: https://developers.google.com/identity/sign-in/web/",
@@ -5541,7 +6091,7 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings",
         "RequestBody": {
             "enabled": "(boolean)",
             "httpApiPrefixPath": "(string)",
@@ -5551,10 +6101,14 @@
                 "(string)"
             ],
             "defaultProvider": "(string)",
+            "tokenRefreshExtensionHours": "(number)",
             "clientId": "(string)",
             "clientSecret": "(string)",
             "issuer": "(string)",
             "allowedAudiences": [
+                "(string)"
+            ],
+            "additionalLoginParams": [
                 "(string)"
             ],
             "aadClientId": "(string)",
@@ -5586,10 +6140,14 @@
                 null
             ],
             "defaultProvider": "Gets or sets the default authentication provider to use when multiple providers are configured.\r\n            This setting is only needed if multiple providers are configured and the unauthenticated client\r\n            action is set to \"RedirectToLoginPage\".",
+            "tokenRefreshExtensionHours": "Gets or sets the number of hours after session token expiration that a session token can be used to\r\n            call the token refresh API. The default is 72 hours.",
             "clientId": "Gets or sets the Client ID of this relying party application, known as the client_id.\r\n            This setting is required for enabling OpenID Connection authentication with Azure Active Directory or \r\n            other 3rd party OpenID Connect providers.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "clientSecret": "Gets or sets the Client Secret of this relying party application (in Azure Active Directory, this is also referred to as the Key).\r\n            This setting is optional. If no client secret is configured, the OpenID Connect implicit auth flow is used to authenticate end users.\r\n            Otherwise, the OpenID Connect Authorization Code Flow is used to authenticate end users.\r\n            More information on OpenID Connect: http://openid.net/specs/openid-connect-core-1_0.html",
             "issuer": "Gets or sets the OpenID Connect Issuer URI that represents the entity which issues access tokens for this application.\r\n            When using Azure Active Directory, this value is the URI of the directory tenant, e.g. https://sts.windows.net/{tenant-guid}/.\r\n            This URI is a case-sensitive identifier for the token issuer.\r\n            More information on OpenID Connect Discovery: http://openid.net/specs/openid-connect-discovery-1_0.html",
             "allowedAudiences": [
+                null
+            ],
+            "additionalLoginParams": [
                 null
             ],
             "googleClientId": "Gets or sets the OpenID Connect Client ID for the Google web application.\r\n            This setting is required for enabling Google Sign-In.\r\n            Google Sign-In documentation: https://developers.google.com/identity/sign-in/web/",
@@ -5639,32 +6197,11 @@
     {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
-        "RequestBody": {
-            "id": "(string)",
-            "name": "(string)",
-            "location": "(string)",
-            "type": "(string)",
-            "tags": {},
-            "properties": {}
-        },
-        "RequestBodyDoc": {
-            "id": "Resource Id",
-            "name": "Resource Name",
-            "location": "Resource Location",
-            "type": "Resource type",
-            "tags": {},
-            "properties": {}
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata",
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5673,6 +6210,31 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
+            "location": "Resource Location",
+            "type": "Resource type",
+            "tags": {},
+            "properties": {}
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {}
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5693,6 +6255,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5734,6 +6297,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5787,6 +6351,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -5828,6 +6393,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -5866,12 +6432,6 @@
                 }
             }
         },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Get",
-        "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5883,57 +6443,7 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "CreateOrUpdate",
-        "HttpMethod": "PUT",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
-        "RequestBody": {
-            "location": "(string)",
-            "tags": {},
-            "plan": {
-                "name": "(string)",
-                "publisher": "(string)",
-                "product": "(string)",
-                "promotionCode": "(string)",
-                "version": "(string)"
-            },
-            "properties": {},
-            "sku": {
-                "name": "(string)",
-                "tier": "(string)",
-                "size": "(string)",
-                "family": "(string)",
-                "capacity": "(integer)"
-            }
-        },
-        "RequestBodyDoc": {
-            "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
-            "tags": {},
-            "plan": {
-                "name": "The name",
-                "publisher": "The publisher",
-                "product": "The product",
-                "promotionCode": "The promotion code",
-                "version": "Version of product"
-            },
-            "properties": {},
-            "sku": {
-                "name": "Name of the resource sku",
-                "tier": "Service Tier of the resource sku",
-                "size": "Size specifier of the resource sku",
-                "family": "Family code of the resource sku",
-                "capacity": "Current number of instances assigned to the resource"
-            }
-        },
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "Delete",
-        "HttpMethod": "DELETE",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -5990,6 +6500,62 @@
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
+        "RequestBody": {
+            "location": "(string)",
+            "tags": {},
+            "plan": {
+                "name": "(string)",
+                "publisher": "(string)",
+                "product": "(string)",
+                "promotionCode": "(string)",
+                "version": "(string)"
+            },
+            "properties": {},
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)"
+            }
+        },
+        "RequestBodyDoc": {
+            "location": "Geo region resource belongs to e.g. SouthCentralUS, SouthEastAsia",
+            "tags": {},
+            "plan": {
+                "name": "The name",
+                "publisher": "The publisher",
+                "product": "The product",
+                "promotionCode": "The promotion code",
+                "version": "Version of product"
+            },
+            "properties": {},
+            "sku": {
+                "name": "Name of the resource sku",
+                "tier": "Service Tier of the resource sku",
+                "size": "Size specifier of the resource sku",
+                "family": "Family code of the resource sku",
+                "capacity": "Current number of instances assigned to the resource"
+            }
+        },
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -6007,13 +6573,13 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/metricdefinitions",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/metricdefinitions",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/metricdefinitions",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/metricdefinitions",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -6043,25 +6609,25 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/restart",
-        "ApiVersion": "2015-08-01"
-    },
-    {
-        "MethodName": "MethodNameWeird",
-        "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/restart",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/start",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/restart",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/start",
+        "ApiVersion": "2015-08-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/start",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -6091,13 +6657,13 @@
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/newpassword",
         "ApiVersion": "2015-08-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
-        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/newpassword",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
         "ApiVersion": "2015-08-01"
     },
     {
@@ -6113,6 +6679,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6129,6 +6696,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -6149,6 +6717,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6165,6 +6734,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -6185,6 +6755,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6201,6 +6772,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -6221,6 +6793,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6237,6 +6810,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -6269,6 +6843,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6280,6 +6855,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -6297,6 +6873,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6308,6 +6885,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -6331,6 +6909,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6342,6 +6921,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
@@ -6359,6 +6939,7 @@
         "RequestBody": {
             "id": "(string)",
             "name": "(string)",
+            "kind": "(string)",
             "location": "(string)",
             "type": "(string)",
             "tags": {},
@@ -6370,6 +6951,7 @@
         "RequestBodyDoc": {
             "id": "Resource Id",
             "name": "Resource Name",
+            "kind": "Kind of resource",
             "location": "Resource Location",
             "type": "Resource type",
             "tags": {},
