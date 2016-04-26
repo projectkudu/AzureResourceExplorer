@@ -473,6 +473,13 @@ namespace ARMExplorer.Controllers
                 },
                 new MetadataObject
                 {
+                    MethodName = "Post",
+                    HttpMethod = "POST",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/exportTemplate",
+                    ApiVersion = "2016-02-01"
+                },
+                new MetadataObject
+                {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/operations",
