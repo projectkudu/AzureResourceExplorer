@@ -7027,5 +7027,5 @@
     "HttpMethod": "PUT",
     "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{name}",
     "ApiVersion": "2015-08-01-preview"
-  },
+  }
 ]
