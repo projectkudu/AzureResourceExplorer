@@ -1597,7 +1597,7 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
     if (value.resourceDefinition.actions.includes("CREATE")) {
         returnString += "# CREATE " + GetActionName(value.url) + "\n";
         returnString += "$ResourceLocation = \"West US\"\n$ResourceName = \"New" + GetResourceName(value.url) + "\"\n$PropertiesObject = @{\n\t#Property = value;\n}\n";
-        returnString += "New-AzureRmResource -Name $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        returnString += "New-AzureRmResource -ResourceName $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
     }
 
     // add ACTIONS related Cmdlets if available
