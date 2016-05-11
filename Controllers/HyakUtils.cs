@@ -473,6 +473,20 @@ namespace ARMExplorer.Controllers
                 },
                 new MetadataObject
                 {
+                    MethodName = "Delete",
+                    HttpMethod = "DELETE",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}",
+                    ApiVersion = "2015-11-01"
+                },
+                new MetadataObject
+                {
+                    MethodName = "Post",
+                    HttpMethod = "POST",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/cancel",
+                    ApiVersion = "2015-11-01"
+                },
+                new MetadataObject
+                {
                     MethodName = "Post",
                     HttpMethod = "POST",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/exportTemplate",
