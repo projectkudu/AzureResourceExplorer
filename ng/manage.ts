@@ -1216,6 +1216,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 if (typeof obj[property] === "string" && (/^\(.*\)$/.test(obj[property]))) {
                     delete obj[property];
                 } else if (Array.isArray(obj[property])) {
+                    var hadElements = obj[property].length > 0;
                     obj[property] = obj[property].filter((element: any) => {
                         if (typeof element === "string" && (/^\(.*\)$/.test(element))) {
                             return false
@@ -1227,6 +1228,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         if ($.isEmptyObject(element)) return false;
                         return true;
                     });
+                    if (hadElements && obj[property].length === 0) delete obj[property];
                 } else if (typeof obj[property] === "object" && !$.isEmptyObject(obj[property])) {
                     recursiveCleanObject(obj[property]);
                     if ($.isEmptyObject(obj[property])) delete obj[property];
