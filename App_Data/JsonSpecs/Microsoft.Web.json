@@ -7003,5 +7003,29 @@
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web.Admin/environments/{environmentName}/usage",
         "ApiVersion": "2015-08-01"
-    }
+    },
+    {
+    "MethodName": "Get",
+    "HttpMethod": "GET",
+    "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections",
+    "ApiVersion": "2015-08-01-preview"
+  },
+  {
+    "MethodName": "Get",
+    "HttpMethod": "GET",
+    "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{name}",
+    "ApiVersion": "2015-08-01-preview"
+  },
+  {
+    "MethodName": "Delete",
+    "HttpMethod": "DELETE",
+    "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{name}",
+    "ApiVersion": "2015-08-01-preview"
+  },
+  {
+    "MethodName": "CreateOrUpdate",
+    "HttpMethod": "PUT",
+    "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/connections/{name}",
+    "ApiVersion": "2015-08-01-preview"
+  }
 ]

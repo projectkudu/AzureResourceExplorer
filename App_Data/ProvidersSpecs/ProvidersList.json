@@ -3482,6 +3482,29 @@
             "2014-04-01-preview",
             "2014-04-01"
           ]
+        },
+        {
+          "resourceType": "connections",
+          "locaitons": [
+            "North Central US",
+            "Central US",
+            "South Central US",
+            "North Europe",
+            "West Europe",
+            "East Asia",
+            "Southeast Asia",
+            "West US",
+            "East US",
+            "East US 2",
+            "Japan West",
+            "Japan East",
+            "Brazil South",
+            "Australia East",
+            "Australia Southeast"
+          ],
+          "apiVersions": [
+            "2015-08-01-preview"
+          ]
         }
       ],
       "registrationState": "Registered"
