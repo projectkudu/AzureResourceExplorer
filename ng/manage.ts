@@ -1225,7 +1225,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         } else if (typeof element === "object" && $.isEmptyObject(element)) {
                             return false;
                         }
-                        if ($.isEmptyObject(element)) return false;
+                        if ($.isPlainObject(element) && $.isEmptyObject(element)) return false;
                         return true;
                     });
                     if (hadElements && obj[property].length === 0) delete obj[property];
