@@ -1566,13 +1566,13 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
     // add GET related cmdlet if available
     var getCmdlet = "Get-AzureRmResource ";
     var apiVersion = value.resourceDefinition.apiVersion;
+    var isCollection = "";
     if (value.httpMethod.toLowerCase().indexOf("get") != -1) {
         returnString += "# GET " + GetActionName(value.url) + "\n";
         if (typeof children === "string" && !Array.isArray(children) && value.url.split("/").length > 7) {
-            getCmdlet = "Find-AzureRmResource ";
-            apiVersion = "2015-11-01";
+            isCollection = " -isCollection";
         }
-        returnString += getCmdlet + resourceInfo + " -ApiVersion " + apiVersion + "\n\n";
+        returnString += getCmdlet + resourceInfo + isCollection + " -ApiVersion " + apiVersion + "\n\n";
     }
     else if (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1) {
         returnString += "# List " + GetActionName(value.url.replace("/list", "")) + "\n";
