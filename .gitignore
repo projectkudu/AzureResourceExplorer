@@ -28,3 +28,4 @@ ng/*.js.map
 ng/*/*.js
 ng/*/*.js.map
 .vs/
+Tools/node_modules
