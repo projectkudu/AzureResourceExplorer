@@ -10,7 +10,7 @@ Write-Host 'Found resource providers, ordering based on ID...'
 $Providers.value = $Providers.value | Sort-Object id
 
 # for some reason the Depth of the object needs to be passed as a parameter! 1000 as a large depth
-$Result = ConvertTo-Json -InputObject $Providers -Depth 1000
+$Result = ConvertTo-Json -InputObject $Providers -Depth 100
 
 Write-Host 'Writing to file ..\App_Data\ProvidersSpecs\ProvidersList.json...'
 
