@@ -25,7 +25,13 @@
                         "message": "(string)",
                         "time": "(string)"
                     }
-                ]
+                ],
+                "managed": "(boolean)"
+            },
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "capacity": "(integer)"
             }
         },
         "RequestBodyDoc": {
@@ -35,8 +41,8 @@
             "location": "Resource location",
             "tags": {},
             "properties": {
-                "platformUpdateDomainCount": "Gets or sets Update Domain count.",
-                "platformFaultDomainCount": "Gets or sets Fault Domain count.",
+                "platformUpdateDomainCount": "Update Domain count.",
+                "platformFaultDomainCount": "Fault Domain count.",
                 "virtualMachines": [
                     {
                         "id": "Resource Id"
@@ -44,58 +50,64 @@
                 ],
                 "statuses": [
                     {
-                        "code": "Gets the status Code.",
-                        "level": "Gets or sets the level Code.",
-                        "displayStatus": "Gets or sets the short localizable label for the status.",
-                        "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                        "time": "Gets or sets the time of the status."
+                        "code": "The status code.",
+                        "level": "The level code.",
+                        "displayStatus": "The short localizable label for the status.",
+                        "message": "The detailed status message, including for alerts and error messages.",
+                        "time": "The time of the status."
                     }
-                ]
+                ],
+                "managed": "If the availability set supports managed disks."
+            },
+            "sku": {
+                "name": "The sku name.",
+                "tier": "The sku tier.",
+                "capacity": "The sku capacity."
             }
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/availabilitySets/{availabilitySetName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/availabilitySets/{availabilitySetName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/availabilitySets",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/availabilitySets/{availabilitySetName}/vmSizes",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmextension/types/{type}/versions/{version}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmextension/types",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmextension/types/{type}/versions",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -148,94 +160,208 @@
             "location": "Resource location",
             "tags": {},
             "properties": {
-                "forceUpdateTag": "Gets or sets how the extension handler should be forced to update even if the extension configuration has not changed.",
-                "publisher": "Gets or sets the name of the extension handler publisher.",
-                "type": "Gets or sets the type of the extension handler.",
-                "typeHandlerVersion": "Gets or sets the type version of the extension handler.",
-                "autoUpgradeMinorVersion": "Gets or sets whether the extension handler should be automatically upgraded across minor versions.",
+                "forceUpdateTag": "How the extension handler should be forced to update even if the extension configuration has not changed.",
+                "publisher": "The name of the extension handler publisher.",
+                "type": "The type of the extension handler.",
+                "typeHandlerVersion": "The type version of the extension handler.",
+                "autoUpgradeMinorVersion": "Whether the extension handler should be automatically upgraded across minor versions.",
                 "settings": {},
                 "protectedSettings": {},
-                "provisioningState": "Gets or sets the provisioning state, which only appears in the response.",
+                "provisioningState": "The provisioning state, which only appears in the response.",
                 "instanceView": {
-                    "name": "Gets or sets the virtual machine extension name.",
-                    "type": "Gets or sets the full type of the extension handler which includes both publisher and type.",
-                    "typeHandlerVersion": "Gets or sets the type version of the extension handler.",
+                    "name": "The virtual machine extension name.",
+                    "type": "The full type of the extension handler which includes both publisher and type.",
+                    "typeHandlerVersion": "The type version of the extension handler.",
                     "substatuses": [
                         {
-                            "code": "Gets the status Code.",
-                            "level": "Gets or sets the level Code.",
-                            "displayStatus": "Gets or sets the short localizable label for the status.",
-                            "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                            "time": "Gets or sets the time of the status."
+                            "code": "The status code.",
+                            "level": "The level code.",
+                            "displayStatus": "The short localizable label for the status.",
+                            "message": "The detailed status message, including for alerts and error messages.",
+                            "time": "The time of the status."
                         }
                     ],
                     "statuses": [
                         {
-                            "code": "Gets the status Code.",
-                            "level": "Gets or sets the level Code.",
-                            "displayStatus": "Gets or sets the short localizable label for the status.",
-                            "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                            "time": "Gets or sets the time of the status."
+                            "code": "The status code.",
+                            "level": "The level code.",
+                            "displayStatus": "The short localizable label for the status.",
+                            "message": "The detailed status message, including for alerts and error messages.",
+                            "time": "The time of the status."
                         }
                     ]
                 }
             }
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/extensions/{vmExtensionName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/extensions/{vmExtensionName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmimage/offers/{offer}/skus/{skus}/versions/{version}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmimage/offers/{offer}/skus/{skus}/versions",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmimage/offers",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/publishers/{publisherName}/artifacttypes/vmimage/offers/{offer}/skus",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/usages",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/locations/{location}/vmSizes",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images/{imageName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "sourceVirtualMachine": {
+                    "id": "(string)"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "osType": "(string)",
+                        "osState": "(string)",
+                        "snapshot": {
+                            "id": "(string)"
+                        },
+                        "managedDisk": {
+                            "id": "(string)"
+                        },
+                        "blobUri": "(string)",
+                        "caching": "(string)",
+                        "diskSizeGB": "(integer)"
+                    },
+                    "dataDisks": [
+                        {
+                            "lun": "(integer)",
+                            "snapshot": {
+                                "id": "(string)"
+                            },
+                            "managedDisk": {
+                                "id": "(string)"
+                            },
+                            "blobUri": "(string)",
+                            "caching": "(string)",
+                            "diskSizeGB": "(integer)"
+                        }
+                    ]
+                },
+                "provisioningState": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id",
+            "name": "Resource name",
+            "type": "Resource type",
+            "location": "Resource location",
+            "tags": {},
+            "properties": {
+                "sourceVirtualMachine": {
+                    "id": "Resource Id"
+                },
+                "storageProfile": {
+                    "osDisk": {
+                        "osType": "The Operating System type.",
+                        "osState": "The OS State.",
+                        "snapshot": {
+                            "id": "Resource Id"
+                        },
+                        "managedDisk": {
+                            "id": "Resource Id"
+                        },
+                        "blobUri": "The Virtual Hard Disk.",
+                        "caching": "The caching type.",
+                        "diskSizeGB": "The initial managed disk size in GB for blank data disks, and the new desired size for existing OS and Data disks."
+                    },
+                    "dataDisks": [
+                        {
+                            "lun": "The logical unit number.",
+                            "snapshot": {
+                                "id": "Resource Id"
+                            },
+                            "managedDisk": {
+                                "id": "Resource Id"
+                            },
+                            "blobUri": "The Virtual Hard Disk.",
+                            "caching": "The caching type.",
+                            "diskSizeGB": "The initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks."
+                        }
+                    ]
+                },
+                "provisioningState": "The provisioning state."
+            }
+        },
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images/{imageName}",
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images/{imageName}",
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/images",
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/images",
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -247,11 +373,11 @@
             "overwriteVhds": "(boolean)"
         },
         "RequestBodyDoc": {
-            "vhdPrefix": "Gets or sets the captured VirtualHardDisk's name prefix.",
-            "destinationContainerName": "Gets or sets the destination container name.",
-            "overwriteVhds": "Gets or sets whether it overwrites destination VirtualHardDisk if true, in case of conflict."
+            "vhdPrefix": "The captured virtual hard disk's name prefix.",
+            "destinationContainerName": "The destination container name.",
+            "overwriteVhds": "Specifies whether to overwrite the destination virtual hard disk, in case of conflict."
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -275,6 +401,7 @@
                 },
                 "storageProfile": {
                     "imageReference": {
+                        "id": "(string)",
                         "publisher": "(string)",
                         "offer": "(string)",
                         "sku": "(string)",
@@ -306,7 +433,11 @@
                         },
                         "caching": "(string)",
                         "createOption": "(string)",
-                        "diskSizeGB": "(integer)"
+                        "diskSizeGB": "(integer)",
+                        "managedDisk": {
+                            "id": "(string)",
+                            "storageAccountType": "(string)"
+                        }
                     },
                     "dataDisks": [
                         {
@@ -320,7 +451,11 @@
                             },
                             "caching": "(string)",
                             "createOption": "(string)",
-                            "diskSizeGB": "(integer)"
+                            "diskSizeGB": "(integer)",
+                            "managedDisk": {
+                                "id": "(string)",
+                                "storageAccountType": "(string)"
+                            }
                         }
                     ]
                 },
@@ -477,7 +612,8 @@
                         }
                     ]
                 },
-                "licenseType": "(string)"
+                "licenseType": "(string)",
+                "vmId": "(string)"
             },
             "resources": [
                 {
@@ -529,10 +665,10 @@
             "location": "Resource location",
             "tags": {},
             "plan": {
-                "name": "Gets or sets the plan ID.",
-                "publisher": "Gets or sets the publisher ID.",
-                "product": "Gets or sets the offer ID.",
-                "promotionCode": "Gets or sets the promotion code."
+                "name": "The plan ID.",
+                "publisher": "The publisher ID.",
+                "product": "The offer ID.",
+                "promotionCode": "The promotion code."
             },
             "properties": {
                 "hardwareProfile": {
@@ -540,88 +676,97 @@
                 },
                 "storageProfile": {
                     "imageReference": {
-                        "publisher": "Gets or sets the image publisher.",
-                        "offer": "Gets or sets the image offer.",
-                        "sku": "Gets or sets the image sku.",
-                        "version": "Gets or sets the image version. The allowed formats are Major.Minor.Build or 'latest'. Major, Minor and Build being decimal numbers. Specify 'latest' to use the latest version of image."
+                        "id": "Resource Id",
+                        "publisher": "The image publisher.",
+                        "offer": "The image offer.",
+                        "sku": "The image SKU.",
+                        "version": "The image version. The allowed formats are Major.Minor.Build or 'latest'. Major, Minor and Build are decimal numbers. Specify 'latest' to use the latest version of the image."
                     },
                     "osDisk": {
-                        "osType": "Gets or sets the Operating System type.",
+                        "osType": "The Operating System type.",
                         "encryptionSettings": {
                             "diskEncryptionKey": {
-                                "secretUrl": "Gets or sets the URL referencing a secret in a Key Vault.",
+                                "secretUrl": "The URL referencing a secret in a Key Vault.",
                                 "sourceVault": {
                                     "id": "Resource Id"
                                 }
                             },
                             "keyEncryptionKey": {
-                                "keyUrl": "Gets or sets the URL referencing a key in a Key Vault.",
+                                "keyUrl": "The URL referencing a key in a Key Vault.",
                                 "sourceVault": {
                                     "id": "Resource Id"
                                 }
                             },
-                            "enabled": "Gets or sets whether disk encryption should be enabled on the Virtual Machine."
+                            "enabled": "Specifies whether disk encryption should be enabled on the virtual machine."
                         },
-                        "name": "Gets or sets the disk name.",
+                        "name": "The disk name.",
                         "vhd": {
-                            "uri": "Gets or sets the virtual hard disk's uri. It should be a valid Uri to a virtual hard disk."
+                            "uri": "The virtual hard disk's URI. Must be a valid URI to a virtual hard disk."
                         },
                         "image": {
-                            "uri": "Gets or sets the virtual hard disk's uri. It should be a valid Uri to a virtual hard disk."
+                            "uri": "The virtual hard disk's URI. Must be a valid URI to a virtual hard disk."
                         },
-                        "caching": "Gets or sets the caching type.",
-                        "createOption": "Gets or sets the create option.",
-                        "diskSizeGB": "Gets or sets the initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks."
+                        "caching": "The caching type.",
+                        "createOption": "The create option.",
+                        "diskSizeGB": "The initial disk size, in GB, for blank data disks, and the new desired size for resizing existing OS and data disks.",
+                        "managedDisk": {
+                            "id": "Resource Id",
+                            "storageAccountType": "The Storage Account type."
+                        }
                     },
                     "dataDisks": [
                         {
-                            "lun": "Gets or sets the logical unit number.",
-                            "name": "Gets or sets the disk name.",
+                            "lun": "The logical unit number.",
+                            "name": "The disk name.",
                             "vhd": {
-                                "uri": "Gets or sets the virtual hard disk's uri. It should be a valid Uri to a virtual hard disk."
+                                "uri": "The virtual hard disk's URI. Must be a valid URI to a virtual hard disk."
                             },
                             "image": {
-                                "uri": "Gets or sets the virtual hard disk's uri. It should be a valid Uri to a virtual hard disk."
+                                "uri": "The virtual hard disk's URI. Must be a valid URI to a virtual hard disk."
                             },
-                            "caching": "Gets or sets the caching type.",
-                            "createOption": "Gets or sets the create option.",
-                            "diskSizeGB": "Gets or sets the initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks."
+                            "caching": "The caching type.",
+                            "createOption": "The create option.",
+                            "diskSizeGB": "The initial disk size in GB for blank data disks, and the new desired size for resizing existing OS and data disks.",
+                            "managedDisk": {
+                                "id": "Resource Id",
+                                "storageAccountType": "The Storage Account type."
+                            }
                         }
                     ]
                 },
                 "osProfile": {
-                    "computerName": "Gets or sets the computer name.",
-                    "adminUsername": "Gets or sets the admin user name.",
-                    "adminPassword": "Gets or sets the admin user password.",
-                    "customData": "Gets or sets a base-64 encoded string of custom data.",
+                    "computerName": "Specifies the host OS name of the virtual machine.",
+                    "adminUsername": "Specifies the name of the administrator account.",
+                    "adminPassword": "Specifies the password of the administrator account.",
+                    "customData": "Specifies a base-64 encoded string of custom data. The base-64 encoded string is decoded to a binary array that is saved as a file on the Virtual Machine. The maximum length of the binary array is 65535 bytes",
                     "windowsConfiguration": {
-                        "provisionVMAgent": "Gets or sets whether VM Agent should be provisioned on the Virtual Machine.",
-                        "enableAutomaticUpdates": "Gets or sets whether Windows updates are automatically installed on the VM",
-                        "timeZone": "Gets or sets the Time Zone of the VM",
+                        "provisionVMAgent": "Indicates whether the virtual machine agent should be provisioned on the Virtual Machine. If not specified, then the default behavior is to set it to true.",
+                        "enableAutomaticUpdates": "Indicates whether Windows updates are automatically installed on the VM.",
+                        "timeZone": "The time zone of the VM",
                         "additionalUnattendContent": [
                             {
-                                "passName": "Gets or sets the pass name. Currently, the only allowable value is oobeSystem.",
-                                "componentName": "Gets or sets the component name. Currently, the only allowable value is Microsoft-Windows-Shell-Setup.",
-                                "settingName": "Gets or sets setting name (e.g. FirstLogonCommands, AutoLogon )",
-                                "content": "Gets or sets XML formatted content that is added to the unattend.xml file in the specified pass and component.The XML must be less than 4 KB and must include the root element for the setting or feature that is being inserted."
+                                "passName": "The pass name. Currently, the only allowable value is oobeSystem.",
+                                "componentName": "The component name. Currently, the only allowable value is Microsoft-Windows-Shell-Setup.",
+                                "settingName": "Setting name (e.g. FirstLogonCommands, AutoLogon )",
+                                "content": "XML formatted content that is added to the unattend.xml file in the specified pass and component. The XML must be less than 4 KB and must include the root element for the setting or feature that is being inserted."
                             }
                         ],
                         "winRM": {
                             "listeners": [
                                 {
-                                    "protocol": "Gets or sets the Protocol used by WinRM listener. Currently only Http and Https are supported.",
-                                    "certificateUrl": "Gets or sets the Certificate URL in KMS for Https listeners. Should be null for Http listeners."
+                                    "protocol": "The Protocol used by the WinRM listener. Http and Https are supported.",
+                                    "certificateUrl": "The Certificate URL in KMS for Https listeners. Should be null for Http listeners."
                                 }
                             ]
                         }
                     },
                     "linuxConfiguration": {
-                        "disablePasswordAuthentication": "Gets or sets whether Authentication using user name and password is allowed or not",
+                        "disablePasswordAuthentication": "Specifies whether password authentication should be disabled.",
                         "ssh": {
                             "publicKeys": [
                                 {
-                                    "path": "Gets or sets the full path on the created VM where SSH public key is stored. If the file already exists, the specified key is appended to the file.",
-                                    "keyData": "Gets or sets Certificate public key used to authenticate with VM through SSH.The certificate must be in Pem format with or without headers."
+                                    "path": "Specifies the full path on the created VM where SSH public key is stored. If the file already exists, the specified key is appended to the file.",
+                                    "keyData": "Certificate public key used to authenticate to the VM through SSH. The certificate must be in Pem format with or without headers."
                                 }
                             ]
                         }
@@ -633,8 +778,8 @@
                             },
                             "vaultCertificates": [
                                 {
-                                    "certificateUrl": "Gets or sets the URL referencing a secret in a Key Vault which contains a properly formatted certificate.",
-                                    "certificateStore": "Gets or sets the Certificate store in LocalMachine to add the certificate to on Windows, leave empty on Linux."
+                                    "certificateUrl": "The URL referencing a secret in a Key Vault which contains a properly formatted certificate.",
+                                    "certificateStore": "The Certificate store in LocalMachine to add the certificate to on Windows, leave empty on Linux."
                                 }
                             ]
                         }
@@ -645,104 +790,105 @@
                         {
                             "id": "Resource Id",
                             "properties": {
-                                "primary": "Gets or sets whether this is a primary NIC on a virtual machine"
+                                "primary": "Specifies the primary network interface in case the virtual machine has more than 1 network interface."
                             }
                         }
                     ]
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
-                        "enabled": "Gets or sets whether boot diagnostics should be enabled on the Virtual Machine.",
-                        "storageUri": "Gets or sets the boot diagnostics storage Uri. It should be a valid Uri"
+                        "enabled": "Whether boot diagnostics should be enabled on the Virtual Machine.",
+                        "storageUri": "URI of the storage account to use for placing the console output and screenshot."
                     }
                 },
                 "availabilitySet": {
                     "id": "Resource Id"
                 },
-                "provisioningState": "Gets or sets the provisioning state, which only appears in the response.",
+                "provisioningState": "The provisioning state, which only appears in the response.",
                 "instanceView": {
-                    "platformUpdateDomain": "Gets or sets the Update Domain count.",
-                    "platformFaultDomain": "Gets or sets the Fault Domain count.",
-                    "rdpThumbPrint": "Gets or sets the Remote desktop certificate thumbprint.",
+                    "platformUpdateDomain": "Specifies the update domain of the virtual machine.",
+                    "platformFaultDomain": "Specifies the fault domain of the virtual machine.",
+                    "rdpThumbPrint": "The Remote desktop certificate thumbprint.",
                     "vmAgent": {
-                        "vmAgentVersion": "Gets or sets the VM Agent full version.",
+                        "vmAgentVersion": "The VM Agent full version.",
                         "extensionHandlers": [
                             {
-                                "type": "Gets or sets full type of the extension handler which includes both publisher and type.",
-                                "typeHandlerVersion": "Gets or sets the type version of the extension handler.",
+                                "type": "Full type of the extension handler which includes both publisher and type.",
+                                "typeHandlerVersion": "The type version of the extension handler.",
                                 "status": {
-                                    "code": "Gets the status Code.",
-                                    "level": "Gets or sets the level Code.",
-                                    "displayStatus": "Gets or sets the short localizable label for the status.",
-                                    "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                                    "time": "Gets or sets the time of the status."
+                                    "code": "The status code.",
+                                    "level": "The level code.",
+                                    "displayStatus": "The short localizable label for the status.",
+                                    "message": "The detailed status message, including for alerts and error messages.",
+                                    "time": "The time of the status."
                                 }
                             }
                         ],
                         "statuses": [
                             {
-                                "code": "Gets the status Code.",
-                                "level": "Gets or sets the level Code.",
-                                "displayStatus": "Gets or sets the short localizable label for the status.",
-                                "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                                "time": "Gets or sets the time of the status."
+                                "code": "The status code.",
+                                "level": "The level code.",
+                                "displayStatus": "The short localizable label for the status.",
+                                "message": "The detailed status message, including for alerts and error messages.",
+                                "time": "The time of the status."
                             }
                         ]
                     },
                     "disks": [
                         {
-                            "name": "Gets or sets the disk name.",
+                            "name": "The disk name.",
                             "statuses": [
                                 {
-                                    "code": "Gets the status Code.",
-                                    "level": "Gets or sets the level Code.",
-                                    "displayStatus": "Gets or sets the short localizable label for the status.",
-                                    "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                                    "time": "Gets or sets the time of the status."
+                                    "code": "The status code.",
+                                    "level": "The level code.",
+                                    "displayStatus": "The short localizable label for the status.",
+                                    "message": "The detailed status message, including for alerts and error messages.",
+                                    "time": "The time of the status."
                                 }
                             ]
                         }
                     ],
                     "extensions": [
                         {
-                            "name": "Gets or sets the virtual machine extension name.",
-                            "type": "Gets or sets the full type of the extension handler which includes both publisher and type.",
-                            "typeHandlerVersion": "Gets or sets the type version of the extension handler.",
+                            "name": "The virtual machine extension name.",
+                            "type": "The full type of the extension handler which includes both publisher and type.",
+                            "typeHandlerVersion": "The type version of the extension handler.",
                             "substatuses": [
                                 {
-                                    "code": "Gets the status Code.",
-                                    "level": "Gets or sets the level Code.",
-                                    "displayStatus": "Gets or sets the short localizable label for the status.",
-                                    "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                                    "time": "Gets or sets the time of the status."
+                                    "code": "The status code.",
+                                    "level": "The level code.",
+                                    "displayStatus": "The short localizable label for the status.",
+                                    "message": "The detailed status message, including for alerts and error messages.",
+                                    "time": "The time of the status."
                                 }
                             ],
                             "statuses": [
                                 {
-                                    "code": "Gets the status Code.",
-                                    "level": "Gets or sets the level Code.",
-                                    "displayStatus": "Gets or sets the short localizable label for the status.",
-                                    "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                                    "time": "Gets or sets the time of the status."
+                                    "code": "The status code.",
+                                    "level": "The level code.",
+                                    "displayStatus": "The short localizable label for the status.",
+                                    "message": "The detailed status message, including for alerts and error messages.",
+                                    "time": "The time of the status."
                                 }
                             ]
                         }
                     ],
                     "bootDiagnostics": {
-                        "consoleScreenshotBlobUri": "Gets or sets the console screenshot blob Uri.",
-                        "serialConsoleLogBlobUri": "Gets or sets the Linux serial console log blob Uri."
+                        "consoleScreenshotBlobUri": "The console screenshot blob URI.",
+                        "serialConsoleLogBlobUri": "The Linux serial console log blob Uri."
                     },
                     "statuses": [
                         {
-                            "code": "Gets the status Code.",
-                            "level": "Gets or sets the level Code.",
-                            "displayStatus": "Gets or sets the short localizable label for the status.",
-                            "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                            "time": "Gets or sets the time of the status."
+                            "code": "The status code.",
+                            "level": "The level code.",
+                            "displayStatus": "The short localizable label for the status.",
+                            "message": "The detailed status message, including for alerts and error messages.",
+                            "time": "The time of the status."
                         }
                     ]
                 },
-                "licenseType": "Gets or sets the license type, which is for bring your own license scenario."
+                "licenseType": "Specifies that the image or disk that is being used was licensed on-premises. This element is only used for images that contain the Windows Server operating system.",
+                "vmId": "Specifies the VM unique ID which is a 128-bits identifier that is encoded and stored in all Azure IaaS VMs SMBIOS and can be read using platform BIOS commands."
             },
             "resources": [
                 {
@@ -752,34 +898,34 @@
                     "location": "Resource location",
                     "tags": {},
                     "properties": {
-                        "forceUpdateTag": "Gets or sets how the extension handler should be forced to update even if the extension configuration has not changed.",
-                        "publisher": "Gets or sets the name of the extension handler publisher.",
-                        "type": "Gets or sets the type of the extension handler.",
-                        "typeHandlerVersion": "Gets or sets the type version of the extension handler.",
-                        "autoUpgradeMinorVersion": "Gets or sets whether the extension handler should be automatically upgraded across minor versions.",
+                        "forceUpdateTag": "How the extension handler should be forced to update even if the extension configuration has not changed.",
+                        "publisher": "The name of the extension handler publisher.",
+                        "type": "The type of the extension handler.",
+                        "typeHandlerVersion": "The type version of the extension handler.",
+                        "autoUpgradeMinorVersion": "Whether the extension handler should be automatically upgraded across minor versions.",
                         "settings": {},
                         "protectedSettings": {},
-                        "provisioningState": "Gets or sets the provisioning state, which only appears in the response.",
+                        "provisioningState": "The provisioning state, which only appears in the response.",
                         "instanceView": {
-                            "name": "Gets or sets the virtual machine extension name.",
-                            "type": "Gets or sets the full type of the extension handler which includes both publisher and type.",
-                            "typeHandlerVersion": "Gets or sets the type version of the extension handler.",
+                            "name": "The virtual machine extension name.",
+                            "type": "The full type of the extension handler which includes both publisher and type.",
+                            "typeHandlerVersion": "The type version of the extension handler.",
                             "substatuses": [
                                 {
-                                    "code": "Gets the status Code.",
-                                    "level": "Gets or sets the level Code.",
-                                    "displayStatus": "Gets or sets the short localizable label for the status.",
-                                    "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                                    "time": "Gets or sets the time of the status."
+                                    "code": "The status code.",
+                                    "level": "The level code.",
+                                    "displayStatus": "The short localizable label for the status.",
+                                    "message": "The detailed status message, including for alerts and error messages.",
+                                    "time": "The time of the status."
                                 }
                             ],
                             "statuses": [
                                 {
-                                    "code": "Gets the status Code.",
-                                    "level": "Gets or sets the level Code.",
-                                    "displayStatus": "Gets or sets the short localizable label for the status.",
-                                    "message": "Gets or sets the detailed Message, including for alerts and error messages.",
-                                    "time": "Gets or sets the time of the status."
+                                    "code": "The status code.",
+                                    "level": "The level code.",
+                                    "displayStatus": "The short localizable label for the status.",
+                                    "message": "The detailed status message, including for alerts and error messages.",
+                                    "time": "The time of the status."
                                 }
                             ]
                         }
@@ -787,73 +933,79 @@
                 }
             ]
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/convertToManagedDisks",
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/deallocate",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/generalize",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/virtualMachines",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/vmSizes",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/powerOff",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/restart",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/start",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/redeploy",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -869,6 +1021,12 @@
                 "name": "(string)",
                 "tier": "(string)",
                 "capacity": "(integer)"
+            },
+            "plan": {
+                "name": "(string)",
+                "publisher": "(string)",
+                "product": "(string)",
+                "promotionCode": "(string)"
             },
             "properties": {
                 "upgradePolicy": {
@@ -928,6 +1086,7 @@
                     },
                     "storageProfile": {
                         "imageReference": {
+                            "id": "(string)",
                             "publisher": "(string)",
                             "offer": "(string)",
                             "sku": "(string)",
@@ -943,8 +1102,23 @@
                             },
                             "vhdContainers": [
                                 "(string)"
-                            ]
-                        }
+                            ],
+                            "managedDisk": {
+                                "storageAccountType": "(string)"
+                            }
+                        },
+                        "dataDisks": [
+                            {
+                                "name": "(string)",
+                                "lun": "(integer)",
+                                "caching": "(string)",
+                                "createOption": "(string)",
+                                "diskSizeGB": "(integer)",
+                                "managedDisk": {
+                                    "storageAccountType": "(string)"
+                                }
+                            }
+                        ]
                     },
                     "networkProfile": {
                         "networkInterfaceConfigurations": [
@@ -961,6 +1135,11 @@
                                                 "subnet": {
                                                     "id": "(string)"
                                                 },
+                                                "applicationGatewayBackendAddressPools": [
+                                                    {
+                                                        "id": "(string)"
+                                                    }
+                                                ],
                                                 "loadBalancerBackendAddressPools": [
                                                     {
                                                         "id": "(string)"
@@ -997,7 +1176,8 @@
                     }
                 },
                 "provisioningState": "(string)",
-                "overProvision": "(boolean)"
+                "overprovision": "(boolean)",
+                "singlePlacementGroup": "(boolean)"
             }
         },
         "RequestBodyDoc": {
@@ -1007,48 +1187,54 @@
             "location": "Resource location",
             "tags": {},
             "sku": {
-                "name": "Gets or sets the sku name.",
-                "tier": "Gets or sets the sku tier.",
-                "capacity": "Gets or sets the sku capacity."
+                "name": "The sku name.",
+                "tier": "The sku tier.",
+                "capacity": "The sku capacity."
+            },
+            "plan": {
+                "name": "The plan ID.",
+                "publisher": "The publisher ID.",
+                "product": "The offer ID.",
+                "promotionCode": "The promotion code."
             },
             "properties": {
                 "upgradePolicy": {
-                    "mode": "Gets or sets the upgrade mode."
+                    "mode": "The upgrade mode."
                 },
                 "virtualMachineProfile": {
                     "osProfile": {
-                        "computerNamePrefix": "Gets or sets the computer name prefix.",
-                        "adminUsername": "Gets or sets the admin user name.",
-                        "adminPassword": "Gets or sets the admin user password.",
-                        "customData": "Gets or sets a base-64 encoded string of custom data.",
+                        "computerNamePrefix": "The computer name prefix.",
+                        "adminUsername": "The admin user name.",
+                        "adminPassword": "The admin user password.",
+                        "customData": "A base-64 encoded string of custom data.",
                         "windowsConfiguration": {
-                            "provisionVMAgent": "Gets or sets whether VM Agent should be provisioned on the Virtual Machine.",
-                            "enableAutomaticUpdates": "Gets or sets whether Windows updates are automatically installed on the VM",
-                            "timeZone": "Gets or sets the Time Zone of the VM",
+                            "provisionVMAgent": "Indicates whether the virtual machine agent should be provisioned on the Virtual Machine. If not specified, then the default behavior is to set it to true.",
+                            "enableAutomaticUpdates": "Indicates whether Windows updates are automatically installed on the VM.",
+                            "timeZone": "The time zone of the VM",
                             "additionalUnattendContent": [
                                 {
-                                    "passName": "Gets or sets the pass name. Currently, the only allowable value is oobeSystem.",
-                                    "componentName": "Gets or sets the component name. Currently, the only allowable value is Microsoft-Windows-Shell-Setup.",
-                                    "settingName": "Gets or sets setting name (e.g. FirstLogonCommands, AutoLogon )",
-                                    "content": "Gets or sets XML formatted content that is added to the unattend.xml file in the specified pass and component.The XML must be less than 4 KB and must include the root element for the setting or feature that is being inserted."
+                                    "passName": "The pass name. Currently, the only allowable value is oobeSystem.",
+                                    "componentName": "The component name. Currently, the only allowable value is Microsoft-Windows-Shell-Setup.",
+                                    "settingName": "Setting name (e.g. FirstLogonCommands, AutoLogon )",
+                                    "content": "XML formatted content that is added to the unattend.xml file in the specified pass and component. The XML must be less than 4 KB and must include the root element for the setting or feature that is being inserted."
                                 }
                             ],
                             "winRM": {
                                 "listeners": [
                                     {
-                                        "protocol": "Gets or sets the Protocol used by WinRM listener. Currently only Http and Https are supported.",
-                                        "certificateUrl": "Gets or sets the Certificate URL in KMS for Https listeners. Should be null for Http listeners."
+                                        "protocol": "The Protocol used by the WinRM listener. Http and Https are supported.",
+                                        "certificateUrl": "The Certificate URL in KMS for Https listeners. Should be null for Http listeners."
                                     }
                                 ]
                             }
                         },
                         "linuxConfiguration": {
-                            "disablePasswordAuthentication": "Gets or sets whether Authentication using user name and password is allowed or not",
+                            "disablePasswordAuthentication": "Specifies whether password authentication should be disabled.",
                             "ssh": {
                                 "publicKeys": [
                                     {
-                                        "path": "Gets or sets the full path on the created VM where SSH public key is stored. If the file already exists, the specified key is appended to the file.",
-                                        "keyData": "Gets or sets Certificate public key used to authenticate with VM through SSH.The certificate must be in Pem format with or without headers."
+                                        "path": "Specifies the full path on the created VM where SSH public key is stored. If the file already exists, the specified key is appended to the file.",
+                                        "keyData": "Certificate public key used to authenticate to the VM through SSH. The certificate must be in Pem format with or without headers."
                                     }
                                 ]
                             }
@@ -1060,8 +1246,8 @@
                                 },
                                 "vaultCertificates": [
                                     {
-                                        "certificateUrl": "Gets or sets the URL referencing a secret in a Key Vault which contains a properly formatted certificate.",
-                                        "certificateStore": "Gets or sets the Certificate store in LocalMachine to add the certificate to on Windows, leave empty on Linux."
+                                        "certificateUrl": "The URL referencing a secret in a Key Vault which contains a properly formatted certificate.",
+                                        "certificateStore": "The Certificate store in LocalMachine to add the certificate to on Windows, leave empty on Linux."
                                     }
                                 ]
                             }
@@ -1069,39 +1255,60 @@
                     },
                     "storageProfile": {
                         "imageReference": {
-                            "publisher": "Gets or sets the image publisher.",
-                            "offer": "Gets or sets the image offer.",
-                            "sku": "Gets or sets the image sku.",
-                            "version": "Gets or sets the image version. The allowed formats are Major.Minor.Build or 'latest'. Major, Minor and Build being decimal numbers. Specify 'latest' to use the latest version of image."
+                            "id": "Resource Id",
+                            "publisher": "The image publisher.",
+                            "offer": "The image offer.",
+                            "sku": "The image SKU.",
+                            "version": "The image version. The allowed formats are Major.Minor.Build or 'latest'. Major, Minor and Build are decimal numbers. Specify 'latest' to use the latest version of the image."
                         },
                         "osDisk": {
-                            "name": "Gets or sets the disk name.",
-                            "caching": "Gets or sets the caching type.",
-                            "createOption": "Gets or sets the create option.",
-                            "osType": "Gets or sets the Operating System type.",
+                            "name": "The disk name.",
+                            "caching": "The caching type.",
+                            "createOption": "The create option.",
+                            "osType": "The Operating System type.",
                             "image": {
-                                "uri": "Gets or sets the virtual hard disk's uri. It should be a valid Uri to a virtual hard disk."
+                                "uri": "The virtual hard disk's URI. Must be a valid URI to a virtual hard disk."
                             },
                             "vhdContainers": [
                                 null
-                            ]
-                        }
+                            ],
+                            "managedDisk": {
+                                "storageAccountType": "The Storage Account type."
+                            }
+                        },
+                        "dataDisks": [
+                            {
+                                "name": "The disk name.",
+                                "lun": "The logical unit number.",
+                                "caching": "The caching type.",
+                                "createOption": "The create option.",
+                                "diskSizeGB": "The initial disk size in GB for blank data disks, and the new desired size for existing OS and Data disks.",
+                                "managedDisk": {
+                                    "storageAccountType": "The Storage Account type."
+                                }
+                            }
+                        ]
                     },
                     "networkProfile": {
                         "networkInterfaceConfigurations": [
                             {
                                 "id": "Resource Id",
-                                "name": "Gets or sets the network configuration name.",
+                                "name": "The network configuration name.",
                                 "properties": {
-                                    "primary": "Gets or sets whether this is a primary NIC on a virtual machine.",
+                                    "primary": "Whether this is a primary NIC on a virtual machine.",
                                     "ipConfigurations": [
                                         {
                                             "id": "Resource Id",
-                                            "name": "Gets or sets the IP configuration name.",
+                                            "name": "The IP configuration name.",
                                             "properties": {
                                                 "subnet": {
-                                                    "id": "Gets or sets ARM resource id in the form of /subscriptions/{SubcriptionId}/resourceGroups/{ResourceGroupName}/..."
+                                                    "id": "The ARM resource id in the form of /subscriptions/{SubcriptionId}/resourceGroups/{ResourceGroupName}/..."
                                                 },
+                                                "applicationGatewayBackendAddressPools": [
+                                                    {
+                                                        "id": "Resource Id"
+                                                    }
+                                                ],
                                                 "loadBalancerBackendAddressPools": [
                                                     {
                                                         "id": "Resource Id"
@@ -1123,25 +1330,26 @@
                         "extensions": [
                             {
                                 "id": "Resource Id",
-                                "name": "Gets or sets the name of the extension.",
+                                "name": "The name of the extension.",
                                 "properties": {
-                                    "publisher": "Gets or sets the name of the extension handler publisher.",
-                                    "type": "Gets or sets the type of the extension handler.",
-                                    "typeHandlerVersion": "Gets or sets the type version of the extension handler.",
-                                    "autoUpgradeMinorVersion": "Gets or sets whether the extension handler should be automatically upgraded across minor versions.",
+                                    "publisher": "The name of the extension handler publisher.",
+                                    "type": "The type of the extension handler.",
+                                    "typeHandlerVersion": "The type version of the extension handler.",
+                                    "autoUpgradeMinorVersion": "Whether the extension handler should be automatically upgraded across minor versions.",
                                     "settings": {},
                                     "protectedSettings": {},
-                                    "provisioningState": "Gets the provisioning state, which only appears in the response."
+                                    "provisioningState": "The provisioning state, which only appears in the response."
                                 }
                             }
                         ]
                     }
                 },
-                "provisioningState": "Gets or sets the provisioning state, which only appears in the response.",
-                "overProvision": "Specifies whether the Virtual Machine Scale Set should be overprovisioned."
+                "provisioningState": "The provisioning state, which only appears in the response.",
+                "overprovision": "Specifies whether the Virtual Machine Scale Set should be overprovisioned.",
+                "singlePlacementGroup": "When true this limits the scale set to a single placement group, of max size 100 virtual machines."
             }
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -1157,19 +1365,19 @@
                 null
             ]
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -1185,31 +1393,31 @@
                 null
             ]
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/instanceView",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Compute/virtualMachineScaleSets",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/skus",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -1225,7 +1433,7 @@
                 null
             ]
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -1241,7 +1449,7 @@
                 null
             ]
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -1257,7 +1465,7 @@
                 null
             ]
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -1273,66 +1481,78 @@
                 null
             ]
         },
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/reimage",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/reimageall",
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}/reimage",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}/reimageall",
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}/deallocate",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}/instanceView",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/virtualMachines",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}/poweroff",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}/restart",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{vmScaleSetName}/virtualmachines/{instanceId}/start",
-        "ApiVersion": "2016-03-30"
+        "ApiVersion": "2016-04-30-preview"
     }
 ]
