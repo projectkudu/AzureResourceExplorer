@@ -349,9 +349,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     endExpandingTreeItem(branch, originalIcon);
                 });
             }
+            let childrenArray: string[] = children;
             promise = promise.finally(() => {
                 var filtedList = false;
-                branch.children = children.filter((childName) => {
+                branch.children = childrenArray.filter((childName) => {
                     var childDefinition = getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
                     if (!childDefinition) return false;
                     if (childDefinition.children === undefined &&
@@ -418,9 +419,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         ApiVersion: resourceDefinition.apiVersion
                     }
                 };
-            
+            let childStr: string = children;
             promise = $http(httpConfig).success((data: any) => {
-                var childDefinition = getResourceDefinitionByNameAndUrl(children, resourceDefinition.url + "/" + resourceDefinition.children);
+                var childDefinition = getResourceDefinitionByNameAndUrl(childStr, resourceDefinition.url + "/" + resourceDefinition.children);
                 
                 // get the projection to use for the current node (i.e. functions to provide label, sort key, ...)
                 var treeBranchProjection = getTreeBranchProjection(childDefinition);
