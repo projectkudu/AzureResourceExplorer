@@ -54,7 +54,7 @@ namespace ARMExplorer.Controllers
             var json = specs.Concat(speclessCsmApis).Concat(jsonSpecs);
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
+            response.Content = new StringContent(JsonConvert.SerializeObject(json).Replace("https://management.azure.com/", "https://management.usgovcloudapi.net/"), Encoding.UTF8, "application /json");
             response.Headers.Add(Utils.X_MS_Ellapsed, watch.ElapsedMilliseconds + "ms");
             return response;
         }
