@@ -236,14 +236,20 @@ namespace ARMExplorer.Controllers
 
         private HttpClient GetClient(string baseUri)
         {
-            var client = new HttpClient();
+            HttpClient client;
             if (baseUri.IndexOf("resources.azure.us", StringComparison.OrdinalIgnoreCase) != -1)
             {
-                client.BaseAddress = new Uri("https://23.97.28.154");
+                var handler = new WebRequestHandler();
+                handler.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+                client = new HttpClient(handler)
+                {
+                    BaseAddress = new Uri("https://23.97.28.154")
+                };
                 client.DefaultRequestHeaders.Host = "resources.azure.us";
             }
             else
             {
+                client = new HttpClient();
                 client.BaseAddress = new Uri(baseUri);
             }
 
