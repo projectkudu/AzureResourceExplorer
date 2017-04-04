@@ -55,7 +55,7 @@ namespace ARMExplorer.Controllers
                 return "https://api-dogfood.resources.windows-int.net";
             }
 
-            return "https://management.azure.com";
+            return "https://management.usgovcloudapi.net";
         }
     }
 }

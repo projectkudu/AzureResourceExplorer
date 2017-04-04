@@ -237,7 +237,16 @@ namespace ARMExplorer.Controllers
         private HttpClient GetClient(string baseUri)
         {
             var client = new HttpClient();
-            client.BaseAddress = new Uri(baseUri);
+            if (baseUri.IndexOf("resources.azure.us", StringComparison.OrdinalIgnoreCase) != -1)
+            {
+                client.BaseAddress = new Uri("https://23.97.28.154");
+                client.DefaultRequestHeaders.Host = "resources.azure.us";
+            }
+            else
+            {
+                client.BaseAddress = new Uri(baseUri);
+            }
+
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
                 Request.Headers.GetValues(Utils.X_MS_OAUTH_TOKEN).FirstOrDefault());
             client.DefaultRequestHeaders.Add("User-Agent", Request.RequestUri.Host);
