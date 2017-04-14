@@ -727,6 +727,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 "Your browser may not support this feature or clipboard permissions don't allow it. " +
                 "See http://caniuse.com/#feat=document-execcommand.");
         }
+        textField.remove();
     }
 
     // Get resourcesDefinitions
