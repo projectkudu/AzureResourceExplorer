@@ -707,6 +707,29 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         window.location.href = "/";
     };
 
+    // https://www.reddit.com/r/web_design/comments/33kxgf/javascript_copying_to_clipboard_is_easier_than
+    $scope.copyResUrlToClipboard = (text: string) => {
+        // We can only use .select() on a textarea,
+        // so let's temporarily create one
+        var textField = document.createElement('textarea');
+        textField.innerText = text;
+        document.body.appendChild(textField);
+        textField.select();
+        if (document.execCommand('copy')) {
+            // Cycle resource URL color for visual feedback
+            $scope.resUrlColor = '#718c00'; // a soft green
+            $timeout(function () {
+                $scope.resUrlColor = '#000';
+            }, 350);
+        }
+        else {
+            console.error("document.execCommand('copy') returned false. " +
+                "Your browser may not support this feature or clipboard permissions don't allow it. " +
+                "See http://caniuse.com/#feat=document-execcommand.");
+        }
+        textField.remove();
+    }
+
     // Get resourcesDefinitions
     initResourcesDefinitions();
 

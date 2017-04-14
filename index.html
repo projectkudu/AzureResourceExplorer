@@ -110,7 +110,7 @@
                     <div ng-show="selectedResource && selectedResource.url">
                         <button ng-repeat="httpMethod in selectedResource.httpMethods | filter:showHttpVerb" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(httpMethod, $event)">{{httpMethod}}</button>
                         <button ng-show="selectedResource.httpMethods.length > 1" class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="toggleEditMode()">{{ editMode ? 'Cancel' : 'Edit' }}</button>
-                        <pre style="">{{ selectedResource.url + "?api-version=" + apiVersion }}</pre>
+                        <pre id="selected-resource-url" ng-style="{'color': resUrlColor}"><span class="btn copy-button fa fa-copy" ng-click="copyResUrlToClipboard(selectedResource.url + '?api-version=' + apiVersion);"></span><span>{{ selectedResource.url + "?api-version=" + apiVersion }}</span></pre>
                     </div>
                     <div id="response-json-editor" class="explorer-editor" ng-show="!editMode"></div>
                     <div id="request-json-editor" class="explorer-editor" ng-show="editMode"></div>

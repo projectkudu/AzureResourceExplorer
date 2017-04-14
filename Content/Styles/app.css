@@ -326,3 +326,16 @@ pre {
     background-color: yellowgreen;
     cursor: pointer;
 }
+
+.copy-button {
+    margin-top: -11px;
+    margin-right: 0;
+    margin-bottom: -9px;
+    margin-left: -11px;
+    border: 0;
+    color: #C82829;
+}
+
+#selected-resource-url {
+    background-color: #f5f5f5;
+}
