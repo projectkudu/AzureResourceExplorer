@@ -48,4 +48,6 @@
     resourceSearchCache: IResearchSearchCache;
     selectResourceSearch(item: IResourceSearchSuggestion);
     treeBranchDataOverrides: ITreeBranchDataOverrides[];
+    copyResUrlToClipboard(text: string): void;
+    resUrlColor: string;
 }
