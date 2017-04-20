@@ -95,6 +95,26 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 wrap: "free",
                 showPrintMargin: false
             });
+            // Bind CTRL-S as PATCH or PUT
+            e.commands.addCommand({
+                name: 'saveItem',
+                bindKey: {
+                    win: 'Ctrl-S',
+                    mac: 'Command-S',
+                    sender: 'editor|cli'
+                },
+                exec: function () {
+                    let method = $scope.selectedResource.httpMethods.
+                        find(m => (m === 'PATCH' || m === 'PUT'));
+                    // Just in case the .find() breaks in unforseen ways
+                    if (typeof method !== 'undefined' && method !== null) {
+                        invokePutOrPatch(method, event);
+                    }
+                    else {
+                        console.error("$scope.selectedResource does not support PATCH or PUT. Ignoring CTRL-S/Command-S.");
+                    }
+                }
+            });
             e.setTheme("ace/theme/tomorrow");
             e.getSession().setMode("ace/mode/json");
             e.getSession().setNewLineMode("windows")
@@ -1335,7 +1355,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     });
                 }
             }
-            delete set;
+            //delete set;
 
         } else {
             docArray.push({
