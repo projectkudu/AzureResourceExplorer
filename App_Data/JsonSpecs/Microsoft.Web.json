@@ -2,20 +2,2096 @@
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/availableStacks",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/publishingUsers/web",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/publishingUsers/web",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "publishingUserName": "(string)",
+                "publishingPassword": "(string)",
+                "publishingPasswordHash": "(string)",
+                "publishingPasswordHashSalt": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "name": "Username",
+                "publishingUserName": "Username used for publishing.",
+                "publishingPassword": "Password used for publishing.",
+                "publishingPasswordHash": "Password hash used for publishing.",
+                "publishingPasswordHashSalt": "Password hash salt used for publishing."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols/{sourceControlType}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "token": "(string)",
+                "tokenSecret": "(string)",
+                "refreshToken": "(string)",
+                "expirationTime": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "name": "Name or source control type.",
+                "token": "OAuth access token.",
+                "tokenSecret": "OAuth access token secret.",
+                "refreshToken": "OAuth refresh token.",
+                "expirationTime": "OAuth token expiration."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.CertificateRegistration/certificateOrders",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.CertificateRegistration/validateCertificateRegistrationInformation",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "(string)",
+                "domainVerificationToken": "(string)",
+                "validityInYears": "(integer)",
+                "keySize": "(integer)",
+                "productType": "(string)",
+                "autoRenew": "(boolean)",
+                "provisioningState": "(string)",
+                "status": "(string)",
+                "signedCertificate": {
+                    "version": "(integer)",
+                    "serialNumber": "(string)",
+                    "thumbprint": "(string)",
+                    "subject": "(string)",
+                    "notBefore": "(string)",
+                    "notAfter": "(string)",
+                    "signatureAlgorithm": "(string)",
+                    "issuer": "(string)",
+                    "rawData": "(string)"
+                },
+                "csr": "(string)",
+                "intermediate": {
+                    "version": "(integer)",
+                    "serialNumber": "(string)",
+                    "thumbprint": "(string)",
+                    "subject": "(string)",
+                    "notBefore": "(string)",
+                    "notAfter": "(string)",
+                    "signatureAlgorithm": "(string)",
+                    "issuer": "(string)",
+                    "rawData": "(string)"
+                },
+                "root": {
+                    "version": "(integer)",
+                    "serialNumber": "(string)",
+                    "thumbprint": "(string)",
+                    "subject": "(string)",
+                    "notBefore": "(string)",
+                    "notAfter": "(string)",
+                    "signatureAlgorithm": "(string)",
+                    "issuer": "(string)",
+                    "rawData": "(string)"
+                },
+                "serialNumber": "(string)",
+                "lastCertificateIssuanceTime": "(string)",
+                "expirationTime": "(string)",
+                "isPrivateKeyExternal": "(boolean)",
+                "appServiceCertificateNotRenewableReasons": [
+                    "(string)"
+                ],
+                "nextAutoRenewalTimeStamp": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "Certificate distinguished name.",
+                "domainVerificationToken": "Domain verification token.",
+                "validityInYears": "Duration in years (must be between 1 and 3).",
+                "keySize": "Certificate key size.",
+                "productType": "Certificate product type.",
+                "autoRenew": "<code>true</code> if the certificate should be automatically renewed when it expires; otherwise, <code>false</code>.",
+                "provisioningState": "Status of certificate order.",
+                "status": "Current order status.",
+                "signedCertificate": {
+                    "version": "Version.",
+                    "serialNumber": "Serial Number.",
+                    "thumbprint": "Thumbprint.",
+                    "subject": "Subject.",
+                    "notBefore": "Valid from.",
+                    "notAfter": "Valid to.",
+                    "signatureAlgorithm": "Signature algorithm.",
+                    "issuer": "Issuer.",
+                    "rawData": "Raw certificate data."
+                },
+                "csr": "Last CSR that was created for this order.",
+                "intermediate": {
+                    "version": "Version.",
+                    "serialNumber": "Serial Number.",
+                    "thumbprint": "Thumbprint.",
+                    "subject": "Subject.",
+                    "notBefore": "Valid from.",
+                    "notAfter": "Valid to.",
+                    "signatureAlgorithm": "Signature algorithm.",
+                    "issuer": "Issuer.",
+                    "rawData": "Raw certificate data."
+                },
+                "root": {
+                    "version": "Version.",
+                    "serialNumber": "Serial Number.",
+                    "thumbprint": "Thumbprint.",
+                    "subject": "Subject.",
+                    "notBefore": "Valid from.",
+                    "notAfter": "Valid to.",
+                    "signatureAlgorithm": "Signature algorithm.",
+                    "issuer": "Issuer.",
+                    "rawData": "Raw certificate data."
+                },
+                "serialNumber": "Current serial number of the certificate.",
+                "lastCertificateIssuanceTime": "Certificate last issuance time.",
+                "expirationTime": "Certificate expiration time.",
+                "isPrivateKeyExternal": "<code>true</code> if private key is external; otherwise, <code>false</code>.",
+                "appServiceCertificateNotRenewableReasons": [
+                    null
+                ],
+                "nextAutoRenewalTimeStamp": "Time stamp when the certificate would be auto renewed next"
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/checkDomainAvailability",
+        "RequestBody": {
+            "name": "(string)"
+        },
+        "RequestBodyDoc": {
+            "name": "Name of the object."
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/domains",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/generateSsoRequest",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/listDomainRecommendations",
+        "RequestBody": {
+            "keywords": "(string)",
+            "maxDomainRecommendations": "(integer)"
+        },
+        "RequestBodyDoc": {
+            "keywords": "Keywords to be used for generating domain recommendations.",
+            "maxDomainRecommendations": "Maximum number of recommendations."
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.DomainRegistration/topLevelDomains/{name}/listAgreements",
+        "RequestBody": {
+            "includePrivacy": "(boolean)",
+            "forTransfer": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "includePrivacy": "If <code>true</code>, then the list of agreements will include agreements for domain privacy as well; otherwise, <code>false</code>.",
+            "forTransfer": "If <code>true</code>, then the list of agreements will include agreements for domain transfer as well; otherwise, <code>false</code>."
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/availableStacks",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/certificates",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/checknameavailability",
+        "RequestBody": {
+            "name": "(string)",
+            "type": "(string)",
+            "isFqdn": "(boolean)"
+        },
+        "RequestBodyDoc": {
+            "name": "Resource name to verify.",
+            "type": "Resource type used for verification.",
+            "isFqdn": "Is fully qualified domain name."
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/classicMobileServices",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/geoRegions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/hostingEnvironments",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/recommendations",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/recommendations/reset",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/resourceHealthMetadata",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/serverfarms",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/sites",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Web/skus",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources",
+        "RequestBody": {
+            "targetResourceGroup": "(string)",
+            "resources": [
+                "(string)"
+            ]
+        },
+        "RequestBodyDoc": {
+            "resources": [
+                null
+            ]
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "(string)",
+                "domainVerificationToken": "(string)",
+                "validityInYears": "(integer)",
+                "keySize": "(integer)",
+                "productType": "(string)",
+                "autoRenew": "(boolean)",
+                "provisioningState": "(string)",
+                "status": "(string)",
+                "signedCertificate": {
+                    "version": "(integer)",
+                    "serialNumber": "(string)",
+                    "thumbprint": "(string)",
+                    "subject": "(string)",
+                    "notBefore": "(string)",
+                    "notAfter": "(string)",
+                    "signatureAlgorithm": "(string)",
+                    "issuer": "(string)",
+                    "rawData": "(string)"
+                },
+                "csr": "(string)",
+                "intermediate": {
+                    "version": "(integer)",
+                    "serialNumber": "(string)",
+                    "thumbprint": "(string)",
+                    "subject": "(string)",
+                    "notBefore": "(string)",
+                    "notAfter": "(string)",
+                    "signatureAlgorithm": "(string)",
+                    "issuer": "(string)",
+                    "rawData": "(string)"
+                },
+                "root": {
+                    "version": "(integer)",
+                    "serialNumber": "(string)",
+                    "thumbprint": "(string)",
+                    "subject": "(string)",
+                    "notBefore": "(string)",
+                    "notAfter": "(string)",
+                    "signatureAlgorithm": "(string)",
+                    "issuer": "(string)",
+                    "rawData": "(string)"
+                },
+                "serialNumber": "(string)",
+                "lastCertificateIssuanceTime": "(string)",
+                "expirationTime": "(string)",
+                "isPrivateKeyExternal": "(boolean)",
+                "appServiceCertificateNotRenewableReasons": [
+                    "(string)"
+                ],
+                "nextAutoRenewalTimeStamp": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "certificates": {},
+                "distinguishedName": "Certificate distinguished name.",
+                "domainVerificationToken": "Domain verification token.",
+                "validityInYears": "Duration in years (must be between 1 and 3).",
+                "keySize": "Certificate key size.",
+                "productType": "Certificate product type.",
+                "autoRenew": "<code>true</code> if the certificate should be automatically renewed when it expires; otherwise, <code>false</code>.",
+                "provisioningState": "Status of certificate order.",
+                "status": "Current order status.",
+                "signedCertificate": {
+                    "version": "Version.",
+                    "serialNumber": "Serial Number.",
+                    "thumbprint": "Thumbprint.",
+                    "subject": "Subject.",
+                    "notBefore": "Valid from.",
+                    "notAfter": "Valid to.",
+                    "signatureAlgorithm": "Signature algorithm.",
+                    "issuer": "Issuer.",
+                    "rawData": "Raw certificate data."
+                },
+                "csr": "Last CSR that was created for this order.",
+                "intermediate": {
+                    "version": "Version.",
+                    "serialNumber": "Serial Number.",
+                    "thumbprint": "Thumbprint.",
+                    "subject": "Subject.",
+                    "notBefore": "Valid from.",
+                    "notAfter": "Valid to.",
+                    "signatureAlgorithm": "Signature algorithm.",
+                    "issuer": "Issuer.",
+                    "rawData": "Raw certificate data."
+                },
+                "root": {
+                    "version": "Version.",
+                    "serialNumber": "Serial Number.",
+                    "thumbprint": "Thumbprint.",
+                    "subject": "Subject.",
+                    "notBefore": "Valid from.",
+                    "notAfter": "Valid to.",
+                    "signatureAlgorithm": "Signature algorithm.",
+                    "issuer": "Issuer.",
+                    "rawData": "Raw certificate data."
+                },
+                "serialNumber": "Current serial number of the certificate.",
+                "lastCertificateIssuanceTime": "Certificate last issuance time.",
+                "expirationTime": "Certificate expiration time.",
+                "isPrivateKeyExternal": "<code>true</code> if private key is external; otherwise, <code>false</code>.",
+                "appServiceCertificateNotRenewableReasons": [
+                    null
+                ],
+                "nextAutoRenewalTimeStamp": "Time stamp when the certificate would be auto renewed next"
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "keyVaultId": "(string)",
+                "keyVaultSecretName": "(string)",
+                "provisioningState": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "keyVaultId": "Key Vault resource Id.",
+                "keyVaultSecretName": "Key Vault secret name.",
+                "provisioningState": "Status of the Key Vault secret."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/certificates/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/reissue",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "keySize": "(integer)",
+                "delayExistingRevokeInHours": "(integer)",
+                "csr": "(string)",
+                "isPrivateKeyExternal": "(boolean)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "keySize": "Certificate Key Size.",
+                "delayExistingRevokeInHours": "Delay in hours to revoke existing certificate after the new certificate is issued.",
+                "csr": "Csr to be used for re-key operation.",
+                "isPrivateKeyExternal": "Should we change the ASC type (from managed private key to external private key and vice versa)."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/renew",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "keySize": "(integer)",
+                "csr": "(string)",
+                "isPrivateKeyExternal": "(boolean)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "keySize": "Certificate Key Size.",
+                "csr": "Csr to be used for re-key operation.",
+                "isPrivateKeyExternal": "Should we change the ASC type (from managed private key to external private key and vice versa)."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/resendEmail",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/resendRequestEmails",
+        "RequestBody": {
+            "name": "(string)"
+        },
+        "RequestBodyDoc": {
+            "name": "Name of the object."
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/retrieveSiteSeal",
+        "RequestBody": {
+            "lightTheme": "(boolean)",
+            "locale": "(string)"
+        },
+        "RequestBodyDoc": {
+            "lightTheme": "Theme",
+            "locale": "Locale"
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{certificateOrderName}/verifyDomainOwnership",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/retrieveCertificateActions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.CertificateRegistration/certificateOrders/{name}/retrieveEmailHistory",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "contactAdmin": {
+                    "addressMailing": {
+                        "address1": "(string)",
+                        "address2": "(string)",
+                        "city": "(string)",
+                        "country": "(string)",
+                        "postalCode": "(string)",
+                        "state": "(string)"
+                    },
+                    "email": "(string)",
+                    "fax": "(string)",
+                    "jobTitle": "(string)",
+                    "nameFirst": "(string)",
+                    "nameLast": "(string)",
+                    "nameMiddle": "(string)",
+                    "organization": "(string)",
+                    "phone": "(string)"
+                },
+                "contactBilling": {
+                    "addressMailing": {
+                        "address1": "(string)",
+                        "address2": "(string)",
+                        "city": "(string)",
+                        "country": "(string)",
+                        "postalCode": "(string)",
+                        "state": "(string)"
+                    },
+                    "email": "(string)",
+                    "fax": "(string)",
+                    "jobTitle": "(string)",
+                    "nameFirst": "(string)",
+                    "nameLast": "(string)",
+                    "nameMiddle": "(string)",
+                    "organization": "(string)",
+                    "phone": "(string)"
+                },
+                "contactRegistrant": {
+                    "addressMailing": {
+                        "address1": "(string)",
+                        "address2": "(string)",
+                        "city": "(string)",
+                        "country": "(string)",
+                        "postalCode": "(string)",
+                        "state": "(string)"
+                    },
+                    "email": "(string)",
+                    "fax": "(string)",
+                    "jobTitle": "(string)",
+                    "nameFirst": "(string)",
+                    "nameLast": "(string)",
+                    "nameMiddle": "(string)",
+                    "organization": "(string)",
+                    "phone": "(string)"
+                },
+                "contactTech": {
+                    "addressMailing": {
+                        "address1": "(string)",
+                        "address2": "(string)",
+                        "city": "(string)",
+                        "country": "(string)",
+                        "postalCode": "(string)",
+                        "state": "(string)"
+                    },
+                    "email": "(string)",
+                    "fax": "(string)",
+                    "jobTitle": "(string)",
+                    "nameFirst": "(string)",
+                    "nameLast": "(string)",
+                    "nameMiddle": "(string)",
+                    "organization": "(string)",
+                    "phone": "(string)"
+                },
+                "registrationStatus": "(string)",
+                "provisioningState": "(string)",
+                "nameServers": [
+                    "(string)"
+                ],
+                "privacy": "(boolean)",
+                "createdTime": "(string)",
+                "expirationTime": "(string)",
+                "lastRenewedTime": "(string)",
+                "autoRenew": "(boolean)",
+                "readyForDnsRecordManagement": "(boolean)",
+                "managedHostNames": [
+                    {
+                        "name": "(string)",
+                        "siteNames": [
+                            "(string)"
+                        ],
+                        "azureResourceName": "(string)",
+                        "azureResourceType": "(string)",
+                        "customHostNameDnsRecordType": "(string)",
+                        "hostNameType": "(string)"
+                    }
+                ],
+                "consent": {
+                    "agreementKeys": [
+                        "(string)"
+                    ],
+                    "agreedBy": "(string)",
+                    "agreedAt": "(string)"
+                },
+                "domainNotRenewableReasons": [
+                    "(string)"
+                ],
+                "dnsType": "(string)",
+                "dnsZoneId": "(string)",
+                "targetDnsType": "(string)",
+                "authCode": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "contactAdmin": {
+                    "addressMailing": {
+                        "address1": "Address 1.",
+                        "address2": "Address 2.",
+                        "city": "City.",
+                        "country": "Country.",
+                        "postalCode": "Postal code.",
+                        "state": "State."
+                    },
+                    "email": "Email address.",
+                    "fax": "Fax number.",
+                    "jobTitle": "Job title.",
+                    "nameFirst": "First name.",
+                    "nameLast": "Last name.",
+                    "nameMiddle": "Middle name.",
+                    "organization": "Organization.",
+                    "phone": "Phone number."
+                },
+                "contactBilling": {
+                    "addressMailing": {
+                        "address1": "Address 1.",
+                        "address2": "Address 2.",
+                        "city": "City.",
+                        "country": "Country.",
+                        "postalCode": "Postal code.",
+                        "state": "State."
+                    },
+                    "email": "Email address.",
+                    "fax": "Fax number.",
+                    "jobTitle": "Job title.",
+                    "nameFirst": "First name.",
+                    "nameLast": "Last name.",
+                    "nameMiddle": "Middle name.",
+                    "organization": "Organization.",
+                    "phone": "Phone number."
+                },
+                "contactRegistrant": {
+                    "addressMailing": {
+                        "address1": "Address 1.",
+                        "address2": "Address 2.",
+                        "city": "City.",
+                        "country": "Country.",
+                        "postalCode": "Postal code.",
+                        "state": "State."
+                    },
+                    "email": "Email address.",
+                    "fax": "Fax number.",
+                    "jobTitle": "Job title.",
+                    "nameFirst": "First name.",
+                    "nameLast": "Last name.",
+                    "nameMiddle": "Middle name.",
+                    "organization": "Organization.",
+                    "phone": "Phone number."
+                },
+                "contactTech": {
+                    "addressMailing": {
+                        "address1": "Address 1.",
+                        "address2": "Address 2.",
+                        "city": "City.",
+                        "country": "Country.",
+                        "postalCode": "Postal code.",
+                        "state": "State."
+                    },
+                    "email": "Email address.",
+                    "fax": "Fax number.",
+                    "jobTitle": "Job title.",
+                    "nameFirst": "First name.",
+                    "nameLast": "Last name.",
+                    "nameMiddle": "Middle name.",
+                    "organization": "Organization.",
+                    "phone": "Phone number."
+                },
+                "registrationStatus": "Domain registration status.",
+                "provisioningState": "Domain provisioning state.",
+                "nameServers": [
+                    null
+                ],
+                "privacy": "<code>true</code> if domain privacy is enabled for this domain; otherwise, <code>false</code>.",
+                "createdTime": "Domain creation timestamp.",
+                "expirationTime": "Domain expiration timestamp.",
+                "lastRenewedTime": "Timestamp when the domain was renewed last time.",
+                "autoRenew": "<code>true</code> if the domain should be automatically renewed; otherwise, <code>false</code>.",
+                "readyForDnsRecordManagement": "<code>true</code> if Azure can assign this domain to App Service apps; otherwise, <code>false</code>. This value will be <code>true</code> if domain registration status is active and \n it is hosted on name servers Azure has programmatic access to.",
+                "managedHostNames": [
+                    {
+                        "name": "Name of the hostname.",
+                        "siteNames": [
+                            null
+                        ],
+                        "azureResourceName": "Name of the Azure resource the hostname is assigned to. If it is assigned to a Traffic Manager then it will be the Traffic Manager name otherwise it will be the app name.",
+                        "azureResourceType": "Type of the Azure resource the hostname is assigned to.",
+                        "customHostNameDnsRecordType": "Type of the DNS record.",
+                        "hostNameType": "Type of the hostname."
+                    }
+                ],
+                "consent": {
+                    "agreementKeys": [
+                        null
+                    ],
+                    "agreedBy": "Client IP address.",
+                    "agreedAt": "Timestamp when the agreements were accepted."
+                },
+                "domainNotRenewableReasons": [
+                    null
+                ],
+                "dnsType": "Current DNS type",
+                "dnsZoneId": "Azure DNS Zone to use",
+                "targetDnsType": "Target DNS type (would be used for migration)"
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}/domainOwnershipIdentifiers",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}/domainOwnershipIdentifiers/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}/domainOwnershipIdentifiers/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "ownershipId": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "ownershipId": "Ownership Id."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}/domainOwnershipIdentifiers/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.DomainRegistration/domains/{domainName}/domainOwnershipIdentifiers/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "ownershipId": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "ownershipId": "Ownership Id."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "friendlyName": "(string)",
+                "subjectName": "(string)",
+                "hostNames": [
+                    "(string)"
+                ],
+                "pfxBlob": "(string)",
+                "siteName": "(string)",
+                "selfLink": "(string)",
+                "issuer": "(string)",
+                "issueDate": "(string)",
+                "expirationDate": "(string)",
+                "password": "(string)",
+                "thumbprint": "(string)",
+                "valid": "(boolean)",
+                "cerBlob": "(string)",
+                "publicKeyHash": "(string)",
+                "hostingEnvironmentProfile": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)"
+                },
+                "keyVaultId": "(string)",
+                "keyVaultSecretName": "(string)",
+                "keyVaultSecretStatus": "(string)",
+                "geoRegion": "(string)",
+                "name": "(string)",
+                "serverFarmId": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "friendlyName": "Friendly name of the certificate.",
+                "subjectName": "Subject name of the certificate.",
+                "hostNames": [
+                    null
+                ],
+                "pfxBlob": "Pfx blob.",
+                "siteName": "App name.",
+                "selfLink": "Self link.",
+                "issuer": "Certificate issuer.",
+                "issueDate": "Certificate issue Date.",
+                "expirationDate": "Certificate expriration date.",
+                "password": "Certificate password.",
+                "thumbprint": "Certificate thumbprint.",
+                "valid": "Is the certificate valid?.",
+                "cerBlob": "Raw bytes of .cer file",
+                "publicKeyHash": "Public key hash.",
+                "hostingEnvironmentProfile": {
+                    "id": "Resource ID of the App Service Environment.",
+                    "name": "Name of the App Service Environment.",
+                    "type": "Resource type of the App Service Environment."
+                },
+                "keyVaultId": "Key Vault Csm resource Id.",
+                "keyVaultSecretName": "Key Vault secret name.",
+                "keyVaultSecretStatus": "Status of the Key Vault secret.",
+                "geoRegion": "Region of the certificate.",
+                "name": "Resource name of the certificate.",
+                "serverFarmId": "Resource ID of the associated App Service plan, formatted as: \"/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}\"."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/certificates/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "friendlyName": "(string)",
+                "subjectName": "(string)",
+                "hostNames": [
+                    "(string)"
+                ],
+                "pfxBlob": "(string)",
+                "siteName": "(string)",
+                "selfLink": "(string)",
+                "issuer": "(string)",
+                "issueDate": "(string)",
+                "expirationDate": "(string)",
+                "password": "(string)",
+                "thumbprint": "(string)",
+                "valid": "(boolean)",
+                "cerBlob": "(string)",
+                "publicKeyHash": "(string)",
+                "hostingEnvironmentProfile": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)"
+                },
+                "keyVaultId": "(string)",
+                "keyVaultSecretName": "(string)",
+                "keyVaultSecretStatus": "(string)",
+                "geoRegion": "(string)",
+                "name": "(string)",
+                "serverFarmId": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "friendlyName": "Friendly name of the certificate.",
+                "subjectName": "Subject name of the certificate.",
+                "hostNames": [
+                    null
+                ],
+                "pfxBlob": "Pfx blob.",
+                "siteName": "App name.",
+                "selfLink": "Self link.",
+                "issuer": "Certificate issuer.",
+                "issueDate": "Certificate issue Date.",
+                "expirationDate": "Certificate expriration date.",
+                "password": "Certificate password.",
+                "thumbprint": "Certificate thumbprint.",
+                "valid": "Is the certificate valid?.",
+                "cerBlob": "Raw bytes of .cer file",
+                "publicKeyHash": "Public key hash.",
+                "hostingEnvironmentProfile": {
+                    "id": "Resource ID of the App Service Environment.",
+                    "name": "Name of the App Service Environment.",
+                    "type": "Resource type of the App Service Environment."
+                },
+                "keyVaultId": "Key Vault Csm resource Id.",
+                "keyVaultSecretName": "Key Vault secret name.",
+                "keyVaultSecretStatus": "Status of the Key Vault secret.",
+                "geoRegion": "Region of the certificate.",
+                "name": "Resource name of the certificate.",
+                "serverFarmId": "Resource ID of the associated App Service plan, formatted as: \"/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}\"."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/classicMobileServices",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/classicMobileServices/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/classicMobileServices/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "location": "(string)",
+                "provisioningState": "(string)",
+                "status": "(string)",
+                "vnetName": "(string)",
+                "vnetResourceGroupName": "(string)",
+                "vnetSubnetName": "(string)",
+                "virtualNetwork": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)",
+                    "subnet": "(string)"
+                },
+                "internalLoadBalancingMode": "(string)",
+                "multiSize": "(string)",
+                "multiRoleCount": "(integer)",
+                "workerPools": [
+                    {
+                        "workerSizeId": "(integer)",
+                        "computeMode": "(string)",
+                        "workerSize": "(string)",
+                        "workerCount": "(integer)",
+                        "instanceNames": [
+                            "(string)"
+                        ]
+                    }
+                ],
+                "ipsslAddressCount": "(integer)",
+                "databaseEdition": "(string)",
+                "databaseServiceObjective": "(string)",
+                "upgradeDomains": "(integer)",
+                "subscriptionId": "(string)",
+                "dnsSuffix": "(string)",
+                "lastAction": "(string)",
+                "lastActionResult": "(string)",
+                "allowedMultiSizes": "(string)",
+                "allowedWorkerSizes": "(string)",
+                "maximumNumberOfMachines": "(integer)",
+                "vipMappings": [
+                    {
+                        "virtualIP": "(string)",
+                        "internalHttpPort": "(integer)",
+                        "internalHttpsPort": "(integer)",
+                        "inUse": "(boolean)"
+                    }
+                ],
+                "environmentCapacities": [
+                    {
+                        "name": "(string)",
+                        "availableCapacity": "(integer)",
+                        "totalCapacity": "(integer)",
+                        "unit": "(string)",
+                        "computeMode": "(string)",
+                        "workerSize": "(string)",
+                        "workerSizeId": "(integer)",
+                        "excludeFromCapacityAllocation": "(boolean)",
+                        "isApplicableForAllComputeModes": "(boolean)",
+                        "siteMode": "(string)"
+                    }
+                ],
+                "networkAccessControlList": [
+                    {
+                        "action": "(string)",
+                        "description": "(string)",
+                        "order": "(integer)",
+                        "remoteSubnet": "(string)"
+                    }
+                ],
+                "environmentIsHealthy": "(boolean)",
+                "environmentStatus": "(string)",
+                "resourceGroup": "(string)",
+                "frontEndScaleFactor": "(integer)",
+                "defaultFrontEndScaleFactor": "(integer)",
+                "apiManagementAccountId": "(string)",
+                "suspended": "(boolean)",
+                "dynamicCacheEnabled": "(boolean)",
+                "clusterSettings": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)"
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "name": "Name of the App Service Environment.",
+                "location": "Location of the App Service Environment, e.g. \"West US\".",
+                "provisioningState": "Provisioning state of the App Service Environment.",
+                "status": "Current status of the App Service Environment.",
+                "vnetName": "Name of the Virtual Network for the App Service Environment.",
+                "vnetResourceGroupName": "Resource group of the Virtual Network.",
+                "vnetSubnetName": "Subnet of the Virtual Network.",
+                "virtualNetwork": {
+                    "id": "Resource id of the Virtual Network.",
+                    "name": "Name of the Virtual Network (read-only).",
+                    "type": "Resource type of the Virtual Network (read-only).",
+                    "subnet": "Subnet within the Virtual Network."
+                },
+                "internalLoadBalancingMode": "Specifies which endpoints to serve internally in the Virtual Network for the App Service Environment.",
+                "multiSize": "Front-end VM size, e.g. \"Medium\", \"Large\".",
+                "multiRoleCount": "Number of front-end instances.",
+                "workerPools": [
+                    {
+                        "workerSizeId": "Worker size ID for referencing this worker pool.",
+                        "computeMode": "Shared or dedicated app hosting.",
+                        "workerSize": "VM size of the worker pool instances.",
+                        "workerCount": "Number of instances in the worker pool.",
+                        "instanceNames": [
+                            null
+                        ]
+                    }
+                ],
+                "ipsslAddressCount": "Number of IP SSL addresses reserved for the App Service Environment.",
+                "databaseEdition": "Edition of the metadata database for the App Service Environment, e.g. \"Standard\".",
+                "databaseServiceObjective": "Service objective of the metadata database for the App Service Environment, e.g. \"S0\".",
+                "upgradeDomains": "Number of upgrade domains of the App Service Environment.",
+                "subscriptionId": "Subscription of the App Service Environment.",
+                "dnsSuffix": "DNS suffix of the App Service Environment.",
+                "lastAction": "Last deployment action on the App Service Environment.",
+                "lastActionResult": "Result of the last deployment action on the App Service Environment.",
+                "allowedMultiSizes": "List of comma separated strings describing which VM sizes are allowed for front-ends.",
+                "allowedWorkerSizes": "List of comma separated strings describing which VM sizes are allowed for workers.",
+                "maximumNumberOfMachines": "Maximum number of VMs in the App Service Environment.",
+                "vipMappings": [
+                    {
+                        "virtualIP": "Virtual IP address.",
+                        "internalHttpPort": "Internal HTTP port.",
+                        "internalHttpsPort": "Internal HTTPS port.",
+                        "inUse": "Is virtual IP mapping in use."
+                    }
+                ],
+                "environmentCapacities": [
+                    {
+                        "name": "Name of the stamp.",
+                        "availableCapacity": "Available capacity (# of machines, bytes of storage etc...).",
+                        "totalCapacity": "Total capacity (# of machines, bytes of storage etc...).",
+                        "unit": "Name of the unit.",
+                        "computeMode": "Shared/dedicated workers.",
+                        "workerSize": "Size of the machines.",
+                        "workerSizeId": "Size ID of machines: \n 0 - Small\n 1 - Medium\n 2 - Large",
+                        "excludeFromCapacityAllocation": "If <code>true</code>, it includes basic apps.\n Basic apps are not used for capacity allocation.",
+                        "isApplicableForAllComputeModes": "<code>true</code> if capacity is applicable for all apps; otherwise, <code>false</code>.",
+                        "siteMode": "Shared or Dedicated."
+                    }
+                ],
+                "networkAccessControlList": [
+                    {
+                        "action": "Action object.",
+                        "description": "Description.",
+                        "order": "Order of precedence.",
+                        "remoteSubnet": "Remote subnet."
+                    }
+                ],
+                "environmentIsHealthy": "True/false indicating whether the App Service Environment is healthy.",
+                "environmentStatus": "Detailed message about with results of the last check of the App Service Environment.",
+                "resourceGroup": "Resource group of the App Service Environment.",
+                "frontEndScaleFactor": "Scale factor for front-ends.",
+                "defaultFrontEndScaleFactor": "Default Scale Factor for FrontEnds.",
+                "apiManagementAccountId": "API Management Account associated with the App Service Environment.",
+                "suspended": "<code>true</code> if the App Service Environment is suspended; otherwise, <code>false</code>. The environment can be suspended, e.g. when the management endpoint is no longer available\n (most likely because NSG blocked the incoming traffic).",
+                "dynamicCacheEnabled": "True/false indicating whether the App Service Environment is suspended. The environment can be suspended e.g. when the management endpoint is no longer available\n (most likely because NSG blocked the incoming traffic).",
+                "clusterSettings": [
+                    {
+                        "name": "Pair name.",
+                        "value": "Pair value."
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/compute",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/capacities/virtualip",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/diagnostics/{diagnosticsName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/metricdefinitions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "workerSizeId": "(integer)",
+                "computeMode": "(string)",
+                "workerSize": "(string)",
+                "workerCount": "(integer)",
+                "instanceNames": [
+                    "(string)"
+                ]
+            },
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)",
+                "skuCapacity": {
+                    "minimum": "(integer)",
+                    "maximum": "(integer)",
+                    "default": "(integer)",
+                    "scaleType": "(string)"
+                },
+                "locations": [
+                    "(string)"
+                ],
+                "capabilities": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)",
+                        "reason": "(string)"
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "workerSizeId": "Worker size ID for referencing this worker pool.",
+                "computeMode": "Shared or dedicated app hosting.",
+                "workerSize": "VM size of the worker pool instances.",
+                "workerCount": "Number of instances in the worker pool.",
+                "instanceNames": [
+                    null
+                ]
+            },
+            "sku": {
+                "name": "Name of the resource SKU.",
+                "tier": "Service tier of the resource SKU.",
+                "size": "Size specifier of the resource SKU.",
+                "family": "Family code of the resource SKU.",
+                "capacity": "Current number of instances assigned to the resource.",
+                "skuCapacity": {
+                    "minimum": "Minimum number of workers for this App Service plan SKU.",
+                    "maximum": "Maximum number of workers for this App Service plan SKU.",
+                    "default": "Default number of workers for this App Service plan SKU.",
+                    "scaleType": "Available scale configurations for an App Service plan."
+                },
+                "locations": [
+                    null
+                ],
+                "capabilities": [
+                    {
+                        "name": "Name of the SKU capability.",
+                        "value": "Value of the SKU capability.",
+                        "reason": "Reason of the SKU capability."
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/instances/{instance}/metricdefinitions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/metricdefinitions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/skus",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/multiRolePools/default/usages",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/operations",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/reboot",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/resume",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/serverfarms",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/sites",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/suspend",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/usages",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "workerSizeId": "(integer)",
+                "computeMode": "(string)",
+                "workerSize": "(string)",
+                "workerCount": "(integer)",
+                "instanceNames": [
+                    "(string)"
+                ]
+            },
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)",
+                "skuCapacity": {
+                    "minimum": "(integer)",
+                    "maximum": "(integer)",
+                    "default": "(integer)",
+                    "scaleType": "(string)"
+                },
+                "locations": [
+                    "(string)"
+                ],
+                "capabilities": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)",
+                        "reason": "(string)"
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "workerSizeId": "Worker size ID for referencing this worker pool.",
+                "computeMode": "Shared or dedicated app hosting.",
+                "workerSize": "VM size of the worker pool instances.",
+                "workerCount": "Number of instances in the worker pool.",
+                "instanceNames": [
+                    null
+                ]
+            },
+            "sku": {
+                "name": "Name of the resource SKU.",
+                "tier": "Service tier of the resource SKU.",
+                "size": "Size specifier of the resource SKU.",
+                "family": "Family code of the resource SKU.",
+                "capacity": "Current number of instances assigned to the resource.",
+                "skuCapacity": {
+                    "minimum": "Minimum number of workers for this App Service plan SKU.",
+                    "maximum": "Maximum number of workers for this App Service plan SKU.",
+                    "default": "Default number of workers for this App Service plan SKU.",
+                    "scaleType": "Available scale configurations for an App Service plan."
+                },
+                "locations": [
+                    null
+                ],
+                "capabilities": [
+                    {
+                        "name": "Name of the SKU capability.",
+                        "value": "Value of the SKU capability.",
+                        "reason": "Reason of the SKU capability."
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/instances/{instance}/metricdefinitions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/metricdefinitions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/skus",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/workerPools/{workerPoolName}/usages",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/resourceHealthMetadata",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "workerTierName": "(string)",
+                "status": "(string)",
+                "subscription": "(string)",
+                "adminSiteName": "(string)",
+                "hostingEnvironmentProfile": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)"
+                },
+                "maximumNumberOfWorkers": "(integer)",
+                "geoRegion": "(string)",
+                "perSiteScaling": "(boolean)",
+                "numberOfSites": "(integer)",
+                "resourceGroup": "(string)",
+                "reserved": "(boolean)",
+                "targetWorkerCount": "(integer)",
+                "targetWorkerSizeId": "(integer)",
+                "provisioningState": "(string)"
+            },
+            "sku": {
+                "name": "(string)",
+                "tier": "(string)",
+                "size": "(string)",
+                "family": "(string)",
+                "capacity": "(integer)",
+                "skuCapacity": {
+                    "minimum": "(integer)",
+                    "maximum": "(integer)",
+                    "default": "(integer)",
+                    "scaleType": "(string)"
+                },
+                "locations": [
+                    "(string)"
+                ],
+                "capabilities": [
+                    {
+                        "name": "(string)",
+                        "value": "(string)",
+                        "reason": "(string)"
+                    }
+                ]
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "name": "Name for the App Service plan.",
+                "workerTierName": "Target worker tier assigned to the App Service plan.",
+                "status": "App Service plan status.",
+                "subscription": "App Service plan subscription.",
+                "adminSiteName": "App Service plan administration site.",
+                "hostingEnvironmentProfile": {
+                    "id": "Resource ID of the App Service Environment.",
+                    "name": "Name of the App Service Environment.",
+                    "type": "Resource type of the App Service Environment."
+                },
+                "maximumNumberOfWorkers": "Maximum number of instances that can be assigned to this App Service plan.",
+                "geoRegion": "Geographical location for the App Service plan.",
+                "perSiteScaling": "If <code>true</code>, apps assigned to this App Service plan can be scaled independently.\n If <code>false</code>, apps assigned to this App Service plan will scale to all instances of the plan.",
+                "numberOfSites": "Number of apps assigned to this App Service plan.",
+                "resourceGroup": "Resource group of the App Service plan.",
+                "reserved": "Reserved.",
+                "targetWorkerCount": "Scaling worker count.",
+                "targetWorkerSizeId": "Scaling worker size ID.",
+                "provisioningState": "Provisioning state of the App Service Environment."
+            },
+            "sku": {
+                "name": "Name of the resource SKU.",
+                "tier": "Service tier of the resource SKU.",
+                "size": "Size specifier of the resource SKU.",
+                "family": "Family code of the resource SKU.",
+                "capacity": "Current number of instances assigned to the resource.",
+                "skuCapacity": {
+                    "minimum": "Minimum number of workers for this App Service plan SKU.",
+                    "maximum": "Maximum number of workers for this App Service plan SKU.",
+                    "default": "Default number of workers for this App Service plan SKU.",
+                    "scaleType": "Available scale configurations for an App Service plan."
+                },
+                "locations": [
+                    null
+                ],
+                "capabilities": [
+                    {
+                        "name": "Name of the SKU capability.",
+                        "value": "Value of the SKU capability.",
+                        "reason": "Reason of the SKU capability."
+                    }
+                ]
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/capabilities",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}/listKeys",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}/sites",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionPlanLimits/limit",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/hybridConnectionRelays",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/metricdefinitions",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/restartSites",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/sites",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "vnetName": "(string)",
+                "vpnPackageUri": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "vnetName": "The Virtual Network name.",
+                "vpnPackageUri": "The URI where the VPN package can be downloaded."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "startAddress": "(string)",
+                "endAddress": "(string)",
+                "routeType": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                "routeType": "The type of route this is:\n DEFAULT - By default, every app has routes to the local address ranges specified by RFC1918\n INHERITED - Routes inherited from the real Virtual Network routes\n STATIC - Static route set on the app only\n \n These values will be used for syncing an app's routes with those from a Virtual Network."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/serverfarms/{name}/virtualNetworkConnections/{vnetName}/routes/{routeName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "kind": "(string)",
+            "location": "(string)",
+            "type": "(string)",
+            "tags": {},
+            "properties": {
+                "name": "(string)",
+                "startAddress": "(string)",
+                "endAddress": "(string)",
+                "routeType": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "Resource Id.",
+            "name": "Resource Name.",
+            "kind": "Kind of resource.",
+            "location": "Resource Location.",
+            "type": "Resource type.",
+            "tags": {},
+            "properties": {
+                "name": "The name of this route. This is only returned by the server and does not need to be set by the client.",
+                "startAddress": "The starting address for this route. This may also include a CIDR notation, in which case the end address must not be specified.",
+                "endAddress": "The ending address for this route. If the start address is specified in CIDR notation, this must be omitted.",
+                "routeType": "The type of route this is:\n DEFAULT - By default, every app has routes to the local address ranges specified by RFC1918\n INHERITED - Routes inherited from the real Virtual Network routes\n STATIC - Static route set on the app only\n \n These values will be used for syncing an app's routes with those from a Virtual Network."
+            }
+        },
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -208,8 +2284,6 @@
                     "name": "(string)",
                     "type": "(string)"
                 },
-                "microService": "(string)",
-                "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
                 "hostNamesDisabled": "(boolean)",
@@ -428,8 +2502,6 @@
                     "name": "Name of the App Service Environment.",
                     "type": "Resource type of the App Service Environment."
                 },
-                "microService": "Micro services like apps, logic apps.",
-                "gatewaySiteName": "Name of gateway app associated with the app.",
                 "clientAffinityEnabled": "<code>true</code> to enable client affinity; <code>false</code> to stop sending session affinity cookies, which route client requests in the same session to the same instance. Default is <code>true</code>.",
                 "clientCertEnabled": "<code>true</code> to enable client certificate authentication (TLS mutual authentication); otherwise, <code>false</code>. Default is <code>false</code>.",
                 "hostNamesDisabled": "<code>true</code> to disable the public hostnames of the app; otherwise, <code>false</code>.\n If <code>true</code>, the app is only accessible via API management process.",
@@ -461,19 +2533,19 @@
                 }
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/analyzeCustomHostname",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -487,13 +2559,13 @@
             "targetSlot": "Destination deployment slot during swap operation.",
             "preserveVnet": "<code>true</code> to preserve Virtual Network to the slot during swap; otherwise, <code>false</code>."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -517,13 +2589,13 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/appsettings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -619,13 +2691,13 @@
                 ]
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/authsettings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -649,19 +2721,19 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/connectionstrings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/logs",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -751,7 +2823,7 @@
                 }
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -775,19 +2847,19 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/metadata/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/publishingcredentials/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -805,19 +2877,19 @@
             "tagsRequiringAuth": "Gets or sets a JSON string containing a list of tags that require user authentication to be used in the push registration endpoint.\n Tags can consist of alphanumeric characters and the following:\n '_', '@', '#', '.', ':', '-'. \n Validation should be performed at the PushRequestHandler.",
             "dynamicTagsJson": "Gets or sets a JSON string containing a list of dynamic tags that will be evaluated from user claims in the push registration endpoint."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/pushsettings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/slotConfigNames",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -855,13 +2927,13 @@
                 ]
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/config/web",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1171,7 +3243,7 @@
                 ]
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -1481,19 +3553,19 @@
                 ]
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1539,25 +3611,25 @@
                 "details": "Detail."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/domainOwnershipIdentifiers",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/domainOwnershipIdentifiers/{domainOwnershipIdentifierName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1585,13 +3657,13 @@
                 "id": "ID."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/domainOwnershipIdentifiers/{domainOwnershipIdentifierName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -1619,19 +3691,19 @@
                 "id": "ID."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1677,19 +3749,19 @@
                 "virtualIP": "Virtual IP address assigned to the hostname if IP based SSL is enabled."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hostNameBindings/{hostName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1729,13 +3801,13 @@
                 "sendKeyValue": "The value of the Service Bus key. This is used to authenticate to Service Bus. In ARM this key will not be returned\n normally, use the POST /listKeys API instead."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -1775,31 +3847,31 @@
                 "sendKeyValue": "The value of the Service Bus key. This is used to authenticate to Service Bus. In ARM this key will not be returned\n normally, use the POST /listKeys API instead."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}/listKeys",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridConnectionRelays",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entityName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1831,13 +3903,13 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/hybridconnection/{entityName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -1869,25 +3941,25 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1933,19 +4005,19 @@
                 "details": "Detail."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/instances/{instanceId}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/metricdefinitions",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -1979,7 +4051,7 @@
                 "blockWriteAccessToSite": "<code>true</code> if the app should be read only during copy operation; otherwise, <code>false</code>."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -2007,61 +4079,61 @@
                 "connectionString": "Connection string to the remote MySQL database to which data should be migrated."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/migratemysql/status",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/networkFeatures/{view}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/networkTrace/start",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/networkTrace/stop",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/newpassword",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/perfcounters",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/phplogging",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2103,25 +4175,25 @@
                 "marketplaceOffer": "Marketplace offer."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/publicCertificates",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/publicCertificates/{publicCertificateName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2153,13 +4225,13 @@
                 "thumbprint": "Certificate Thumbprint"
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/publicCertificates/{publicCertificateName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -2171,7 +4243,7 @@
         "RequestBodyDoc": {
             "format": "Name of the format. Valid values are: \n FileZilla3\n WebDeploy -- default\n Ftp"
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -2187,37 +4259,37 @@
             "siteName": "[Optional] Destination app name into which app should be recovered. This is case when new app should be created instead.",
             "slotName": "[Optional] Destination app slot name into which app should be recovered."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resetSlotConfig",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/resourceHealthMetadata",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/restart",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2410,8 +4482,6 @@
                     "name": "(string)",
                     "type": "(string)"
                 },
-                "microService": "(string)",
-                "gatewaySiteName": "(string)",
                 "clientAffinityEnabled": "(boolean)",
                 "clientCertEnabled": "(boolean)",
                 "hostNamesDisabled": "(boolean)",
@@ -2630,8 +4700,6 @@
                     "name": "Name of the App Service Environment.",
                     "type": "Resource type of the App Service Environment."
                 },
-                "microService": "Micro services like apps, logic apps.",
-                "gatewaySiteName": "Name of gateway app associated with the app.",
                 "clientAffinityEnabled": "<code>true</code> to enable client affinity; <code>false</code> to stop sending session affinity cookies, which route client requests in the same session to the same instance. Default is <code>true</code>.",
                 "clientCertEnabled": "<code>true</code> to enable client certificate authentication (TLS mutual authentication); otherwise, <code>false</code>. Default is <code>false</code>.",
                 "hostNamesDisabled": "<code>true</code> to disable the public hostnames of the app; otherwise, <code>false</code>.\n If <code>true</code>, the app is only accessible via API management process.",
@@ -2663,19 +4731,19 @@
                 }
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/analyzeCustomHostname",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -2689,13 +4757,13 @@
             "targetSlot": "Destination deployment slot during swap operation.",
             "preserveVnet": "<code>true</code> to preserve Virtual Network to the slot during swap; otherwise, <code>false</code>."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2719,13 +4787,13 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/appsettings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2821,13 +4889,13 @@
                 ]
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/authsettings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2851,19 +4919,19 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/connectionstrings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/logs",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2953,7 +5021,7 @@
                 }
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -2977,19 +5045,19 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/metadata/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/publishingcredentials/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3007,19 +5075,19 @@
             "tagsRequiringAuth": "Gets or sets a JSON string containing a list of tags that require user authentication to be used in the push registration endpoint.\n Tags can consist of alphanumeric characters and the following:\n '_', '@', '#', '.', ':', '-'. \n Validation should be performed at the PushRequestHandler.",
             "dynamicTagsJson": "Gets or sets a JSON string containing a list of dynamic tags that will be evaluated from user claims in the push registration endpoint."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/pushsettings/list",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/config/web",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3329,7 +5397,7 @@
                 ]
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -3639,19 +5707,19 @@
                 ]
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3697,25 +5765,25 @@
                 "details": "Detail."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/domainOwnershipIdentifiers",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/domainOwnershipIdentifiers/{domainOwnershipIdentifierName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3743,13 +5811,13 @@
                 "id": "ID."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/domainOwnershipIdentifiers/{domainOwnershipIdentifierName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -3777,19 +5845,19 @@
                 "id": "ID."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3835,19 +5903,19 @@
                 "virtualIP": "Virtual IP address assigned to the hostname if IP based SSL is enabled."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hostNameBindings/{hostName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3887,13 +5955,13 @@
                 "sendKeyValue": "The value of the Service Bus key. This is used to authenticate to Service Bus. In ARM this key will not be returned\n normally, use the POST /listKeys API instead."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -3933,31 +6001,31 @@
                 "sendKeyValue": "The value of the Service Bus key. This is used to authenticate to Service Bus. In ARM this key will not be returned\n normally, use the POST /listKeys API instead."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridConnectionNamespaces/{namespaceName}/relays/{relayName}/listKeys",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridConnectionRelays",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -3989,13 +6057,13 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/hybridconnection/{entityName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -4027,25 +6095,25 @@
             "tags": {},
             "properties": {}
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4091,73 +6159,73 @@
                 "details": "Detail."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/instances/{instanceId}/deployments/{id}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/metricdefinitions",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/migratemysql/status",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkFeatures/{view}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkTrace/start",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/networkTrace/stop",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/newpassword",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/perfcounters",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/phplogging",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4199,25 +6267,25 @@
                 "marketplaceOffer": "Marketplace offer."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/premieraddons/{premierAddOnName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/publicCertificates",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/publicCertificates/{publicCertificateName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4249,13 +6317,13 @@
                 "thumbprint": "Certificate Thumbprint"
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/publicCertificates/{publicCertificateName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4267,7 +6335,7 @@
         "RequestBodyDoc": {
             "format": "Name of the format. Valid values are: \n FileZilla3\n WebDeploy -- default\n Ftp"
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4283,25 +6351,25 @@
             "siteName": "[Optional] Destination app name into which app should be recovered. This is case when new app should be created instead.",
             "slotName": "[Optional] Destination app slot name into which app should be recovered."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resetSlotConfig",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/resourceHealthMetadata",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/restart",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4315,7 +6383,7 @@
             "targetSlot": "Destination deployment slot during swap operation.",
             "preserveVnet": "<code>true</code> to preserve Virtual Network to the slot during swap; otherwise, <code>false</code>."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4329,13 +6397,13 @@
             "targetSlot": "Destination deployment slot during swap operation.",
             "preserveVnet": "<code>true</code> to preserve Virtual Network to the slot during swap; otherwise, <code>false</code>."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4371,55 +6439,55 @@
                 "isMercurial": "<code>true</code> for a Mercurial repository; <code>false</code> for a Git repository."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sourcecontrols/web",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/start",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/stop",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/sync",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/syncfunctiontriggers",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/usages",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4471,13 +6539,13 @@
             "resyncRequired": "<code>true</code> if a resync is required; otherwise, <code>false</code>.",
             "dnsServers": "DNS servers to be used by this Virtual Network. This should be a comma-separated list of IP addresses."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -4529,13 +6597,13 @@
             "resyncRequired": "<code>true</code> if a resync is required; otherwise, <code>false</code>.",
             "dnsServers": "DNS servers to be used by this Virtual Network. This should be a comma-separated list of IP addresses."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/slots/{slot}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4565,7 +6633,7 @@
                 "vpnPackageUri": "The URI where the VPN package can be downloaded."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -4595,7 +6663,7 @@
                 "vpnPackageUri": "The URI where the VPN package can be downloaded."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4609,7 +6677,7 @@
             "targetSlot": "Destination deployment slot during swap operation.",
             "preserveVnet": "<code>true</code> to preserve Virtual Network to the slot during swap; otherwise, <code>false</code>."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
@@ -4623,13 +6691,13 @@
             "targetSlot": "Destination deployment slot during swap operation.",
             "preserveVnet": "<code>true</code> to preserve Virtual Network to the slot during swap; otherwise, <code>false</code>."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4665,55 +6733,55 @@
                 "isMercurial": "<code>true</code> for a Mercurial repository; <code>false</code> for a Git repository."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sourcecontrols/web",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/start",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/stop",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/sync",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "MethodNameWeird",
         "HttpMethod": "POST",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/syncfunctiontriggers",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/usages",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4765,13 +6833,13 @@
             "resyncRequired": "<code>true</code> if a resync is required; otherwise, <code>false</code>.",
             "dnsServers": "DNS servers to be used by this Virtual Network. This should be a comma-separated list of IP addresses."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Delete",
         "HttpMethod": "DELETE",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -4823,13 +6891,13 @@
             "resyncRequired": "<code>true</code> if a resync is required; otherwise, <code>false</code>.",
             "dnsServers": "DNS servers to be used by this Virtual Network. This should be a comma-separated list of IP addresses."
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Get",
         "HttpMethod": "GET",
         "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{name}/virtualNetworkConnections/{vnetName}/gateways/{gatewayName}",
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "CreateOrUpdate",
@@ -4859,7 +6927,7 @@
                 "vpnPackageUri": "The URI where the VPN package can be downloaded."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
     },
     {
         "MethodName": "Update",
@@ -4889,6 +6957,83 @@
                 "vpnPackageUri": "The URI where the VPN package can be downloaded."
             }
         },
-        "ApiVersion": "2016-08-01"
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendationHistory",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendations",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendations/disable",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendations/reset",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/recommendations/{name}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/validate",
+        "RequestBody": {
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "properties": {
+                "serverFarmId": "(string)",
+                "skuName": "(string)",
+                "needLinuxWorkers": "(boolean)",
+                "capacity": "(integer)",
+                "hostingEnvironment": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "name": "Resource name to verify.",
+            "type": "Resource type used for verification.",
+            "location": "Expected location of the resource.",
+            "properties": {
+                "serverFarmId": "ARM resource ID of an App Service plan that would host the app.",
+                "skuName": "Name of the target SKU for the App Service plan.",
+                "needLinuxWorkers": "<code>true</code> if App Service plan is for Linux workers; otherwise, <code>false</code>.",
+                "capacity": "Target capacity of the App Service plan (number of VM's).",
+                "hostingEnvironment": "Name of App Service Environment where app or App Service plan should be created."
+            }
+        },
+        "ApiVersion": "2016-03-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/validateMoveResources",
+        "RequestBody": {
+            "targetResourceGroup": "(string)",
+            "resources": [
+                "(string)"
+            ]
+        },
+        "RequestBodyDoc": {
+            "resources": [
+                null
+            ]
+        },
+        "ApiVersion": "2016-03-01"
     }
 ]
