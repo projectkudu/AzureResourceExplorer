@@ -145,8 +145,6 @@
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="raw\index.html" />
-    <Content Include="ref\Hyak.Core.dll" />
-    <Content Include="ref\Hyak.Specs.dll" />
     <Content Include="ref\System.IdentityModel.Tokens.Jwt.dll" />
     <Content Include="Web.config" />
   </ItemGroup>
