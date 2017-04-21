@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Http;
-using Hyak.Common;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ARMExplorer.Telemetry;
@@ -23,25 +22,14 @@ namespace ARMExplorer.Controllers
     public class OperationController : ApiController
     {
         [Authorize]
-        public async Task<HttpResponseMessage> Get(bool hidden = false)
+        public HttpResponseMessage Get(bool hidden = false)
         {
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
 
             var watch = new Stopwatch();
             watch.Start();
 
-            var specs = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
-                ? Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/HydraSpecs"))
-                  .Where(f => f.EndsWith(".dll"))
-                  .Select(Assembly.LoadFile)
-                  .Select(assembly => assembly.GetTypes())
-                  .SelectMany(t => t)
-                  .Where(type => type.IsSubclassOf(typeof(BaseClient)) && !type.IsAbstract)
-                  .Select(client => HyakUtils.GetOperationsAsync(hidden, client))
-                  .SelectMany(j => j)
-                : Enumerable.Empty<MetadataObject>();
-
-            var speclessCsmApis = await HyakUtils.GetSpeclessCsmOperationsAsync();
+            var speclessCsmApis = HyakUtils.GetSpeclessCsmOperations();
 
             var jsonSpecs = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
                 ? Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
@@ -51,7 +39,7 @@ namespace ARMExplorer.Controllers
                   .SelectMany(i => i)
                 : Enumerable.Empty<MetadataObject>();
 
-            var json = specs.Concat(speclessCsmApis).Concat(jsonSpecs);
+            var json = speclessCsmApis.Concat(jsonSpecs);
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
