@@ -10,8 +10,6 @@ namespace ARMExplorer.Controllers
 {
     public static class HyakUtils
     {
-        static object _lock = new object();
-        static Dictionary<Type, IEnumerable<MetadataObject>[]> _operations = new Dictionary<Type, IEnumerable<MetadataObject>[]>();
         static IEnumerable<MetadataObject> _speclessCsmApis = null;
 
         public static string CSMUrl
@@ -27,7 +25,6 @@ namespace ARMExplorer.Controllers
                 _speclessCsmApis = GetRemoteCsmOperations().Concat(GetMissingApis());
             }
             return _speclessCsmApis;
-            //return (await GetRemoteCsmOperations()).Concat(GetMissingApis());
         }
 
         private static IEnumerable<MetadataObject> GetRemoteCsmOperations()
