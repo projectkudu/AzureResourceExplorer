@@ -1,0 +1,11 @@
+node ConvertSwaggerToExplorerSpecs.js "D:\code\GitHub\azure-rest-api-specs\arm-cdn\2016-10-02\swagger\cdn.json" > ..\App_Data\JsonSpecs\Microsoft.CDN.json
+node ConvertSwaggerToExplorerSpecs.js "D:\code\GitHub\azure-rest-api-specs\arm-compute\2016-04-30-preview\swagger\compute.json" > ..\App_Data\JsonSpecs\Microsoft.Compute.json
+node ConvertSwaggerToExplorerSpecs.js "D:\code\GitHub\azure-rest-api-specs\arm-compute\2017-01-31\swagger\containerService.json" > ..\App_Data\JsonSpecs\Microsoft.ContainerService.json
+node ConvertSwaggerToExplorerSpecs.js "D:\code\GitHub\azure-rest-api-specs\arm-logic\2016-06-01\swagger\logic.json" > ..\App_Data\JsonSpecs\Microsoft.Logic.json
+node ConvertSwaggerToExplorerSpecs.js "D:\code\GitHub\azure-rest-api-specs\arm-trafficmanager\2017-03-01\swagger\trafficmanager.json" > ..\App_Data\JsonSpecs\Microsoft.Network.TrafficManager.json
+node ConvertSwaggerToExplorerSpecs.js "D:\code\GitHub\azure-rest-api-specs\arm-dns\2016-04-01\swagger\dns.json" > ..\App_Data\JsonSpecs\Microsoft.Networks.DNS.json
+node ConvertSwaggerToExplorerSpecs.js "D:\code\GitHub\azure-rest-api-specs\arm-storage\2016-12-01\swagger\storage.json" > ..\App_Data\JsonSpecs\Microsoft.Storage.json
+
+
+
+
