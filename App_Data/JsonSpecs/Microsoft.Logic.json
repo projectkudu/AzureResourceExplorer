@@ -1,0 +1,2346 @@
+[
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Logic/workflows",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "provisioningState": "(string)",
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "state": "(string)",
+                "version": "(string)",
+                "accessEndpoint": "(string)",
+                "sku": {
+                    "name": "(string)",
+                    "plan": {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "type": "(string)"
+                    }
+                },
+                "integrationAccount": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)"
+                },
+                "definition": {},
+                "parameters": {}
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "createdTime": "Gets the created time.",
+                "changedTime": "Gets the changed time.",
+                "version": "Gets the version.",
+                "accessEndpoint": "Gets the access endpoint.",
+                "sku": {
+                    "name": "The sku name.",
+                    "plan": {
+                        "id": "The resource id.",
+                        "name": "Gets the resource name.",
+                        "type": "Gets the resource type."
+                    }
+                },
+                "integrationAccount": {
+                    "id": "The resource id.",
+                    "name": "Gets the resource name.",
+                    "type": "Gets the resource type."
+                },
+                "definition": {},
+                "parameters": {}
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "provisioningState": "(string)",
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "state": "(string)",
+                "version": "(string)",
+                "accessEndpoint": "(string)",
+                "sku": {
+                    "name": "(string)",
+                    "plan": {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "type": "(string)"
+                    }
+                },
+                "integrationAccount": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)"
+                },
+                "definition": {},
+                "parameters": {}
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "createdTime": "Gets the created time.",
+                "changedTime": "Gets the changed time.",
+                "version": "Gets the version.",
+                "accessEndpoint": "Gets the access endpoint.",
+                "sku": {
+                    "name": "The sku name.",
+                    "plan": {
+                        "id": "The resource id.",
+                        "name": "Gets the resource name.",
+                        "type": "Gets the resource type."
+                    }
+                },
+                "integrationAccount": {
+                    "id": "The resource id.",
+                    "name": "Gets the resource name.",
+                    "type": "Gets the resource type."
+                },
+                "definition": {},
+                "parameters": {}
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/disable",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/enable",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/generateUpgradedDefinition",
+        "RequestBody": {
+            "targetSchemaVersion": "(string)"
+        },
+        "RequestBodyDoc": {
+            "targetSchemaVersion": "The target schema version."
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/listSwagger",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/regenerateAccessKey",
+        "RequestBody": {
+            "keyType": "(string)"
+        },
+        "RequestBodyDoc": {},
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions/{versionId}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/triggers/",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/triggers/{triggerName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/triggers/{triggerName}/run",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/triggers/{triggerName}/listCallbackUrl",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/versions/{versionId}/triggers/{triggerName}/listCallbackUrl",
+        "RequestBody": {
+            "notAfter": "(string)",
+            "keyType": "(string)"
+        },
+        "RequestBodyDoc": {
+            "notAfter": "The expiry time."
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/triggers/{triggerName}/histories",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/triggers/{triggerName}/histories/{historyName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/triggers/{triggerName}/histories/{historyName}/resubmit",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/cancel",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/workflows/{workflowName}/runs/{runName}/actions/{actionName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/locations/{location}/workflows/{workflowName}/validate",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "provisioningState": "(string)",
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "state": "(string)",
+                "version": "(string)",
+                "accessEndpoint": "(string)",
+                "sku": {
+                    "name": "(string)",
+                    "plan": {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "type": "(string)"
+                    }
+                },
+                "integrationAccount": {
+                    "id": "(string)",
+                    "name": "(string)",
+                    "type": "(string)"
+                },
+                "definition": {},
+                "parameters": {}
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "createdTime": "Gets the created time.",
+                "changedTime": "Gets the changed time.",
+                "version": "Gets the version.",
+                "accessEndpoint": "Gets the access endpoint.",
+                "sku": {
+                    "name": "The sku name.",
+                    "plan": {
+                        "id": "The resource id.",
+                        "name": "Gets the resource name.",
+                        "type": "Gets the resource type."
+                    }
+                },
+                "integrationAccount": {
+                    "id": "The resource id.",
+                    "name": "Gets the resource name.",
+                    "type": "Gets the resource type."
+                },
+                "definition": {},
+                "parameters": {}
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/providers/Microsoft.Logic/integrationAccounts",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {},
+            "sku": {
+                "name": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {},
+            "sku": {}
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Update",
+        "HttpMethod": "PATCH",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {},
+            "sku": {
+                "name": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {},
+            "sku": {}
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "MethodNameWeird",
+        "HttpMethod": "POST",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/listCallbackUrl",
+        "RequestBody": {
+            "notAfter": "(string)",
+            "keyType": "(string)"
+        },
+        "RequestBodyDoc": {
+            "notAfter": "The expiry time."
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas/{schemaName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas/{schemaName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "schemaType": "(string)",
+                "targetNamespace": "(string)",
+                "documentName": "(string)",
+                "fileName": "(string)",
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "metadata": {},
+                "content": {},
+                "contentType": "(string)",
+                "contentLink": {
+                    "uri": "(string)",
+                    "contentVersion": "(string)",
+                    "contentSize": "(integer)",
+                    "contentHash": {
+                        "algorithm": "(string)",
+                        "value": "(string)"
+                    },
+                    "metadata": {}
+                }
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "targetNamespace": "The target namespace of the schema.",
+                "documentName": "The document name.",
+                "fileName": "The file name.",
+                "createdTime": "The created time.",
+                "changedTime": "The changed time.",
+                "metadata": {},
+                "content": {},
+                "contentType": "The content type.",
+                "contentLink": {
+                    "uri": "The content link URI.",
+                    "contentVersion": "The content version.",
+                    "contentSize": "The content size.",
+                    "contentHash": {
+                        "algorithm": "The algorithm of the content hash.",
+                        "value": "The value of the content hash."
+                    },
+                    "metadata": {}
+                }
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/schemas/{schemaName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/maps",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/maps/{mapName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/maps/{mapName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "mapType": "(string)",
+                "parametersSchema": {
+                    "ref": "(string)"
+                },
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "content": {},
+                "contentType": "(string)",
+                "contentLink": {
+                    "uri": "(string)",
+                    "contentVersion": "(string)",
+                    "contentSize": "(integer)",
+                    "contentHash": {
+                        "algorithm": "(string)",
+                        "value": "(string)"
+                    },
+                    "metadata": {}
+                },
+                "metadata": {}
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "parametersSchema": {
+                    "ref": "The reference name."
+                },
+                "createdTime": "The created time.",
+                "changedTime": "The changed time.",
+                "content": {},
+                "contentType": "The content type.",
+                "contentLink": {
+                    "uri": "The content link URI.",
+                    "contentVersion": "The content version.",
+                    "contentSize": "The content size.",
+                    "contentHash": {
+                        "algorithm": "The algorithm of the content hash.",
+                        "value": "The value of the content hash."
+                    },
+                    "metadata": {}
+                },
+                "metadata": {}
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/maps/{mapName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/partners",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/partners/{partnerName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/partners/{partnerName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "partnerType": "(string)",
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "metadata": {},
+                "content": {
+                    "b2b": {
+                        "businessIdentities": [
+                            {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "createdTime": "The created time.",
+                "changedTime": "The changed time.",
+                "metadata": {},
+                "content": {
+                    "b2b": {
+                        "businessIdentities": [
+                            {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            }
+                        ]
+                    }
+                }
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/partners/{partnerName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements/{agreementName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements/{agreementName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "metadata": {},
+                "agreementType": "(string)",
+                "hostPartner": "(string)",
+                "guestPartner": "(string)",
+                "hostIdentity": {
+                    "qualifier": "(string)",
+                    "value": "(string)"
+                },
+                "guestIdentity": {
+                    "qualifier": "(string)",
+                    "value": "(string)"
+                },
+                "content": {
+                    "aS2": {
+                        "receiveAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "protocolSettings": {
+                                "messageConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "(boolean)",
+                                    "supportHttpStatusCodeContinue": "(boolean)",
+                                    "keepHttpConnectionAlive": "(boolean)",
+                                    "unfoldHttpHeaders": "(boolean)"
+                                },
+                                "acknowledgementConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "(boolean)",
+                                    "supportHttpStatusCodeContinue": "(boolean)",
+                                    "keepHttpConnectionAlive": "(boolean)",
+                                    "unfoldHttpHeaders": "(boolean)"
+                                },
+                                "mdnSettings": {
+                                    "needMdn": "(boolean)",
+                                    "signMdn": "(boolean)",
+                                    "sendMdnAsynchronously": "(boolean)",
+                                    "receiptDeliveryUrl": "(string)",
+                                    "dispositionNotificationTo": "(string)",
+                                    "signOutboundMdnIfOptional": "(boolean)",
+                                    "mdnText": "(string)",
+                                    "sendInboundMdnToMessageBox": "(boolean)",
+                                    "micHashingAlgorithm": "(string)"
+                                },
+                                "securitySettings": {
+                                    "overrideGroupSigningCertificate": "(boolean)",
+                                    "signingCertificateName": "(string)",
+                                    "encryptionCertificateName": "(string)",
+                                    "enableNrrForInboundEncodedMessages": "(boolean)",
+                                    "enableNrrForInboundDecodedMessages": "(boolean)",
+                                    "enableNrrForOutboundMdn": "(boolean)",
+                                    "enableNrrForOutboundEncodedMessages": "(boolean)",
+                                    "enableNrrForOutboundDecodedMessages": "(boolean)",
+                                    "enableNrrForInboundMdn": "(boolean)",
+                                    "sha2AlgorithmFormat": "(string)"
+                                },
+                                "validationSettings": {
+                                    "overrideMessageProperties": "(boolean)",
+                                    "encryptMessage": "(boolean)",
+                                    "signMessage": "(boolean)",
+                                    "compressMessage": "(boolean)",
+                                    "checkDuplicateMessage": "(boolean)",
+                                    "interchangeDuplicatesValidityDays": "(integer)",
+                                    "checkCertificateRevocationListOnSend": "(boolean)",
+                                    "checkCertificateRevocationListOnReceive": "(boolean)",
+                                    "encryptionAlgorithm": "(string)",
+                                    "signingAlgorithm": "(string)"
+                                },
+                                "envelopeSettings": {
+                                    "messageContentType": "(string)",
+                                    "transmitFileNameInMimeHeader": "(boolean)",
+                                    "fileNameTemplate": "(string)",
+                                    "suspendMessageOnFileNameGenerationError": "(boolean)",
+                                    "autogenerateFileName": "(boolean)"
+                                },
+                                "errorSettings": {
+                                    "suspendDuplicateMessage": "(boolean)",
+                                    "resendIfMdnNotReceived": "(boolean)"
+                                }
+                            }
+                        },
+                        "sendAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "protocolSettings": {
+                                "messageConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "(boolean)",
+                                    "supportHttpStatusCodeContinue": "(boolean)",
+                                    "keepHttpConnectionAlive": "(boolean)",
+                                    "unfoldHttpHeaders": "(boolean)"
+                                },
+                                "acknowledgementConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "(boolean)",
+                                    "supportHttpStatusCodeContinue": "(boolean)",
+                                    "keepHttpConnectionAlive": "(boolean)",
+                                    "unfoldHttpHeaders": "(boolean)"
+                                },
+                                "mdnSettings": {
+                                    "needMdn": "(boolean)",
+                                    "signMdn": "(boolean)",
+                                    "sendMdnAsynchronously": "(boolean)",
+                                    "receiptDeliveryUrl": "(string)",
+                                    "dispositionNotificationTo": "(string)",
+                                    "signOutboundMdnIfOptional": "(boolean)",
+                                    "mdnText": "(string)",
+                                    "sendInboundMdnToMessageBox": "(boolean)",
+                                    "micHashingAlgorithm": "(string)"
+                                },
+                                "securitySettings": {
+                                    "overrideGroupSigningCertificate": "(boolean)",
+                                    "signingCertificateName": "(string)",
+                                    "encryptionCertificateName": "(string)",
+                                    "enableNrrForInboundEncodedMessages": "(boolean)",
+                                    "enableNrrForInboundDecodedMessages": "(boolean)",
+                                    "enableNrrForOutboundMdn": "(boolean)",
+                                    "enableNrrForOutboundEncodedMessages": "(boolean)",
+                                    "enableNrrForOutboundDecodedMessages": "(boolean)",
+                                    "enableNrrForInboundMdn": "(boolean)",
+                                    "sha2AlgorithmFormat": "(string)"
+                                },
+                                "validationSettings": {
+                                    "overrideMessageProperties": "(boolean)",
+                                    "encryptMessage": "(boolean)",
+                                    "signMessage": "(boolean)",
+                                    "compressMessage": "(boolean)",
+                                    "checkDuplicateMessage": "(boolean)",
+                                    "interchangeDuplicatesValidityDays": "(integer)",
+                                    "checkCertificateRevocationListOnSend": "(boolean)",
+                                    "checkCertificateRevocationListOnReceive": "(boolean)",
+                                    "encryptionAlgorithm": "(string)",
+                                    "signingAlgorithm": "(string)"
+                                },
+                                "envelopeSettings": {
+                                    "messageContentType": "(string)",
+                                    "transmitFileNameInMimeHeader": "(boolean)",
+                                    "fileNameTemplate": "(string)",
+                                    "suspendMessageOnFileNameGenerationError": "(boolean)",
+                                    "autogenerateFileName": "(boolean)"
+                                },
+                                "errorSettings": {
+                                    "suspendDuplicateMessage": "(boolean)",
+                                    "resendIfMdnNotReceived": "(boolean)"
+                                }
+                            }
+                        }
+                    },
+                    "x12": {
+                        "receiveAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "(boolean)",
+                                    "checkDuplicateInterchangeControlNumber": "(boolean)",
+                                    "interchangeControlNumberValidityDays": "(integer)",
+                                    "checkDuplicateGroupControlNumber": "(boolean)",
+                                    "checkDuplicateTransactionSetControlNumber": "(boolean)",
+                                    "validateEdiTypes": "(boolean)",
+                                    "validateXsdTypes": "(boolean)",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trailingSeparatorPolicy": "(string)"
+                                },
+                                "framingSettings": {
+                                    "dataElementSeparator": "(integer)",
+                                    "componentSeparator": "(integer)",
+                                    "replaceSeparatorsInPayload": "(boolean)",
+                                    "replaceCharacter": "(integer)",
+                                    "segmentTerminator": "(integer)",
+                                    "characterSet": "(string)",
+                                    "segmentTerminatorSuffix": "(string)"
+                                },
+                                "envelopeSettings": {
+                                    "controlStandardsId": "(integer)",
+                                    "useControlStandardsIdAsRepetitionCharacter": "(boolean)",
+                                    "senderApplicationId": "(string)",
+                                    "receiverApplicationId": "(string)",
+                                    "controlVersionNumber": "(string)",
+                                    "interchangeControlNumberLowerBound": "(integer)",
+                                    "interchangeControlNumberUpperBound": "(integer)",
+                                    "rolloverInterchangeControlNumber": "(boolean)",
+                                    "enableDefaultGroupHeaders": "(boolean)",
+                                    "functionalGroupId": "(string)",
+                                    "groupControlNumberLowerBound": "(integer)",
+                                    "groupControlNumberUpperBound": "(integer)",
+                                    "rolloverGroupControlNumber": "(boolean)",
+                                    "groupHeaderAgencyCode": "(string)",
+                                    "groupHeaderVersion": "(string)",
+                                    "transactionSetControlNumberLowerBound": "(integer)",
+                                    "transactionSetControlNumberUpperBound": "(integer)",
+                                    "rolloverTransactionSetControlNumber": "(boolean)",
+                                    "transactionSetControlNumberPrefix": "(string)",
+                                    "transactionSetControlNumberSuffix": "(string)",
+                                    "overwriteExistingTransactionSetControlNumber": "(boolean)",
+                                    "groupHeaderDateFormat": "(string)",
+                                    "groupHeaderTimeFormat": "(string)",
+                                    "usageIndicator": "(string)"
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "(boolean)",
+                                    "batchTechnicalAcknowledgements": "(boolean)",
+                                    "needFunctionalAcknowledgement": "(boolean)",
+                                    "functionalAcknowledgementVersion": "(string)",
+                                    "batchFunctionalAcknowledgements": "(boolean)",
+                                    "needImplementationAcknowledgement": "(boolean)",
+                                    "implementationAcknowledgementVersion": "(string)",
+                                    "batchImplementationAcknowledgements": "(boolean)",
+                                    "needLoopForValidMessages": "(boolean)",
+                                    "sendSynchronousAcknowledgement": "(boolean)",
+                                    "acknowledgementControlNumberPrefix": "(string)",
+                                    "acknowledgementControlNumberSuffix": "(string)",
+                                    "acknowledgementControlNumberLowerBound": "(integer)",
+                                    "acknowledgementControlNumberUpperBound": "(integer)",
+                                    "rolloverAcknowledgementControlNumber": "(boolean)"
+                                },
+                                "messageFilter": {
+                                    "messageFilterType": "(string)"
+                                },
+                                "securitySettings": {
+                                    "authorizationQualifier": "(string)",
+                                    "authorizationValue": "(string)",
+                                    "securityQualifier": "(string)",
+                                    "passwordValue": "(string)"
+                                },
+                                "processingSettings": {
+                                    "maskSecurityInfo": "(boolean)",
+                                    "convertImpliedDecimal": "(boolean)",
+                                    "preserveInterchange": "(boolean)",
+                                    "suspendInterchangeOnError": "(boolean)",
+                                    "createEmptyXmlTagsForTrailingSeparators": "(boolean)",
+                                    "useDotAsDecimalSeparator": "(boolean)"
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "targetNamespace": "(string)",
+                                        "protocolVersion": "(string)",
+                                        "messageId": "(string)",
+                                        "responsibleAgencyCode": "(string)",
+                                        "headerVersion": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "receiverApplicationId": "(string)",
+                                        "functionalIdentifierCode": "(string)",
+                                        "dateFormat": "(string)",
+                                        "timeFormat": "(string)"
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "validateEdiTypes": "(boolean)",
+                                        "validateXsdTypes": "(boolean)",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                        "validateCharacterSet": "(boolean)",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                        "trailingSeparatorPolicy": "(string)"
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "(string)"
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "schemaVersion": "(string)",
+                                        "schemaName": "(string)"
+                                    }
+                                ],
+                                "x12DelimiterOverrides": [
+                                    {
+                                        "protocolVersion": "(string)",
+                                        "messageId": "(string)",
+                                        "dataElementSeparator": "(integer)",
+                                        "componentSeparator": "(integer)",
+                                        "segmentTerminator": "(integer)",
+                                        "segmentTerminatorSuffix": "(string)",
+                                        "replaceCharacter": "(integer)",
+                                        "replaceSeparatorsInPayload": "(boolean)",
+                                        "targetNamespace": "(string)"
+                                    }
+                                ]
+                            }
+                        },
+                        "sendAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "(boolean)",
+                                    "checkDuplicateInterchangeControlNumber": "(boolean)",
+                                    "interchangeControlNumberValidityDays": "(integer)",
+                                    "checkDuplicateGroupControlNumber": "(boolean)",
+                                    "checkDuplicateTransactionSetControlNumber": "(boolean)",
+                                    "validateEdiTypes": "(boolean)",
+                                    "validateXsdTypes": "(boolean)",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trailingSeparatorPolicy": "(string)"
+                                },
+                                "framingSettings": {
+                                    "dataElementSeparator": "(integer)",
+                                    "componentSeparator": "(integer)",
+                                    "replaceSeparatorsInPayload": "(boolean)",
+                                    "replaceCharacter": "(integer)",
+                                    "segmentTerminator": "(integer)",
+                                    "characterSet": "(string)",
+                                    "segmentTerminatorSuffix": "(string)"
+                                },
+                                "envelopeSettings": {
+                                    "controlStandardsId": "(integer)",
+                                    "useControlStandardsIdAsRepetitionCharacter": "(boolean)",
+                                    "senderApplicationId": "(string)",
+                                    "receiverApplicationId": "(string)",
+                                    "controlVersionNumber": "(string)",
+                                    "interchangeControlNumberLowerBound": "(integer)",
+                                    "interchangeControlNumberUpperBound": "(integer)",
+                                    "rolloverInterchangeControlNumber": "(boolean)",
+                                    "enableDefaultGroupHeaders": "(boolean)",
+                                    "functionalGroupId": "(string)",
+                                    "groupControlNumberLowerBound": "(integer)",
+                                    "groupControlNumberUpperBound": "(integer)",
+                                    "rolloverGroupControlNumber": "(boolean)",
+                                    "groupHeaderAgencyCode": "(string)",
+                                    "groupHeaderVersion": "(string)",
+                                    "transactionSetControlNumberLowerBound": "(integer)",
+                                    "transactionSetControlNumberUpperBound": "(integer)",
+                                    "rolloverTransactionSetControlNumber": "(boolean)",
+                                    "transactionSetControlNumberPrefix": "(string)",
+                                    "transactionSetControlNumberSuffix": "(string)",
+                                    "overwriteExistingTransactionSetControlNumber": "(boolean)",
+                                    "groupHeaderDateFormat": "(string)",
+                                    "groupHeaderTimeFormat": "(string)",
+                                    "usageIndicator": "(string)"
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "(boolean)",
+                                    "batchTechnicalAcknowledgements": "(boolean)",
+                                    "needFunctionalAcknowledgement": "(boolean)",
+                                    "functionalAcknowledgementVersion": "(string)",
+                                    "batchFunctionalAcknowledgements": "(boolean)",
+                                    "needImplementationAcknowledgement": "(boolean)",
+                                    "implementationAcknowledgementVersion": "(string)",
+                                    "batchImplementationAcknowledgements": "(boolean)",
+                                    "needLoopForValidMessages": "(boolean)",
+                                    "sendSynchronousAcknowledgement": "(boolean)",
+                                    "acknowledgementControlNumberPrefix": "(string)",
+                                    "acknowledgementControlNumberSuffix": "(string)",
+                                    "acknowledgementControlNumberLowerBound": "(integer)",
+                                    "acknowledgementControlNumberUpperBound": "(integer)",
+                                    "rolloverAcknowledgementControlNumber": "(boolean)"
+                                },
+                                "messageFilter": {
+                                    "messageFilterType": "(string)"
+                                },
+                                "securitySettings": {
+                                    "authorizationQualifier": "(string)",
+                                    "authorizationValue": "(string)",
+                                    "securityQualifier": "(string)",
+                                    "passwordValue": "(string)"
+                                },
+                                "processingSettings": {
+                                    "maskSecurityInfo": "(boolean)",
+                                    "convertImpliedDecimal": "(boolean)",
+                                    "preserveInterchange": "(boolean)",
+                                    "suspendInterchangeOnError": "(boolean)",
+                                    "createEmptyXmlTagsForTrailingSeparators": "(boolean)",
+                                    "useDotAsDecimalSeparator": "(boolean)"
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "targetNamespace": "(string)",
+                                        "protocolVersion": "(string)",
+                                        "messageId": "(string)",
+                                        "responsibleAgencyCode": "(string)",
+                                        "headerVersion": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "receiverApplicationId": "(string)",
+                                        "functionalIdentifierCode": "(string)",
+                                        "dateFormat": "(string)",
+                                        "timeFormat": "(string)"
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "validateEdiTypes": "(boolean)",
+                                        "validateXsdTypes": "(boolean)",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                        "validateCharacterSet": "(boolean)",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                        "trailingSeparatorPolicy": "(string)"
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "(string)"
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "schemaVersion": "(string)",
+                                        "schemaName": "(string)"
+                                    }
+                                ],
+                                "x12DelimiterOverrides": [
+                                    {
+                                        "protocolVersion": "(string)",
+                                        "messageId": "(string)",
+                                        "dataElementSeparator": "(integer)",
+                                        "componentSeparator": "(integer)",
+                                        "segmentTerminator": "(integer)",
+                                        "segmentTerminatorSuffix": "(string)",
+                                        "replaceCharacter": "(integer)",
+                                        "replaceSeparatorsInPayload": "(boolean)",
+                                        "targetNamespace": "(string)"
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "edifact": {
+                        "receiveAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "(boolean)",
+                                    "checkDuplicateInterchangeControlNumber": "(boolean)",
+                                    "interchangeControlNumberValidityDays": "(integer)",
+                                    "checkDuplicateGroupControlNumber": "(boolean)",
+                                    "checkDuplicateTransactionSetControlNumber": "(boolean)",
+                                    "validateEdiTypes": "(boolean)",
+                                    "validateXsdTypes": "(boolean)",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trailingSeparatorPolicy": "(string)"
+                                },
+                                "framingSettings": {
+                                    "serviceCodeListDirectoryVersion": "(string)",
+                                    "characterEncoding": "(string)",
+                                    "protocolVersion": "(integer)",
+                                    "dataElementSeparator": "(integer)",
+                                    "componentSeparator": "(integer)",
+                                    "segmentTerminator": "(integer)",
+                                    "releaseIndicator": "(integer)",
+                                    "repetitionSeparator": "(integer)",
+                                    "characterSet": "(string)",
+                                    "decimalPointIndicator": "(string)",
+                                    "segmentTerminatorSuffix": "(string)"
+                                },
+                                "envelopeSettings": {
+                                    "groupAssociationAssignedCode": "(string)",
+                                    "communicationAgreementId": "(string)",
+                                    "applyDelimiterStringAdvice": "(boolean)",
+                                    "createGroupingSegments": "(boolean)",
+                                    "enableDefaultGroupHeaders": "(boolean)",
+                                    "recipientReferencePasswordValue": "(string)",
+                                    "recipientReferencePasswordQualifier": "(string)",
+                                    "applicationReferenceId": "(string)",
+                                    "processingPriorityCode": "(string)",
+                                    "interchangeControlNumberLowerBound": "(integer)",
+                                    "interchangeControlNumberUpperBound": "(integer)",
+                                    "rolloverInterchangeControlNumber": "(boolean)",
+                                    "interchangeControlNumberPrefix": "(string)",
+                                    "interchangeControlNumberSuffix": "(string)",
+                                    "senderReverseRoutingAddress": "(string)",
+                                    "receiverReverseRoutingAddress": "(string)",
+                                    "functionalGroupId": "(string)",
+                                    "groupControllingAgencyCode": "(string)",
+                                    "groupMessageVersion": "(string)",
+                                    "groupMessageRelease": "(string)",
+                                    "groupControlNumberLowerBound": "(integer)",
+                                    "groupControlNumberUpperBound": "(integer)",
+                                    "rolloverGroupControlNumber": "(boolean)",
+                                    "groupControlNumberPrefix": "(string)",
+                                    "groupControlNumberSuffix": "(string)",
+                                    "groupApplicationReceiverQualifier": "(string)",
+                                    "groupApplicationReceiverId": "(string)",
+                                    "groupApplicationSenderQualifier": "(string)",
+                                    "groupApplicationSenderId": "(string)",
+                                    "groupApplicationPassword": "(string)",
+                                    "overwriteExistingTransactionSetControlNumber": "(boolean)",
+                                    "transactionSetControlNumberPrefix": "(string)",
+                                    "transactionSetControlNumberSuffix": "(string)",
+                                    "transactionSetControlNumberLowerBound": "(integer)",
+                                    "transactionSetControlNumberUpperBound": "(integer)",
+                                    "rolloverTransactionSetControlNumber": "(boolean)",
+                                    "isTestInterchange": "(boolean)",
+                                    "senderInternalIdentification": "(string)",
+                                    "senderInternalSubIdentification": "(string)",
+                                    "receiverInternalIdentification": "(string)",
+                                    "receiverInternalSubIdentification": "(string)"
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "(boolean)",
+                                    "batchTechnicalAcknowledgements": "(boolean)",
+                                    "needFunctionalAcknowledgement": "(boolean)",
+                                    "batchFunctionalAcknowledgements": "(boolean)",
+                                    "needLoopForValidMessages": "(boolean)",
+                                    "sendSynchronousAcknowledgement": "(boolean)",
+                                    "acknowledgementControlNumberPrefix": "(string)",
+                                    "acknowledgementControlNumberSuffix": "(string)",
+                                    "acknowledgementControlNumberLowerBound": "(integer)",
+                                    "acknowledgementControlNumberUpperBound": "(integer)",
+                                    "rolloverAcknowledgementControlNumber": "(boolean)"
+                                },
+                                "messageFilter": {
+                                    "messageFilterType": "(string)"
+                                },
+                                "processingSettings": {
+                                    "maskSecurityInfo": "(boolean)",
+                                    "preserveInterchange": "(boolean)",
+                                    "suspendInterchangeOnError": "(boolean)",
+                                    "createEmptyXmlTagsForTrailingSeparators": "(boolean)",
+                                    "useDotAsDecimalSeparator": "(boolean)"
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "messageVersion": "(string)",
+                                        "messageRelease": "(string)",
+                                        "messageAssociationAssignedCode": "(string)",
+                                        "targetNamespace": "(string)",
+                                        "functionalGroupId": "(string)",
+                                        "senderApplicationQualifier": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "receiverApplicationQualifier": "(string)",
+                                        "receiverApplicationId": "(string)",
+                                        "controllingAgencyCode": "(string)",
+                                        "groupHeaderMessageVersion": "(string)",
+                                        "groupHeaderMessageRelease": "(string)",
+                                        "associationAssignedCode": "(string)",
+                                        "applicationPassword": "(string)"
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "(string)"
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "(string)",
+                                        "messageVersion": "(string)",
+                                        "messageRelease": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "senderApplicationQualifier": "(string)",
+                                        "associationAssignedCode": "(string)",
+                                        "schemaName": "(string)"
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "enforceCharacterSet": "(boolean)",
+                                        "validateEdiTypes": "(boolean)",
+                                        "validateXsdTypes": "(boolean)",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                        "trailingSeparatorPolicy": "(string)",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)"
+                                    }
+                                ],
+                                "edifactDelimiterOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "messageVersion": "(string)",
+                                        "messageRelease": "(string)",
+                                        "dataElementSeparator": "(integer)",
+                                        "componentSeparator": "(integer)",
+                                        "segmentTerminator": "(integer)",
+                                        "repetitionSeparator": "(integer)",
+                                        "segmentTerminatorSuffix": "(string)",
+                                        "decimalPointIndicator": "(string)",
+                                        "releaseIndicator": "(integer)",
+                                        "messageAssociationAssignedCode": "(string)",
+                                        "targetNamespace": "(string)"
+                                    }
+                                ]
+                            }
+                        },
+                        "sendAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "(string)",
+                                "value": "(string)"
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "(boolean)",
+                                    "checkDuplicateInterchangeControlNumber": "(boolean)",
+                                    "interchangeControlNumberValidityDays": "(integer)",
+                                    "checkDuplicateGroupControlNumber": "(boolean)",
+                                    "checkDuplicateTransactionSetControlNumber": "(boolean)",
+                                    "validateEdiTypes": "(boolean)",
+                                    "validateXsdTypes": "(boolean)",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                    "trailingSeparatorPolicy": "(string)"
+                                },
+                                "framingSettings": {
+                                    "serviceCodeListDirectoryVersion": "(string)",
+                                    "characterEncoding": "(string)",
+                                    "protocolVersion": "(integer)",
+                                    "dataElementSeparator": "(integer)",
+                                    "componentSeparator": "(integer)",
+                                    "segmentTerminator": "(integer)",
+                                    "releaseIndicator": "(integer)",
+                                    "repetitionSeparator": "(integer)",
+                                    "characterSet": "(string)",
+                                    "decimalPointIndicator": "(string)",
+                                    "segmentTerminatorSuffix": "(string)"
+                                },
+                                "envelopeSettings": {
+                                    "groupAssociationAssignedCode": "(string)",
+                                    "communicationAgreementId": "(string)",
+                                    "applyDelimiterStringAdvice": "(boolean)",
+                                    "createGroupingSegments": "(boolean)",
+                                    "enableDefaultGroupHeaders": "(boolean)",
+                                    "recipientReferencePasswordValue": "(string)",
+                                    "recipientReferencePasswordQualifier": "(string)",
+                                    "applicationReferenceId": "(string)",
+                                    "processingPriorityCode": "(string)",
+                                    "interchangeControlNumberLowerBound": "(integer)",
+                                    "interchangeControlNumberUpperBound": "(integer)",
+                                    "rolloverInterchangeControlNumber": "(boolean)",
+                                    "interchangeControlNumberPrefix": "(string)",
+                                    "interchangeControlNumberSuffix": "(string)",
+                                    "senderReverseRoutingAddress": "(string)",
+                                    "receiverReverseRoutingAddress": "(string)",
+                                    "functionalGroupId": "(string)",
+                                    "groupControllingAgencyCode": "(string)",
+                                    "groupMessageVersion": "(string)",
+                                    "groupMessageRelease": "(string)",
+                                    "groupControlNumberLowerBound": "(integer)",
+                                    "groupControlNumberUpperBound": "(integer)",
+                                    "rolloverGroupControlNumber": "(boolean)",
+                                    "groupControlNumberPrefix": "(string)",
+                                    "groupControlNumberSuffix": "(string)",
+                                    "groupApplicationReceiverQualifier": "(string)",
+                                    "groupApplicationReceiverId": "(string)",
+                                    "groupApplicationSenderQualifier": "(string)",
+                                    "groupApplicationSenderId": "(string)",
+                                    "groupApplicationPassword": "(string)",
+                                    "overwriteExistingTransactionSetControlNumber": "(boolean)",
+                                    "transactionSetControlNumberPrefix": "(string)",
+                                    "transactionSetControlNumberSuffix": "(string)",
+                                    "transactionSetControlNumberLowerBound": "(integer)",
+                                    "transactionSetControlNumberUpperBound": "(integer)",
+                                    "rolloverTransactionSetControlNumber": "(boolean)",
+                                    "isTestInterchange": "(boolean)",
+                                    "senderInternalIdentification": "(string)",
+                                    "senderInternalSubIdentification": "(string)",
+                                    "receiverInternalIdentification": "(string)",
+                                    "receiverInternalSubIdentification": "(string)"
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "(boolean)",
+                                    "batchTechnicalAcknowledgements": "(boolean)",
+                                    "needFunctionalAcknowledgement": "(boolean)",
+                                    "batchFunctionalAcknowledgements": "(boolean)",
+                                    "needLoopForValidMessages": "(boolean)",
+                                    "sendSynchronousAcknowledgement": "(boolean)",
+                                    "acknowledgementControlNumberPrefix": "(string)",
+                                    "acknowledgementControlNumberSuffix": "(string)",
+                                    "acknowledgementControlNumberLowerBound": "(integer)",
+                                    "acknowledgementControlNumberUpperBound": "(integer)",
+                                    "rolloverAcknowledgementControlNumber": "(boolean)"
+                                },
+                                "messageFilter": {
+                                    "messageFilterType": "(string)"
+                                },
+                                "processingSettings": {
+                                    "maskSecurityInfo": "(boolean)",
+                                    "preserveInterchange": "(boolean)",
+                                    "suspendInterchangeOnError": "(boolean)",
+                                    "createEmptyXmlTagsForTrailingSeparators": "(boolean)",
+                                    "useDotAsDecimalSeparator": "(boolean)"
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "messageVersion": "(string)",
+                                        "messageRelease": "(string)",
+                                        "messageAssociationAssignedCode": "(string)",
+                                        "targetNamespace": "(string)",
+                                        "functionalGroupId": "(string)",
+                                        "senderApplicationQualifier": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "receiverApplicationQualifier": "(string)",
+                                        "receiverApplicationId": "(string)",
+                                        "controllingAgencyCode": "(string)",
+                                        "groupHeaderMessageVersion": "(string)",
+                                        "groupHeaderMessageRelease": "(string)",
+                                        "associationAssignedCode": "(string)",
+                                        "applicationPassword": "(string)"
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "(string)"
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "(string)",
+                                        "messageVersion": "(string)",
+                                        "messageRelease": "(string)",
+                                        "senderApplicationId": "(string)",
+                                        "senderApplicationQualifier": "(string)",
+                                        "associationAssignedCode": "(string)",
+                                        "schemaName": "(string)"
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "enforceCharacterSet": "(boolean)",
+                                        "validateEdiTypes": "(boolean)",
+                                        "validateXsdTypes": "(boolean)",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "(boolean)",
+                                        "trailingSeparatorPolicy": "(string)",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "(boolean)"
+                                    }
+                                ],
+                                "edifactDelimiterOverrides": [
+                                    {
+                                        "messageId": "(string)",
+                                        "messageVersion": "(string)",
+                                        "messageRelease": "(string)",
+                                        "dataElementSeparator": "(integer)",
+                                        "componentSeparator": "(integer)",
+                                        "segmentTerminator": "(integer)",
+                                        "repetitionSeparator": "(integer)",
+                                        "segmentTerminatorSuffix": "(string)",
+                                        "decimalPointIndicator": "(string)",
+                                        "releaseIndicator": "(integer)",
+                                        "messageAssociationAssignedCode": "(string)",
+                                        "targetNamespace": "(string)"
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "createdTime": "The created time.",
+                "changedTime": "The changed time.",
+                "metadata": {},
+                "hostPartner": "The integration account partner that is set as host partner for this agreement.",
+                "guestPartner": "The integration account partner that is set as guest partner for this agreement.",
+                "hostIdentity": {
+                    "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                    "value": "The user defined business identity value."
+                },
+                "guestIdentity": {
+                    "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                    "value": "The user defined business identity value."
+                },
+                "content": {
+                    "aS2": {
+                        "receiveAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "protocolSettings": {
+                                "messageConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "The value indicating whether to ignore mismatch in certificate name.",
+                                    "supportHttpStatusCodeContinue": "The value indicating whether to support HTTP status code 'CONTINUE'.",
+                                    "keepHttpConnectionAlive": "The value indicating whether to keep the connection alive.",
+                                    "unfoldHttpHeaders": "The value indicating whether to unfold the HTTP headers."
+                                },
+                                "acknowledgementConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "The value indicating whether to ignore mismatch in certificate name.",
+                                    "supportHttpStatusCodeContinue": "The value indicating whether to support HTTP status code 'CONTINUE'.",
+                                    "keepHttpConnectionAlive": "The value indicating whether to keep the connection alive.",
+                                    "unfoldHttpHeaders": "The value indicating whether to unfold the HTTP headers."
+                                },
+                                "mdnSettings": {
+                                    "needMdn": "The value indicating whether to send or request a MDN.",
+                                    "signMdn": "The value indicating whether the MDN needs to be signed or not.",
+                                    "sendMdnAsynchronously": "The value indicating whether to send the asynchronous MDN.",
+                                    "receiptDeliveryUrl": "The receipt delivery URL.",
+                                    "dispositionNotificationTo": "The disposition notification to header value.",
+                                    "signOutboundMdnIfOptional": "The value indicating whether to sign the outbound MDN if optional.",
+                                    "mdnText": "The MDN text.",
+                                    "sendInboundMdnToMessageBox": "The value indicating whether to send inbound MDN to message box."
+                                },
+                                "securitySettings": {
+                                    "overrideGroupSigningCertificate": "The value indicating whether to send or request a MDN.",
+                                    "signingCertificateName": "The name of the signing certificate.",
+                                    "encryptionCertificateName": "The name of the encryption certificate.",
+                                    "enableNrrForInboundEncodedMessages": "The value indicating whether to enable NRR for inbound encoded messages.",
+                                    "enableNrrForInboundDecodedMessages": "The value indicating whether to enable NRR for inbound decoded messages.",
+                                    "enableNrrForOutboundMdn": "The value indicating whether to enable NRR for outbound MDN.",
+                                    "enableNrrForOutboundEncodedMessages": "The value indicating whether to enable NRR for outbound encoded messages.",
+                                    "enableNrrForOutboundDecodedMessages": "The value indicating whether to enable NRR for outbound decoded messages.",
+                                    "enableNrrForInboundMdn": "The value indicating whether to enable NRR for inbound MDN.",
+                                    "sha2AlgorithmFormat": "The Sha2 algorithm format. Valid values are Sha2, ShaHashSize, ShaHyphenHashSize, Sha2UnderscoreHashSize."
+                                },
+                                "validationSettings": {
+                                    "overrideMessageProperties": "The value indicating whether to override incoming message properties with those in agreement.",
+                                    "encryptMessage": "The value indicating whether the message has to be encrypted.",
+                                    "signMessage": "The value indicating whether the message has to be signed.",
+                                    "compressMessage": "The value indicating whether the message has to be compressed.",
+                                    "checkDuplicateMessage": "The value indicating whether to check for duplicate message.",
+                                    "interchangeDuplicatesValidityDays": "The number of days to look back for duplicate interchange.",
+                                    "checkCertificateRevocationListOnSend": "The value indicating whether to check for certificate revocation list on send.",
+                                    "checkCertificateRevocationListOnReceive": "The value indicating whether to check for certificate revocation list on receive."
+                                },
+                                "envelopeSettings": {
+                                    "messageContentType": "The message content type.",
+                                    "transmitFileNameInMimeHeader": "The value indicating whether to transmit file name in mime header.",
+                                    "fileNameTemplate": "The template for file name.",
+                                    "suspendMessageOnFileNameGenerationError": "The value indicating whether to suspend message on file name generation error.",
+                                    "autogenerateFileName": "The value indicating whether to auto generate file name."
+                                },
+                                "errorSettings": {
+                                    "suspendDuplicateMessage": "The value indicating whether to suspend duplicate message.",
+                                    "resendIfMdnNotReceived": "The value indicating whether to resend message If MDN is not received."
+                                }
+                            }
+                        },
+                        "sendAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "protocolSettings": {
+                                "messageConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "The value indicating whether to ignore mismatch in certificate name.",
+                                    "supportHttpStatusCodeContinue": "The value indicating whether to support HTTP status code 'CONTINUE'.",
+                                    "keepHttpConnectionAlive": "The value indicating whether to keep the connection alive.",
+                                    "unfoldHttpHeaders": "The value indicating whether to unfold the HTTP headers."
+                                },
+                                "acknowledgementConnectionSettings": {
+                                    "ignoreCertificateNameMismatch": "The value indicating whether to ignore mismatch in certificate name.",
+                                    "supportHttpStatusCodeContinue": "The value indicating whether to support HTTP status code 'CONTINUE'.",
+                                    "keepHttpConnectionAlive": "The value indicating whether to keep the connection alive.",
+                                    "unfoldHttpHeaders": "The value indicating whether to unfold the HTTP headers."
+                                },
+                                "mdnSettings": {
+                                    "needMdn": "The value indicating whether to send or request a MDN.",
+                                    "signMdn": "The value indicating whether the MDN needs to be signed or not.",
+                                    "sendMdnAsynchronously": "The value indicating whether to send the asynchronous MDN.",
+                                    "receiptDeliveryUrl": "The receipt delivery URL.",
+                                    "dispositionNotificationTo": "The disposition notification to header value.",
+                                    "signOutboundMdnIfOptional": "The value indicating whether to sign the outbound MDN if optional.",
+                                    "mdnText": "The MDN text.",
+                                    "sendInboundMdnToMessageBox": "The value indicating whether to send inbound MDN to message box."
+                                },
+                                "securitySettings": {
+                                    "overrideGroupSigningCertificate": "The value indicating whether to send or request a MDN.",
+                                    "signingCertificateName": "The name of the signing certificate.",
+                                    "encryptionCertificateName": "The name of the encryption certificate.",
+                                    "enableNrrForInboundEncodedMessages": "The value indicating whether to enable NRR for inbound encoded messages.",
+                                    "enableNrrForInboundDecodedMessages": "The value indicating whether to enable NRR for inbound decoded messages.",
+                                    "enableNrrForOutboundMdn": "The value indicating whether to enable NRR for outbound MDN.",
+                                    "enableNrrForOutboundEncodedMessages": "The value indicating whether to enable NRR for outbound encoded messages.",
+                                    "enableNrrForOutboundDecodedMessages": "The value indicating whether to enable NRR for outbound decoded messages.",
+                                    "enableNrrForInboundMdn": "The value indicating whether to enable NRR for inbound MDN.",
+                                    "sha2AlgorithmFormat": "The Sha2 algorithm format. Valid values are Sha2, ShaHashSize, ShaHyphenHashSize, Sha2UnderscoreHashSize."
+                                },
+                                "validationSettings": {
+                                    "overrideMessageProperties": "The value indicating whether to override incoming message properties with those in agreement.",
+                                    "encryptMessage": "The value indicating whether the message has to be encrypted.",
+                                    "signMessage": "The value indicating whether the message has to be signed.",
+                                    "compressMessage": "The value indicating whether the message has to be compressed.",
+                                    "checkDuplicateMessage": "The value indicating whether to check for duplicate message.",
+                                    "interchangeDuplicatesValidityDays": "The number of days to look back for duplicate interchange.",
+                                    "checkCertificateRevocationListOnSend": "The value indicating whether to check for certificate revocation list on send.",
+                                    "checkCertificateRevocationListOnReceive": "The value indicating whether to check for certificate revocation list on receive."
+                                },
+                                "envelopeSettings": {
+                                    "messageContentType": "The message content type.",
+                                    "transmitFileNameInMimeHeader": "The value indicating whether to transmit file name in mime header.",
+                                    "fileNameTemplate": "The template for file name.",
+                                    "suspendMessageOnFileNameGenerationError": "The value indicating whether to suspend message on file name generation error.",
+                                    "autogenerateFileName": "The value indicating whether to auto generate file name."
+                                },
+                                "errorSettings": {
+                                    "suspendDuplicateMessage": "The value indicating whether to suspend duplicate message.",
+                                    "resendIfMdnNotReceived": "The value indicating whether to resend message If MDN is not received."
+                                }
+                            }
+                        }
+                    },
+                    "x12": {
+                        "receiveAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "The value indicating whether to validate character set in the message.",
+                                    "checkDuplicateInterchangeControlNumber": "The value indicating whether to check for duplicate interchange control number.",
+                                    "interchangeControlNumberValidityDays": "The validity period of interchange control number.",
+                                    "checkDuplicateGroupControlNumber": "The value indicating whether to check for duplicate group control number.",
+                                    "checkDuplicateTransactionSetControlNumber": "The value indicating whether to check for duplicate transaction set control number.",
+                                    "validateEdiTypes": "The value indicating whether to Whether to validate EDI types.",
+                                    "validateXsdTypes": "The value indicating whether to Whether to validate XSD types.",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                },
+                                "framingSettings": {
+                                    "dataElementSeparator": "The data element separator.",
+                                    "componentSeparator": "The component separator.",
+                                    "replaceSeparatorsInPayload": "The value indicating whether to replace separators in payload.",
+                                    "replaceCharacter": "The replacement character.",
+                                    "segmentTerminator": "The segment terminator."
+                                },
+                                "envelopeSettings": {
+                                    "controlStandardsId": "The controls standards id.",
+                                    "useControlStandardsIdAsRepetitionCharacter": "The value indicating whether to use control standards id as repetition character.",
+                                    "senderApplicationId": "The sender application id.",
+                                    "receiverApplicationId": "The receiver application id.",
+                                    "controlVersionNumber": "The control version number.",
+                                    "interchangeControlNumberLowerBound": "The interchange  control number lower bound.",
+                                    "interchangeControlNumberUpperBound": "The interchange  control number upper bound.",
+                                    "rolloverInterchangeControlNumber": "The value indicating whether to rollover interchange control number.",
+                                    "enableDefaultGroupHeaders": "The value indicating whether to enable default group headers.",
+                                    "functionalGroupId": "The functional group id.",
+                                    "groupControlNumberLowerBound": "The group control number lower bound.",
+                                    "groupControlNumberUpperBound": "The group control number upper bound.",
+                                    "rolloverGroupControlNumber": "The value indicating whether to rollover group control number.",
+                                    "groupHeaderAgencyCode": "The group header agency code.",
+                                    "groupHeaderVersion": "The group header version.",
+                                    "transactionSetControlNumberLowerBound": "The transaction set control number lower bound.",
+                                    "transactionSetControlNumberUpperBound": "The transaction set control number upper bound.",
+                                    "rolloverTransactionSetControlNumber": "The value indicating whether to rollover transaction set control number.",
+                                    "transactionSetControlNumberPrefix": "The transaction set control number prefix.",
+                                    "transactionSetControlNumberSuffix": "The transaction set control number suffix.",
+                                    "overwriteExistingTransactionSetControlNumber": "The value indicating whether to overwrite existing transaction set control number."
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "The value indicating whether technical acknowledgement is needed.",
+                                    "batchTechnicalAcknowledgements": "The value indicating whether to batch the technical acknowledgements.",
+                                    "needFunctionalAcknowledgement": "The value indicating whether functional acknowledgement is needed.",
+                                    "functionalAcknowledgementVersion": "The functional acknowledgement version.",
+                                    "batchFunctionalAcknowledgements": "The value indicating whether to batch functional acknowledgements.",
+                                    "needImplementationAcknowledgement": "The value indicating whether implementation acknowledgement is needed.",
+                                    "implementationAcknowledgementVersion": "The implementation acknowledgement version.",
+                                    "batchImplementationAcknowledgements": "The value indicating whether to batch implementation acknowledgements.",
+                                    "needLoopForValidMessages": "The value indicating whether a loop is needed for valid messages.",
+                                    "sendSynchronousAcknowledgement": "The value indicating whether to send synchronous acknowledgement.",
+                                    "acknowledgementControlNumberPrefix": "The acknowledgement control number prefix.",
+                                    "acknowledgementControlNumberSuffix": "The acknowledgement control number suffix.",
+                                    "acknowledgementControlNumberLowerBound": "The acknowledgement control number lower bound.",
+                                    "acknowledgementControlNumberUpperBound": "The acknowledgement control number upper bound.",
+                                    "rolloverAcknowledgementControlNumber": "The value indicating whether to rollover acknowledgement control number."
+                                },
+                                "messageFilter": {},
+                                "securitySettings": {
+                                    "authorizationQualifier": "The authorization qualifier.",
+                                    "authorizationValue": "The authorization value.",
+                                    "securityQualifier": "The security qualifier.",
+                                    "passwordValue": "The password value."
+                                },
+                                "processingSettings": {
+                                    "maskSecurityInfo": "The value indicating whether to mask security information.",
+                                    "convertImpliedDecimal": "The value indicating whether to convert numerical type to implied decimal.",
+                                    "preserveInterchange": "The value indicating whether to preserve interchange.",
+                                    "suspendInterchangeOnError": "The value indicating whether to suspend interchange on error.",
+                                    "createEmptyXmlTagsForTrailingSeparators": "The value indicating whether to create empty xml tags for trailing separators.",
+                                    "useDotAsDecimalSeparator": "The value indicating whether to use dot as decimal separator."
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "targetNamespace": "The target namespace on which this envelope settings has to be applied.",
+                                        "protocolVersion": "The protocol version on which this envelope settings has to be applied.",
+                                        "messageId": "The message id on which this envelope settings has to be applied.",
+                                        "responsibleAgencyCode": "The responsible agency code.",
+                                        "headerVersion": "The header version.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "receiverApplicationId": "The receiver application id.",
+                                        "functionalIdentifierCode": "The functional identifier code."
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "The message id on which the validation settings has to be applied.",
+                                        "validateEdiTypes": "The value indicating whether to validate EDI types.",
+                                        "validateXsdTypes": "The value indicating whether to validate XSD types.",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                        "validateCharacterSet": "The value indicating whether to validate character Set.",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "The message id."
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "The message id.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "schemaVersion": "The schema version.",
+                                        "schemaName": "The schema name."
+                                    }
+                                ],
+                                "x12DelimiterOverrides": [
+                                    {
+                                        "protocolVersion": "The protocol version.",
+                                        "messageId": "The message id.",
+                                        "dataElementSeparator": "The data element separator.",
+                                        "componentSeparator": "The component separator.",
+                                        "segmentTerminator": "The segment terminator.",
+                                        "replaceCharacter": "The replacement character.",
+                                        "replaceSeparatorsInPayload": "The value indicating whether to replace separators in payload.",
+                                        "targetNamespace": "The target namespace on which this delimiter settings has to be applied."
+                                    }
+                                ]
+                            }
+                        },
+                        "sendAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "The value indicating whether to validate character set in the message.",
+                                    "checkDuplicateInterchangeControlNumber": "The value indicating whether to check for duplicate interchange control number.",
+                                    "interchangeControlNumberValidityDays": "The validity period of interchange control number.",
+                                    "checkDuplicateGroupControlNumber": "The value indicating whether to check for duplicate group control number.",
+                                    "checkDuplicateTransactionSetControlNumber": "The value indicating whether to check for duplicate transaction set control number.",
+                                    "validateEdiTypes": "The value indicating whether to Whether to validate EDI types.",
+                                    "validateXsdTypes": "The value indicating whether to Whether to validate XSD types.",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                },
+                                "framingSettings": {
+                                    "dataElementSeparator": "The data element separator.",
+                                    "componentSeparator": "The component separator.",
+                                    "replaceSeparatorsInPayload": "The value indicating whether to replace separators in payload.",
+                                    "replaceCharacter": "The replacement character.",
+                                    "segmentTerminator": "The segment terminator."
+                                },
+                                "envelopeSettings": {
+                                    "controlStandardsId": "The controls standards id.",
+                                    "useControlStandardsIdAsRepetitionCharacter": "The value indicating whether to use control standards id as repetition character.",
+                                    "senderApplicationId": "The sender application id.",
+                                    "receiverApplicationId": "The receiver application id.",
+                                    "controlVersionNumber": "The control version number.",
+                                    "interchangeControlNumberLowerBound": "The interchange  control number lower bound.",
+                                    "interchangeControlNumberUpperBound": "The interchange  control number upper bound.",
+                                    "rolloverInterchangeControlNumber": "The value indicating whether to rollover interchange control number.",
+                                    "enableDefaultGroupHeaders": "The value indicating whether to enable default group headers.",
+                                    "functionalGroupId": "The functional group id.",
+                                    "groupControlNumberLowerBound": "The group control number lower bound.",
+                                    "groupControlNumberUpperBound": "The group control number upper bound.",
+                                    "rolloverGroupControlNumber": "The value indicating whether to rollover group control number.",
+                                    "groupHeaderAgencyCode": "The group header agency code.",
+                                    "groupHeaderVersion": "The group header version.",
+                                    "transactionSetControlNumberLowerBound": "The transaction set control number lower bound.",
+                                    "transactionSetControlNumberUpperBound": "The transaction set control number upper bound.",
+                                    "rolloverTransactionSetControlNumber": "The value indicating whether to rollover transaction set control number.",
+                                    "transactionSetControlNumberPrefix": "The transaction set control number prefix.",
+                                    "transactionSetControlNumberSuffix": "The transaction set control number suffix.",
+                                    "overwriteExistingTransactionSetControlNumber": "The value indicating whether to overwrite existing transaction set control number."
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "The value indicating whether technical acknowledgement is needed.",
+                                    "batchTechnicalAcknowledgements": "The value indicating whether to batch the technical acknowledgements.",
+                                    "needFunctionalAcknowledgement": "The value indicating whether functional acknowledgement is needed.",
+                                    "functionalAcknowledgementVersion": "The functional acknowledgement version.",
+                                    "batchFunctionalAcknowledgements": "The value indicating whether to batch functional acknowledgements.",
+                                    "needImplementationAcknowledgement": "The value indicating whether implementation acknowledgement is needed.",
+                                    "implementationAcknowledgementVersion": "The implementation acknowledgement version.",
+                                    "batchImplementationAcknowledgements": "The value indicating whether to batch implementation acknowledgements.",
+                                    "needLoopForValidMessages": "The value indicating whether a loop is needed for valid messages.",
+                                    "sendSynchronousAcknowledgement": "The value indicating whether to send synchronous acknowledgement.",
+                                    "acknowledgementControlNumberPrefix": "The acknowledgement control number prefix.",
+                                    "acknowledgementControlNumberSuffix": "The acknowledgement control number suffix.",
+                                    "acknowledgementControlNumberLowerBound": "The acknowledgement control number lower bound.",
+                                    "acknowledgementControlNumberUpperBound": "The acknowledgement control number upper bound.",
+                                    "rolloverAcknowledgementControlNumber": "The value indicating whether to rollover acknowledgement control number."
+                                },
+                                "messageFilter": {},
+                                "securitySettings": {
+                                    "authorizationQualifier": "The authorization qualifier.",
+                                    "authorizationValue": "The authorization value.",
+                                    "securityQualifier": "The security qualifier.",
+                                    "passwordValue": "The password value."
+                                },
+                                "processingSettings": {
+                                    "maskSecurityInfo": "The value indicating whether to mask security information.",
+                                    "convertImpliedDecimal": "The value indicating whether to convert numerical type to implied decimal.",
+                                    "preserveInterchange": "The value indicating whether to preserve interchange.",
+                                    "suspendInterchangeOnError": "The value indicating whether to suspend interchange on error.",
+                                    "createEmptyXmlTagsForTrailingSeparators": "The value indicating whether to create empty xml tags for trailing separators.",
+                                    "useDotAsDecimalSeparator": "The value indicating whether to use dot as decimal separator."
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "targetNamespace": "The target namespace on which this envelope settings has to be applied.",
+                                        "protocolVersion": "The protocol version on which this envelope settings has to be applied.",
+                                        "messageId": "The message id on which this envelope settings has to be applied.",
+                                        "responsibleAgencyCode": "The responsible agency code.",
+                                        "headerVersion": "The header version.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "receiverApplicationId": "The receiver application id.",
+                                        "functionalIdentifierCode": "The functional identifier code."
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "The message id on which the validation settings has to be applied.",
+                                        "validateEdiTypes": "The value indicating whether to validate EDI types.",
+                                        "validateXsdTypes": "The value indicating whether to validate XSD types.",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                        "validateCharacterSet": "The value indicating whether to validate character Set.",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "The message id."
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "The message id.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "schemaVersion": "The schema version.",
+                                        "schemaName": "The schema name."
+                                    }
+                                ],
+                                "x12DelimiterOverrides": [
+                                    {
+                                        "protocolVersion": "The protocol version.",
+                                        "messageId": "The message id.",
+                                        "dataElementSeparator": "The data element separator.",
+                                        "componentSeparator": "The component separator.",
+                                        "segmentTerminator": "The segment terminator.",
+                                        "replaceCharacter": "The replacement character.",
+                                        "replaceSeparatorsInPayload": "The value indicating whether to replace separators in payload.",
+                                        "targetNamespace": "The target namespace on which this delimiter settings has to be applied."
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "edifact": {
+                        "receiveAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "The value indicating whether to validate character set in the message.",
+                                    "checkDuplicateInterchangeControlNumber": "The value indicating whether to check for duplicate interchange control number.",
+                                    "interchangeControlNumberValidityDays": "The validity period of interchange control number.",
+                                    "checkDuplicateGroupControlNumber": "The value indicating whether to check for duplicate group control number.",
+                                    "checkDuplicateTransactionSetControlNumber": "The value indicating whether to check for duplicate transaction set control number.",
+                                    "validateEdiTypes": "The value indicating whether to Whether to validate EDI types.",
+                                    "validateXsdTypes": "The value indicating whether to Whether to validate XSD types.",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                },
+                                "framingSettings": {
+                                    "serviceCodeListDirectoryVersion": "The service code list directory version.",
+                                    "characterEncoding": "The character encoding.",
+                                    "protocolVersion": "The protocol version.",
+                                    "dataElementSeparator": "The data element separator.",
+                                    "componentSeparator": "The component separator.",
+                                    "segmentTerminator": "The segment terminator.",
+                                    "releaseIndicator": "The release indicator.",
+                                    "repetitionSeparator": "The repetition separator."
+                                },
+                                "envelopeSettings": {
+                                    "groupAssociationAssignedCode": "The group association assigned code.",
+                                    "communicationAgreementId": "The communication agreement id.",
+                                    "applyDelimiterStringAdvice": "The value indicating whether to apply delimiter string advice.",
+                                    "createGroupingSegments": "The value indicating whether to create grouping segments.",
+                                    "enableDefaultGroupHeaders": "The value indicating whether to enable default group headers.",
+                                    "recipientReferencePasswordValue": "The recipient reference password value.",
+                                    "recipientReferencePasswordQualifier": "The recipient reference password qualifier.",
+                                    "applicationReferenceId": "The application reference id.",
+                                    "processingPriorityCode": "The processing priority code.",
+                                    "interchangeControlNumberLowerBound": "The interchange control number lower bound.",
+                                    "interchangeControlNumberUpperBound": "The interchange control number upper bound.",
+                                    "rolloverInterchangeControlNumber": "The value indicating whether to rollover interchange control number.",
+                                    "interchangeControlNumberPrefix": "The interchange control number prefix.",
+                                    "interchangeControlNumberSuffix": "The interchange control number suffix.",
+                                    "senderReverseRoutingAddress": "The sender reverse routing address.",
+                                    "receiverReverseRoutingAddress": "The receiver reverse routing address.",
+                                    "functionalGroupId": "The functional group id.",
+                                    "groupControllingAgencyCode": "The group controlling agency code.",
+                                    "groupMessageVersion": "The group message version.",
+                                    "groupMessageRelease": "The group message release.",
+                                    "groupControlNumberLowerBound": "The group control number lower bound.",
+                                    "groupControlNumberUpperBound": "The group control number upper bound.",
+                                    "rolloverGroupControlNumber": "The value indicating whether to rollover group control number.",
+                                    "groupControlNumberPrefix": "The group control number prefix.",
+                                    "groupControlNumberSuffix": "The group control number suffix.",
+                                    "groupApplicationReceiverQualifier": "The group application receiver qualifier.",
+                                    "groupApplicationReceiverId": "The group application receiver id.",
+                                    "groupApplicationSenderQualifier": "The group application sender qualifier.",
+                                    "groupApplicationSenderId": "The group application sender id.",
+                                    "groupApplicationPassword": "The group application password.",
+                                    "overwriteExistingTransactionSetControlNumber": "The value indicating whether to overwrite existing transaction set control number.",
+                                    "transactionSetControlNumberPrefix": "The transaction set control number prefix.",
+                                    "transactionSetControlNumberSuffix": "The transaction set control number suffix.",
+                                    "transactionSetControlNumberLowerBound": "The transaction set control number lower bound.",
+                                    "transactionSetControlNumberUpperBound": "The transaction set control number upper bound.",
+                                    "rolloverTransactionSetControlNumber": "The value indicating whether to rollover transaction set control number.",
+                                    "isTestInterchange": "The value indicating whether the message is a test interchange.",
+                                    "senderInternalIdentification": "The sender internal identification.",
+                                    "senderInternalSubIdentification": "The sender internal sub identification.",
+                                    "receiverInternalIdentification": "The receiver internal identification.",
+                                    "receiverInternalSubIdentification": "The receiver internal sub identification."
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "The value indicating whether technical acknowledgement is needed.",
+                                    "batchTechnicalAcknowledgements": "The value indicating whether to batch the technical acknowledgements.",
+                                    "needFunctionalAcknowledgement": "The value indicating whether functional acknowledgement is needed.",
+                                    "batchFunctionalAcknowledgements": "The value indicating whether to batch functional acknowledgements.",
+                                    "needLoopForValidMessages": "The value indicating whether a loop is needed for valid messages.",
+                                    "sendSynchronousAcknowledgement": "The value indicating whether to send synchronous acknowledgement.",
+                                    "acknowledgementControlNumberPrefix": "The acknowledgement control number prefix.",
+                                    "acknowledgementControlNumberSuffix": "The acknowledgement control number suffix.",
+                                    "acknowledgementControlNumberLowerBound": "The acknowledgement control number lower bound.",
+                                    "acknowledgementControlNumberUpperBound": "The acknowledgement control number upper bound.",
+                                    "rolloverAcknowledgementControlNumber": "The value indicating whether to rollover acknowledgement control number."
+                                },
+                                "messageFilter": {},
+                                "processingSettings": {
+                                    "maskSecurityInfo": "The value indicating whether to mask security information.",
+                                    "preserveInterchange": "The value indicating whether to preserve interchange.",
+                                    "suspendInterchangeOnError": "The value indicating whether to suspend interchange on error.",
+                                    "createEmptyXmlTagsForTrailingSeparators": "The value indicating whether to create empty xml tags for trailing separators.",
+                                    "useDotAsDecimalSeparator": "The value indicating whether to use dot as decimal separator."
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "messageId": "The message id on which this envelope settings has to be applied.",
+                                        "messageVersion": "The message version on which this envelope settings has to be applied.",
+                                        "messageRelease": "The message release version on which this envelope settings has to be applied.",
+                                        "messageAssociationAssignedCode": "The message association assigned code.",
+                                        "targetNamespace": "The target namespace on which this envelope settings has to be applied.",
+                                        "functionalGroupId": "The functional group id.",
+                                        "senderApplicationQualifier": "The sender application qualifier.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "receiverApplicationQualifier": "The receiver application qualifier.",
+                                        "receiverApplicationId": "The receiver application id.",
+                                        "controllingAgencyCode": "The controlling agency code.",
+                                        "groupHeaderMessageVersion": "The group header message version.",
+                                        "groupHeaderMessageRelease": "The group header message release.",
+                                        "associationAssignedCode": "The association assigned code.",
+                                        "applicationPassword": "The application password."
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "The message id on which this envelope settings has to be applied."
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "The message id.",
+                                        "messageVersion": "The message version.",
+                                        "messageRelease": "The message release version.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "senderApplicationQualifier": "The sender application qualifier.",
+                                        "associationAssignedCode": "The association assigned code.",
+                                        "schemaName": "The schema name."
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "The message id on which the validation settings has to be applied.",
+                                        "enforceCharacterSet": "The value indicating whether to validate character Set.",
+                                        "validateEdiTypes": "The value indicating whether to validate EDI types.",
+                                        "validateXsdTypes": "The value indicating whether to validate XSD types.",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                    }
+                                ],
+                                "edifactDelimiterOverrides": [
+                                    {
+                                        "messageId": "The message id.",
+                                        "messageVersion": "The message version.",
+                                        "messageRelease": "The message releaseversion.",
+                                        "dataElementSeparator": "The data element separator.",
+                                        "componentSeparator": "The component separator.",
+                                        "segmentTerminator": "The segment terminator.",
+                                        "repetitionSeparator": "The repetition separator.",
+                                        "releaseIndicator": "The release indicator.",
+                                        "messageAssociationAssignedCode": "The message association assigned code.",
+                                        "targetNamespace": "The target namespace on which this delimiter settings has to be applied."
+                                    }
+                                ]
+                            }
+                        },
+                        "sendAgreement": {
+                            "senderBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "receiverBusinessIdentity": {
+                                "qualifier": "The business identity qualifier e.g. as2identity, ZZ, ZZZ, 31, 32",
+                                "value": "The user defined business identity value."
+                            },
+                            "protocolSettings": {
+                                "validationSettings": {
+                                    "validateCharacterSet": "The value indicating whether to validate character set in the message.",
+                                    "checkDuplicateInterchangeControlNumber": "The value indicating whether to check for duplicate interchange control number.",
+                                    "interchangeControlNumberValidityDays": "The validity period of interchange control number.",
+                                    "checkDuplicateGroupControlNumber": "The value indicating whether to check for duplicate group control number.",
+                                    "checkDuplicateTransactionSetControlNumber": "The value indicating whether to check for duplicate transaction set control number.",
+                                    "validateEdiTypes": "The value indicating whether to Whether to validate EDI types.",
+                                    "validateXsdTypes": "The value indicating whether to Whether to validate XSD types.",
+                                    "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                    "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                },
+                                "framingSettings": {
+                                    "serviceCodeListDirectoryVersion": "The service code list directory version.",
+                                    "characterEncoding": "The character encoding.",
+                                    "protocolVersion": "The protocol version.",
+                                    "dataElementSeparator": "The data element separator.",
+                                    "componentSeparator": "The component separator.",
+                                    "segmentTerminator": "The segment terminator.",
+                                    "releaseIndicator": "The release indicator.",
+                                    "repetitionSeparator": "The repetition separator."
+                                },
+                                "envelopeSettings": {
+                                    "groupAssociationAssignedCode": "The group association assigned code.",
+                                    "communicationAgreementId": "The communication agreement id.",
+                                    "applyDelimiterStringAdvice": "The value indicating whether to apply delimiter string advice.",
+                                    "createGroupingSegments": "The value indicating whether to create grouping segments.",
+                                    "enableDefaultGroupHeaders": "The value indicating whether to enable default group headers.",
+                                    "recipientReferencePasswordValue": "The recipient reference password value.",
+                                    "recipientReferencePasswordQualifier": "The recipient reference password qualifier.",
+                                    "applicationReferenceId": "The application reference id.",
+                                    "processingPriorityCode": "The processing priority code.",
+                                    "interchangeControlNumberLowerBound": "The interchange control number lower bound.",
+                                    "interchangeControlNumberUpperBound": "The interchange control number upper bound.",
+                                    "rolloverInterchangeControlNumber": "The value indicating whether to rollover interchange control number.",
+                                    "interchangeControlNumberPrefix": "The interchange control number prefix.",
+                                    "interchangeControlNumberSuffix": "The interchange control number suffix.",
+                                    "senderReverseRoutingAddress": "The sender reverse routing address.",
+                                    "receiverReverseRoutingAddress": "The receiver reverse routing address.",
+                                    "functionalGroupId": "The functional group id.",
+                                    "groupControllingAgencyCode": "The group controlling agency code.",
+                                    "groupMessageVersion": "The group message version.",
+                                    "groupMessageRelease": "The group message release.",
+                                    "groupControlNumberLowerBound": "The group control number lower bound.",
+                                    "groupControlNumberUpperBound": "The group control number upper bound.",
+                                    "rolloverGroupControlNumber": "The value indicating whether to rollover group control number.",
+                                    "groupControlNumberPrefix": "The group control number prefix.",
+                                    "groupControlNumberSuffix": "The group control number suffix.",
+                                    "groupApplicationReceiverQualifier": "The group application receiver qualifier.",
+                                    "groupApplicationReceiverId": "The group application receiver id.",
+                                    "groupApplicationSenderQualifier": "The group application sender qualifier.",
+                                    "groupApplicationSenderId": "The group application sender id.",
+                                    "groupApplicationPassword": "The group application password.",
+                                    "overwriteExistingTransactionSetControlNumber": "The value indicating whether to overwrite existing transaction set control number.",
+                                    "transactionSetControlNumberPrefix": "The transaction set control number prefix.",
+                                    "transactionSetControlNumberSuffix": "The transaction set control number suffix.",
+                                    "transactionSetControlNumberLowerBound": "The transaction set control number lower bound.",
+                                    "transactionSetControlNumberUpperBound": "The transaction set control number upper bound.",
+                                    "rolloverTransactionSetControlNumber": "The value indicating whether to rollover transaction set control number.",
+                                    "isTestInterchange": "The value indicating whether the message is a test interchange.",
+                                    "senderInternalIdentification": "The sender internal identification.",
+                                    "senderInternalSubIdentification": "The sender internal sub identification.",
+                                    "receiverInternalIdentification": "The receiver internal identification.",
+                                    "receiverInternalSubIdentification": "The receiver internal sub identification."
+                                },
+                                "acknowledgementSettings": {
+                                    "needTechnicalAcknowledgement": "The value indicating whether technical acknowledgement is needed.",
+                                    "batchTechnicalAcknowledgements": "The value indicating whether to batch the technical acknowledgements.",
+                                    "needFunctionalAcknowledgement": "The value indicating whether functional acknowledgement is needed.",
+                                    "batchFunctionalAcknowledgements": "The value indicating whether to batch functional acknowledgements.",
+                                    "needLoopForValidMessages": "The value indicating whether a loop is needed for valid messages.",
+                                    "sendSynchronousAcknowledgement": "The value indicating whether to send synchronous acknowledgement.",
+                                    "acknowledgementControlNumberPrefix": "The acknowledgement control number prefix.",
+                                    "acknowledgementControlNumberSuffix": "The acknowledgement control number suffix.",
+                                    "acknowledgementControlNumberLowerBound": "The acknowledgement control number lower bound.",
+                                    "acknowledgementControlNumberUpperBound": "The acknowledgement control number upper bound.",
+                                    "rolloverAcknowledgementControlNumber": "The value indicating whether to rollover acknowledgement control number."
+                                },
+                                "messageFilter": {},
+                                "processingSettings": {
+                                    "maskSecurityInfo": "The value indicating whether to mask security information.",
+                                    "preserveInterchange": "The value indicating whether to preserve interchange.",
+                                    "suspendInterchangeOnError": "The value indicating whether to suspend interchange on error.",
+                                    "createEmptyXmlTagsForTrailingSeparators": "The value indicating whether to create empty xml tags for trailing separators.",
+                                    "useDotAsDecimalSeparator": "The value indicating whether to use dot as decimal separator."
+                                },
+                                "envelopeOverrides": [
+                                    {
+                                        "messageId": "The message id on which this envelope settings has to be applied.",
+                                        "messageVersion": "The message version on which this envelope settings has to be applied.",
+                                        "messageRelease": "The message release version on which this envelope settings has to be applied.",
+                                        "messageAssociationAssignedCode": "The message association assigned code.",
+                                        "targetNamespace": "The target namespace on which this envelope settings has to be applied.",
+                                        "functionalGroupId": "The functional group id.",
+                                        "senderApplicationQualifier": "The sender application qualifier.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "receiverApplicationQualifier": "The receiver application qualifier.",
+                                        "receiverApplicationId": "The receiver application id.",
+                                        "controllingAgencyCode": "The controlling agency code.",
+                                        "groupHeaderMessageVersion": "The group header message version.",
+                                        "groupHeaderMessageRelease": "The group header message release.",
+                                        "associationAssignedCode": "The association assigned code.",
+                                        "applicationPassword": "The application password."
+                                    }
+                                ],
+                                "messageFilterList": [
+                                    {
+                                        "messageId": "The message id on which this envelope settings has to be applied."
+                                    }
+                                ],
+                                "schemaReferences": [
+                                    {
+                                        "messageId": "The message id.",
+                                        "messageVersion": "The message version.",
+                                        "messageRelease": "The message release version.",
+                                        "senderApplicationId": "The sender application id.",
+                                        "senderApplicationQualifier": "The sender application qualifier.",
+                                        "associationAssignedCode": "The association assigned code.",
+                                        "schemaName": "The schema name."
+                                    }
+                                ],
+                                "validationOverrides": [
+                                    {
+                                        "messageId": "The message id on which the validation settings has to be applied.",
+                                        "enforceCharacterSet": "The value indicating whether to validate character Set.",
+                                        "validateEdiTypes": "The value indicating whether to validate EDI types.",
+                                        "validateXsdTypes": "The value indicating whether to validate XSD types.",
+                                        "allowLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to allow leading and trailing spaces and zeroes.",
+                                        "trimLeadingAndTrailingSpacesAndZeroes": "The value indicating whether to trim leading and trailing spaces and zeroes."
+                                    }
+                                ],
+                                "edifactDelimiterOverrides": [
+                                    {
+                                        "messageId": "The message id.",
+                                        "messageVersion": "The message version.",
+                                        "messageRelease": "The message releaseversion.",
+                                        "dataElementSeparator": "The data element separator.",
+                                        "componentSeparator": "The component separator.",
+                                        "segmentTerminator": "The segment terminator.",
+                                        "repetitionSeparator": "The repetition separator.",
+                                        "releaseIndicator": "The release indicator.",
+                                        "messageAssociationAssignedCode": "The message association assigned code.",
+                                        "targetNamespace": "The target namespace on which this delimiter settings has to be applied."
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/agreements/{agreementName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates/{certificateName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates/{certificateName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "metadata": {},
+                "key": {
+                    "keyVault": {
+                        "id": "(string)",
+                        "name": "(string)",
+                        "type": "(string)"
+                    },
+                    "keyName": "(string)",
+                    "keyVersion": "(string)"
+                },
+                "publicCertificate": "(string)"
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "createdTime": "The created time.",
+                "changedTime": "The changed time.",
+                "metadata": {},
+                "key": {
+                    "keyVault": {
+                        "id": "The resource id.",
+                        "name": "The resource name.",
+                        "type": "The resource type."
+                    },
+                    "keyName": "The private key name in key vault.",
+                    "keyVersion": "The private key version in key vault."
+                },
+                "publicCertificate": "The public certificate."
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/certificates/{certificateName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions/{sessionName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "CreateOrUpdate",
+        "HttpMethod": "PUT",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions/{sessionName}",
+        "RequestBody": {
+            "id": "(string)",
+            "name": "(string)",
+            "type": "(string)",
+            "location": "(string)",
+            "tags": {},
+            "properties": {
+                "createdTime": "(string)",
+                "changedTime": "(string)",
+                "content": {}
+            }
+        },
+        "RequestBodyDoc": {
+            "id": "The resource id.",
+            "name": "Gets the resource name.",
+            "type": "Gets the resource type.",
+            "location": "The resource location.",
+            "tags": {},
+            "properties": {
+                "createdTime": "The created time.",
+                "changedTime": "The changed time.",
+                "content": {}
+            }
+        },
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Delete",
+        "HttpMethod": "DELETE",
+        "Url": "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Logic/integrationAccounts/{integrationAccountName}/sessions/{sessionName}",
+        "ApiVersion": "2016-06-01"
+    },
+    {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/providers/Microsoft.Logic/operations",
+        "ApiVersion": "2016-06-01"
+    }
+]
