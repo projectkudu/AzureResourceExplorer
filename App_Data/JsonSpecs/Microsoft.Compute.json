@@ -656,7 +656,12 @@
                         }
                     }
                 }
-            ]
+            ],
+            "identity": {
+                "principalId": "(string)",
+                "tenantId": "(string)",
+                "type": "(string)"
+            }
         },
         "RequestBodyDoc": {
             "id": "Resource Id",
@@ -931,7 +936,12 @@
                         }
                     }
                 }
-            ]
+            ],
+            "identity": {
+                "principalId": "The principal id of virtual machine identity.",
+                "tenantId": "The tenant id associated with the virtual machine.",
+                "type": "The type of identity used for the virtual machine. Currently, the only supported type is 'SystemAssigned', which implicitly creates an identity."
+            }
         },
         "ApiVersion": "2016-04-30-preview"
     },
@@ -1178,6 +1188,11 @@
                 "provisioningState": "(string)",
                 "overprovision": "(boolean)",
                 "singlePlacementGroup": "(boolean)"
+            },
+            "identity": {
+                "principalId": "(string)",
+                "tenantId": "(string)",
+                "type": "(string)"
             }
         },
         "RequestBodyDoc": {
@@ -1347,6 +1362,11 @@
                 "provisioningState": "The provisioning state, which only appears in the response.",
                 "overprovision": "Specifies whether the Virtual Machine Scale Set should be overprovisioned.",
                 "singlePlacementGroup": "When true this limits the scale set to a single placement group, of max size 100 virtual machines."
+            },
+            "identity": {
+                "principalId": "The principal id of virtual machine scale set identity.",
+                "tenantId": "The tenant id associated with the virtual machine scale set.",
+                "type": "The type of identity used for the virtual machine scale set. Currently, the only supported type is 'SystemAssigned', which implicitly creates an identity."
             }
         },
         "ApiVersion": "2016-04-30-preview"
