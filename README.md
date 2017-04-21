@@ -50,7 +50,6 @@ cd Tools
 npm install
 copy [Path to swagger spec]
 Hack: Edit the swagger and delete the CollectionApiVersions array at the very end, which somehow kills the parser!
-node ConvertSwaggerToExplorerSpecs.js Service.json > Microsoft.Web.json
-copy Microsoft.Web.json ..\App_Data\JsonSpecs
+node ConvertSwaggerToExplorerSpecs.js Service.json > ..\App_Data\JsonSpecs\Microsoft.Web.json
 ```
 
