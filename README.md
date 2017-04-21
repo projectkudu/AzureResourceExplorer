@@ -43,12 +43,14 @@ Test with localhost
 
 ## Adding Swagger based specs
 
-Swagger files can be found on https://github.com/Azure/azure-rest-api-specs. The raw file for Web Apps is [here](https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/arm-web/2015-08-01/swagger/service.json), and internally under `bin\Hosting\Azure\GeoMaster\Swagger\WebApps.json`. Also, [compute](https://github.com/Azure/azure-rest-api-specs/tree/master/arm-compute/2016-03-30/swagger) and [network](https://github.com/Azure/azure-rest-api-specs/tree/master/arm-network/2016-03-30/swagger).
+Swagger files can be found on https://github.com/Azure/azure-rest-api-specs. The raw file for Web Apps is [here](https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/arm-web/2015-08-01/swagger/service.json), and internally under `bin\Hosting\Azure\GeoMaster\Swagger\Service.json`. Also, [compute](https://github.com/Azure/azure-rest-api-specs/tree/master/arm-compute/2016-03-30/swagger) and [network](https://github.com/Azure/azure-rest-api-specs/tree/master/arm-network/2016-03-30/swagger).
 
 ```
 cd Tools
 npm install
-node ConvertSwaggerToExplorerSpecs.js [Path to swagger spec] > [SpecsName].json
-cp [SpecsName].json ..\App_Data\JsonSpecs
+copy [Path to swagger spec]
+Hack: Edit the swagger and delete the CollectionApiVersions array at the very end, which somehow kills the parser!
+node ConvertSwaggerToExplorerSpecs.js Service.json > Microsoft.Web.json
+copy Microsoft.Web.json ..\App_Data\JsonSpecs
 ```
 
