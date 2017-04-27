@@ -279,7 +279,9 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         var docArray = getDocumentationFlatArray(value.data, doc);
 
         $scope.selectedResource = {
-            url: url,
+            // Some resources may contain # or whitespace in name,
+            // let's selectively URL-encode (for safety)
+            url: selectiveUrlencode(url),
             actionsAndVerbs: actionsAndVerbs,
             httpMethods: resourceDefinition.actions.filter(e => e !== "DELETE" && e !== "CREATE").map((e) => (e === "GETPOST" ? "POST" : e)).sort(),
             doc: docArray
@@ -1222,6 +1224,10 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         return $('<div/>').text(str).html();
     }
 
+    function selectiveUrlencode(url: string) {
+        return url.replace(/\#/g, '%23').replace(/\s/g, '%20');
+    }
+
     function getRerouceGroupNameFromWebSpaceName(webSpaceName: string) {
         webSpaceName = webSpaceName.toLowerCase();
         if (!webSpaceName.endsWith("webspace")) {
@@ -1697,7 +1703,8 @@ function GetResourceTypeAndName(value: ISelelctHandlerReturn): string {
 
     // Remove the trailing slash
     resourceType = " -ResourceType " + resourceType.substring(0, resourceType.length - 1);
-    if (resourceName) resourceName = " -ResourceName " + resourceName.substring(0, resourceName.length - 1);
+    // Let's quote resource name, it may contain whitespace or '#'
+    if (resourceName) resourceName = " -ResourceName " + "'" + resourceName.substring(0, resourceName.length - 1) + "'";
     result += resourceType + resourceName;
 
     return result;
