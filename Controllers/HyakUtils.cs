@@ -90,6 +90,13 @@ namespace ARMExplorer.Controllers
             return new List<MetadataObject> {
                 new MetadataObject
                 {
+                    MethodName = "Get",
+                    HttpMethod = "GET",
+                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/locations",
+                    ApiVersion = Utils.CSMApiVersion
+                },
+                new MetadataObject
+                {
                     MethodName = "Delete",
                     HttpMethod = "DELETE",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
