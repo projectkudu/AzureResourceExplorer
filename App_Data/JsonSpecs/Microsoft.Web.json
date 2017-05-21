@@ -54,6 +54,12 @@
         "ApiVersion": "2016-03-01"
     },
     {
+        "MethodName": "Get",
+        "HttpMethod": "GET",
+        "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols/{sourceControlType}",
+        "ApiVersion": "2016-03-01"
+    },
+    {
         "MethodName": "CreateOrUpdate",
         "HttpMethod": "PUT",
         "Url": "https://management.azure.com/providers/Microsoft.Web/sourcecontrols/{sourceControlType}",
@@ -4208,7 +4214,7 @@
             "tags": {},
             "properties": {
                 "blob": "(string)",
-                "location": "(string)",
+                "publicCertificateLocation": "(string)",
                 "thumbprint": "(string)"
             }
         },
@@ -4221,7 +4227,7 @@
             "tags": {},
             "properties": {
                 "blob": "Public Certificate byte array",
-                "location": "Public Certificate Location",
+                "publicCertificateLocation": "Public Certificate Location",
                 "thumbprint": "Certificate Thumbprint"
             }
         },
@@ -6300,7 +6306,7 @@
             "tags": {},
             "properties": {
                 "blob": "(string)",
-                "location": "(string)",
+                "publicCertificateLocation": "(string)",
                 "thumbprint": "(string)"
             }
         },
@@ -6313,7 +6319,7 @@
             "tags": {},
             "properties": {
                 "blob": "Public Certificate byte array",
-                "location": "Public Certificate Location",
+                "publicCertificateLocation": "Public Certificate Location",
                 "thumbprint": "Certificate Thumbprint"
             }
         },
