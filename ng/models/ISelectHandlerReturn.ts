@@ -1,4 +1,4 @@
-﻿interface ISelelctHandlerReturn {
+﻿interface ISelectHandlerReturn {
     resourceDefinition: IResourceDefinition;
     data: any;
     url: string;

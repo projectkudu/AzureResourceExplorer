@@ -191,7 +191,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
         return rx.Observable.of({ branch: branch, resourceDefinition: resourceDefinition });
         })
-        .subscribe((value: ISelelctHandlerReturn) => {
+        .subscribe((value: ISelectHandlerReturn) => {
         if (value.error) {
             var error = value.error;
             setStateForErrorOnResourceClick();
@@ -1608,9 +1608,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     $locationProvider.html5Mode(true);
     });
 
-function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IAction[]): string {
+function getPowerShellFromResource(value: ISelectHandlerReturn, actions: IAction[]): string {
     var returnString = "# PowerShell equivalent script\n\n";
-    var resourceInfo = GetResourceTypeAndName(value);
+    var resourceTypeAndName = getResourceTypeAndName(value);
+    // We need this variation to avoid passing in duplicate
+    // -ResourceName into New-AzureRmResource
+    var resourceType = getResourceTypeAndName(value, true);
     var children = value.resourceDefinition.children;
 
     // add GET related cmdlet if available
@@ -1618,37 +1621,37 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
     var apiVersion = value.resourceDefinition.apiVersion;
     var isCollection = "";
     if (value.httpMethod.toLowerCase().indexOf("get") != -1) {
-        returnString += "# GET " + GetActionName(value.url) + "\n";
+        returnString += "# GET " + getActionName(value.url) + "\n";
         if (typeof children === "string" && !Array.isArray(children) && value.url.split("/").length > 7) {
             isCollection = " -isCollection";
         }
-        returnString += getCmdlet + resourceInfo + isCollection + " -ApiVersion " + apiVersion + "\n\n";
+        returnString += getCmdlet + resourceTypeAndName + isCollection + " -ApiVersion " + apiVersion + "\n\n";
     }
     else if (value.httpMethod.toLowerCase().indexOf("post") != -1 && value.url.indexOf("list") != -1) {
-        returnString += "# List " + GetActionName(value.url.replace("/list", "")) + "\n";
-        returnString += "$resource = Invoke-AzureRmResourceAction " + resourceInfo + " -Action list -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n";
+        returnString += "# List " + getActionName(value.url.replace("/list", "")) + "\n";
+        returnString += "$resource = Invoke-AzureRmResourceAction " + resourceTypeAndName + " -Action list -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n";
         returnString += "$resource.Properties\n\n";
     }
 
     // add SET related cmdlet if available
     if (value.resourceDefinition.actions.some(a => (a === "PATCH" || a === "PUT"))) {
-        returnString += "# SET " + GetActionName(value.url) + "\n";
+        returnString += "# SET " + getActionName(value.url) + "\n";
         returnString += "$PropertiesObject = @{\n\t#Property = value;\n}\n";
 
         // handle secure GET
         if (value.resourceDefinition.actions.includes("GET")) {
-            returnString += "Set-AzureRmResource -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+            returnString += "Set-AzureRmResource -PropertyObject $PropertiesObject " + resourceTypeAndName + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
         }
         else {
-            returnString += "New-AzureRmResource -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+            returnString += "New-AzureRmResource -PropertyObject $PropertiesObject " + resourceType + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
         }
     }
 
     // add CREATE related cmdlet if available
     if (value.resourceDefinition.actions.includes("CREATE")) {
-        returnString += "# CREATE " + GetActionName(value.url) + "\n";
-        returnString += "$ResourceLocation = \"West US\"\n$ResourceName = \"New" + GetResourceName(value.url) + "\"\n$PropertiesObject = @{\n\t#Property = value;\n}\n";
-        returnString += "New-AzureRmResource -ResourceName $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+        returnString += "# CREATE " + getActionName(value.url) + "\n";
+        returnString += "$ResourceLocation = \"West US\"\n$ResourceName = \"New" + getResourceName(value.url) + "\"\n$PropertiesObject = @{\n\t#Property = value;\n}\n";
+        returnString += "New-AzureRmResource -ResourceName $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject " + resourceType + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
     }
 
     // add ACTIONS related Cmdlets if available
@@ -1656,30 +1659,31 @@ function getPowerShellFromResource(value: ISelelctHandlerReturn, actions: IActio
         returnString += "# Actions available on that object\n\n";
         actions.forEach(action => {
             if (action.httpMethod.toLocaleLowerCase() === "delete") {
-                returnString += "# Delete " + GetActionName(action.url) + "\n";
-                returnString += "Remove-AzureRmResource " + resourceInfo + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
+                returnString += "# Delete " + getActionName(action.url) + "\n";
+                returnString += "Remove-AzureRmResource " + resourceTypeAndName + " -ApiVersion " + value.resourceDefinition.apiVersion + " -Force\n\n";
             }
             else if (action.httpMethod.toLocaleLowerCase() === "post") {
-                returnString += "# Action " + GetActionName(action.url) + "\n";
+                returnString += "# Action " + getActionName(action.url) + "\n";
                 if (action.requestBody) {
-                    returnString += "$ParametersObject = " + GETPSObjectFromJSON(action.requestBody, 0) + "\n";
+                    returnString += "$ParametersObject = " + getPSObjectFromJSON(action.requestBody, 0) + "\n";
                 }
-                returnString += "Invoke-AzureRmResourceAction " + resourceInfo + " -Action " + action.name + (action.requestBody ? " -Parameters $ParametersObject": "") + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
+                returnString += "Invoke-AzureRmResourceAction " + resourceTypeAndName + " -Action " + action.name + (action.requestBody ? " -Parameters $ParametersObject": "") + " -ApiVersion " + value.resourceDefinition.apiVersion +" -Force\n\n";
             }
         })
     }
+
     return returnString;
 }
 
-function GetResourceName(url: string): string {
+function getResourceName(url: string): string {
     return url.substr(url.lastIndexOf("/")+1, url.length - url.lastIndexOf("/")-2);
 }
 
-function GetActionName(url: string): string {
+function getActionName(url: string): string {
     return url.substr(url.lastIndexOf("/") + 1, url.length - url.lastIndexOf("/") - 1);
 }
 
-function GetResourceTypeAndName(value: ISelelctHandlerReturn): string {
+function getResourceTypeAndName(value: ISelectHandlerReturn, justTheType = false): string {
     var url = value.url;
 
     // handle secure GET
@@ -1705,12 +1709,17 @@ function GetResourceTypeAndName(value: ISelelctHandlerReturn): string {
     resourceType = " -ResourceType " + resourceType.substring(0, resourceType.length - 1);
     // Let's quote resource name, it may contain whitespace or '#'
     if (resourceName) resourceName = " -ResourceName " + "'" + resourceName.substring(0, resourceName.length - 1) + "'";
-    result += resourceType + resourceName;
+    if (justTheType === true) {
+        result += resourceType;
+    }
+    else {
+        result += resourceType + resourceName;
+    }
 
     return result;
 }
 
-function GETPSObjectFromJSON(json: string, nestingLevel: number): string {
+function getPSObjectFromJSON(json: string, nestingLevel: number): string {
     var tabs = "";
     for (var i = 0; i < nestingLevel; i++) {
         tabs += "\t";
@@ -1728,7 +1737,7 @@ function GETPSObjectFromJSON(json: string, nestingLevel: number): string {
     else if (Array.isArray(jsonObj)) {
         var result = "(\n";
         for (var i = 0; i < jsonObj.length; i++) {
-            result += tabs + "\t" + GETPSObjectFromJSON(JSON.stringify(jsonObj[i]), nestingLevel + 1) + "\n";
+            result += tabs + "\t" + getPSObjectFromJSON(JSON.stringify(jsonObj[i]), nestingLevel + 1) + "\n";
         }
         return result + tabs + ")\n";
     }
@@ -1736,7 +1745,7 @@ function GETPSObjectFromJSON(json: string, nestingLevel: number): string {
         var result = "@{\n";
         for (var prop in jsonObj) {
             if (jsonObj.hasOwnProperty(prop)) {
-                result += tabs + "\t" + prop + " = " + GETPSObjectFromJSON(JSON.stringify(jsonObj[prop]), nestingLevel + 1) + "\n";
+                result += tabs + "\t" + prop + " = " + getPSObjectFromJSON(JSON.stringify(jsonObj[prop]), nestingLevel + 1) + "\n";
             }
         }
         return result + tabs + "}\n";
