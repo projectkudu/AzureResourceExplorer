@@ -10,7 +10,7 @@ This project has dependencies on OAuth authentication.
 1. Select `Add an application my organization is developing`
 1. Enter any name for application name.
 1. Select `WEB APPLICATION AND/OR WEB API`
-1. Enter `https://localhost:44306/` as `SIGN ON URL` 
+1. Enter `https://localhost:44306/` as `SIGN ON URL`
 1. For `APP ID URL`, enter something like `https://davidebboslingshot.onmicrosoft.com/`.
 1. Once created, click `CONFIGURE` tab
 1. On `Permission to other applications`, add `Windows Azure Service Management API` and check `Access Azure Service Management` for `Delegated Permissions` and save.
@@ -21,7 +21,7 @@ This project has dependencies on OAuth authentication.
 
 
 Test with localhost
-1. In VS, make Slingshot.Api the starter project. The RedirectionSite project can be ignored.
+1. Build the solution using VS.
 1. Starting running it in the debugger (F5).
 1. In browser, it should redirect to login page.
 1. Enter AAD account and password.
@@ -32,7 +32,7 @@ Test with localhost
 ### Test ARM apis
 1. `https://localhost:44306/api/token` - show current token details.
 2. `https://localhost:44306/api/tenants` - show all tenants (AAD directory) user belongs to.
-3. and so on.. 
+3. and so on..
 
 ### Test with Azure Websites
 1. Create Azure Websites with local git publishing enabled
@@ -40,6 +40,13 @@ Test with localhost
 3. Deploy the website by pushing the repository
 4. Set AADClientID and AADClientSecret appSettings
 5. To test, simply browse to the website and append the query string "?repository=<url of your Git repository>"
+
+### Running unit tests
+1. Unit test support is still evolving and the tests are located under ng\test directory.
+2. Tests are built using tsconfig.json file under ng folder.
+3. You will need to have tsc and node installed before you can run the tests. You can use npm for this.
+4. Navigate to ng directory and compile the files using 'tsc' and run the tests using 'node manageWithTests.js'
+5. Remember to update the tsconfig.json file when adding new test files.
 
 ## Adding Swagger based specs
 
@@ -52,4 +59,3 @@ copy [Path to swagger spec]
 Hack: Edit the swagger and delete the CollectionApiVersions array at the very end, which somehow kills the parser!
 node ConvertSwaggerToExplorerSpecs.js Service.json > ..\App_Data\JsonSpecs\Microsoft.Web.json
 ```
-

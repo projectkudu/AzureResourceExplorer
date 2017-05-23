@@ -2,6 +2,7 @@
     startsWith(str: string): boolean;
     endsWith(str: string): boolean;
     compare(target: string, ignoreCase?: boolean): number;
+    contains(str: string, ignoreCase?: boolean): boolean;
 }
 
 interface Array<T> {
@@ -12,10 +13,6 @@ interface Array<T> {
     last(): T;
     find(predicate: (val: T) => boolean): T;
     some(predicate: (val: T) => boolean): boolean;
-}
-
-interface Element {
-    documentOffsetTop(): number;
 }
 
 if (!String.prototype.compare) {
@@ -48,6 +45,20 @@ if (!String.prototype.endsWith) {
     String.prototype.endsWith = function (str) {
         return this.indexOf(str, this.length - str.length) !== -1;
     };
+}
+
+if (!String.prototype.contains) {
+    String.prototype.contains = function (str: string, ignoreCase?: boolean) {
+        var selfValue: string = this || "";
+        var searchValue: string = str || "";
+
+        if (ignoreCase) {
+            selfValue = selfValue.toLowerCase();
+            searchValue = searchValue.toLowerCase();
+        }
+
+        return selfValue.indexOf(searchValue) != -1;
+    }
 }
 
 if (!Array.prototype.includes) {
@@ -211,8 +222,48 @@ if (!Array.prototype.find) {
     };
 }
 
-if (!Element.prototype.documentOffsetTop) {
-    Element.prototype.documentOffsetTop = function () {
-        return this.offsetTop + (this.offsetParent ? this.offsetParent.documentOffsetTop() : 0);
-    };
+// converts an array of string pairs into dictionary
+function strEnum<T extends string>(strings: Array<Array<T>>): {[K in T]: K} {
+    return strings.reduce((res, key) => {
+        res[key[0]] = key[1];
+        return res;
+    }, Object.create(null));
+}
+
+const CmdType = strEnum([
+    ["Get", "Get-AzureRmResource"],
+    ["Invoke", "Invoke-AzureRmResourceAction"],
+    ["InvokeAction", "Invoke-AzureRmResourceAction"],
+    ["Set", "Set-AzureRmResource"],
+    ["New", "New-AzureRmResource"],
+    ["RemoveAction", "Remove-AzureRmResource"],
+    ["NewResourceGroup", "New-AzureRmResourceGroup"]
+]);
+
+type CmdType = keyof typeof CmdType;
+
+enum ResourceIdentifierType {
+    WithIDOnly,
+    WithGroupType,
+    WithGroupTypeName
+}
+
+interface ResourceIdentifier {
+    resourceIdentifierType: ResourceIdentifierType;
+    resourceName: string;
+    resourceType: string;
+    resourceGroup: string;
+    resourceId: string;
+}
+
+interface CmdletParameters {
+    resourceIdentifier: ResourceIdentifier;
+    apiVersion: string;
+    isCollection: boolean;
+}
+
+interface RMCommandInfo {
+    cmd: CmdType;
+    isAction: boolean;
+    isSetAction: boolean;
 }
