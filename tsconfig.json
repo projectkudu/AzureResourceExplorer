@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "noImplicitAny": false,
+    "module": "none",
+    "removeComments": true,
+    "outFile": "ng/manage.js",
+    "declaration": false,
+    "noEmitOnError": true,
+    "sourceMap": false
+  },
+        "files": [    
+    "ng/manage.ts",
+    "ng/PowerShellScriptGenerator.ts",
+    "ng/models/IAction.ts",
+    "ng/models/IArmTreeScope.ts",
+    "ng/models/IMetadataObject.ts",
+    "ng/models/IResourceDefinition.ts",
+    "ng/models/IResourceSearch.ts",
+    "ng/models/ISelectHandlerReturn.ts",
+    "ng/models/ITenantDetails.ts",
+    "ng/models/ITreeBranch.ts",
+    "ng/models/ITreeControl.ts",
+    "ng/polyfill.ts",
+    "ng/angularPolyfill.ts",
+    "ng/typings/ace/ace.d.ts",
+    "ng/typings/angularjs/angular-animate.d.ts",
+    "ng/typings/angularjs/angular-cookies.d.ts",
+    "ng/typings/angularjs/angular-mocks.d.ts",
+    "ng/typings/angularjs/angular-resource.d.ts",
+    "ng/typings/angularjs/angular-route.d.ts",
+    "ng/typings/angularjs/angular-sanitize.d.ts",
+    "ng/typings/angularjs/angular.d.ts",
+    "ng/typings/cryptojs/cryptojs.d.ts",
+    "ng/typings/jquery.cookie/jquery.cookie.d.ts",
+    "ng/typings/jquery/jquery.d.ts"
+    ]
+}
