@@ -1,35 +1,71 @@
 var parser = require("swagger-parser");
 
-parser.parse(process.argv[2], function (err, api, metadata) {
+if (process.argv.length != 4) {
+    printUsage();
+    return;
+}
+
+switch (process.argv[2]) {
+    case '-d': { //directory
+        var fs = require('fs');
+        var files = fs.readdirSync(process.argv[3]);
+        files.forEach(function(item, index) {
+            files[index] = process.argv[3]+"\\"+item;
+        });
+        break;
+    }
+    case '-f': { // file
+        var files = [process.argv[3]];
+        break;
+    }
+    default: {
+        printUsage();
+        return;
+    }
+}
+
+var promises = [];
+for (f of files) {
+    promises.push(parser.parse(f));
+}
+
+Promise.all(promises).then(function(apis) {
     var operations = [];
-    console.error(err);
-    if (api) {
-        for (var path in api.paths) {
-          if (!shouldSkip(path)) {
-            if (api.paths.hasOwnProperty(path)) {
-                var current = api.paths[path];
-                for (var method in current){
-                    if (current.hasOwnProperty(method)) {
-                        var operation = {
-                            MethodName: getMethodNameFromHttpVerb(method),
-                            HttpMethod: method.toUpperCase(),
-                            Url: "https://management.azure.com" + path,
-                            ResponseBody: getResponseBody(current[method]),
-                            ResponseBodyDoc: getResponseBody(current[method], true),
-                            RequestBody: getRequestBody(current[method]),
-                            RequestBodyDoc: getRequestBody(current[method], true),
-                            ApiVersion: api.info.version
-                        };
-                        operations.push(operation);
+    apis.forEach(function(api) {
+        if (api) {
+            for (var path in api.paths) {
+                if (!shouldSkip(path)) {
+                    if (api.paths.hasOwnProperty(path)) {
+                        var current = api.paths[path];
+                        for (var method in current){
+                            if (current.hasOwnProperty(method)) {
+                                var operation = {
+                                    MethodName: getMethodNameFromHttpVerb(method),
+                                    HttpMethod: method.toUpperCase(),
+                                    Url: "https://management.azure.com" + path,
+                                    ResponseBody: getResponseBody(current[method]),
+                                    ResponseBodyDoc: getResponseBody(current[method], true),
+                                    RequestBody: getRequestBody(current[method]),
+                                    RequestBodyDoc: getRequestBody(current[method], true),
+                                    ApiVersion: api.info.version
+                                };
+                                operations.push(operation);
+                            }
+                        }
                     }
                 }
             }
-         }
         }
-    }
+    })
+    return operations;
+})
+.then(function(operations) {
     console.log(JSON.stringify(operations, undefined, 4));
 });
 
+function printUsage() {
+    console.log("Usage: \n node ConvertSwaggerToExplorerSpecs.js -d pathToFolderWithMultiPartSwaggerAPI\n node ConvertSwaggerToExplorerSpecs.js -f pathToSwaggerAPIFile")
+}
 
 function getMethodNameFromHttpVerb(verb) {
     verb = verb.toLowerCase();
