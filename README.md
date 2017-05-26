@@ -55,7 +55,10 @@ Swagger files can be found on https://github.com/Azure/azure-rest-api-specs. The
 ```
 cd Tools
 npm install
-copy [Path to swagger spec]
-Hack: Edit the swagger and delete the CollectionApiVersions array at the very end, which somehow kills the parser!
-node ConvertSwaggerToExplorerSpecs.js Service.json > ..\App_Data\JsonSpecs\Microsoft.Web.json
+For multi file swagger API
+  copy [Path to folder containing swagger specs]
+  node ConvertSwaggerToExplorerSpecs.js -d FolderPath > ..\App_Data\JsonSpecs\Microsoft.Web.json
+For single file swagger API
+  copy [Path to swagger spec]
+  node ConvertSwaggerToExplorerSpecs.js -f FilePath > ..\App_Data\JsonSpecs\Microsoft.Web.json
 ```
