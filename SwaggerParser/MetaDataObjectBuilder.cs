@@ -55,6 +55,17 @@ namespace ARMExplorer.SwaggerParser
             _serviceDefinition = serviceDefinition;
         }
 
+        private string GetApiVersionForOperation(Operation operation)
+        {
+            var queryParameter = operation.Parameters.FirstOrDefault(parameter => parameter.In.Equals(ParameterLocation.Query) && parameter.IsConstant);
+            if (queryParameter != null && queryParameter.Name.Equals("api-version"))
+            {
+                // if parameter.IsConstant is true then we are guaranteed there is an enum with 1 value
+                return queryParameter.Enum.Last();
+            }
+            return _serviceDefinition.Info.Version;
+        }
+
         public IEnumerable<MetadataObject> GetMetaDataObjects()
         {
             var metadataObjects = new List<MetadataObject>();
@@ -77,7 +88,7 @@ namespace ARMExplorer.SwaggerParser
                         ResponseBodyDoc = new JObject(),
                         RequestBody = GetRequestBodyForOperation(operation, false),
                         RequestBodyDoc = GetRequestBodyForOperation(operation, true),
-                        ApiVersion = _serviceDefinition.Info.Version
+                        ApiVersion = GetApiVersionForOperation(methodNameOperationPair.Value),
                     };
                     metadataObjects.Add(metadataObject);
                 }

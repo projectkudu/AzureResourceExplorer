@@ -16,9 +16,8 @@ namespace Tests
         public ParseMultiFileSwagger()
         {
             var resourceRoot = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent;
-            var fileRelativePath = Path.Combine("Resource", "arm-network", "2017-03-01", "swagger", "routeTable.json");
-            var filePath = Path.Combine(resourceRoot.FullName, fileRelativePath);
-            _serviceDefinition = ARMExplorer.SwaggerParser.SwaggerParser.Load(filePath, new FileSystem());
+            var filePath = Path.Combine(resourceRoot.FullName, Path.Combine("Resource", "arm-network", "2017-03-01", "swagger", "routeTable.json"));
+            _serviceDefinition = SwaggerParser.Load(filePath, new FileSystem());
         }
 
         [Fact]
@@ -123,6 +122,23 @@ namespace Tests
             Assert.Equal("2017-03-01", metadataObject.ApiVersion);
             Assert.NotNull(metadataObject.RequestBody);
             Assert.NotNull(metadataObject.RequestBodyDoc);
+        }
+
+        [Fact]
+        public void ApiVersionInPathOverridesApiVersionInSwaggerRoot()
+        {
+            var resourceRoot = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent;
+            var filePath = Path.Combine(resourceRoot.FullName, Path.Combine("Resource", "arm-network", "2017-03-01", "swagger", "vmssNetworkInterface.json"));
+            var serviceDefinition = SwaggerParser.Load(filePath, new FileSystem());
+            Assert.Equal("2017-03-01", serviceDefinition.Info.Version);
+
+            var builder = new MetaDataObjectBuilder(serviceDefinition);
+            var metaDataObjects = builder.GetMetaDataObjects();
+            Assert.Equal(3, metaDataObjects.Count());
+            foreach (var metaDataObject in metaDataObjects)
+            {
+                Assert.Equal("2016-09-01", metaDataObject.ApiVersion);
+            }
         }
     }
 }
