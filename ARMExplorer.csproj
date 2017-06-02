@@ -124,7 +124,6 @@
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Data\JsonSpecs\Microsoft.CDN.json" />
-    <Content Include="App_Data\JsonSpecs\Microsoft.Compute.json" />
     <Content Include="App_Data\JsonSpecs\Microsoft.ContainerService.json" />
     <Content Include="App_Data\JsonSpecs\Microsoft.EventHub.json" />
     <Content Include="App_Data\JsonSpecs\Microsoft.Logic.json" />
@@ -149,6 +148,7 @@
     <Content Include="App_Data\SwaggerSpecs\arm-network\virtualNetwork.json" />
     <Content Include="App_Data\SwaggerSpecs\arm-network\virtualNetworkGateway.json" />
     <Content Include="App_Data\SwaggerSpecs\arm-network\vmssNetworkInterface.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-compute\compute.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
