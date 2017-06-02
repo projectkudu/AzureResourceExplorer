@@ -31,6 +31,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -129,8 +130,6 @@
     <Content Include="App_Data\JsonSpecs\Microsoft.Logic.json" />
     <Content Include="App_Data\JsonSpecs\Microsoft.Network.TrafficManager.json" />
     <Content Include="App_Data\JsonSpecs\Microsoft.Networks.DNS.json" />
-    <Content Include="App_Data\JsonSpecs\Microsoft.Networks.json" />
-    <Content Include="App_Data\JsonSpecs\Microsoft.Storage.json" />
     <Content Include="App_Data\JsonSpecs\Microsoft.Web.json" />
     <Content Include="App_Data\ProvidersSpecs\ProvidersList.json" />
     <Content Include="App_Data\SwaggerSpecs\arm-storage\storage.json" />

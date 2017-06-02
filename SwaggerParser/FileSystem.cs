@@ -13,7 +13,8 @@ namespace ARMExplorer.SwaggerParser
         {
             path = path.AdjustGithubUrl();
 
-            Uri.TryCreate(path, UriKind.RelativeOrAbsolute, out Uri uri);
+            Uri uri;
+            Uri.TryCreate(path, UriKind.RelativeOrAbsolute, out uri);
 
             if (!uri.IsAbsoluteUri)
             {
