@@ -70,9 +70,8 @@
       <HintPath>packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.25\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.identitymodel.services" />
@@ -123,8 +122,34 @@
     <Content Include="applicationHost.xdt" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
-    <Content Include="App_Data\JsonSpecs\*.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.CDN.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.Compute.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.ContainerService.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.EventHub.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.Logic.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.Network.TrafficManager.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.Networks.DNS.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.Networks.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.Storage.json" />
+    <Content Include="App_Data\JsonSpecs\Microsoft.Web.json" />
     <Content Include="App_Data\ProvidersSpecs\ProvidersList.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-storage\storage.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\applicationGateway.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\checkDnsAvailability.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\expressRouteCircuit.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\loadBalancer.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\network.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\networkInterface.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\networkSecurityGroup.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\networkWatcher.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\publicIpAddress.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\routeFilter.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\routeTable.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\serviceCommunity.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\usage.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\virtualNetwork.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\virtualNetworkGateway.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-network\vmssNetworkInterface.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -155,6 +180,40 @@
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationInfo.cs" />
     <Compile Include="Modules\Extensions.cs" />
+    <Compile Include="SwaggerParser\Model\CodeGenerationSettings.cs" />
+    <Compile Include="SwaggerParser\Model\ComparisonContext.cs" />
+    <Compile Include="SwaggerParser\Model\Contact.cs" />
+    <Compile Include="SwaggerParser\Model\Extensions.cs" />
+    <Compile Include="SwaggerParser\Model\ExternalDoc.cs" />
+    <Compile Include="SwaggerParser\FileSystem.cs" />
+    <Compile Include="SwaggerParser\Model\Header.cs" />
+    <Compile Include="SwaggerParser\IFileSystem.cs" />
+    <Compile Include="SwaggerParser\Model\Info.cs" />
+    <Compile Include="SwaggerParser\Model\License.cs" />
+    <Compile Include="SwaggerParser\MetaDataObjectBuilder.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPath.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPathPart.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPathPartIndex.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPathPartProperty.cs" />
+    <Compile Include="SwaggerParser\Model\Operation.cs" />
+    <Compile Include="SwaggerParser\Model\OperationResponse.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\PathItemRefConverter.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\PathLevelParameterConverter.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\ResponseRefConverter.cs" />
+    <Compile Include="SwaggerParser\Model\Schema.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\SchemaRequiredItemConverter.cs" />
+    <Compile Include="SwaggerParser\Model\SecurityDefinition.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\SecurityDefinitionConverter.cs" />
+    <Compile Include="SwaggerParser\Model\ServiceDefinition.cs" />
+    <Compile Include="SwaggerParser\Settings.cs" />
+    <Compile Include="SwaggerParser\Model\SpecObject.cs" />
+    <Compile Include="SwaggerParser\Model\SwaggerBase.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\SwaggerJsonConverter.cs" />
+    <Compile Include="SwaggerParser\Model\SwaggerObject.cs" />
+    <Compile Include="SwaggerParser\Model\SwaggerParameter.cs" />
+    <Compile Include="SwaggerParser\SwaggerParser.cs" />
+    <Compile Include="SwaggerParser\SwaggerSpecLoader.cs" />
+    <Compile Include="SwaggerParser\Model\Tag.cs" />
     <Compile Include="Telemetry\ITelemetryEvent.cs" />
     <Compile Include="Telemetry\CsmTypeEvent.cs" />
     <Compile Include="Telemetry\TelemetryHelper.cs" />
@@ -168,6 +227,7 @@
     <Compile Include="Modules\OpenIdConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
