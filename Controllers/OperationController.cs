@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Http;
+using ARMExplorer.SwaggerParser;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using ARMExplorer.Telemetry;
@@ -30,7 +31,7 @@ namespace ARMExplorer.Controllers
 
             var speclessCsmApis = HyakUtils.GetSpeclessCsmOperations();
 
-            var jsonSpecs = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
+            var specsFromParsedSwaggerJson = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
                 ? Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
                   .Where(f => f.EndsWith(".json"))
                   .Select(File.ReadAllText)
@@ -38,7 +39,8 @@ namespace ARMExplorer.Controllers
                   .SelectMany(i => i)
                 : Enumerable.Empty<MetadataObject>();
 
-            var json = speclessCsmApis.Concat(jsonSpecs);
+            var json = speclessCsmApis.Concat(specsFromParsedSwaggerJson).Concat(SwaggerSpecLoader.GetSpecsFromSwaggerFiles());
+
             watch.Stop();
             var response = Request.CreateResponse(HttpStatusCode.OK);
             response.Content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
