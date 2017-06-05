@@ -9,9 +9,8 @@
     "noEmitOnError": true,
     "sourceMap": false
   },
-        "files": [    
+  "files": [
     "ng/manage.ts",
-    "ng/PowerShellScriptGenerator.ts",
     "ng/models/IAction.ts",
     "ng/models/IArmTreeScope.ts",
     "ng/models/IMetadataObject.ts",
@@ -21,8 +20,6 @@
     "ng/models/ITenantDetails.ts",
     "ng/models/ITreeBranch.ts",
     "ng/models/ITreeControl.ts",
-    "ng/polyfill.ts",
-    "ng/angularPolyfill.ts",
     "ng/typings/ace/ace.d.ts",
     "ng/typings/angularjs/angular-animate.d.ts",
     "ng/typings/angularjs/angular-cookies.d.ts",
@@ -33,6 +30,25 @@
     "ng/typings/angularjs/angular.d.ts",
     "ng/typings/cryptojs/cryptojs.d.ts",
     "ng/typings/jquery.cookie/jquery.cookie.d.ts",
-    "ng/typings/jquery/jquery.d.ts"
-    ]
+    "ng/typings/jquery/jquery.d.ts",
+    "ng/common/polyfill.ts",
+    "ng/common/angularPolyfill.ts",
+    "ng/common/helpers.ts",
+    "ng/modules/resizerModule.ts",
+    "ng/services/utilities.ts",
+    "ng/scriptGenerators/cli/resources/GernericResource.ts",
+    "ng/scriptGenerators/cli/resources/ResourceGroup.ts",
+    "ng/scriptGenerators/cli/resources/ResourceGroups.ts",
+    "ng/scriptGenerators/cli/resources/Subscription.ts",
+    "ng/scriptGenerators/cli/resources/SubscriptionLocations.ts",
+    "ng/scriptGenerators/cli/resources/Subscriptions.ts",
+    "ng/scriptGenerators/cli/resources/WebApp.ts",
+    "ng/scriptGenerators/cli/resources/WebApps.ts",
+    "ng/scriptGenerators/cli/CliScriptGenerator.ts",
+    "ng/scriptGenerators/cli/ResourceHandlerResolver.ts",
+    "ng/scriptGenerators/powershell/PowerShellScriptGenerator.ts",
+    "ng/scriptGenerators/ARMUrlParser.ts",
+    "ng/scriptGenerators/scriptGeneratorCommon.ts",
+    "ng/scriptGenerators/ScriptParametersResolver.ts"
+  ]
 }

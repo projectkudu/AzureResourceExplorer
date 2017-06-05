@@ -17,7 +17,7 @@ interface Array<T> {
 
 if (!String.prototype.compare) {
     String.prototype.compare = function (target: string, ignoreCase?: boolean) {
-        var selfValue: string = this || "";
+        var selfValue: string = this;
         var targetValue: string = target || "";
 
         if (ignoreCase) {
@@ -37,7 +37,7 @@ if (!String.prototype.compare) {
 
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function (str) {
-        return this.slice(0, str.length) == str;
+        return this.slice(0, str.length) === str;
     };
 }
 
@@ -49,7 +49,7 @@ if (!String.prototype.endsWith) {
 
 if (!String.prototype.contains) {
     String.prototype.contains = function (str: string, ignoreCase?: boolean) {
-        var selfValue: string = this || "";
+        var selfValue: string = this;
         var searchValue: string = str || "";
 
         if (ignoreCase) {
@@ -57,7 +57,7 @@ if (!String.prototype.contains) {
             searchValue = searchValue.toLowerCase();
         }
 
-        return selfValue.indexOf(searchValue) != -1;
+        return selfValue.indexOf(searchValue) !== -1;
     }
 }
 
@@ -222,48 +222,5 @@ if (!Array.prototype.find) {
     };
 }
 
-// converts an array of string pairs into dictionary
-function strEnum<T extends string>(strings: Array<Array<T>>): {[K in T]: K} {
-    return strings.reduce((res, key) => {
-        res[key[0]] = key[1];
-        return res;
-    }, Object.create(null));
-}
 
-const CmdType = strEnum([
-    ["Get", "Get-AzureRmResource"],
-    ["Invoke", "Invoke-AzureRmResourceAction"],
-    ["InvokeAction", "Invoke-AzureRmResourceAction"],
-    ["Set", "Set-AzureRmResource"],
-    ["New", "New-AzureRmResource"],
-    ["RemoveAction", "Remove-AzureRmResource"],
-    ["NewResourceGroup", "New-AzureRmResourceGroup"]
-]);
 
-type CmdType = keyof typeof CmdType;
-
-enum ResourceIdentifierType {
-    WithIDOnly,
-    WithGroupType,
-    WithGroupTypeName
-}
-
-interface ResourceIdentifier {
-    resourceIdentifierType: ResourceIdentifierType;
-    resourceName: string;
-    resourceType: string;
-    resourceGroup: string;
-    resourceId: string;
-}
-
-interface CmdletParameters {
-    resourceIdentifier: ResourceIdentifier;
-    apiVersion: string;
-    isCollection: boolean;
-}
-
-interface RMCommandInfo {
-    cmd: CmdType;
-    isAction: boolean;
-    isSetAction: boolean;
-}

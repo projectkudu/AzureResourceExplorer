@@ -121,6 +121,13 @@
     </Content>
     <Content Include="ng\manage2.js" />
     <Content Include="applicationHost.xdt" />
+    <Content Include="ng\views\actionsTab.html" />
+    <Content Include="ng\views\AzureCLITab.html" />
+    <Content Include="ng\views\createTab.html" />
+    <Content Include="ng\views\dataTab.html" />
+    <Content Include="ng\views\documentationTab.html" />
+    <Content Include="ng\views\invokeActionResult.html" />
+    <Content Include="ng\views\powershellTab.html" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config" />
     <Content Include="App_Data\JsonSpecs\Microsoft.CDN.json" />

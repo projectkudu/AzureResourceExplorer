@@ -1,64 +1,7 @@
 ﻿module armExplorer
 {
-//http://stackoverflow.com/a/22253161
-angular.module('mp.resizer', []).directive('resizer', function ($document) {
-
-    return function ($scope, $element, $attrs) {
-
-        $element.on('mousedown', function (event) {
-            event.preventDefault();
-
-            $document.on('mousemove', mousemove);
-            $document.on('mouseup', mouseup);
-        });
-
-        function mousemove(event) {
-
-            if ($attrs.resizer == 'vertical') {
-                // Handle vertical resizer
-                var x = event.pageX;
-
-                if ($attrs.resizerMax && x > $attrs.resizerMax) {
-                    x = parseInt($attrs.resizerMax);
-                }
-
-                $element.css({
-                    left: x + 'px'
-                });
-
-                $($attrs.resizerLeft).css({
-                    width: x + 'px'
-                });
-                $($attrs.resizerRight).css({
-                    left: (x + parseInt($attrs.resizerWidth)) + 'px'
-                });
-
-            } else {
-                // Handle horizontal resizer
-                var y = window.innerHeight - event.pageY;
-
-                $element.css({
-                    bottom: y + 'px'
-                });
-
-                $($attrs.resizerTop).css({
-                    bottom: (y + parseInt($attrs.resizerHeight)) + 'px'
-                });
-                $($attrs.resizerBottom).css({
-                    height: y + 'px'
-                });
-            }
-        }
-
-        function mouseup() {
-            $document.unbind('mousemove', mousemove);
-            $document.unbind('mouseup', mouseup);
-        }
-    };
-});
-
 angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ui.ace"])
-    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", ($scope: ArmTreeScope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $q: ng.IQService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService) => {
+    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", "utilities", ($scope: ArmTreeScope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $q: ng.IQService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService, $utilities: any) => {
 
         $scope.treeControl = <ITreeControl>{};
         $scope.createModel = {};
@@ -67,7 +10,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         $scope.resources = [];
         $scope.readOnlyMode = true;
         $scope.editMode = false;
-        $scope.activeTab = [false, false, false, false];
+        $scope.activeTab = [false, false, false, false, false];
         $scope.treeBranchDataOverrides = getTreeBranchDataOverrides();
 
         $scope.aceConfig = {
@@ -84,13 +27,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             }
         };
 
-        var responseEditor, requestEditor, createEditor, powershellEditor;
+        var responseEditor, requestEditor, createEditor, powershellEditor, azureCLIEditor;
         $timeout(() => {
             responseEditor = ace.edit("response-json-editor");
             requestEditor = ace.edit("request-json-editor");
             createEditor = ace.edit("json-create-editor");
             powershellEditor = ace.edit("powershell-editor");
-            [responseEditor, requestEditor, createEditor, powershellEditor].map((e) => {
+            azureCLIEditor = ace.edit("azurecli-editor");
+            [responseEditor, requestEditor, createEditor, powershellEditor, azureCLIEditor].map((e) => {
                 e.setOptions({
                     maxLines: Infinity,
                     fontSize: 15,
@@ -140,18 +84,24 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 });
             });
             responseEditor.setReadOnly();
-            responseEditor.customSetValue(stringify({ message: "Select a node to start" }));
-            powershellEditor.setReadOnly(false);
+            responseEditor.customSetValue($utilities.stringify({ message: "Select a node to start" }));
+
+            [powershellEditor, azureCLIEditor].map(editor => {
+                editor.setReadOnly(false);
+                editor.setTheme("ace/theme/tomorrow_night_blue");
+                editor.renderer.setShowGutter(false);
+            });
             powershellEditor.getSession().setMode("ace/mode/powershell");
-            powershellEditor.setTheme("ace/theme/tomorrow_night_blue");
-            powershellEditor.renderer.setShowGutter(false);
             powershellEditor.customSetValue("# PowerShell equivalent script");
+
+            azureCLIEditor.getSession().setMode("ace/mode/batchfile");
+            azureCLIEditor.customSetValue('# Azure CLI 2.0 equivalent script');
 
         });
 
         $document.on('mouseup', () => {
             $timeout(() => {
-                [responseEditor, requestEditor, createEditor, powershellEditor].map(e => e.resize());
+                [responseEditor, requestEditor, createEditor, powershellEditor, azureCLIEditor].map(e => e.resize());
             });
         });
 
@@ -202,7 +152,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         responseEditor.customSetValue("");
                         $scope.readOnlyResponse = "";
                     }
-                    $scope.errorResponse = syntaxHighlight({
+                    $scope.errorResponse = $utilities.syntaxHighlight({
                         data: error.data,
                         status: error.status
                     });
@@ -211,15 +161,16 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         httpMethod: "GET"
                     };
                     fixSelectedTabIfNeeded();
-                    return;
-                }
+                } else {
                 setStateForClickOnResource();
+                    
                 if (value.data === undefined) {
                     if (value.resourceDefinition !== undefined && !isEmptyObjectorArray(value.resourceDefinition.requestBody)) {
-                        responseEditor.customSetValue(stringify(value.resourceDefinition.requestBody));
+                        responseEditor.customSetValue($utilities.stringify(value.resourceDefinition.requestBody));
                     } else {
-                        responseEditor.customSetValue(stringify({ message: "No GET Url" }));
+                        responseEditor.customSetValue($utilities.stringify({ message: "No GET Url" }));
                         powershellEditor.customSetValue("");
+                        azureCLIEditor.customSetValue("");
                     }
                     fixSelectedTabIfNeeded();
                     return;
@@ -236,7 +187,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         var dataCopy = jQuery.extend(true, {}, value.data);
                         mergeObject(dataCopy, editable);
                     }
-                    requestEditor.customSetValue(stringify(sortByObject(editable, value.data)));
+                    requestEditor.customSetValue($utilities.stringify(sortByObject(editable, value.data)));
                     if (url.endsWith("list")) {
                         $scope.putUrl = url.substring(0, url.lastIndexOf("/"));
                     }
@@ -244,12 +195,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     requestEditor.customSetValue("");
                 }
 
-                responseEditor.customSetValue(stringify(value.data));
+                responseEditor.customSetValue($utilities.stringify(value.data));
 
                 if (resourceDefinition.actions.includes("CREATE")) {
                     $scope.creatable = true;
                     $scope.createMetaData = resourceDefinition.requestBody;
-                    createEditor.customSetValue(stringify(resourceDefinition.requestBody));
+                    createEditor.customSetValue($utilities.stringify(resourceDefinition.requestBody));
                 }
 
                 var actionsAndVerbs = resourceDefinition.actions.filter(a => (a === "DELETE")).map(a => {
@@ -271,7 +222,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                                 httpMethod: "POST",
                                 name: d.resourceName,
                                 url: url + "/" + d.resourceName,
-                                requestBody: (d.requestBody ? stringify(d.requestBody) : undefined),
+                                requestBody: (d.requestBody ? $utilities.stringify(d.requestBody) : undefined),
                                 query: d.query
                             };
                         }
@@ -290,8 +241,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 };
                 $location.path(url.replace(/https:\/\/[^\/]*\//, ""));
 
+                azureCLIEditor.customSetValue(getAzureCliScriptsForResource(value));
                 powershellEditor.customSetValue(getPowerShellScriptsForResource(value, actionsAndVerbs));
+                    
                 fixSelectedTabIfNeeded();
+                }
             });
 
         $scope.handleClick = (method, event) => {
@@ -324,14 +278,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
                     fadeInAndFadeOutSuccess();
                 }, (err) => {
-                    $scope.putError = syntaxHighlight(err);
+                    $scope.putError = $utilities.syntaxHighlight(err);
                     fadeInAndFadeOutError();
                 }, () => {
                     $scope.invoking = false;
                     $scope.loading = false;
                 }, event);
             } catch (e) {
-                $scope.putError = syntaxHighlight({ error: "Error parsing JSON" });
+                $scope.putError = $utilities.syntaxHighlight({ error: "Error parsing JSON" });
                 $scope.invoking = false;
                 $scope.loading = false;
             }
@@ -615,14 +569,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.clearCreate = () => {
             delete $scope.createModel.createdResourceName;
-            createEditor.customSetValue(stringify($scope.createMetaData));
+            createEditor.customSetValue($utilities.stringify($scope.createMetaData));
         };
 
         $scope.invokeCreate = (event) => {
             try {
                 var resourceName = $scope.createModel.createdResourceName;
                 if (!resourceName) {
-                    $scope.createError = syntaxHighlight({
+                    $scope.createError = $utilities.syntaxHighlight({
                         error: {
                             message: "{Resource Name} can't be empty"
                         }
@@ -656,14 +610,14 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         $scope.expandResourceHandler(selectedBranch);
                     }, 50);
                 }, (err) => {
-                    $scope.createError = syntaxHighlight(err);
+                    $scope.createError = $utilities.syntaxHighlight(err);
                     fadeInAndFadeOutError();
                 }, () => {
                     $scope.invoking = false;
                     $scope.loading = false;
                 }, event);
             } catch (e) {
-                $scope.createError = syntaxHighlight({ error: "Error parsing JSON" });
+                $scope.createError = $utilities.syntaxHighlight({ error: "Error parsing JSON" });
                 $scope.invoking = false;
                 $scope.loading = false;
             }
@@ -944,7 +898,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         QueryString: queryString
                     }
                 }, (data, status) => {
-                    if (data) $scope.actionResponse = syntaxHighlight(data);
+                    if (data) $scope.actionResponse = $utilities.syntaxHighlight(data);
                     // async DELETE returns 202. That might fail later. So don't remove from the tree
                     if (action.httpMethod === "DELETE" && status === 200 /* OK */) {
                         if (currentBranch.uid === $scope.treeControl.get_selected_branch().uid) {
@@ -957,11 +911,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     }
                     fadeInAndFadeOutSuccess();
                 }, (err) => {
-                    $scope.actionResponse = syntaxHighlight(err);
+                    $scope.actionResponse = $utilities.syntaxHighlight(err);
                     fadeInAndFadeOutError();
                 }, () => { $scope.loading = false; }, event, confirmed);
             } catch (e) {
-                $scope.actionResponse = syntaxHighlight({ error: "Error parsing JSON" });
+                $scope.actionResponse = $utilities.syntaxHighlight({ error: "Error parsing JSON" });
                 $scope.loading = false;
             }
         }
@@ -1196,35 +1150,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             anchor.width((width < 280 ? 280 : width) - 20);
         }
 
-        function syntaxHighlight(json: any) {
-            if (typeof json === "string") return escapeHtmlEntities(json);
-            var str = stringify(json);
-            str = escapeHtmlEntities(str);
-            return str.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, (match) => {
-                var cls = 'number';
-                if (/^"/.test(match)) {
-                    if (/:$/.test(match)) {
-                        cls = 'key';
-                    } else {
-                        cls = 'string';
-                    }
-                } else if (/true|false/.test(match)) {
-                    cls = 'boolean';
-                } else if (/null/.test(match)) {
-                    cls = 'null';
-                }
-                if (cls === 'string' && ((match.slice(0, "\"http://".length) == "\"http://") || (match.slice(0, "\"https://".length) == "\"https://"))) {
-                    match = match.replace("/api/", "/");
-                    return '<span><a class="json-link" target="_blank" href=' + match + '>' + match + '</a></span>';
-                } else {
-                    return '<span class="' + cls + '">' + match + '</span>';
-                }
-            });
-        }
-
-        function escapeHtmlEntities(str: string) {
-            return $('<div/>').text(str).html();
-        }
+        
 
         function selectiveUrlencode(url: string) {
             return url.replace(/\#/g, '%23').replace(/\s/g, '%20');
@@ -1332,9 +1258,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return target;
         }
 
-        function stringify(object: any): string {
-            return JSON.stringify(object, undefined, 2)
-        }
+
 
         function getDocumentationFlatArray(editorData: any, doc: any) {
             var docArray: any[] = [];
@@ -1609,18 +1533,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
     .config(($locationProvider: ng.ILocationProvider) => {
         $locationProvider.html5Mode(true);
     });
-
-function getPowerShellScriptsForResource(value: ISelectHandlerReturn, actions: IAction[]): string {
-    var script = "# PowerShell equivalent script\n\n";
-
-    let urlParser = new ARMUrlParser(value, actions);
-    let parameterResolver = new PSCmdletParameterResolver(urlParser);
-    let scriptGenerator = new PsScriptGenerator(parameterResolver);
-    for (let cmd of parameterResolver.getSupportedCommands()) {
-        script += scriptGenerator.getScript(cmd);
-    }
-    return script;
-}
 
 // Global JS fixes
 $('label.tree-toggler').click(function () {
