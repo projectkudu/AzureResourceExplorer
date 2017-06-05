@@ -1,0 +1,14 @@
+﻿<div ng-show="creatable">
+    <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate($event)">
+        Reset
+    </button>
+    <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate($event)">
+        PUT
+    </button>
+    <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
+    <pre>{{ selectedResource.url + "/" + createModel.createdResourceName + "?api-version=" + apiVersion }}</pre>
+    <div id="json-create-editor" class="explorer-editor"></div>
+    <h2 ng-show="errorResponse || createError">Error:</h2>
+    <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
+    <pre ng-show="createError" ng-bind-html="createError" style="max-height: 400px"></pre>
+</div>

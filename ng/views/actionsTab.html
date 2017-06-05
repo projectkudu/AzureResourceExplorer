@@ -1,0 +1,24 @@
+﻿<table class="table table-no-border" style="margin: 20px" ng-show="(selectedResource && selectedResource.actionsAndVerbs && selectedResource.actionsAndVerbs.length > 0)">
+    <colgroup>
+        <col class="col-xs-1">
+        <col class="col-xs-7">
+    </colgroup>
+    <tbody>
+        <tr ng-repeat="action in selectedResource.actionsAndVerbs">
+            <td>
+                <button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action, $event)">
+                    {{ action.name }}
+                </button>
+            </td>
+            <td>
+                <pre>{{ action.httpMethod }} {{ action.url + "?api-version=" + apiVersion }}</pre>
+                <div ng-repeat="query in action.query">
+                    <pre style="float: left; margin-right: 10px">{{ "&" + query + "=" + actionsModel[query] }}</pre>
+                    <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="actionsModel[query]">
+                </div>
+                <div id="{{ action.name + '-editor' }}" ng-show="action.requestBody" class="explorer-editor action-editor" ui-ace="aceConfig" ng-model="action.requestBody "></div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<pre ng-show="actionResponse" ng-bind-html="actionResponse" style="max-height: 400px"></pre>
