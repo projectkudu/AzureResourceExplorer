@@ -17,7 +17,7 @@ namespace ARMExplorer.SwaggerParser.Model
 
         public Schema Schema { get; set; }
 
-        public Dictionary<string, System.Runtime.Remoting.Messaging.Header> Headers { get; set; }
+        public Dictionary<string, Header> Headers { get; set; }
 
         public Dictionary<string, object> Examples { get; set; }
 

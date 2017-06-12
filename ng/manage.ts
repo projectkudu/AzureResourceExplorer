@@ -974,11 +974,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             });
         }
 
-        function initResourcesDefinitions() {
-            $http({
-                method: "GET",
-                url: "api/operations"
-            }).success((operations: any[]) => {
+    function initResourcesDefinitions() {
+        const getFilteredProviders :ng.IRequestConfig = { method: "GET", url: "api/providers" };
+        $http(getFilteredProviders).success((providers: any) => {
+            const postProviders: ng.IRequestConfig = { method: "POST", url: "api/all-operations", data: JSON.stringify(providers) };
+            $http(postProviders).success((operations: any[]) => {
                 operations.sort((a, b) => {
                     return a.Url.localeCompare(b.Url);
                 });
@@ -995,16 +995,20 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         }
                     });
                 });
-
                 // Initializes the root nodes for the tree
                 $scope.resources = getRootTreeNodes();
-
             }).finally(() => { $timeout(() => { handlePath($location.path().substring(1)) }); });
+        });
+    }
+
+        const supportedRootNodes = ['providers', 'subscriptions'];
+        function isSupportedTreeNode(url: string) {
+            const splits = url.split("/");
+            return (splits.length === 4) && supportedRootNodes.includes(splits[3].toLowerCase());  
         }
 
         function getRootTreeNodes() {
-
-            return $scope.resourcesDefinitionsTable.filter((rd) => { return rd.url.split("/").length === 4; })
+            return $scope.resourcesDefinitionsTable.filter((rd) => { return isSupportedTreeNode(rd.url); })
                 .getUnique((rd) => { return rd.url.split("/")[3]; }).map((urd) => {
                     return {
                         label: urd.url.split("/")[3],

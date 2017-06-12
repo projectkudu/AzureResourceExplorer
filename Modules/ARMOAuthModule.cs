@@ -69,7 +69,7 @@ namespace ARMExplorer.Modules
         {
             tenantId = string.Empty;
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(HttpContext.Current.Request.Url.Host);
-            var requestUri = string.Format(Utils.subscriptionTemplate, HyakUtils.CSMUrl, subscriptionId, Utils.CSMApiVersion);
+            var requestUri = string.Format(Utils.SubscriptionTemplate, HyakUtils.CSMUrl, subscriptionId, Utils.CSMApiVersion);
             var request = WebRequest.CreateHttp(requestUri);
             using (var response = request.GetResponseWithoutExceptions())
             {

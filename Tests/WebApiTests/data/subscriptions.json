@@ -1,0 +1,48 @@
+﻿{
+  "value": [
+    {
+      "id": "/subscriptions/00000000-0000-0000-0000-000000000001",
+      "subscriptionId": "00000000-0000-0000-0000-000000000001",
+      "displayName": "Name1",
+      "state": "Enabled",
+      "subscriptionPolicies": {
+        "locationPlacementId": "Public_2014-09-01",
+        "quotaId": "MSDN_2014-09-01",
+        "spendingLimit": "On"
+      }
+    },
+    {
+      "id": "/subscriptions/00000000-0000-0000-0000-000000000002",
+      "subscriptionId": "00000000-0000-0000-0000-000000000002",
+      "displayName": "Name2",
+      "state": "Enabled",
+      "subscriptionPolicies": {
+        "locationPlacementId": "Internal_2014-09-01",
+        "quotaId": "Internal_2014-09-01",
+        "spendingLimit": "Off"
+      }
+    },
+    {
+      "id": "/subscriptions/00000000-0000-0000-0000-000000000003",
+      "subscriptionId": "00000000-0000-0000-0000-000000000003",
+      "displayName": "Name3",
+      "state": "Enabled",
+      "subscriptionPolicies": {
+        "locationPlacementId": "Internal_2014-09-01",
+        "quotaId": "Internal_2014-09-01",
+        "spendingLimit": "Off"
+      }
+    },
+    {
+      "id": "/subscriptions/00000000-0000-0000-0000-000000000004",
+      "subscriptionId": "00000000-0000-0000-0000-000000000004",
+      "displayName": "Name4",
+      "state": "Enabled",
+      "subscriptionPolicies": {
+        "locationPlacementId": "Internal_2014-09-01",
+        "quotaId": "Internal_2014-09-01",
+        "spendingLimit": "Off"
+      }
+    }
+  ]
+}

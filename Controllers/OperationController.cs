@@ -1,50 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Runtime.Caching;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web.Hosting;
 using System.Web.Http;
 using ARMExplorer.SwaggerParser;
-using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using ARMExplorer.Telemetry;
 
 namespace ARMExplorer.Controllers
 {
     [UnhandledExceptionFilter]
     public class OperationController : ApiController
     {
+        private readonly IArmRepository _armRepository;
+        private static readonly MemoryCache SwaggerCache = new MemoryCache("SwaggerDefinitionCache");
+
+        public OperationController(IArmRepository armRepository)
+        {
+            _armRepository = armRepository;
+        }
+
+        private static IEnumerable<MetadataObject> GetSpecFor(string providerName)
+        {
+            return GetOrLoadSpec(providerName, () => SwaggerSpecLoader.GetSpecFromSwagger(providerName).ToList());
+        }
+
+        private static IEnumerable<MetadataObject> GetOrLoadSpec(string providerName, Func<List<MetadataObject>> parserFunc)
+        {
+            var newValue = new Lazy<List<MetadataObject>>(parserFunc);
+            // AddOrGetExisting covers a narrow case where 2 calls come in at the same time for the same provider then its swagger will be parsed twice. 
+            // The Lazy pattern guarantees each swagger will ever be parsed only once and other concurrent accesses for the same providerkey will be blocked until the previous thread adds 
+            // the value to cache.
+            var existingValue = SwaggerCache.AddOrGetExisting(providerName, newValue, new CacheItemPolicy()) as Lazy<List<MetadataObject>>;
+            var swaggerSpec = new List<MetadataObject>();
+            if (existingValue != null)
+            {
+                swaggerSpec.AddRange(existingValue.Value);
+            }
+            else
+            {
+                try
+                {
+                    // If there was an error parsing , dont add it to the cache so the swagger can be retried on the next request instead of returning the error from cache. 
+                    swaggerSpec.AddRange(newValue.Value);
+                }
+                catch
+                {
+                    SwaggerCache.Remove(providerName);
+                }
+            }
+            return swaggerSpec;
+        }
+
         [Authorize]
-        public HttpResponseMessage Get(bool hidden = false)
+        public async Task<HttpResponseMessage> GetAllProviders()
         {
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
 
-            var watch = new Stopwatch();
-            watch.Start();
+            var allProviders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var subscriptionId in await _armRepository.GetSubscriptionIdsAsync(Request))
+            {
+                allProviders.UnionWith(await _armRepository.GetproviderNamesFor(Request, subscriptionId));
+            }
+            // This makes the Microsoft.Resources provider show up for any groups that have other resources
+            allProviders.Add("MICROSOFT.RESOURCES");
+            return Request.CreateResponse(HttpStatusCode.OK, allProviders);
+        }
 
-            var speclessCsmApis = HyakUtils.GetSpeclessCsmOperations();
+        [Authorize]
+        [HttpPost]
+        public HttpResponseMessage GetPost([FromBody] List<string> providersList)
+        {
+            HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
 
-            var specsFromParsedSwaggerJson = Directory.Exists(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
-                ? Directory.GetFiles(HostingEnvironment.MapPath("~/App_Data/JsonSpecs"))
-                  .Where(f => f.EndsWith(".json"))
-                  .Select(File.ReadAllText)
-                  .Select(JsonConvert.DeserializeObject<IEnumerable<MetadataObject>>)
-                  .SelectMany(i => i)
-                : Enumerable.Empty<MetadataObject>();
+            var response = Request.CreateResponse(HttpStatusCode.NoContent);
 
-            var json = speclessCsmApis.Concat(specsFromParsedSwaggerJson).Concat(SwaggerSpecLoader.GetSpecsFromSwaggerFiles());
+            if (providersList != null)
+            {
+                var watch = new Stopwatch();
+                watch.Start();
+                var swaggerSpecs = providersList.Select(GetSpecFor).SelectMany(objects => objects);
+                var metadataObjects = HyakUtils.GetSpeclessCsmOperations().Concat(swaggerSpecs);
+                watch.Stop();
 
-            watch.Stop();
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            response.Content = new StringContent(JsonConvert.SerializeObject(json), Encoding.UTF8, "application/json");
-            response.Headers.Add(Utils.X_MS_Ellapsed, watch.ElapsedMilliseconds + "ms");
+                response = Request.CreateResponse(HttpStatusCode.OK);
+                response.Content = new StringContent(JsonConvert.SerializeObject(metadataObjects), Encoding.UTF8, "application/json");
+                response.Headers.Add(Utils.X_MS_Ellapsed, watch.ElapsedMilliseconds + "ms");
+            }
+
             return response;
         }
 
@@ -52,101 +99,24 @@ namespace ARMExplorer.Controllers
         public async Task<HttpResponseMessage> GetProviders(string subscriptionId)
         {
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
-
-            using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
-            {
-                var request = new HttpRequestMessage(HttpMethod.Get, string.Format(Utils.resourcesTemplate, HyakUtils.CSMUrl, subscriptionId, Utils.CSMApiVersion));
-                var response = await client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                dynamic resources = await response.Content.ReadAsAsync<JObject>();
-                JArray values = resources.value;
-                var result = new Dictionary<string, Dictionary<string, HashSet<string>>>();
-                foreach (dynamic value in values)
-                {
-                    string id = value.id;
-                    var match = Regex.Match(id, "/subscriptions/.*?/resourceGroups/(.*?)/providers/(.*?)/(.*?)/");
-                    if (match.Success)
-                    {
-                        var resourceGroup = match.Groups[1].Value.ToUpperInvariant();
-                        var provider = match.Groups[2].Value.ToUpperInvariant();
-                        var collection = match.Groups[3].Value.ToUpperInvariant();
-                        if (!result.ContainsKey(resourceGroup))
-                        {
-                            result.Add(resourceGroup, new Dictionary<string, HashSet<string>>());
-                        }
-                        if (!result[resourceGroup].ContainsKey(provider))
-                        {
-                            result[resourceGroup].Add(provider, new HashSet<string>());
-                        }
-                        result[resourceGroup][provider].Add(collection);
-                    }
-                }
-                // Add Microsoft.Resources/deployments to the response
-                // This makes the Microsoft.Resources provider show up for any groups that have other resources
-                foreach (var group in result.Values)
-                {
-                    group.Add(
-                                "MICROSOFT.RESOURCES",
-                                new HashSet<string>
-                                {
-                                    "DEPLOYMENTS",
-                                }
-                    );
-                }
-                return Request.CreateResponse(HttpStatusCode.OK, result);
-            }
+            return Request.CreateResponse(HttpStatusCode.OK, await _armRepository.GetProvidersFor(Request, subscriptionId));
         }
 
         [Authorize]
         public async Task<HttpResponseMessage> Invoke(OperationInfo info)
         {
+            HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
+
             // escaping "#" as it may appear in some resource names
             info.Url = info.Url.Replace("#", "%23");
-            HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
-            LogCsmType(info);
-            using (var client = GetClient(Utils.GetCSMUrl(Request.RequestUri.Host)))
-            {
-                var request = new HttpRequestMessage(new System.Net.Http.HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=") != -1 ? string.Empty : "?api-version=" + info.ApiVersion) + (string.IsNullOrEmpty(info.QueryString) ? string.Empty : info.QueryString));
-                if (info.RequestBody != null)
-                {
-                    request.Content = new StringContent(info.RequestBody.ToString(), Encoding.UTF8, "application/json");
-                }
 
-                return await Utils.Execute(client.SendAsync(request));
-            }
-        }
-
-        private void LogCsmType(OperationInfo info)
-        {
-            try
+            var executeRequest = new HttpRequestMessage(new HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=", StringComparison.Ordinal) != -1 ? string.Empty : "?api-version=" + info.ApiVersion) + (string.IsNullOrEmpty(info.QueryString) ? string.Empty : info.QueryString));
+            if (info.RequestBody != null)
             {
-                if (info == null || info.Url == null || info.Url.IndexOf("/providers/", StringComparison.OrdinalIgnoreCase) == -1) return;
-                var path = info.Url.Substring(info.Url.IndexOf("/providers/", StringComparison.OrdinalIgnoreCase));
-                var sb = new StringBuilder();
-                var parts = path.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                for (var i = 1; i < parts.Length; i++)
-                {
-                    if (i == 1 || i == 2 || i % 2 == 0)
-                        sb.AppendFormat("{0}/", parts[i]);
-                }
-                var csmType = sb.ToString().Trim(new[] { '/' });
-                TelemetryHelper.LogInfo(new CsmTypeEvent { Type = csmType, HttpMethod = info.HttpMethod });
+                executeRequest.Content = new StringContent(info.RequestBody.ToString(), Encoding.UTF8, "application/json");
             }
-            catch (Exception e)
-            {
-                TelemetryHelper.LogException(e);
-            }
-        }
 
-        private HttpClient GetClient(string baseUri)
-        {
-            var client = new HttpClient();
-            client.BaseAddress = new Uri(baseUri);
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",
-                Request.Headers.GetValues(Utils.X_MS_OAUTH_TOKEN).FirstOrDefault());
-            client.DefaultRequestHeaders.Add("User-Agent", Request.RequestUri.Host);
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            return client;
+            return await _armRepository.InvokeAsync(Request, executeRequest);
         }
     }
 }
