@@ -1,0 +1,279 @@
+﻿
+  {
+    "value": [
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.EventHub/namespaces/contosoadswebins",
+        "name": "contosoadswebins",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+          "name": "Standard",
+          "tier": "Standard"
+        },
+        "kind": "EventHub",
+        "location": "southindia",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.EventHub/namespaces/contosoadswebusc",
+        "name": "contosoadswebusc",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+          "name": "Standard",
+          "tier": "Standard"
+        },
+        "kind": "EventHub",
+        "location": "centralus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.EventHub/namespaces/contosoadswebweu",
+        "name": "contosoadswebweu",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+          "name": "Standard",
+          "tier": "Standard"
+        },
+        "kind": "EventHub",
+        "location": "westeurope",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.EventHub/namespaces/contosoadsworkerins",
+        "name": "contosoadsworkerins",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+          "name": "Standard",
+          "tier": "Standard"
+        },
+        "kind": "EventHub",
+        "location": "southindia",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.EventHub/namespaces/contosoadsworkerusc",
+        "name": "contosoadsworkerusc",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+          "name": "Standard",
+          "tier": "Standard"
+        },
+        "kind": "EventHub",
+        "location": "centralus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.EventHub/namespaces/contosoadsworkerweu",
+        "name": "contosoadsworkerweu",
+        "type": "Microsoft.EventHub/namespaces",
+        "sku": {
+          "name": "Standard",
+          "tier": "Standard"
+        },
+        "kind": "EventHub",
+        "location": "westeurope",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/contosoads-centralresources/providers/microsoft.insights/alertrules/Proactive Diagnostics - contosoadps",
+        "name": "Proactive Diagnostics - contosoadps",
+        "type": "microsoft.insights/alertrules",
+        "location": "eastus",
+        "tags": {
+          "hidden-link:/subscriptions/00000000-0000-0000-0000-000000000003/resourcegroups/contosoads-centralresources/providers/microsoft.insights/components/contosoadps": "Resource"
+        }
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/microsoft.insights/components/contosoadps",
+        "name": "contosoadps",
+        "type": "microsoft.insights/components",
+        "kind": "web",
+        "location": "eastus",
+        "tags": {
+          "hidden-link:/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.Web/sites/contosoadps": "Resource"
+        }
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/microsoft.insights/components/contosoads-prereqchecker",
+        "name": "contosoads-prereqchecker",
+        "type": "microsoft.insights/components",
+        "kind": "other",
+        "location": "eastus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.KeyVault/vaults/ContosoAdsKeyVault",
+        "name": "ContosoAdsKeyVault",
+        "type": "Microsoft.KeyVault/vaults",
+        "location": "centralus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.Sql/servers/contosoadssqldbserver",
+        "name": "contosoadssqldbserver",
+        "type": "Microsoft.Sql/servers",
+        "kind": "v12.0",
+        "location": "centralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.Sql/servers/contosoadssqldbserver/databases/ContosoAdsBootCamp",
+        "name": "contosoadssqldbserver/ContosoAdsBootCamp",
+        "type": "Microsoft.Sql/servers/databases",
+        "kind": "v12.0,user",
+        "location": "centralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.Sql/servers/contosoadssqldbserver/databases/contosoadssqldb",
+        "name": "contosoadssqldbserver/contosoadssqldb",
+        "type": "Microsoft.Sql/servers/databases",
+        "kind": "v12.0,user",
+        "location": "centralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.Storage/storageAccounts/abccentralstorage",
+        "name": "abccentralstorage",
+        "type": "Microsoft.Storage/storageAccounts",
+        "sku": {
+          "name": "Standard_GRS",
+          "tier": "Standard"
+        },
+        "kind": "Storage",
+        "location": "centralus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.Web/serverFarms/ServicePlan9a8e37c8-9215",
+        "name": "ServicePlan9a8e37c8-9215",
+        "type": "Microsoft.Web/serverFarms",
+        "location": "southcentralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAds-CentralResources/providers/Microsoft.Web/sites/contosoadps",
+        "name": "contosoadps",
+        "type": "Microsoft.Web/sites",
+        "location": "southcentralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAdsTestDeploy/providers/Microsoft.ClassicCompute/domainNames/contosoadstest-centralus",
+        "name": "contosoadstest-centralus",
+        "type": "Microsoft.ClassicCompute/domainNames",
+        "location": "centralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAdsTestDeploy/providers/Microsoft.ClassicCompute/domainNames/contosoadstest-indiasou",
+        "name": "contosoadstest-indiasou",
+        "type": "Microsoft.ClassicCompute/domainNames",
+        "location": "southindia"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAdsTestDeploy/providers/Microsoft.ClassicCompute/domainNames/contosoadstest-westeuro",
+        "name": "contosoadstest-westeuro",
+        "type": "Microsoft.ClassicCompute/domainNames",
+        "location": "westeurope"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/ContosoAdsTestDeploy/providers/Microsoft.Network/trafficmanagerprofiles/contosoadstest",
+        "name": "contosoadstest",
+        "type": "Microsoft.Network/trafficmanagerprofiles",
+        "location": "global"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/dashboards/providers/Microsoft.Portal/dashboards/312ce113-2d40-4118-b0e2-9ecb676087ad",
+        "name": "312ce113-2d40-4118-b0e2-9ecb676087ad",
+        "type": "Microsoft.Portal/dashboards",
+        "location": "centralus",
+        "tags": {
+          "hidden-title": "Azure Boot Camp"
+        }
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/Default-Storage-CentralUS/providers/Microsoft.ClassicStorage/storageAccounts/contosoadswebusc",
+        "name": "contosoadswebusc",
+        "type": "Microsoft.ClassicStorage/storageAccounts",
+        "location": "centralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/Default-Storage-CentralUS/providers/Microsoft.ClassicStorage/storageAccounts/contosoadsworkerusc",
+        "name": "contosoadsworkerusc",
+        "type": "Microsoft.ClassicStorage/storageAccounts",
+        "location": "centralus"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/Default-Storage-SouthIndia/providers/Microsoft.ClassicStorage/storageAccounts/contosoadswebins",
+        "name": "contosoadswebins",
+        "type": "Microsoft.ClassicStorage/storageAccounts",
+        "location": "southindia"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/Default-Storage-SouthIndia/providers/Microsoft.ClassicStorage/storageAccounts/contosoadsworkerins",
+        "name": "contosoadsworkerins",
+        "type": "Microsoft.ClassicStorage/storageAccounts",
+        "location": "southindia"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/contosoadstestwesteuro",
+        "name": "contosoadstestwesteuro",
+        "type": "Microsoft.ClassicStorage/storageAccounts",
+        "location": "westeurope"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/contosoadswebweu",
+        "name": "contosoadswebweu",
+        "type": "Microsoft.ClassicStorage/storageAccounts",
+        "location": "westeurope"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/Default-Storage-WestEurope/providers/Microsoft.ClassicStorage/storageAccounts/contosoadsworkerweu",
+        "name": "contosoadsworkerweu",
+        "type": "Microsoft.ClassicStorage/storageAccounts",
+        "location": "westeurope"
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/securitydata/providers/Microsoft.Storage/storageAccounts/7a1755eastus",
+        "name": "7a1755eastus",
+        "type": "Microsoft.Storage/storageAccounts",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "kind": "Storage",
+        "location": "eastus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/securitydata/providers/Microsoft.Storage/storageAccounts/7a1755southcentralus",
+        "name": "7a1755southcentralus",
+        "type": "Microsoft.Storage/storageAccounts",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "kind": "Storage",
+        "location": "southcentralus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/securitydata/providers/Microsoft.Storage/storageAccounts/7a1755westus",
+        "name": "7a1755westus",
+        "type": "Microsoft.Storage/storageAccounts",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "kind": "Storage",
+        "location": "westus",
+        "tags": {}
+      },
+      {
+        "id": "/subscriptions/00000000-0000-0000-0000-000000000003/resourceGroups/securitydata/providers/Microsoft.Storage/storageAccounts/7a1755westus2",
+        "name": "7a1755westus2",
+        "type": "Microsoft.Storage/storageAccounts",
+        "sku": {
+          "name": "Standard_LRS",
+          "tier": "Standard"
+        },
+        "kind": "Storage",
+        "location": "westus2",
+        "tags": {}
+      }
+    ]
+  }

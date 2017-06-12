@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
@@ -29,19 +28,19 @@ namespace ARMExplorer.Controllers
 
         private static IEnumerable<MetadataObject> GetRemoteCsmOperations()
         {
-            using (var sReader = new StreamReader(HostingEnvironment.MapPath("~/App_Data/ProvidersSpecs/ProvidersList.json")))
+            var providersInfo = HostingEnvironment.MapPath("~/App_Data/ProvidersSpecs/ProvidersList.json");
+            if (providersInfo == null)
+            {
+                return new List<MetadataObject>();
+            }
+            using (var sReader = new StreamReader(providersInfo))
             {
                 var providersSpecs = sReader.ReadToEnd();
 
                 var providersList = (JArray)(JsonConvert.DeserializeObject<JObject>(providersSpecs))["value"];
-                var template = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
+                var template = CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
                 var fakeRequestBody = new { properties = new { }, location = string.Empty };
-                return  providersList.Where(p => !new[] {
-                            "Microsoft.Web",
-                            "Microsoft.Compute",
-                            "Microsoft.Storage",
-                            "Microsoft.Network"
-                        }.Any(str => p["namespace"].ToString().IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0))
+                return  providersList
                          .Select(provider =>
                          {
                              return provider["resourceTypes"].Select((resourceType) =>
@@ -86,7 +85,6 @@ namespace ARMExplorer.Controllers
         private static IEnumerable<MetadataObject> GetMissingApis()
         {
             var fakeRequestBody = new { properties = new { }, location = string.Empty };
-            var fakeSwapBody = new { targetSlot = string.Empty };
             return new List<MetadataObject> {
                 new MetadataObject
                 {
@@ -157,41 +155,6 @@ namespace ARMExplorer.Controllers
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
-                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments",
-                    ApiVersion = "2015-11-01"
-                },
-                new MetadataObject
-                {
-                    MethodName = "Get",
-                    HttpMethod = "GET",
-                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}",
-                    ApiVersion = "2015-11-01"
-                },
-                new MetadataObject
-                {
-                    MethodName = "Delete",
-                    HttpMethod = "DELETE",
-                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}",
-                    ApiVersion = "2015-11-01"
-                },
-                new MetadataObject
-                {
-                    MethodName = "Post",
-                    HttpMethod = "POST",
-                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/cancel",
-                    ApiVersion = "2015-11-01"
-                },
-                new MetadataObject
-                {
-                    MethodName = "Post",
-                    HttpMethod = "POST",
-                    Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/exportTemplate",
-                    ApiVersion = "2016-02-01"
-                },
-                new MetadataObject
-                {
-                    MethodName = "Get",
-                    HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/operations",
                     ApiVersion = "2015-11-01"
                 },
@@ -201,7 +164,7 @@ namespace ARMExplorer.Controllers
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/operations/{operationId}",
                     ApiVersion = "2015-11-01"
-                },
+                }
             };
         }
     }

@@ -8,20 +8,8 @@ namespace ARMExplorer.SwaggerParser
 {
     public class SwaggerSpecLoader
     {
-        private static IEnumerable<String> GetProvidersWithSwaggerSpecs()
-        {
-            try
-            {
-                return Directory.GetDirectories(HostingEnvironment.MapPath("~/App_Data/SwaggerSpecs"));
-            }
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-                return new List<string>();
-            }
-        }
-
-        private static IEnumerable<String> GetSwaggerFilesForProvider(string provider)
+        private static readonly string SwaggerRoot = HostingEnvironment.MapPath("~/App_Data/SwaggerSpecs");
+        private static IEnumerable<string> GetSwaggerFilesForProvider(string provider)
         {
             try
             {
@@ -34,21 +22,22 @@ namespace ARMExplorer.SwaggerParser
             }
         }
 
-        public static IEnumerable<MetadataObject> GetSpecsFromSwaggerFiles()
+        public static IEnumerable<MetadataObject> GetSpecFromSwagger(string provider)
         {
-            List<MetadataObject> metadataObjects = new List<MetadataObject>();
-            foreach (var provider in GetProvidersWithSwaggerSpecs())
+            var providerObjects = new List<MetadataObject>();
+            if (SwaggerRoot != null)
             {
-                var currentProviderObjects = new List<MetadataObject>();
-                foreach (var swaggerFile in GetSwaggerFilesForProvider(provider))
+                var currentProviderPath = Path.Combine(SwaggerRoot, provider);
+                if (Directory.Exists(currentProviderPath))
                 {
-                    var definition = SwaggerParser.Load(swaggerFile, new FileSystem());
-                    currentProviderObjects.AddRange(new MetaDataObjectBuilder(definition).GetMetaDataObjects());
+                    foreach (var swaggerFile in GetSwaggerFilesForProvider(currentProviderPath))
+                    {
+                        var definition = SwaggerParser.Load(swaggerFile, new FileSystem());
+                        providerObjects.AddRange(new MetaDataObjectBuilder(definition).GetMetaDataObjects());
+                    }
                 }
-                metadataObjects.AddRange(currentProviderObjects);
             }
-
-            return metadataObjects;
+            return providerObjects;
         }
     }
 }
