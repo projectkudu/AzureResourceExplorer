@@ -50,15 +50,13 @@ Test with localhost
 
 ## Adding Swagger based specs
 
-Swagger files can be found on https://github.com/Azure/azure-rest-api-specs. The raw file for Web Apps is [here](https://raw.githubusercontent.com/Azure/azure-rest-api-specs/master/arm-web/2015-08-01/swagger/service.json), and internally under `bin\Hosting\Azure\GeoMaster\Swagger\Service.json`. Also, [compute](https://github.com/Azure/azure-rest-api-specs/tree/master/arm-compute/2016-03-30/swagger) and [network](https://github.com/Azure/azure-rest-api-specs/tree/master/arm-network/2016-03-30/swagger).
+Swagger files for all ARM providers are under App_Data/SwaggerSpecs. To update specs for any provider, locate the folder corresponding to the specific provider under SwaggerSpecs and do the following:
+1. To update an API in an existing file replace the old file contents with the latest specs. 
+2. To move API to a new file, you will have to delete the old API from the existing file apart from adding the new file(s). 
+3. To delete an API , remove the API from existing files.
+4. To add new API, copy the new files to the provider folder.
+5. To add new provider, create a new folder for the provider under SwaggerSpecs and place all your files inside the folder. 
 
-```
-cd Tools
-npm install
-For multi file swagger API
-  copy [Path to folder containing swagger specs]
-  node ConvertSwaggerToExplorerSpecs.js -d FolderPath > ..\App_Data\JsonSpecs\Microsoft.Web.json
-For single file swagger API
-  copy [Path to swagger spec]
-  node ConvertSwaggerToExplorerSpecs.js -f FilePath > ..\App_Data\JsonSpecs\Microsoft.Web.json
-```
+Create a pull request with your changes.
+
+
