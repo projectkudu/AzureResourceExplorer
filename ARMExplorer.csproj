@@ -289,6 +289,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.TimeSeriesInsights\timeseriesinsights.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\missing.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\WebApps_olderspec.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\vmssPublicIpAddress.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

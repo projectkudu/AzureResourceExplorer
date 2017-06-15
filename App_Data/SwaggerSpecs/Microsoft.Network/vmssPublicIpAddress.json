@@ -36,13 +36,63 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/virtualMachines/{virtualmachineIndex}/networkInterfaces": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/publicipaddresses": {
       "get": {
-        "tags": [
-          "NetworkInterfaces"
+        "operationId": "PublicIPAddresses_ListVirtualMachineScaleSetPublicIPAddresses",
+        "description": "Gets information about all public IP addresses on a virtual machine scale set level.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualMachineScaleSetName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual machine scale set."
+          },
+          {
+            "name": "api-version",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "enum": [
+              "2017-03-30"
+            ],
+            "x-ms-enum": {
+              "name": "ApiVersion",
+              "modelAsString": true
+            },
+            "description": "Client API version."
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
         ],
-        "operationId": "NetworkInterfaces_ListVirtualMachineScaleSetVMNetworkInterfaces",
-        "description": "Gets information about all network interfaces in a virtual machine in a virtual machine scale set.",
+        "responses": {
+          "200": {
+            "description": "Request successful. The operation returns a list of PublicIPInterface resources.",
+            "schema": {
+              "$ref": "./publicIpAddress.json#/definitions/PublicIPAddressListResult"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "ListVMSSPublicIP": { "$ref": "../examples/VmssPublicIpListAll.json" }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/virtualMachines/{virtualmachineIndex}/networkInterfaces/{networkInterfaceName}/ipconfigurations/{ipConfigurationName}/publicipaddresses" : {
+      "get": {
+        "operationId": "PublicIPAddresses_ListVirtualMachineScaleSetVMPublicIPAddresses",
+        "description": "Gets information about all public IP addresses in a virtual machine IP configuration in a virtual machine scale set.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -66,57 +116,18 @@
             "description": "The virtual machine index."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
-          },
-          {
-            "$ref": "#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Request successful. The operation returns a list of NetworkInterface resources.",
-            "schema": {
-              "$ref": "./networkInterface.json#/definitions/NetworkInterfaceListResult"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/networkInterfaces": {
-      "get": {
-        "tags": [
-          "NetworkInterfaces"
-        ],
-        "operationId": "NetworkInterfaces_ListVirtualMachineScaleSetNetworkInterfaces",
-        "description": "Gets all network interfaces in a virtual machine scale set.",
-        "parameters": [
-          {
-            "name": "resourceGroupName",
+            "name": "networkInterfaceName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the resource group."
+            "description": "The network interface name."
           },
           {
-            "name": "virtualMachineScaleSetName",
+            "name": "ipConfigurationName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the virtual machine scale set."
+            "description": "The IP configuration name."
           },
           {
             "name": "api-version",
@@ -138,24 +149,24 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns a list of NetworkInterface resources.",
+            "description": "Request successful. The operation returns a list of PublicIPAddress resources.",
             "schema": {
-              "$ref": "./networkInterface.json#/definitions/NetworkInterfaceListResult"
+              "$ref": "./publicIpAddress.json#/definitions/PublicIPAddressListResult"
             }
           }
+        },
+        "x-ms-examples": {
+          "ListVMSSVMPublicIP": { "$ref": "../examples/VmssVmPublicIpList.json" }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/virtualMachines/{virtualmachineIndex}/networkInterfaces/{networkInterfaceName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/virtualMachines/{virtualmachineIndex}/networkInterfaces/{networkInterfaceName}/ipconfigurations/{ipConfigurationName}/publicipaddresses/{publicIpAddressName}": {
       "get": {
-        "tags": [
-          "NetworkInterfaces"
-        ],
-        "operationId": "NetworkInterfaces_GetVirtualMachineScaleSetNetworkInterface",
-        "description": "Get the specified network interface in a virtual machine scale set.",
+        "operationId": "PublicIPAddresses_GetVirtualMachineScaleSetPublicIPAddress",
+        "description": "Get the specified public IP address in a virtual machine scale set.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -186,6 +197,20 @@
             "description": "The name of the network interface."
           },
           {
+            "name": "ipConfigurationName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the IP configuration."
+          },
+          {
+            "name": "publicIpAddressName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the public IP Address."
+          },
+          {
             "name": "api-version",
             "in": "query",
             "required": true,
@@ -210,11 +235,14 @@
             "description": "Expands referenced resources."
           }
         ],
+        "x-ms-examples": {
+          "GetVMSSPublicIP": { "$ref": "../examples/VmssPublicIpGet.json" }
+        },
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns the resulting NetworkInterface resource.",
+            "description": "Request successful. The operation returns the resulting PublicIPAddress resource.",
             "schema": {
-              "$ref": "./networkInterface.json#/definitions/NetworkInterface"
+              "$ref": "./publicIpAddress.json#/definitions/PublicIPAddress"
             }
           }
         }
