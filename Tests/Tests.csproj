@@ -76,7 +76,7 @@
   <ItemGroup>
     <Compile Include="SwaggerParserTests\ParseMultiFileSwaggerTests.cs" />
     <Compile Include="SwaggerParserTests\ParseSingleFileSwaggerTests.cs" />
-    <Compile Include="SwaggerParserTests\ParseSwaggerWithBlacklistedEndpointTests.cs" />
+    <Compile Include="SwaggerParserTests\ParserValidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebApiTests\ArmRepositoryTests.cs" />
     <Compile Include="WebApiTests\MockHttpClientWrapper.cs" />
