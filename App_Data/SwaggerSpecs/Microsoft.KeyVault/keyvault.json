@@ -290,54 +290,6 @@
           }
         }
       }
-    },
-    "/subscriptions/{subscriptionId}/resources": {
-      "get": {
-        "tags": [
-          "Vaults"
-        ],
-        "operationId": "Vaults_List",
-        "description": "The List operation gets information about the vaults associated with the subscription.",
-        "parameters": [
-          {
-            "name": "$filter",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [ "resourceType eq 'Microsoft.KeyVault/vaults'" ],
-            "description": "The filter to apply on the operation."
-          },
-          {
-            "name": "$top",
-            "in": "query",
-            "type": "integer",
-            "format": "int32",
-            "description": "Maximum number of results to return."
-          },
-          {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [ "2015-11-01" ],
-            "description": "Azure Resource Manager Api Version."
-          },
-          {
-            "$ref": "#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Get information about all key vaults in the subscription.",
-            "schema": {
-              "$ref": "#/definitions/ResourceListResult"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
     }
   },
   "definitions": {
