@@ -67,9 +67,13 @@ namespace Tests.SwaggerParserTests
         [Fact]
         public void IdentifyDuplicatePaths()
         {
+            // these swagger operations have more than 1 version of it. ( usually because they come from different providers)
+            // client will pick the last swagger definition it sees and use that.
             var knownDuplicates = new HashSet<string>();
             knownDuplicates.Add(
                 "https://management.azure.com/Subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.RecoveryServices/operations");
+            knownDuplicates.Add(
+                "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/moveResources");
 
             var root = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.Parent.Parent;
             var fileRelative = Path.Combine("App_Data","SwaggerSpecs");
@@ -90,13 +94,13 @@ namespace Tests.SwaggerParserTests
             Assert.NotEmpty(speclessMetadataObjects);
             metadataObjects.AddRange(speclessMetadataObjects);
 
-            var operationsCount = new Dictionary<UniqueOperation, List<string>>();
+            var operationsCount = new Dictionary<UniqueOperation, HashSet<string>>();
             foreach (var metadataObject in metadataObjects)
             {
                 var uniqueOperation = new UniqueOperation(metadataObject.Url, metadataObject.HttpMethod);
                 if (!operationsCount.ContainsKey(uniqueOperation))
                 {
-                    operationsCount[uniqueOperation] = new List<string>();
+                    operationsCount[uniqueOperation] = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
                 }
                 operationsCount[uniqueOperation].Add(metadataObject.ApiVersion);
             }

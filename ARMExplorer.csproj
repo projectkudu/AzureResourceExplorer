@@ -290,6 +290,17 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\missing.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\WebApps_olderspec.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\vmssPublicIpAddress.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Certificates.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ClassicMobileServices.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\DeletedWebApps.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Domains.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Global.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Provider.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Recommendations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ResourceProvider.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\TopLevelDomains.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\WebApps.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\AppServiceCertificateOrders.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

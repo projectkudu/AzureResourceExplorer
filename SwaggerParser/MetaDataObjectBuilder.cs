@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using ARMExplorer.Controllers;
 using ARMExplorer.SwaggerParser.Model;
+using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json.Linq;
 
 namespace ARMExplorer.SwaggerParser
@@ -98,17 +99,26 @@ namespace ARMExplorer.SwaggerParser
 
         public JObject GetRequestBodyForOperation(Operation operation, bool getDescription)
         {
-            if (operation.Consumes.Count == 0 || operation.Consumes.Where(ConsumesJson).Any())
+            JObject requestBody = null;
+            try
             {
-                var bodyParameter = operation.Parameters.FirstOrDefault(parameter => parameter.In.Equals(ParameterLocation.Body));
-                if (bodyParameter != null)
+                if (operation.Consumes.Count == 0 || operation.Consumes.Where(ConsumesJson).Any())
                 {
-                    return GetRequestBody(bodyParameter.Schema, getDescription, 0);
+                    var bodyParameter = operation.Parameters.FirstOrDefault(parameter => parameter.In.Equals(ParameterLocation.Body));
+                    if (bodyParameter != null)
+                    {
+                        requestBody = GetRequestBody(bodyParameter.Schema, getDescription, 0);
+                    }
                 }
+            }
+            catch (RuntimeBinderException)
+            {
+                // since we dont validate swagger before parsing, this could happen for invalid swagger.
+                // return null as best effort.
             }
             // In the client side we rely on request body being undefined for empty request body
             // return null instead of empty JObject so that we get undefined on serialization. 
-            return null;
+            return requestBody;
         }
 
         private bool ConsumesJson(string s)
@@ -135,16 +145,24 @@ namespace ARMExplorer.SwaggerParser
 
         private Schema GetSchemaFromReferenceString(String referenceString)
         {
-            var split = referenceString.Split('/');
-            if (split[1].Equals("definitions", StringComparison.OrdinalIgnoreCase))
+            var schema = new Schema();
+            try
             {
-                return _serviceDefinition.Definitions[split[2]];
+                var split = referenceString.Split('/');
+                if (split[1].Equals("definitions", StringComparison.OrdinalIgnoreCase))
+                {
+                    schema = _serviceDefinition.Definitions[split[2]];
+                }
+                if (split[2].Equals("parameters", StringComparison.OrdinalIgnoreCase))
+                {
+                    schema = _serviceDefinition.Parameters[split[2]].Schema;
+                }
             }
-            if (split[2].Equals("parameters", StringComparison.OrdinalIgnoreCase))
+            catch (KeyNotFoundException)
             {
-                return _serviceDefinition.Parameters[split[2]].Schema;
+                // This probably means we could't find the definition for a parameter
             }
-            return new Schema();
+            return schema;
         }
 
         private dynamic GetRequestBody(Schema schema, bool getDescription, int level)
