@@ -94,7 +94,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             powershellEditor.getSession().setMode("ace/mode/powershell");
             powershellEditor.customSetValue("# PowerShell equivalent script");
 
-            azureCLIEditor.getSession().setMode("ace/mode/batchfile");
+            azureCLIEditor.getSession().setMode("ace/mode/sh");
             azureCLIEditor.customSetValue('# Azure CLI 2.0 equivalent script');
 
         });
@@ -922,18 +922,18 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         function fadeInAndFadeOutSuccess() {
             setTimeout(() => {
-                $("#success-marker").fadeIn(1500);
+                $(".success-marker").fadeIn(1500);
                 setTimeout(() => {
-                    $("#success-marker").fadeOut(1500);
+                    $(".success-marker").fadeOut(1500);
                 }, 1200);
             }, 500);
         }
 
         function fadeInAndFadeOutError() {
             setTimeout(() => {
-                $("#failure-marker").fadeIn(1500);
+                $(".failure-marker").fadeIn(1500);
                 setTimeout(() => {
-                    $("#failure-marker").fadeOut(1500);
+                    $(".failure-marker").fadeOut(1500);
                 }, 1200);
             }, 500);
         }

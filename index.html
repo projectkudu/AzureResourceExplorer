@@ -94,16 +94,17 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">{{ treeControl.get_selected_branch().label }}</h1>
                 </div>
-                <span class="loading-spinner" ng-show="loading || invoking">
-                    <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
+                <span class="alert alert-info loading-spinner overlayCenter" ng-show="loading || invoking">
+                    <i class="fa fa-spinner fa-spin" title="Please wait"></i>
                 </span>
-                <span id="success-marker" class="loading-spinner" style="display: none">
-                    <i class="fa fa-check" title="success" style="margin-top: 10px"></i>
+                <span class="alert alert-success loading-spinner success-marker overlayCenter" style="display: none">
+                    <i class="fa fa-check" title="success"></i>
                 </span>
-                <span id="failure-marker" class="loading-spinner" style="display: none">
-                    <i class="fa fa-exclamation-triangle" title="error" style="margin-top: 10px"></i>
+                <span class="alert alert-warning loading-spinner failure-marker overlayCenter" style="display: none">
+                    <i class="fa fa-exclamation-triangle" title="error"></i>
                 </span>
             </div>
+            
             <tabset>
                 <tab id="data-tab" select="enterDataTab()" active="activeTab[0]">
                     <tab-heading><i class="fa fa-database"></i> Data (GET, PUT)</tab-heading>
@@ -226,7 +227,7 @@
 
     </div>
     <div id="dark-blocker" class="dark-full-site-blocker" style="display: none"></div>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 
 </html>
