@@ -3,7 +3,7 @@ This project has dependencies on OAuth authentication.
 
 ## Instructions
 1. Clone this repository to your local drive.
-2. Open `ARMExplorer.sln` with VS 2012+ and compile.
+2. Open `ARMExplorer.sln` with VS 2017+ and compile.
 
 ### Create AAD application
 1. Go to [Azure Portal](https://manage.windowsazure.com/) while logged in as an Org ID (i.e. not MSA) and create AAD Application. You may create an application on existing AAD directory or a new directory altogether.
@@ -48,7 +48,10 @@ Test with localhost
 4. Navigate to ng directory and compile the files using 'tsc' and run the tests using 'node manageWithTests.js'
 5. Remember to update the tsconfig.json file when adding new test files.
 
-## Adding Swagger based specs
+## Swagger specs
+Swagger files can be found at https://github.com/Azure/azure-rest-api-specs. For web apps the specs can be found internally under bin\Hosting\Azure\GeoMaster\Swagger\Service.json
+
+## Adding Swagger specs
 
 Swagger files for all ARM providers are under App_Data/SwaggerSpecs. To update specs for any provider, locate the folder corresponding to the specific provider under SwaggerSpecs and do the following:
 1. To update an API in an existing file replace the old file contents with the latest specs. 
