@@ -80,8 +80,21 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     if (window.localStorage) {
                         window.localStorage.csmRawContent = requestEditor.getValue();
                     }
-                    var getValueForEditor = function (obj) {
-                        return typeof obj === "string" ? obj : JSON.stringify(obj, undefined, 2);
+
+                    var handleResponse = function (data, status, headers) {
+                        var statusText = "# Status: " + status;
+
+                        var headersText = Object.keys(headers())
+                            .filter(function (name) { return ["cache-control", "server", "x-aspnet-version", "pragma", "x-powered-by"].indexOf(name) === -1; })
+                            .sort()
+                            .map(function (name) { return "# " + name + ": " + headers(name); })
+                            .reduce(function (a, b) { return a + "\n" + b }, '');
+
+                        var bodyText = typeof data === "string" ? data : JSON.stringify(data, undefined, 2);
+
+                        var value = statusText + "\n" + headersText + "\n" + bodyText;
+
+                        responseEditor.setValue(value);
                     };
                     $http({
                         method: "POST",
@@ -92,16 +105,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             RequestBody: message.body,
                             RequireApiVersion: true
                         }
-                    }).error(function (err) {
-                        responseEditor.setValue(getValueForEditor(err));
-                    }).success(function (data) {
-                        responseEditor.setValue(getValueForEditor(data));
-                    }).finally(function () {
-                        responseEditor.moveCursorTo(0, 0);
-                        responseEditor.session.selection.clearSelection();
-                        responseEditor.resize();
-                        $scope.loading = false;
-                    });
+                    })
+                        .error(handleResponse)
+                        .success(handleResponse)
+                        .finally(function () {
+                            responseEditor.moveCursorTo(0, 0);
+                            responseEditor.session.selection.clearSelection();
+                            responseEditor.resize();
+                            $scope.loading = false;
+                        });
 
                 } else {
                     responseEditor.setValue("Couldn't parse the selected text below \n\n" + content);
