@@ -304,9 +304,22 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\encryptionProtectors.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverKeys.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\servers.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\syncAgents.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\syncGroups.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\syncMembers.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\backupLongTermRetentionPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\backupLongTermRetentionVaults.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\backups.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\capabilities.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databaseSecurityAlertPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\firewallRules.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\geoBackupPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\importExport.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\metrics.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\operations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\replicationLinks.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverAzureADAdministrators.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverCommunicationLinks.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serviceObjectives.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\sql.core.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\usages.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
