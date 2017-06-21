@@ -301,6 +301,12 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\TopLevelDomains.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\WebApps.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\AppServiceCertificateOrders.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\encryptionProtectors.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverKeys.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\servers.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\syncAgents.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\syncGroups.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\syncMembers.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
