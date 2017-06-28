@@ -9,6 +9,8 @@
 interface IResearchSearchCache {
     data: any;
     timestamp: number;
+    refresh(): void;
+    setSearchKeyword(keyword: string): void;
 }
 
 interface IResourceSearch {

@@ -75,7 +75,7 @@
             return this.doGetActionName(this.urlParser.getURL());
         }
 
-        getActionParameters(actionIndex: number): IAction {
+        getActionParameters(actionIndex: number): Action {
             return this.urlParser.getActions()[actionIndex];
         }
 

@@ -1,34 +1,30 @@
-﻿interface ArmTreeScope extends ng.IScope {
+﻿interface IArmTreeScope extends ng.IScope {
     treeControl: ITreeControl;
-    createModel: any;
+    createModel: ICreateModel;
     actionsModel: any;
-    resourcesDefinitionsTable: IResourceDefinition[];
     resources: any[];
     readOnlyMode: boolean;
     editMode: boolean;
-    activeTab: boolean[];
     aceConfig: any;
     $createObservableFunction: any;
     loading: boolean;
     errorResponse: any;
-    apiVersion: string;
-    putUrl: string;
     readOnlyResponse: any;
-    selectedResource: any;
+    selectedResource: ISelectedResource;
     creatable: any;
     createMetaData: any;
-    handleClick(method: string, event: Event);
-    invokeAction(action: any, event: Event);
-    selectResourceHandler(branch: ITreeBranch, event?: Event);
+    handleClick(data: any, method: string, event: Event);
+    invokeAction(selectedResource: ISelectedResource, action: any, event: Event);
+    selectResourceHandler(branch: TreeBranch, event?: Event);
     putError: string;
     invoking: boolean;
-    expandResourceHandler(branch: ITreeBranch, row?: any, event?: Event, dontExpandChildren?: boolean, dontFilterEmpty?: boolean): ng.IPromise<any>;
+    expandResourceHandler(branch: TreeBranch, row?: any, event?: Event, dontExpandChildren?: boolean, dontFilterEmpty?: boolean): Promise<any>;
     tenantSelect();
     enterCreateMode();
     leaveCreateMode();
     clearCreate();
     createMode: boolean;
-    invokeCreate(event: Event);
+    invokeCreate(selectedResource: ISelectedResource, event: Event);
     createError: string;
     enterDataTab();
     hideDocs();
@@ -43,11 +39,13 @@
     actionResponse: string;
     tenants: ITenantDetails[];
     selectedTenant: ITenantDetails;
-    resourceSearch();
-    resourceSearchModel: IResourceSearch;
-    resourceSearchCache: IResearchSearchCache;
+    resourceSearchModel: ResourceSearchDataModel;
     selectResourceSearch(item: IResourceSearchSuggestion);
     treeBranchDataOverrides: ITreeBranchDataOverrides[];
     copyResUrlToClipboard(text: string): void;
     resUrlColor: string;
+    resourceSearcher: ResourceSearcher;
+    resourceDefinitionsCollection: ResourceDefinitionCollection;
+    editorCollection: EditorCollection;
 }
+
