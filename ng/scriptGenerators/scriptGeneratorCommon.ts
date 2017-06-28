@@ -45,7 +45,7 @@
         return scriptGenerator.getScript();
     }
 
-    export function getPowerShellScriptsForResource(value: ISelectHandlerReturn, actions: IAction[]): string {
+    export function getPowerShellScriptsForResource(value: ISelectHandlerReturn, actions: Action[]): string {
         var script = "# PowerShell equivalent script\n\n";
         let urlParser = new ARMUrlParser(value, actions);
         let parameterResolver = new ScriptParametersResolver(urlParser);

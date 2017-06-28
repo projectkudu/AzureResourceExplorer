@@ -33,7 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>6</LangVersion>
-    <TypeScriptTarget>ES5</TypeScriptTarget>
+    <TypeScriptTarget>ES6</TypeScriptTarget>
     <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
     <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
     <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
@@ -54,6 +54,19 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>None</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptOutFile>ng/manage.js</TypeScriptOutFile>
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.ApplicationInsights, Version=0.17.0.576, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -403,18 +416,32 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ng\AppStart\ClientConfig.ts" />
+    <TypeScriptCompile Include="ng\AppStart\DocumentationGenerator.ts" />
+    <TypeScriptCompile Include="ng\AppStart\EditorCollection.ts" />
+    <TypeScriptCompile Include="ng\models\ICreateModel.ts" />
+    <TypeScriptCompile Include="ng\common\ObjectUtils.ts" />
+    <TypeScriptCompile Include="ng\AppStart\ResourceDefinitionCollection.ts" />
+    <TypeScriptCompile Include="ng\models\ITreeBranchDataOverrides.ts" />
+    <TypeScriptCompile Include="ng\Search\ResourcesCache.ts" />
+    <TypeScriptCompile Include="ng\Search\ResourceSearcher.ts" />
+    <TypeScriptCompile Include="ng\Search\ResourceSearchDataModel.ts" />
+    <TypeScriptCompile Include="ng\AppStart\ExplorerScreen.ts" />
+    <TypeScriptCompile Include="ng\models\SelectedResource.ts" />
+    <TypeScriptCompile Include="ng\common\StringUtils.ts" />
+    <TypeScriptCompile Include="ng\models\TenantCollection.ts" />
     <TypeScriptCompile Include="ng\common\angularPolyfill.ts" />
     <TypeScriptCompile Include="ng\common\helpers.ts" />
     <TypeScriptCompile Include="ng\common\polyfill.ts" />
     <TypeScriptCompile Include="ng\manage.ts" />
-    <TypeScriptCompile Include="ng\models\IAction.ts" />
+    <TypeScriptCompile Include="ng\models\Action.ts" />
     <TypeScriptCompile Include="ng\models\IArmTreeScope.ts" />
     <TypeScriptCompile Include="ng\models\IMetadataObject.ts" />
-    <TypeScriptCompile Include="ng\models\IResourceDefinition.ts" />
+    <TypeScriptCompile Include="ng\models\ResourceDefinition.ts" />
     <TypeScriptCompile Include="ng\models\IResourceSearch.ts" />
     <TypeScriptCompile Include="ng\models\ISelectHandlerReturn.ts" />
     <TypeScriptCompile Include="ng\models\ITenantDetails.ts" />
-    <TypeScriptCompile Include="ng\models\ITreeBranch.ts" />
+    <TypeScriptCompile Include="ng\models\TreeBranch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeControl.ts" />
     <TypeScriptCompile Include="ng\modules\resizerModule.ts" />
     <TypeScriptCompile Include="ng\scriptGenerators\ARMUrlParser.ts" />
@@ -431,7 +458,6 @@
     <TypeScriptCompile Include="ng\scriptGenerators\powershell\PowerShellScriptGenerator.ts" />
     <TypeScriptCompile Include="ng\scriptGenerators\scriptGeneratorCommon.ts" />
     <TypeScriptCompile Include="ng\scriptGenerators\ScriptParametersResolver.ts" />
-    <TypeScriptCompile Include="ng\services\utilities.ts" />
     <TypeScriptCompile Include="ng\typings\ace\ace.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular-cookies.d.ts" />
@@ -440,16 +466,16 @@
     <TypeScriptCompile Include="ng\typings\angularjs\angular-route.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="ng\typings\angularjs\mocks.d.ts" />
     <TypeScriptCompile Include="ng\typings\cryptojs\cryptojs.d.ts" />
     <TypeScriptCompile Include="ng\typings\jquery.cookie\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="ng\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="ng\AppStart\ArmClientRepository.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ng\AppStart\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

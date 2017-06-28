@@ -19,7 +19,7 @@
         private url: string = "";
         private urlParts: Array<string> = [];
 
-        constructor(private value: ISelectHandlerReturn, private actions: IAction[]) {
+        constructor(private value: ISelectHandlerReturn, private actions: Action[]) {
             this.url = value.url;
             this.originalUrl = value.url;
             if (this.isSecureGet(this.value.httpMethod, this.url)) {
@@ -69,7 +69,7 @@
             return this.value.httpMethod;
         }
 
-        getActions(): IAction[] {
+        getActions(): Action[] {
             return this.actions;
         }
 
@@ -104,7 +104,7 @@
                 }
                 // check for resource sub types
                 for (let i = ARMUrlParts.ResourceType1Value + 1; i < this.urlParts.length; i++) {
-                    if (i % 2 == 1) {
+                    if (i % 2 === 1) {
                         resourceIdentifier.resourceType += ("/" + this.urlParts[i]);
                     }
                     else {

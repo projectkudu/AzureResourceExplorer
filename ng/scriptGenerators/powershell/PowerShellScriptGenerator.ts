@@ -30,8 +30,8 @@
                 case CmdType.Invoke:
                 case CmdType.InvokeAction: {
                     if (commandInfo.isAction) {
-                        let currentAction: IAction = this.resolver.getActionParameters(this.actionsIndex);
-                        let parametersObject: string = currentAction.requestBody ? (`$ParametersObject = ${GetPSObjectFromJSON(currentAction.requestBody, 0)}\n`) : '';
+                        let currentAction: Action = this.resolver.getActionParameters(this.actionsIndex);
+                        let parametersObject: string = currentAction.requestBody ? (`$ParametersObject = ${ObjectUtils.getPsObjectFromJson(currentAction.requestBody, 0)}\n`) : '';
                         prefixString = `# Action ${this.resolver.getActionNameFromAction(this.actionsIndex)}\n${parametersObject}`;
                     }
                     else {
@@ -169,7 +169,7 @@
                 case CmdType.Invoke:
                 case CmdType.InvokeAction: {
                     if (cmdActionPair.isAction) {
-                        let currentAction: IAction = this.resolver.getActionParameters(this.actionsIndex++);
+                        let currentAction: Action = this.resolver.getActionParameters(this.actionsIndex++);
                         let parameters: string = currentAction.requestBody ? "-Parameters $ParametersObject" : "";
 
                         switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
