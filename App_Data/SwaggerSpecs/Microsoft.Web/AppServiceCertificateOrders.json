@@ -821,47 +821,36 @@
     "AppServiceCertificate": {
       "description": "Key Vault container for a certificate that is purchased through Azure.",
       "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Resource"
-        }
-      ],
       "properties": {
-        "properties": {
-          "description": "AppServiceCertificate resource specific properties",
-          "properties": {
-            "keyVaultId": {
-              "description": "Key Vault resource Id.",
-              "type": "string"
-            },
-            "keyVaultSecretName": {
-              "description": "Key Vault secret name.",
-              "type": "string"
-            },
-            "provisioningState": {
-              "description": "Status of the Key Vault secret.",
-              "enum": [
-                "Initialized",
-                "WaitingOnCertificateOrder",
-                "Succeeded",
-                "CertificateOrderFailed",
-                "OperationNotPermittedOnKeyVault",
-                "AzureServiceUnauthorizedToAccessKeyVault",
-                "KeyVaultDoesNotExist",
-                "KeyVaultSecretDoesNotExist",
-                "UnknownError",
-                "ExternalPrivateKey",
-                "Unknown"
-              ],
-              "type": "string",
-              "readOnly": true,
-              "x-ms-enum": {
-                "name": "KeyVaultSecretStatus",
-                "modelAsString": false
-              }
-            }
-          },
-          "x-ms-client-flatten": true
+        "keyVaultId": {
+          "description": "Key Vault resource Id.",
+          "type": "string"
+        },
+        "keyVaultSecretName": {
+          "description": "Key Vault secret name.",
+          "type": "string"
+        },
+        "provisioningState": {
+          "description": "Status of the Key Vault secret.",
+          "enum": [
+            "Initialized",
+            "WaitingOnCertificateOrder",
+            "Succeeded",
+            "CertificateOrderFailed",
+            "OperationNotPermittedOnKeyVault",
+            "AzureServiceUnauthorizedToAccessKeyVault",
+            "KeyVaultDoesNotExist",
+            "KeyVaultSecretDoesNotExist",
+            "UnknownError",
+            "ExternalPrivateKey",
+            "Unknown"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "KeyVaultSecretStatus",
+            "modelAsString": false
+          }
         }
       }
     },
@@ -1099,39 +1088,7 @@
       ],
       "properties": {
         "properties": {
-          "description": "AppServiceCertificateResource resource specific properties",
-          "properties": {
-            "keyVaultId": {
-              "description": "Key Vault resource Id.",
-              "type": "string"
-            },
-            "keyVaultSecretName": {
-              "description": "Key Vault secret name.",
-              "type": "string"
-            },
-            "provisioningState": {
-              "description": "Status of the Key Vault secret.",
-              "enum": [
-                "Initialized",
-                "WaitingOnCertificateOrder",
-                "Succeeded",
-                "CertificateOrderFailed",
-                "OperationNotPermittedOnKeyVault",
-                "AzureServiceUnauthorizedToAccessKeyVault",
-                "KeyVaultDoesNotExist",
-                "KeyVaultSecretDoesNotExist",
-                "UnknownError",
-                "ExternalPrivateKey",
-                "Unknown"
-              ],
-              "type": "string",
-              "readOnly": true,
-              "x-ms-enum": {
-                "name": "KeyVaultSecretStatus",
-                "modelAsString": false
-              }
-            }
-          },
+          "$ref": "#/definitions/AppServiceCertificate",
           "x-ms-client-flatten": true
         }
       }
