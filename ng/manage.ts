@@ -33,6 +33,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     $scope.treeControl.collapse_branch(parent);
                     $timeout(() => {
                         $scope.expandResourceHandler(parent, undefined, undefined, undefined, true /*dontFilterEmpty*/);
+                        $scope.treeControl.select_branch(parent);
                     });
                 }
 
