@@ -333,6 +333,12 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serviceObjectives.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\sql.core.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\usages.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\functions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\inputs.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\outputs.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\streamingjobs.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\subscriptions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\transformations.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
