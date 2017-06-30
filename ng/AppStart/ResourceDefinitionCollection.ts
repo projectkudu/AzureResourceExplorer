@@ -67,6 +67,15 @@
         return operation;
     }
 
+    private removeActionLessDefinitions() {
+        for (let index = this.resourcesDefinitionsTable.length - 1; index >= 0; index--) {
+            const resourceDefinition = this.resourcesDefinitionsTable[index];
+            if (resourceDefinition.hideFromExplorerView()) {
+                this.resourcesDefinitionsTable.splice(index, 1);
+            }
+        }
+    }
+
     async buildResourceDefinitions() {
         const applicableProviders = await this.repository.getApplicableProvidersAsync();
         const applicableOperationsResponse = await this.repository.getApplicableOperations(applicableProviders);
@@ -79,6 +88,7 @@
             this.addOperation(operation);
         });
         this.sortChildren();
+        this.removeActionLessDefinitions();
     }
 
     private sortChildren() {
