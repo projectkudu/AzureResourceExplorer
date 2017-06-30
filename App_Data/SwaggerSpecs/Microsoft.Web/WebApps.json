@@ -13652,24 +13652,44 @@
     "MSDeploy": {
       "description": "MSDeploy ARM PUT information",
       "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Resource"
-        }
-      ],
       "properties": {
-        "properties": {
-          "$ref": "#/definitions/MSDeployCore",
-          "properties": {
-            "addOnPackages": {
-              "description": "List of Add-On packages. Add-On packages implicitly enable the Do Not Delete MSDeploy rule.",
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/MSDeployCore"
-              }
-            }
-          },
-          "x-ms-client-flatten": true
+        "addOnPackages": {
+          "description": "List of Add-On packages. Add-On packages implicitly enable the Do Not Delete MSDeploy rule.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MSDeployCore"
+          }
+        },
+        "packageUri": {
+          "description": "Package URI",
+          "type": "string"
+        },
+        "connectionString": {
+          "description": "SQL Connection String",
+          "type": "string"
+        },
+        "dbType": {
+          "description": "Database Type",
+          "type": "string"
+        },
+        "setParametersXmlFileUri": {
+          "description": "URI of MSDeploy Parameters file. Must not be set if SetParameters is used.",
+          "type": "string"
+        },
+        "setParameters": {
+          "description": "MSDeploy Parameters. Must not be set if SetParametersXmlFileUri is used.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MSDeployParameterEntry"
+          }
+        },
+        "skipAppData": {
+          "description": "Controls whether the MSDeploy operation skips the AppData directory. If set to true, the existing AppData directory on the destination will not be deleted and overwritten.",
+          "type": "boolean"
+        },
+        "appOffline": {
+          "description": "Sets the AppOffline rule while the MSDeploy operation executes.",
+          "type": "boolean"
         }
       }
     },
@@ -13692,6 +13712,13 @@
         "setParametersXmlFileUri": {
           "description": "URI of MSDeploy Parameters file. Must not be set if SetParameters is used.",
           "type": "string"
+        },
+        "setParameters": {
+          "description": "MSDeploy Parameters. Must not be set if SetParametersXmlFileUri is used.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MSDeployParameterEntry"
+          }
         },
         "skipAppData": {
           "description": "Controls whether the MSDeploy operation skips the AppData directory. If set to true, the existing AppData directory on the destination will not be deleted and overwritten.",
@@ -13748,58 +13775,61 @@
         }
       }
     },
+    "MSDeployParameterEntry": {
+      "description": "MSDeploy ARM PUT core information",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "Parameter name",
+          "type": "string"
+        },
+        "value": {
+          "description": "Parameter value",
+          "type": "string"
+        }
+      }
+    },
     "MSDeployStatus": {
       "description": "MSDeploy ARM response",
       "type": "object",
-      "allOf": [
-        {
-          "$ref": "#/definitions/Resource"
-        }
-      ],
       "properties": {
-        "properties": {
-          "description": "MSDeployStatus resource specific properties",
-          "properties": {
-            "deployer": {
-              "description": "Username of deployer",
-              "type": "string",
-              "readOnly": true
-            },
-            "provisioningState": {
-              "description": "Provisioning state",
-              "enum": [
-                "accepted",
-                "running",
-                "succeeded",
-                "failed",
-                "canceled"
-              ],
-              "type": "string",
-              "readOnly": true,
-              "x-ms-enum": {
-                "name": "MSDeployProvisioningState",
-                "modelAsString": false
-              }
-            },
-            "startTime": {
-              "format": "date-time",
-              "description": "Start time of deploy operation",
-              "type": "string",
-              "readOnly": true
-            },
-            "endTime": {
-              "format": "date-time",
-              "description": "End time of deploy operation",
-              "type": "string",
-              "readOnly": true
-            },
-            "complete": {
-              "description": "Whether the deployment operation has completed",
-              "type": "boolean",
-              "readOnly": true
-            }
-          },
-          "x-ms-client-flatten": true
+        "deployer": {
+          "description": "Username of deployer",
+          "type": "string",
+          "readOnly": true
+        },
+        "provisioningState": {
+          "description": "Provisioning state",
+          "enum": [
+            "accepted",
+            "running",
+            "succeeded",
+            "failed",
+            "canceled"
+          ],
+          "type": "string",
+          "readOnly": true,
+          "x-ms-enum": {
+            "name": "MSDeployProvisioningState",
+            "modelAsString": false
+          }
+        },
+        "startTime": {
+          "format": "date-time",
+          "description": "Start time of deploy operation",
+          "type": "string",
+          "readOnly": true
+        },
+        "endTime": {
+          "format": "date-time",
+          "description": "End time of deploy operation",
+          "type": "string",
+          "readOnly": true
+        },
+        "complete": {
+          "description": "Whether the deployment operation has completed",
+          "type": "boolean",
+          "readOnly": true
         }
       }
     },
