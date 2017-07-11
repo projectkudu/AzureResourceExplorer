@@ -1,7 +1,7 @@
 ﻿module armExplorer
 {
 angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ui.ace"])
-    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$q", "$timeout", "rx", "$document", ($scope: IArmTreeScope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $q: ng.IQService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService) => {
+    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$timeout", "rx", "$document", ($scope: IArmTreeScope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService) => {
 
         $scope.treeControl = <ITreeControl>{};
         $scope.createModel = <ICreateModel>{};
@@ -188,6 +188,41 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return Promise.resolve().then(invokePutFinallyCallback);
         };
 
+        function keepChildPredicate(childName: string, resourceDefinition: ResourceDefinition, dontFilterEmpty: boolean, branch: TreeBranch,
+            providersFilter: any[]): boolean {
+                const childDefinition = $scope.resourceDefinitionsCollection.getResourceDefinitionByNameAndUrl(childName,
+                    resourceDefinition.url + "/" + childName);
+
+                let keepChild = false;
+                if (childDefinition && (childDefinition.children || !childDefinition.hasPostAction())) {
+                    if (dontFilterEmpty) {
+                        keepChild = true;
+                    } else {
+                        keepChild = keepChildrenBasedOnExistingResources(branch, childName, providersFilter);
+                    }
+                }
+                return keepChild;
+        }
+
+        function getSubscriptionBranch(branch: TreeBranch): TreeBranch {
+            if (!branch || isItemOf(branch, "subscriptions")) {
+                return branch;
+            } else {
+                return getSubscriptionBranch($scope.treeControl.get_parent_branch(branch));
+            }
+        }
+
+        async function getProvidersForBranch(branch: TreeBranch): Promise<any[]> {
+            let providers: any[] = undefined;
+            const subscriptionBranch = getSubscriptionBranch(branch);
+            if (subscriptionBranch) {
+                const repository = new ArmClientRepository($http);
+                const subscriptionsResponse = await repository.getProvidersForSubscription(subscriptionBranch.value);
+                providers = subscriptionsResponse.data;
+            }
+            return providers;
+        }
+
         $scope.expandResourceHandler = async (branch: TreeBranch, row: any, event: Event, dontExpandChildren: boolean, dontFilterEmpty: boolean): Promise<any> => {
 
             if (branch.is_leaf) return Promise.resolve();
@@ -208,44 +243,25 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             // else if string
             //      this means it's a Url that we need to ge fetch and display.
 
-            var children = resourceDefinition.children;
+            const children = resourceDefinition.children;
             if (typeof children !== "string" && Array.isArray(children)) {
                 // if we are expanding an element of subscriptions (a subscription),
                 // then we need to make a request to the server to get a list of available providers in its resourceGroups
                 // then we can continue with normal expanding of an item
-                var originalIconForSubscriptions: string;
 
                 try {
-                    if (isItemOf(branch, "subscriptions")) {
-                        originalIconForSubscriptions = showExpandingTreeItemIcon(row, branch);
-                        const repository = new ArmClientRepository($http);
-                        const subscriptionsResponse = await repository.getProvidersForSubscription(branch.value);
-                        branch.providersFilter = subscriptionsResponse.data;
-                    }
-                } catch (error) {
-                    console.log(error);
-                }
-                finally {
-                    if (isItemOf(branch, "subscriptions")) {
-                        endExpandingTreeItem(branch, originalIconForSubscriptions);
-                    }
-                    let childrenArray: string[] = children;
-                    var isListFiltered = false;
-                    branch.children = childrenArray.filter((childName) => {
-                        var childDefinition = $scope.resourceDefinitionsCollection.getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
+                    const originalTreeIcon = showExpandingTreeItemIcon(row, branch);
+                    const providersFilter: any[] = await getProvidersForBranch(branch);
 
-                        let shouldAllowChild = false;
-                        if (childDefinition && (childDefinition.children || !childDefinition.hasPostAction())) {
-                            if (dontFilterEmpty) {
-                                shouldAllowChild = true;
-                            } else {
-                                shouldAllowChild = keepChildrenBasedOnExistingResources(branch, childName);
-                                isListFiltered = isListFiltered || !shouldAllowChild;
-                            }
-                        }
-                        return shouldAllowChild;
-                    }).map(childName => {
-                        var childDefinition = $scope.resourceDefinitionsCollection.getResourceDefinitionByNameAndUrl(childName, resourceDefinition.url + "/" + childName);
+                    const filteredChildren: string[] = children.filter((child: string) => {
+                        return keepChildPredicate(child, resourceDefinition, dontFilterEmpty, branch, providersFilter);
+                    });
+                    const isListFiltered = filteredChildren.length !== children.length;
+
+                    branch.children = filteredChildren.map((childName: string) => {
+                        const childDefinition = $scope.resourceDefinitionsCollection.getResourceDefinitionByNameAndUrl(
+                            childName,
+                            resourceDefinition.url + "/" + childName);
                         const newTreeBranch = new TreeBranch(childName);
                         newTreeBranch.resourceDefinition = childDefinition;
                         newTreeBranch.is_leaf = (childDefinition.children ? false : true);
@@ -254,6 +270,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         newTreeBranch.iconNameOverride = null;
                         return newTreeBranch;
                     });
+
+                    endExpandingTreeItem(branch, originalTreeIcon);
 
                     var offset = 0;
                     if (!dontFilterEmpty && isListFiltered) {
@@ -273,6 +291,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     if ((branch.children.length - offset) === 1 && !dontExpandChildren) {
                         $timeout(() => { $scope.expandResourceHandler($scope.treeControl.get_first_non_instruction_child(branch)); });
                     }
+                } catch (error) {
+                    console.log(error);
                 }
             } else if (typeof children === "string") {
                 var getUrl = branch.elementUrl;
@@ -328,28 +348,28 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             return Promise.resolve();
         };
 
-        function keepChildrenBasedOnExistingResources(branch: TreeBranch, childName: string): boolean {
+        function keepChildrenBasedOnExistingResources(branch: TreeBranch, childName: string, providersFilter: any[]): boolean {
             const parent = $scope.treeControl.get_parent_branch(branch);
+            let keepChild: boolean = true;
             if (branch.label === "providers") {
                 // filter the providers by providersFilter
-                const providersFilter: any = getProvidersFilter(branch);
                 if (providersFilter) {
                     const currentResourceGroup = (parent && isItemOf(parent, "resourceGroups") ? parent.label : undefined);
                     if (currentResourceGroup) {
                         const currentResourceGroupProviders: any = providersFilter[currentResourceGroup.toUpperCase()];
                         if (currentResourceGroupProviders) {
                             branch.currentResourceGroupProviders = currentResourceGroupProviders;
-                            return (currentResourceGroupProviders[childName.toUpperCase()] ? true : false);
+                            keepChild = (currentResourceGroupProviders[childName.toUpperCase()] ? true : false);
                         } else {
-                            return false;
+                            keepChild = false;
                         }
                     }
                 }
             } else if (parent && parent.currentResourceGroupProviders) {
-                return parent.currentResourceGroupProviders[branch.label.toUpperCase()] &&
+                keepChild = parent.currentResourceGroupProviders[branch.label.toUpperCase()] &&
                     parent.currentResourceGroupProviders[branch.label.toUpperCase()].some((c: string) => c.toUpperCase() === childName.toUpperCase());
             }
-            return true;
+            return keepChild;
         }
 
         $scope.tenantSelect = () => {
@@ -793,18 +813,6 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         function endExpandingTreeItem(branch: TreeBranch, originalTreeIcon: string) {
             $(document.getElementById(`expand-icon-${branch.uid}`)).removeClass("fa fa-spinner fa-spin").addClass(originalTreeIcon);
-        }
-
-        function getProvidersFilter(branch: TreeBranch): any[] {
-            let providersFilter: any[] = undefined;
-            if (branch) {
-                if (branch.providersFilter) {
-                    providersFilter = branch.providersFilter;
-                } else {
-                    providersFilter = getProvidersFilter($scope.treeControl.get_parent_branch(branch));
-                }
-            }
-            return providersFilter;
         }
 
         function getTreeBranchProjection(childDefinition: ResourceDefinition): ITreeBranchDataOverrides {
