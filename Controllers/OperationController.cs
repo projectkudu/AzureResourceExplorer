@@ -56,19 +56,45 @@ namespace ARMExplorer.Controllers
             return swaggerSpec;
         }
 
+        private async Task<HashSet<string>> GetProviderNamesFor(HttpRequestMessage requestMessage, string subscriptionId)
+        {
+            try
+            {
+                return await _armRepository.GetproviderNamesFor(requestMessage, subscriptionId);
+            }
+            catch (Exception)
+            {
+                // Return empty set as fallback
+                return new HashSet<string>();
+            }
+        }
+
         [Authorize]
         public async Task<HttpResponseMessage> GetAllProviders()
         {
+            var watch = Stopwatch.StartNew();
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
 
             var allProviders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            var tasks = new List<Task<HashSet<string>>>();
             foreach (var subscriptionId in await _armRepository.GetSubscriptionIdsAsync(Request))
             {
-                allProviders.UnionWith(await _armRepository.GetproviderNamesFor(Request, subscriptionId));
+                tasks.Add(GetProviderNamesFor(Request, subscriptionId));
             }
+
+            foreach (var hashSet in await Task.WhenAll(tasks))
+            {
+                allProviders.UnionWith(hashSet);
+            }
+
             // This makes the Microsoft.Resources provider show up for any groups that have other resources
             allProviders.Add("MICROSOFT.RESOURCES");
-            return Request.CreateResponse(HttpStatusCode.OK, allProviders);
+
+            watch.Stop();
+
+            var httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, allProviders);
+            httpResponseMessage.Headers.Add("TimeElapsedMs", watch.ElapsedMilliseconds.ToString());
+            return httpResponseMessage;
         }
 
         [Authorize]
