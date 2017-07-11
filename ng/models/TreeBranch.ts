@@ -1,6 +1,5 @@
 ﻿class TreeBranch {
     currentResourceGroupProviders?: any;
-    providersFilter?: any[];
     uid?: number;
     label: string;
     value?: string;
