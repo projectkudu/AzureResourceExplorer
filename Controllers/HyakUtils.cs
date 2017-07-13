@@ -149,7 +149,7 @@ namespace ARMExplorer.Controllers
                     MethodName = "GetInstanceView",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/InstanceView",
-                    ApiVersion = "2015-05-01-preview"
+                    ApiVersion = "2017-03-30"
                 },
                 new MetadataObject
                 {
