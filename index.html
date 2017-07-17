@@ -232,6 +232,14 @@
     </div>
     <div id="dark-blocker" class="dark-full-site-blocker" style="display: none"></div>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        try {
+            eval('"use strict"; class foo {}');
+        } catch (e) {
+            var browserSupportOverlay = jQuery('<div id="browserSupportOverlay"> Your browser is not supported. <br> Please use any of the following browsers: Mozilla Firefox, Google Chrome, Microsoft Edge </div>');
+            browserSupportOverlay.appendTo(document.body);
+        }
+    </script>
 </body>
 
 </html>
