@@ -40,7 +40,7 @@ namespace ARMExplorer.Controllers
             return subscriptionIds;
         }
 
-        public async Task<HashSet<string>> GetproviderNamesFor(HttpRequestMessage requestMessage, string subscriptionId)
+        public async Task<HashSet<string>> GetProviderNamesFor(HttpRequestMessage requestMessage, string subscriptionId)
         {
             var response = await GetResourcesForAsync(requestMessage, subscriptionId);
             response.EnsureSuccessStatusCode();
