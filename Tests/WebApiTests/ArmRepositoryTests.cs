@@ -23,7 +23,7 @@ namespace Tests.WebApiTests
         public void TestGetproviderNamesFor()
         {
             var armRepository = new ArmRepository(new MockHttpClientWrapper());
-            var providerNames = armRepository.GetproviderNamesFor(null, "00000000-0000-0000-0000-000000000003").Result;
+            var providerNames = armRepository.GetProviderNamesFor(null, "00000000-0000-0000-0000-000000000003").Result;
             Assert.Equal(10,providerNames.Count);
             HashSet<string> expectedProviderNames = new HashSet<string>{ "MICROSOFT.EVENTHUB", "MICROSOFT.INSIGHTS", "MICROSOFT.KEYVAULT", "MICROSOFT.SQL", "MICROSOFT.STORAGE", "MICROSOFT.WEB", "MICROSOFT.CLASSICCOMPUTE", "MICROSOFT.NETWORK", "MICROSOFT.PORTAL", "MICROSOFT.CLASSICSTORAGE" }; 
             Assert.Equal(expectedProviderNames.Count, providerNames.Count);
