@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SwaggerParserTests\ParseMultiFileSwaggerTests.cs" />
+    <Compile Include="SwaggerParserTests\ParseQueryStringParametersTest.cs" />
     <Compile Include="SwaggerParserTests\ParseSingleFileSwaggerTests.cs" />
     <Compile Include="SwaggerParserTests\ParserValidationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,6 +86,8 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Resource\arm-commerce\2015-06-01-preview\examples\GetRatecard.json" />
+    <None Include="Resource\arm-commerce\2015-06-01-preview\swagger\commerce.json" />
     <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterCreate.json" />
     <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterDelete.json" />
     <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterGet.json" />

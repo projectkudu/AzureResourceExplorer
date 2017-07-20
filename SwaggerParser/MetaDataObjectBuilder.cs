@@ -90,11 +90,31 @@ namespace ARMExplorer.SwaggerParser
                         RequestBody = GetRequestBodyForOperation(operation, false),
                         RequestBodyDoc = GetRequestBodyForOperation(operation, true),
                         ApiVersion = GetApiVersionForOperation(methodNameOperationPair.Value),
+                        Query = GetQueryParameters(operation)
                     };
                     metadataObjects.Add(metadataObject);
                 }
             }
             return metadataObjects;
+        }
+
+
+        private SwaggerParameter ResolveReferenceParameter(SwaggerParameter referenceParameter)
+        {
+            try
+            {
+                return _serviceDefinition.Parameters[referenceParameter.Reference.Split('/')[2]];
+            }
+            catch (Exception)
+            {
+                return new SwaggerParameter();
+            }
+        }
+
+        private IEnumerable<string> GetQueryParameters(Operation operation)
+        {
+            var parameters = operation.Parameters.Select(parameter => parameter.Reference != null ? ResolveReferenceParameter(parameter) : parameter);
+            return parameters.Where(parameter => parameter.In.Equals(ParameterLocation.Query) && parameter.IsRequired).Select(parameter => parameter.Name);
         }
 
         public JObject GetRequestBodyForOperation(Operation operation, bool getDescription)
@@ -195,7 +215,6 @@ namespace ARMExplorer.SwaggerParser
                         if (allOfSchema.Reference != null)
                         {
                             jObject = GetRequestBody(GetSchemaFromReferenceString(allOfSchema.Reference), getDescription, level);
-                            //return GetRequestBody(GetSchemaFromReferenceString(allOfSchema.Reference), getDescription, level);
                         }
                         if (allOfSchema.Properties != null)
                         {

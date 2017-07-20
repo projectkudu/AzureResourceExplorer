@@ -20,12 +20,13 @@
         return requestBody;
     }
 
-    getQueryString(actionsModel: any): string {
+    getQueryString(queryParameters: any): string {
         let queryString : string = undefined;
         if (this.query) {
             queryString = this.query.reduce((previous, current) => {
-                return previous + ((actionsModel[current] && actionsModel[current].trim() !== "")
-                    ? `&${current}=${actionsModel[current].trim()}`
+                const querySeparator = (previous === "") ? "?" : "&";
+                return previous + ((queryParameters[current] && queryParameters[current].trim() !== "")
+                    ? `${querySeparator}${current}=${queryParameters[current].trim()}`
                     : "");
             }, "");
         }

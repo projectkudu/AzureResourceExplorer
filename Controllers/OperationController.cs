@@ -136,7 +136,7 @@ namespace ARMExplorer.Controllers
             // escaping "#" as it may appear in some resource names
             info.Url = info.Url.Replace("#", "%23");
 
-            var executeRequest = new HttpRequestMessage(new HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=", StringComparison.Ordinal) != -1 ? string.Empty : "?api-version=" + info.ApiVersion) + (string.IsNullOrEmpty(info.QueryString) ? string.Empty : info.QueryString));
+            var executeRequest = new HttpRequestMessage(new HttpMethod(info.HttpMethod), info.Url + info.QueryString);
             if (info.RequestBody != null)
             {
                 executeRequest.Content = new StringContent(info.RequestBody.ToString(), Encoding.UTF8, "application/json");
