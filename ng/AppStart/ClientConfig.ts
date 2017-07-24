@@ -1,4 +1,6 @@
-﻿class ClientConfig {
+﻿import {ResourceDefinition} from "../models/ResourceDefinition";
+
+export class ClientConfig {
 
     // Define any overrides for display label and sort key/order for tree nodes
     // Rule matching is performing by checking whether the childDefinition.url ends with the childDefinitionUrlSuffix

@@ -1,4 +1,4 @@
-﻿class ResourceSearchDataModel implements IResourceSearch {
+﻿export class ResourceSearchDataModel implements IResourceSearch {
     searchKeyword: string;
     isSuggestListDisplay: boolean;
     suggestions: IResourceSearchSuggestion[];

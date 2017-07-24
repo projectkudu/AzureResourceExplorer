@@ -1,4 +1,6 @@
-﻿interface ITreeControl {
+﻿import {TreeBranch} from "./TreeBranch";
+
+export interface ITreeControl {
     expand_all();
     collapse_all();
     get_first_branch(): TreeBranch;

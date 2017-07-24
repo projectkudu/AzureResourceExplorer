@@ -1,4 +1,7 @@
-﻿class ResourceDefinition {
+﻿import {StringExtensions} from "../polyfill/StringExtensions";
+import {ObjectUtils} from "../common/ObjectUtils";
+
+export class ResourceDefinition {
     actions: string[];
     requestBody?: any;
     responseBody?: any;
@@ -49,7 +52,7 @@
 
     // Hide operation urls which do not have any actions on them to avoid confusing users. This could happen if we don't have swagger metadata for these operations.
     hideFromExplorerView(): boolean {
-        return (this.actions.length === 0) && !this.url.contains("providers", true);
+        return (this.actions.length === 0) && !StringExtensions.contains(this.url, "providers", true);
     }
 
 }

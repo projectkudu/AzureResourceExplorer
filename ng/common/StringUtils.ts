@@ -1,4 +1,4 @@
-﻿class StringUtils {
+﻿export class StringUtils {
     static selectiveUrlencode(url: string) : string{
         return url.replace(/\#/g, '%23').replace(/\s/g, '%20');
     }

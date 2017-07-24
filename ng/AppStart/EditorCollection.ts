@@ -1,48 +1,48 @@
-﻿enum Editor {
-    ResponseEditor, RequestEditor, CreateEditor, PowershellEditor, AzureCliEditor
-}
+﻿import {EditorType} from "./EditorType";
+import {StringUtils} from "../common/StringUtils";
+import {ObjectUtils} from "../common/ObjectUtils";
 
-class EditorCollection {
+export class EditorCollection {
     private editors: AceAjax.Editor[] = [null, null, null, null, null];
 
     constructor() {
-        this.editors[Editor.ResponseEditor] = ace.edit("response-json-editor");
-        this.editors[Editor.RequestEditor] = ace.edit("request-json-editor");
-        this.editors[Editor.CreateEditor] = ace.edit("json-create-editor");
-        this.editors[Editor.PowershellEditor] = ace.edit("powershell-editor");
-        this.editors[Editor.AzureCliEditor] = ace.edit("azurecli-editor");
+        this.editors[EditorType.ResponseEditor] = ace.edit("response-json-editor");
+        this.editors[EditorType.RequestEditor] = ace.edit("request-json-editor");
+        this.editors[EditorType.CreateEditor] = ace.edit("json-create-editor");
+        this.editors[EditorType.PowershellEditor] = ace.edit("powershell-editor");
+        this.editors[EditorType.AzureCliEditor] = ace.edit("azurecli-editor");
     }
 
-    getValue(editor: Editor, cleanObject: boolean): any {
+    getValue(editor: EditorType, cleanObject: boolean): any {
         const currentEditor = this.editors[editor];
         let value = JSON.parse(currentEditor.getValue());
         if (cleanObject) ObjectUtils.cleanObject(value);
         return value;
     }
 
-    setValue(editor: Editor, stringValue: string) {
+    setValue(editor: EditorType, stringValue: string) {
         const currentEditor = this.editors[editor];
         currentEditor.setValue(stringValue);
         currentEditor.session.selection.clearSelection();
         currentEditor.moveCursorTo(0,0);
     }
 
-    setMode(editor: Editor, mode: string) {
+    setMode(editor: EditorType, mode: string) {
         const currentEditor = this.editors[editor];
         currentEditor.getSession().setMode(mode);
     }
 
-    setTheme(editor: Editor, theme: string) {
+    setTheme(editor: EditorType, theme: string) {
         const currentEditor = this.editors[editor];
         currentEditor.setTheme(theme);
     }
 
-    setShowGutter(editor: Editor, showGutter: boolean) {
+    setShowGutter(editor: EditorType, showGutter: boolean) {
         const currentEditor = this.editors[editor];
         currentEditor.renderer.setShowGutter(showGutter);
     }
 
-    setReadOnly(editor: Editor, setBackground?: boolean) {
+    setReadOnly(editor: EditorType, setBackground?: boolean) {
         const currentEditor = this.editors[editor];
         setBackground = typeof setBackground !== 'undefined' ? setBackground : true;
         currentEditor.setOptions({
@@ -62,7 +62,7 @@ class EditorCollection {
         this.editors.map(callbackFn);
     }
 
-    resize(editor: Editor) {
+    resize(editor: EditorType) {
         const currentEditor = this.editors[editor];
         currentEditor.resize();
     }
@@ -82,21 +82,21 @@ class EditorCollection {
             commandManager.removeCommand("find");
         });
 
-        this.setReadOnly(Editor.ResponseEditor);
-        this.setValue(Editor.ResponseEditor, StringUtils.stringify({ message: "Select a node to start" }));
+        this.setReadOnly(EditorType.ResponseEditor);
+        this.setValue(EditorType.ResponseEditor, StringUtils.stringify({ message: "Select a node to start" }));
 
-        this.setReadOnly(Editor.PowershellEditor, false);
-        this.setReadOnly(Editor.AzureCliEditor, false);
-        this.setTheme(Editor.PowershellEditor, "ace/theme/tomorrow_night_blue");
-        this.setTheme(Editor.AzureCliEditor, "ace/theme/tomorrow_night_blue");
-        this.setShowGutter(Editor.PowershellEditor, false);
-        this.setShowGutter(Editor.AzureCliEditor, false);
+        this.setReadOnly(EditorType.PowershellEditor, false);
+        this.setReadOnly(EditorType.AzureCliEditor, false);
+        this.setTheme(EditorType.PowershellEditor, "ace/theme/tomorrow_night_blue");
+        this.setTheme(EditorType.AzureCliEditor, "ace/theme/tomorrow_night_blue");
+        this.setShowGutter(EditorType.PowershellEditor, false);
+        this.setShowGutter(EditorType.AzureCliEditor, false);
 
-        this.setMode(Editor.PowershellEditor, "ace/mode/powershell");
-        this.setValue(Editor.PowershellEditor, "# PowerShell equivalent script");
+        this.setMode(EditorType.PowershellEditor, "ace/mode/powershell");
+        this.setValue(EditorType.PowershellEditor, "# PowerShell equivalent script");
 
-        this.setMode(Editor.AzureCliEditor, "ace/mode/sh");
-        this.setValue(Editor.AzureCliEditor, "# Azure CLI 2.0 equivalent script");
+        this.setMode(EditorType.AzureCliEditor, "ace/mode/sh");
+        this.setValue(EditorType.AzureCliEditor, "# Azure CLI 2.0 equivalent script");
     }
 
 }

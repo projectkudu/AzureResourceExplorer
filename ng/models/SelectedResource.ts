@@ -1,4 +1,6 @@
-﻿interface ISelectedResource {
+﻿import {Action} from "./Action";
+
+export interface ISelectedResource {
     url: string;
     actionsAndVerbs: Action[];
     httpMethods: string[];

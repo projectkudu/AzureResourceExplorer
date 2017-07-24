@@ -1,4 +1,7 @@
-﻿class ResourcesCache implements IResearchSearchCache {
+﻿import {ArmClientRepository} from "../AppStart/ArmClientRepository";
+import {StringExtensions} from "../polyfill/StringExtensions";
+
+export class ResourcesCache implements IResearchSearchCache {
 
     data: any;
     timestamp: number;
@@ -48,9 +51,10 @@
     }
 
     private suggestionSortFunc = (a: any, b: any): number => {
-        var result = a.type.compare(b.type, true /*ignore case*/);
+
+        const result = StringExtensions.compare(a.type, b.type, true /*ignore case*/);
         if (result === 0) {
-            return a.name.compare(b.name, true /*ignore case*/);
+            return StringExtensions.compare(a.name, b.name, true /*ignore case*/);
         }
         return result;
     };

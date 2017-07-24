@@ -1,4 +1,4 @@
-﻿class ObjectUtils {
+﻿export class ObjectUtils {
 
     static isEmptyObjectOrArray(obj: any): boolean {
         if (typeof obj === "number" || typeof obj === "boolean") return false;

@@ -1,4 +1,7 @@
-﻿interface ISelectHandlerReturn {
+﻿import {ResourceDefinition} from "./ResourceDefinition";
+import {TreeBranch} from "./TreeBranch";
+
+export interface ISelectHandlerReturn {
     resourceDefinition: ResourceDefinition;
     data: any;
     url: string;

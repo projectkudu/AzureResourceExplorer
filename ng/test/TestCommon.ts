@@ -1,6 +1,6 @@
-﻿module armExplorer {
+﻿export class TestCommon {
 
-    export function keyCount(arg: any) {
+    static keyCount(arg: any) {
         let count: number = 0;
         for (let key in arg) {
             if (arg.hasOwnProperty(key)) {
@@ -10,33 +10,33 @@
         return count;
     }
 
-    export function throwIfObjectNotEqual<T>(expected: T, actual: T) {
-        throwIfNotEqual(keyCount(expected), keyCount(actual));
+    static throwIfObjectNotEqual<T>(expected: T, actual: T) {
+        TestCommon.throwIfNotEqual(TestCommon.keyCount(expected), TestCommon.keyCount(actual));
         for (let key in expected) {
             if (expected.hasOwnProperty(key)) {
                 if (typeof expected[key] === 'object') {
-                    throwIfObjectNotEqual(expected[key], actual[key]);
+                    TestCommon.throwIfObjectNotEqual(expected[key], actual[key]);
                 } else {
-                    throwIfNotEqual(expected[key], actual[key]);
+                    TestCommon.throwIfNotEqual(expected[key], actual[key]);
                 }
             }
         }
     }
 
-    export function throwIfArrayNotEqual<T>(expectedStrings: Array<T>, actualStrings: Array<T>) {
+    static throwIfArrayNotEqual<T>(expectedStrings: Array<T>, actualStrings: Array<T>) {
         if (expectedStrings.length != actualStrings.length) {
             throw new Error("Expected: " + expectedStrings.length + "\nActual: " + actualStrings.length + "\n");
         }
         for (let i in expectedStrings) {
             if (expectedStrings.hasOwnProperty(i)) {
-                throwIfNotEqual(expectedStrings[i], actualStrings[i]);
+                TestCommon.throwIfNotEqual(expectedStrings[i], actualStrings[i]);
             }
         }
     }
 
-    export function throwIfNotEqual<T>(expected: T, actual: T) {
+    static throwIfNotEqual<T>(expected: T, actual: T) {
         if (typeof expected === 'object') {
-            throwIfObjectNotEqual(expected, actual);
+            TestCommon.throwIfObjectNotEqual(expected, actual);
         }
         else {
             if (expected !== actual) {
@@ -45,15 +45,16 @@
         }
     }
 
-    export function throwIfDefined(arg: any) {
+    static throwIfDefined(arg: any) {
         if (typeof arg === 'undefined')
             return;
         throw new Error("Expected: undefined Actual: " + arg);
     }
 
-    export function logSuccess(callerArg: IArguments) {
+    static logSuccess(callerArg: IArguments) {
         let currentFunction = callerArg.callee.toString();
         console.log(currentFunction.substr(0, currentFunction.indexOf('(')).replace("function", "TEST") + " :PASSED");
     }
 
 }
+

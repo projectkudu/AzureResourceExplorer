@@ -157,11 +157,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\HydraSpecs\*.dll" />
+    <Content Include="ng\abntree\abn_tree_directive.js" />
+    <Content Include="Content\Scripts\rx.angular.js" />
     <Content Include="Content\Scripts\ui-ace.min.js" />
     <Content Include="Content\Styles\app2.css" />
     <Content Include="Images\ARMExplorer.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ng\abntree\index.js" />
     <Content Include="ng\manage2.js" />
     <Content Include="applicationHost.xdt" />
     <Content Include="packages.config" />
@@ -339,6 +342,9 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\streamingjobs.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\subscriptions.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\transformations.json" />
+    <Content Include="tsconfig.json" />
+    <Content Include="package.json" />
+    <Content Include="webpack.config.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -347,8 +353,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Scripts\abn_tree_directive.js" />
-    <Content Include="Content\Scripts\rx.angular.js" />
     <Content Include="Content\Styles\abn_tree.css" />
     <Content Include="Content\Styles\app.css" />
     <Content Include="Content\Styles\sb-admin-2.css" />
@@ -425,10 +429,29 @@
     <TypeScriptCompile Include="ng\AppStart\ClientConfig.ts" />
     <TypeScriptCompile Include="ng\AppStart\DocumentationGenerator.ts" />
     <TypeScriptCompile Include="ng\AppStart\EditorCollection.ts" />
+    <TypeScriptCompile Include="ng\AppStart\EditorType.ts" />
     <TypeScriptCompile Include="ng\models\ICreateModel.ts" />
     <TypeScriptCompile Include="ng\common\ObjectUtils.ts" />
     <TypeScriptCompile Include="ng\AppStart\ResourceDefinitionCollection.ts" />
     <TypeScriptCompile Include="ng\models\ITreeBranchDataOverrides.ts" />
+    <TypeScriptCompile Include="ng\polyfill\ArrayExtensions.ts" />
+    <TypeScriptCompile Include="ng\polyfill\ElementExtensions.ts" />
+    <TypeScriptCompile Include="ng\polyfill\StringExtensions.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ARMUrlParts.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\CliResourceType.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\CmdletParameters.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\HttpVerbs.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ICliCommandAction.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ICliResource.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\IResourceHandlerResolver.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\PSCmdType.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ResourceAction.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ResourceActions.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ResourceIdentifier.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ResourceIdentifierType.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\RMCommandInfo.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ScriptGenerator.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ScriptInternals.ts" />
     <TypeScriptCompile Include="ng\Search\ResourcesCache.ts" />
     <TypeScriptCompile Include="ng\Search\ResourceSearcher.ts" />
     <TypeScriptCompile Include="ng\Search\ResourceSearchDataModel.ts" />
@@ -462,21 +485,18 @@
     <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\WebApp.ts" />
     <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\WebApps.ts" />
     <TypeScriptCompile Include="ng\scriptGenerators\powershell\PowerShellScriptGenerator.ts" />
-    <TypeScriptCompile Include="ng\scriptGenerators\scriptGeneratorCommon.ts" />
     <TypeScriptCompile Include="ng\scriptGenerators\ScriptParametersResolver.ts" />
+    <TypeScriptCompile Include="ng\test\ARMUrlParserTests.ts" />
+    <TypeScriptCompile Include="ng\test\AzureCLIScriptTests.ts" />
+    <TypeScriptCompile Include="ng\test\MockResourceHandlerResolver.ts" />
+    <TypeScriptCompile Include="ng\test\PowerShellScriptTests.ts" />
+    <TypeScriptCompile Include="ng\test\ScriptParametersResolverTests.ts" />
+    <TypeScriptCompile Include="ng\test\TestCommon.ts" />
     <TypeScriptCompile Include="ng\typings\ace\ace.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\angular-animate.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\angular-cookies.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\angular-mocks.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\angular-resource.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\angular-route.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\angular-sanitize.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\angular.d.ts" />
-    <TypeScriptCompile Include="ng\typings\angularjs\mocks.d.ts" />
     <TypeScriptCompile Include="ng\typings\cryptojs\cryptojs.d.ts" />
+    <TypeScriptCompile Include="ng\AppStart\ArmClientRepository.ts" />
     <TypeScriptCompile Include="ng\typings\jquery.cookie\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="ng\typings\jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="ng\AppStart\ArmClientRepository.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

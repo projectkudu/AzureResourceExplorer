@@ -22,9 +22,9 @@ _app/
 *.ncrunchsolution
 nuget.exe
 Kudu.Services.Web/commit.txt
-ng/*.js
-ng/*.js.map
-ng/*/*.js
-ng/*/*.js.map
 .vs/
 Tools/node_modules
+node_modules
+dist
+npm-debug.log
+tsout

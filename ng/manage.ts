@@ -1,7 +1,67 @@
-﻿module armExplorer
-{
-angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ui.ace"])
-    .controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$timeout", "rx", "$document", ($scope: IArmTreeScope, $routeParams: ng.route.IRouteParamsService, $location: ng.ILocationService, $http: ng.IHttpService, $timeout: ng.ITimeoutService, rx: any, $document: ng.IDocumentService) => {
+﻿import * as angular from "angular";
+import * as ngRoute from "angular-route";
+import * as ngAnimate from "angular-animate";
+import * as ngSanitize from "angular-sanitize";
+import * as uibootstrap from "angular-ui-bootstrap";
+import * as angularBootstrapNavTree from "./abntree";
+import * as rx from "rx-angular";
+import * as uiace from "angular-ui-ace";
+import * as $ from "jquery";
+import * as jQuery from "jquery";
+import * as jquerycookie from "jquery.cookie";
+import * as bootstrap from "bootstrap";
+
+console.log(angular);
+console.log(typeof angular);
+console.log(ngRoute);
+console.log(typeof ngRoute);
+console.log(ngAnimate);
+console.log(typeof ngAnimate);
+console.log(ngSanitize);
+console.log(typeof ngSanitize);
+console.log(uibootstrap);
+console.log(typeof uibootstrap);
+console.log(angularBootstrapNavTree);
+console.log(typeof angularBootstrapNavTree);
+console.log(rx);
+console.log(typeof rx);
+console.log(uiace);
+console.log(typeof uiace);
+console.log($);
+console.log(typeof $);
+console.log(jQuery);
+console.log(typeof jQuery);
+console.log(jquerycookie);
+console.log(typeof jquerycookie);
+console.log(bootstrap);
+console.log(typeof bootstrap);
+
+import { ISelectHandlerReturn } from "./models/ISelectHandlerReturn";
+import { ResourceDefinition } from "./models/ResourceDefinition";
+import { IArmTreeScope } from "./models/IArmTreeScope";
+import { ScriptGenerator } from "./scriptGenerators/ScriptGenerator";
+import { ResourceDefinitionCollection } from "./AppStart/ResourceDefinitionCollection";
+import { TreeBranch } from "./models/TreeBranch";
+import { ITreeControl } from "./models/ITreeControl";
+import { ClientConfig } from "./AppStart/ClientConfig";
+import "./modules/resizerModule";
+import { ArmClientRepository } from "./AppStart/ArmClientRepository";
+import {ResourceSearcher} from "./Search/ResourceSearcher";
+import {TenantCollection} from "./models/TenantCollection";
+import { EditorCollection } from "./AppStart/EditorCollection";
+import { EditorType } from "./AppStart/EditorType";
+import {ResourceSearchDataModel} from "./Search/ResourceSearchDataModel";
+import {StringUtils} from "./common/StringUtils";
+import { ElementExtensions } from "./polyfill/ElementExtensions";
+import {DocumentationGenerator} from "./AppStart/DocumentationGenerator";
+import { ObjectUtils } from "./common/ObjectUtils";
+import {Action} from "./models/Action";
+import { ExplorerScreen } from "./AppStart/ExplorerScreen";
+import { ISelectedResource } from "./models/SelectedResource";
+
+angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer", "ui.ace"]).controller("treeBodyController", ["$scope", "$routeParams", "$location", "$http", "$timeout", "rx", "$document", ($scope: IArmTreeScope,
+    $routeParams: ng.route.IRouteParamsService, $location: angular.ILocationService, $http: angular.IHttpService, $timeout: angular.ITimeoutService,
+        rx: any, $document: angular.IDocumentService) => {
 
         $scope.treeControl = <ITreeControl>{};
         $scope.createModel = <ICreateModel>{};
@@ -60,7 +120,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     let url = "";
                     if (error.config && error.config.resourceDefinition) {
                         url = error.config.filledInUrl;
-                        $scope.editorCollection.setValue(Editor.ResponseEditor, "");
+                        $scope.editorCollection.setValue(EditorType.ResponseEditor, "");
                         $scope.readOnlyResponse = "";
                         apiVersion = error.config.resourceDefinition.apiVersion;
                     }
@@ -78,11 +138,11 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     
                     if (value.data === undefined) {
                         if (value.resourceDefinition && value.resourceDefinition.hasRequestBody()) {
-                            $scope.editorCollection.setValue(Editor.ResponseEditor, StringUtils.stringify(value.resourceDefinition.requestBody));
+                            $scope.editorCollection.setValue(EditorType.ResponseEditor, StringUtils.stringify(value.resourceDefinition.requestBody));
                         } else {
-                            $scope.editorCollection.setValue(Editor.ResponseEditor, StringUtils.stringify({ message: "No GET Url" }));
-                            $scope.editorCollection.setValue(Editor.PowershellEditor, "");
-                            $scope.editorCollection.setValue(Editor.AzureCliEditor, "");
+                            $scope.editorCollection.setValue(EditorType.ResponseEditor, StringUtils.stringify({ message: "No GET Url" }));
+                            $scope.editorCollection.setValue(EditorType.PowershellEditor, "");
+                            $scope.editorCollection.setValue(EditorType.AzureCliEditor, "");
                         }
                     } else {
                         var resourceDefinition = value.resourceDefinition;
@@ -90,33 +150,36 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         var putUrl = url;
                         if (resourceDefinition.hasPutOrPatchAction()) {
                             let editable = resourceDefinition.getEditable(value.data);
-                            $scope.editorCollection.setValue(Editor.RequestEditor, StringUtils.stringify(ObjectUtils.sortByObject(editable, value.data)));
+                            $scope.editorCollection.setValue(EditorType.RequestEditor, StringUtils.stringify(ObjectUtils.sortByObject(editable, value.data)));
                             if (url.endsWith("list")) { putUrl = url.substring(0, url.lastIndexOf("/")); }
                         } else {
-                            $scope.editorCollection.setValue(Editor.RequestEditor, "");
+                            $scope.editorCollection.setValue(EditorType.RequestEditor, "");
                         }
 
-                        $scope.editorCollection.setValue(Editor.ResponseEditor, StringUtils.stringify(value.data));
+                        $scope.editorCollection.setValue(EditorType.ResponseEditor, StringUtils.stringify(value.data));
                         enableCreateEditorIfRequired(resourceDefinition);
 
                         let actionsAndVerbs = $scope.resourceDefinitionsCollection.getActionsAndVerbs(value.branch);
                         let doc = resourceDefinition.getDocBody();
                         let docArray = DocumentationGenerator.getDocumentationFlatArray(value.data, doc);
 
-                        $scope.selectedResource = {
-                            // Some resources may contain # or whitespace in name,
-                            // let's selectively URL-encode (for safety)
-                            url: StringUtils.selectiveUrlencode(url),
-                            actionsAndVerbs: actionsAndVerbs,
-                            httpMethods: resourceDefinition.actions.filter(e => e !== "DELETE" && e !== "CREATE").map((e) => (e === "GETPOST" ? "POST" : e)).sort(),
-                            doc: docArray,
-                            apiVersion: resourceDefinition.apiVersion,
-                            putUrl: putUrl
-                        };
+                        $timeout(() => {
+                            $scope.selectedResource = {
+                                // Some resources may contain # or whitespace in name,
+                                // let's selectively URL-encode (for safety)
+                                url: StringUtils.selectiveUrlencode(url),
+                                actionsAndVerbs: actionsAndVerbs,
+                                httpMethods: resourceDefinition.actions.filter(e => e !== "DELETE" && e !== "CREATE").map((e) => (e === "GETPOST" ? "POST" : e)).sort(),
+                                doc: docArray,
+                                apiVersion: resourceDefinition.apiVersion,
+                                putUrl: putUrl
+                            };
+                        });
+
                         $location.path(url.replace(/https:\/\/[^\/]*\//, ""));
 
-                        $scope.editorCollection.setValue(Editor.AzureCliEditor, getAzureCliScriptsForResource(value));
-                        $scope.editorCollection.setValue(Editor.PowershellEditor, getPowerShellScriptsForResource(value, actionsAndVerbs));
+                        $scope.editorCollection.setValue(EditorType.AzureCliEditor, ScriptGenerator.getAzureCliScriptsForResource(value));
+                        $scope.editorCollection.setValue(EditorType.PowershellEditor, ScriptGenerator.getPowerShellScriptsForResource(value, actionsAndVerbs));
                     }
                 }
                 fixActiveEditor();
@@ -126,16 +189,16 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             if (resourceDefinition.hasCreateAction()) {
                 $scope.creatable = true;
                 $scope.createMetaData = resourceDefinition.requestBody;
-                $scope.editorCollection.setValue(Editor.CreateEditor, StringUtils.stringify(resourceDefinition.requestBody));
+                $scope.editorCollection.setValue(EditorType.CreateEditor, StringUtils.stringify(resourceDefinition.requestBody));
             }
         }
 
         function fixActiveEditor() {
             const activeIndex = activeTab.indexOf(true);
-            if ((!$scope.creatable && activeIndex === Editor.CreateEditor) ||
+            if ((!$scope.creatable && activeIndex === EditorType.CreateEditor) ||
             (!($scope.selectedResource && $scope.selectedResource.actionsAndVerbs &&
-                $scope.selectedResource.actionsAndVerbs.length > 0) && activeIndex === Editor.RequestEditor)) {
-                $timeout(() => { activeTab[Editor.ResponseEditor] = true });
+                $scope.selectedResource.actionsAndVerbs.length > 0) && activeIndex === EditorType.RequestEditor)) {
+                $timeout(() => { activeTab[EditorType.ResponseEditor] = true });
             }
         }
 
@@ -415,19 +478,19 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.enterCreateMode = () => {
             $scope.createMode = true;
-            $scope.editorCollection.resize(Editor.CreateEditor);
+            $scope.editorCollection.resize(EditorType.CreateEditor);
             delete $scope.createModel.createdResourceName;
         };
 
         $scope.leaveCreateMode = () => {
             $scope.createMode = false;
-            $scope.editorCollection.resize(Editor.ResponseEditor);
-            $scope.editorCollection.resize(Editor.RequestEditor);
+            $scope.editorCollection.resize(EditorType.ResponseEditor);
+            $scope.editorCollection.resize(EditorType.RequestEditor);
         };
 
         $scope.clearCreate = () => {
             delete $scope.createModel.createdResourceName;
-            $scope.editorCollection.setValue(Editor.CreateEditor, StringUtils.stringify($scope.createMetaData));
+            $scope.editorCollection.setValue(EditorType.CreateEditor, StringUtils.stringify($scope.createMetaData));
         };
 
         function finalizeCreate() {
@@ -495,8 +558,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.enterDataTab = () => {
             if ($scope.editorCollection) {
-                $scope.editorCollection.resize(Editor.ResponseEditor);
-                $scope.editorCollection.resize(Editor.RequestEditor);
+                $scope.editorCollection.resize(EditorType.ResponseEditor);
+                $scope.editorCollection.resize(EditorType.RequestEditor);
             }
         };
 
@@ -530,8 +593,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.editMode = !$scope.editMode;
             $timeout(() => {
                 try {
-                    $scope.editorCollection.resize(Editor.ResponseEditor);
-                    $scope.editorCollection.resize(Editor.RequestEditor);
+                    $scope.editorCollection.resize(EditorType.ResponseEditor);
+                    $scope.editorCollection.resize(EditorType.RequestEditor);
                 } catch (error) {
                     console.log(error);
                 }
@@ -636,7 +699,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         async function expandChild(child: TreeBranch, rest: string, selectedBranch: TreeBranch) {
             if (!child) {
                 if (selectedBranch) {
-                    const top = document.getElementById("expand-icon-" + selectedBranch.uid).documentOffsetTop() - ((window.innerHeight - 50 /*nav bar height*/) / 2);
+                    const element: HTMLElement = document.getElementById("expand-icon-" + selectedBranch.uid);
+                    const top = ElementExtensions.documentOffsetTop(element) - ((window.innerHeight - 50 /*nav bar height*/) / 2);
                     $("#sidebar").scrollTop(top);    
                 }
             } else {
@@ -830,7 +894,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                 override.getSortKey = (d: any, label: string) => label;
             }
             if (override.getIconNameOverride == null) {
-                override.getIconNameOverride = (d: any) => null;
+                override.getIconNameOverride = () => null;
             }
             return override;
         }
@@ -852,4 +916,3 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $('#dark-blocker').hide();
         }
     });
-}

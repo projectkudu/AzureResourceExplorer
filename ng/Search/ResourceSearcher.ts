@@ -1,4 +1,8 @@
-﻿class ResourceSearcher {
+﻿import {ArmClientRepository} from "../AppStart/ArmClientRepository";
+import {ResourcesCache} from "./ResourcesCache";
+import {ResourceSearchDataModel} from "./ResourceSearchDataModel";
+
+export class ResourceSearcher {
 
     private resourceSearchCache: ResourcesCache;
 

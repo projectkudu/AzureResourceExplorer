@@ -1,4 +1,13 @@
-﻿interface IArmTreeScope extends ng.IScope {
+﻿import * as angular from "angular";
+import { ResourceDefinitionCollection } from "../AppStart/ResourceDefinitionCollection";
+import {ITreeControl} from "./ITreeControl";
+import {TreeBranch} from "./TreeBranch";
+import {ResourceSearcher} from "../Search/ResourceSearcher";
+import {EditorCollection} from "../AppStart/EditorCollection";
+import {ResourceSearchDataModel} from "../Search/ResourceSearchDataModel";
+import {ISelectedResource} from "./SelectedResource";
+
+export interface IArmTreeScope extends angular.IScope {
     treeControl: ITreeControl;
     createModel: ICreateModel;
     actionsModel: any;

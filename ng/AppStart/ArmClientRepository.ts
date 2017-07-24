@@ -1,4 +1,9 @@
-﻿class ArmClientRepository {
+﻿import {EditorCollection} from "./EditorCollection";
+import {EditorType} from "./EditorType";
+import {Action} from "../models/Action";
+import {ISelectedResource} from "../models/SelectedResource";
+
+export class ArmClientRepository {
 
     constructor(private $http: ng.IHttpService) {
     }
@@ -48,7 +53,7 @@
     }
 
     async invokePut(selectedResource: ISelectedResource, action: Action, editorCollection: EditorCollection): Promise<ng.IHttpPromiseCallbackArg<any>> {
-        const userObject = editorCollection.getValue(Editor.RequestEditor, true);
+        const userObject = editorCollection.getValue(EditorType.RequestEditor, true);
         const invokePutConfig: ng.IRequestConfig = {
             method: "POST",
             url: "api/operations",
@@ -63,7 +68,7 @@
     }
 
     async invokeCreate(newResourceName: string, selectedResource: ISelectedResource, action: Action, editorCollection: EditorCollection): Promise<ng.IHttpPromiseCallbackArg<any>> {
-        const userObject = editorCollection.getValue(Editor.CreateEditor, true);
+        const userObject = editorCollection.getValue(EditorType.CreateEditor, true);
         const invokeCreateConfig: ng.IRequestConfig = {
             method: "POST",
             url: "api/operations",

@@ -1,4 +1,4 @@
-﻿class ExplorerScreen {
+﻿export class ExplorerScreen {
     static showReadOnlyConfirmation(event: Event) {
         if (event) {
             const clickedButton = $(event.currentTarget);

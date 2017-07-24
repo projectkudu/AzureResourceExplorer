@@ -1,4 +1,7 @@
-﻿class TenantCollection {
+﻿import {ArmClientRepository} from "../AppStart/ArmClientRepository";
+import {ArrayExtensions} from "../polyfill/ArrayExtensions";
+
+export class TenantCollection {
 
     private tenants: ITenantDetails[];
     private selectedTenant: ITenantDetails;
@@ -26,6 +29,6 @@
                 current: tenant.Current
             };
         });
-        this.selectedTenant = this.tenants[this.tenants.indexOfDelegate(tenant => tenant.current)];
+        this.selectedTenant = this.tenants[ArrayExtensions.indexOfDelegate<ITenantDetails>(this.tenants, tenant => tenant.current)];
     }
 }

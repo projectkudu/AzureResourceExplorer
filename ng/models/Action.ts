@@ -1,4 +1,4 @@
-﻿class Action {
+﻿export class Action {
     httpMethod: string;
     name: string;
     url: string;

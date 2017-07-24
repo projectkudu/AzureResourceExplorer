@@ -1,4 +1,6 @@
-﻿class DocumentationGenerator {
+﻿import {ObjectUtils} from "../common/ObjectUtils";
+
+export class DocumentationGenerator {
 
     static getDocumentationFlatArray(editorData: any, doc: any) {
         const docArray: any[] = [];

@@ -1,4 +1,11 @@
-﻿class ResourceDefinitionCollection {
+﻿import {ResourceDefinition} from "../models/ResourceDefinition";
+import {TreeBranch} from "../models/TreeBranch";
+import {ArmClientRepository} from "./ArmClientRepository";
+import {StringUtils} from "../common/StringUtils";
+import {ArrayExtensions} from "../polyfill/ArrayExtensions";
+import {Action} from "../models/Action";
+
+export class ResourceDefinitionCollection {
 
     private resourcesDefinitionsTable: ResourceDefinition[];
     static supportedRootNodes = ['providers', 'subscriptions'];
@@ -19,8 +26,9 @@
     // sets the branch that is returned by observables
     // but only root nodes are created here. child nodes under 'providers' and 'subscriptions' are created in the tree itself
     getTreeNodes(): TreeBranch[] {
-        return this.resourcesDefinitionsTable.filter((rd) => { return this.isSupportedTreeNode(rd.url); })
-            .getUnique((rd) => { return rd.url.split("/")[3]; }).map((urd) => {
+        const supportedTreeNodes = this.resourcesDefinitionsTable.filter((rd) => { return this.isSupportedTreeNode(rd.url); });
+        const uniqueTreeNodes = ArrayExtensions.getUnique(supportedTreeNodes, (rd) => { return rd.url.split("/")[3]; });
+        return uniqueTreeNodes.map((urd) => {
                 const treeBranch = new TreeBranch(urd.url.split("/")[3]);
                 treeBranch.resourceDefinition = urd;
                 treeBranch.data = undefined;

@@ -1,4 +1,6 @@
-﻿class TreeBranch {
+﻿import {ResourceDefinition} from "./ResourceDefinition";
+
+export class TreeBranch {
     currentResourceGroupProviders?: any;
     uid?: number;
     label: string;
@@ -64,7 +66,7 @@
             }
 
             var tokens = url.split('/');
-            tokens.remove(0, removeTo);
+            tokens.splice(0, removeTo + 1);
             return tokens;
         };
 
