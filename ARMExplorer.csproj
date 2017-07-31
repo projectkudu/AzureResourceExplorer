@@ -339,6 +339,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\streamingjobs.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\subscriptions.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\transformations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerInstance\containerInstance.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
