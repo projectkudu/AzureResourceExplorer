@@ -180,13 +180,13 @@ namespace ARMExplorer.SwaggerParser
             }
 
             if (!schema.Type.Equals(DataType.Object) && !schema.Type.Equals(DataType.Array) 
-                && schema.Properties == null)
+                && schema.Properties == null && schema.AdditionalProperties == null)
             {
                 var formattableString = getDescription ? schema.Description : $"({schema.Type})";
                 return formattableString;
             }
 
-            if (schema.Type.Equals(DataType.Object) || schema.Properties != null || schema.AllOf != null)
+            if (schema.Type.Equals(DataType.Object) || schema.Properties != null || schema.AllOf != null || schema.AdditionalProperties != null)
             {
                 if (schema.AllOf != null)
                 {
