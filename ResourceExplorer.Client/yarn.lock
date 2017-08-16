@@ -255,6 +255,21 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+angular-split@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/angular-split/-/angular-split-0.2.2.tgz#25847bf2ff5dc509979da2d39e7a64ab19eb507b"
+  dependencies:
+    "@angular/common" "^4.0.0"
+    "@angular/compiler" "^4.0.0"
+    "@angular/core" "^4.0.0"
+    "@angular/platform-browser" "^4.0.0"
+    core-js "2.4.1"
+    reflect-metadata "^0.1.3"
+    rimraf "^2.5.4"
+    rxjs "^5.0.2"
+    typescript "~2.2.0"
+    zone.js "^0.8.4"
+
 ansi-escapes@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-2.0.0.tgz#5bae52be424878dd9783e8910e3fc2922e83c81b"
@@ -1038,7 +1053,7 @@ cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
-core-js@^2.2.0, core-js@^2.4.0, core-js@^2.4.1:
+core-js@2.4.1, core-js@^2.2.0, core-js@^2.4.0, core-js@^2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.4.1.tgz#4de911e667b0eae9124e34254b53aea6fc618d3e"
 
@@ -3992,7 +4007,7 @@ reduce-function-call@^1.0.1:
   dependencies:
     balanced-match "^0.4.2"
 
-reflect-metadata@^0.1.2:
+reflect-metadata@^0.1.2, reflect-metadata@^0.1.3:
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/reflect-metadata/-/reflect-metadata-0.1.10.tgz#b4f83704416acad89988c9b15635d47e03b9344a"
 
@@ -4171,6 +4186,12 @@ rx-lite@*, rx-lite@^4.0.8:
 rxjs@^5.0.1, rxjs@^5.4.1:
   version "5.4.2"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.2.tgz#2a3236fcbf03df57bae06fd6972fd99e5c08fcf7"
+  dependencies:
+    symbol-observable "^1.0.1"
+
+rxjs@^5.0.2:
+  version "5.4.3"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.3.tgz#0758cddee6033d68e0fd53676f0f3596ce3d483f"
   dependencies:
     symbol-observable "^1.0.1"
 
@@ -4856,6 +4877,10 @@ type-is@~1.6.15:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
+typescript@~2.2.0:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.2.2.tgz#606022508479b55ffa368b58fee963a03dfd7b0c"
+
 uglify-js@3.0.x:
   version "3.0.27"
   resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.0.27.tgz#a97db8c8ba6b9dba4e2f88d86aa9548fa6320034"
@@ -5340,6 +5365,6 @@ yn@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/yn/-/yn-2.0.0.tgz#e5adabc8acf408f6385fc76495684c88e6af689a"
 
-zone.js@^0.8.14:
+zone.js@^0.8.14, zone.js@^0.8.4:
   version "0.8.16"
   resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.16.tgz#ac31b6c418f88c0f918ad6acd8a402aca9313abb"

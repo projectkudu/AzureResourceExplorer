@@ -1,0 +1,14 @@
+﻿#app {
+  background-color: ghostwhite;
+  height: 100%;
+  width: 100%;
+}
+
+#appheader {
+  background-color: bisque;
+  height: 5%;
+}
+
+#appbody {
+  height: 95%
+}
