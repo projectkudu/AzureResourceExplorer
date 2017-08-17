@@ -6,6 +6,9 @@ import {AngularSplitModule} from 'angular-split';
 import { ExplorerHeaderComponent } from './explorer-header/explorer-header.component';
 import { ExplorerBodyComponent } from './explorer-body/explorer-body.component';
 
+import { FormsModule } from '@angular/forms';
+import { AutoCompleteModule } from "primeng/primeng";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,7 +17,9 @@ import { ExplorerBodyComponent } from './explorer-body/explorer-body.component';
   ],
   imports: [
     BrowserModule,
-    AngularSplitModule
+    AngularSplitModule,
+    AutoCompleteModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

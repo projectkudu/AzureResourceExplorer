@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+﻿import { Component, OnInit } from '@angular/core';
+import { AutoCompleteModule } from "primeng/primeng";
 
 @Component({
   selector: 'app-explorer-header',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExplorerHeaderComponent implements OnInit {
 
+  text: string;
+  results: string[];
+
   constructor() { }
 
+  search(event) {
+    this.results = ["result1", "result2"];
+  }
+
   ngOnInit() {
+    this.text = "Search";
   }
 
 }
