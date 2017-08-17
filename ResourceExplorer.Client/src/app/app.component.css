@@ -8,9 +8,10 @@
 
 #appheader {
   background-color: bisque;
-  height: 5%;
+  height: 10%;
 }
 
 #appbody {
-  height: 95%
+  height: 90%;
+  background-color: darkgray;
 }
