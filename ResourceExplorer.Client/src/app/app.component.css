@@ -1,4 +1,6 @@
 ﻿#app {
+  display: flex;
+  flex-direction: column;
   background-color: ghostwhite;
   height: 100%;
   width: 100%;
