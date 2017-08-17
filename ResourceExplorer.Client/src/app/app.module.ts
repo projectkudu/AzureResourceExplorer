@@ -8,12 +8,14 @@ import { ExplorerBodyComponent } from './explorer-body/explorer-body.component';
 
 import { FormsModule } from '@angular/forms';
 import { AutoCompleteModule } from "primeng/primeng";
+import { ResourceSearcherComponent } from './resource-searcher/resource-searcher.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ExplorerHeaderComponent,
-    ExplorerBodyComponent
+    ExplorerBodyComponent,
+    ResourceSearcherComponent
   ],
   imports: [
     BrowserModule,

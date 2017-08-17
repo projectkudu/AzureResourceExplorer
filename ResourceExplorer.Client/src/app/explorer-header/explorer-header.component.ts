@@ -8,17 +8,12 @@ import { AutoCompleteModule } from "primeng/primeng";
 })
 export class ExplorerHeaderComponent implements OnInit {
 
-  text: string;
-  results: string[];
-
+  
   constructor() { }
 
-  search(event) {
-    this.results = ["result1", "result2"];
-  }
+  
 
   ngOnInit() {
-    this.text = "Search";
   }
 
 }
