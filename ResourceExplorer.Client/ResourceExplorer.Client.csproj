@@ -80,6 +80,8 @@
     <TypeScriptCompile Include="src\app\explorer-header\explorer-header.component.ts" />
     <TypeScriptCompile Include="src\app\resource-searcher\resource-searcher.component.spec.ts" />
     <TypeScriptCompile Include="src\app\resource-searcher\resource-searcher.component.ts" />
+    <TypeScriptCompile Include="src\app\tenant-dropdown\tenant-dropdown.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\tenant-dropdown\tenant-dropdown.component.ts" />
     <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
@@ -99,6 +101,8 @@
     <Content Include="src\app\explorer-header\explorer-header.component.html" />
     <Content Include="src\app\resource-searcher\resource-searcher.component.css" />
     <Content Include="src\app\resource-searcher\resource-searcher.component.html" />
+    <Content Include="src\app\tenant-dropdown\tenant-dropdown.component.css" />
+    <Content Include="src\app\tenant-dropdown\tenant-dropdown.component.html" />
     <Content Include="src\favicon.ico" />
     <Content Include="src\index.html" />
     <Content Include="src\styles.css" />
