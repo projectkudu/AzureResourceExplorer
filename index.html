@@ -112,11 +112,23 @@
             <tabset>
                 <tab id="data-tab" select="enterDataTab()" active="activeTab[0]">
                     <tab-heading><i class="fa fa-database"></i> Data (GET, PUT)</tab-heading>
-                    <div ng-show="selectedResource && selectedResource.url">
-                        <button ng-repeat="httpMethod in selectedResource.httpMethods | filter:showHttpVerb" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(selectedResource, httpMethod, $event)">{{httpMethod}}</button>
-                        <button ng-show="selectedResource.httpMethods.length > 1" class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="toggleEditMode()">{{ editMode ? 'Cancel' : 'Edit' }}</button>
-                        <pre id="selected-resource-url" ng-style="{'color': resUrlColor}"><span class="btn copy-button fa fa-copy" ng-click="copyResUrlToClipboard(selectedResource.url + '?api-version=' + selectedResource.apiVersion);"></span><span>{{ selectedResource.url + "?api-version=" + selectedResource.apiVersion }}</span></pre>
+                    <div ng-show="enableDataTab(selectedResource)">
+                        
+                        <div style="position: relative; height: 50px">
+                            <button ng-repeat="action in selectedResource.getActions | filter:showGetAction" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(selectedResource, action, $event)">{{action.httpMethod}}</button>
+                            <button ng-show="selectedResource.getActions.length > 1" class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="toggleEditMode()">{{ editMode ? 'Cancel' : 'Edit' }}</button>
+                            <pre style="float: left" id="selected-resource-url" ng-style="{'color': resUrlColor}"><span class="btn copy-button fa fa-copy" ng-click="copyResUrlToClipboard(selectedResource.url + selectedResource.getActions[0].getQueryString(queryParameters));"></span><span>{{ selectedResource.url + selectedResource.getActions[0].getQueryString(queryParameters) }}</span></pre>
+                        </div>
+
+                        <div style="position: relative">
+                            <div ng-repeat="query in selectedResource.getActions[0].query" style="position: relative; left: 0">
+                                <pre style="float: left; margin-right: 10px">{{ query + "=" + queryParameters[query] }}</pre>
+                                <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="queryParameters[query]">
+                            </div>    
+                        </div>
+
                     </div>
+                    
                     <div id="response-json-editor" class="explorer-editor" ng-show="!editMode"></div>
                     <div id="request-json-editor" class="explorer-editor" ng-show="editMode"></div>
                     <h2 ng-show="errorResponse || putError">Error:</h2>
@@ -141,8 +153,8 @@
                             <td>
                                 <pre>{{ action.httpMethod }} {{ action.url + "?api-version=" + selectedResource.apiVersion}}</pre>
                                 <div ng-repeat="query in action.query">
-                                    <pre style="float: left; margin-right: 10px">{{ "&" + query + "=" + actionsModel[query] }}</pre>
-                                    <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="actionsModel[query]">
+                                    <pre style="float: left; margin-right: 10px">{{ query + "=" + queryParameters[query] }}</pre>
+                                    <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="queryParameters[query]">
                                 </div>
                                 <div id="{{ action.name + '-editor' }}" ng-show="action.requestBody" class="explorer-editor action-editor" ui-ace="aceConfig" ng-model="action.requestBody "></div>
                             </td>
@@ -155,14 +167,21 @@
                 <tab disabled="!creatable" select="enterCreateMode()" deselect="leaveCreateMode()" active="activeTab[2]">
                     <tab-heading><i class="fa fa-database"></i> Create</tab-heading>
                     <div ng-show="creatable">
-                        <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate($event)">
-                            Reset
-                        </button>
-                        <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate(selectedResource, $event)">
-                            PUT
-                        </button>
-                        <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
-                        <pre>{{ selectedResource.url + "/" + createModel.createdResourceName + "?api-version=" + selectedResource.apiVersion }}</pre>
+                        
+                        <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate($event)">Reset</button>
+                        <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate(selectedResource, $event, selectedResource.createAction)">PUT</button>
+                        <pre style="float: left">{{ selectedResource.url + "/" + createModel.createdResourceName + selectedResource.createAction.getQueryString(queryParameters) }}</pre>
+
+                        <div>
+                            <pre style="float: left; margin-right: 10px">Resource Name:</pre>
+                            <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode">
+
+                            <div ng-repeat="query in selectedResource.createAction.query">
+                                <pre style="float: left; margin-right: 10px">{{ query + "=" + queryParameters[query] }}</pre>
+                                <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="queryParameters[query]">
+                            </div>
+                        </div>
+                        
                         <div id="json-create-editor" class="explorer-editor"></div>
                         <h2 ng-show="errorResponse || createError">Error:</h2>
                         <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>

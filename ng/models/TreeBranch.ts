@@ -20,19 +20,22 @@
     resource_icon: string;
 
 
-    getGetHttpConfig(): ng.IRequestConfig {
-        const getActions = this.resourceDefinition.getGetActions();
+    getGetHttpConfig(queryParameters: any): ng.IRequestConfig {
+        const getActionNames = this.resourceDefinition.getGetActions();
         let httpConfig = null;
 
-        if (getActions.length === 1) {
-            const getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
+        if (getActionNames.length === 1) {
+            const getActionName = (getActionNames[0] === "GETPOST" ? "POST" : "GET");
+            const elementUrl = (getActionName === "POST" ? this.elementUrl + "/list" : this.elementUrl);
+            const action = new Action(getActionName, "", elementUrl);
+            action.query = this.resourceDefinition.query;
             httpConfig = {
                 method: "POST",
                 url: "api/operations",
                 data: {
-                    Url: (getAction === "POST" ? this.elementUrl + "/list" : this.elementUrl),
-                    HttpMethod: getAction,
-                    ApiVersion: this.resourceDefinition.apiVersion
+                    Url: action.url,
+                    HttpMethod: action.httpMethod,
+                    QueryString: action.getQueryString(queryParameters)
                 }
             };
         }   

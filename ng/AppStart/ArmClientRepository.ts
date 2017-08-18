@@ -28,7 +28,7 @@
         return await this.$http(searchConfig);
     }
 
-    async invokeAction(selectedResource: ISelectedResource, action: Action, actionsModel: any): Promise<ng.IHttpPromiseCallbackArg<any>> {
+    async invokeAction(selectedResource: ISelectedResource, action: Action, queryParameters: any): Promise<ng.IHttpPromiseCallbackArg<any>> {
         const invokeConfig: ng.IRequestConfig = {
             method: "POST",
             url: "api/operations",
@@ -36,8 +36,7 @@
                 Url: action.url,
                 RequestBody: action.getRequestBody(),
                 HttpMethod: action.httpMethod,
-                ApiVersion: selectedResource.apiVersion,
-                QueryString: action.getQueryString(actionsModel)
+                QueryString: action.getQueryString(queryParameters)
             }
         };
         return await this.$http(invokeConfig);
@@ -47,7 +46,7 @@
         return await this.$http(httpConfig);
     }
 
-    async invokePut(selectedResource: ISelectedResource, action: Action, editorCollection: EditorCollection): Promise<ng.IHttpPromiseCallbackArg<any>> {
+    async invokePut(selectedResource: ISelectedResource, action: Action, editorCollection: EditorCollection, queryParameters: any): Promise<ng.IHttpPromiseCallbackArg<any>> {
         const userObject = editorCollection.getValue(Editor.RequestEditor, true);
         const invokePutConfig: ng.IRequestConfig = {
             method: "POST",
@@ -56,22 +55,22 @@
                 Url: selectedResource.putUrl,
                 HttpMethod: action.httpMethod,
                 RequestBody: userObject,
-                ApiVersion: selectedResource.apiVersion
+                QueryString: action.getQueryString(queryParameters)
             }
         };
         return await this.$http(invokePutConfig);
     }
 
-    async invokeCreate(newResourceName: string, selectedResource: ISelectedResource, action: Action, editorCollection: EditorCollection): Promise<ng.IHttpPromiseCallbackArg<any>> {
+    async invokeCreate(newResourceName: string, selectedResource: ISelectedResource, action: Action, editorCollection: EditorCollection, queryParameters: any): Promise<ng.IHttpPromiseCallbackArg<any>> {
         const userObject = editorCollection.getValue(Editor.CreateEditor, true);
         const invokeCreateConfig: ng.IRequestConfig = {
             method: "POST",
             url: "api/operations",
             data: {
                 Url: selectedResource.putUrl + "/" + newResourceName,
-                HttpMethod: "PUT",
+                HttpMethod: action.httpMethod,
                 RequestBody: userObject,
-                ApiVersion: selectedResource.apiVersion
+                QueryString: action.getQueryString(queryParameters)
             }
         };
         return await this.$http(invokeCreateConfig);

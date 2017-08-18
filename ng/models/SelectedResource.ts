@@ -1,8 +1,8 @@
 ﻿interface ISelectedResource {
     url: string;
     actionsAndVerbs: Action[];
-    httpMethods: string[];
+    createAction: Action;
+    getActions: Action[];
     doc: any[];
-    apiVersion: string;
     putUrl: string;
 }

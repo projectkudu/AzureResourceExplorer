@@ -40,6 +40,7 @@ namespace ARMExplorer.Controllers
                 var providersList = (JArray)(JsonConvert.DeserializeObject<JObject>(providersSpecs))["value"];
                 var template = CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/";
                 var fakeRequestBody = new { properties = new { }, location = string.Empty };
+                var queryParameters = new List<string> { "api-version" };
                 return  providersList
                          .Select(provider =>
                          {
@@ -50,14 +51,16 @@ namespace ARMExplorer.Controllers
                                          MethodName = "GET",
                                          HttpMethod = "GET",
                                          Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b),
-                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault(),
+                                         Query = queryParameters
                                      },
                                      new MetadataObject
                                      {
                                          MethodName = "GET",
                                          HttpMethod = "GET",
                                          Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
-                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault(),
+                                         Query = queryParameters
                                      },
                                      new MetadataObject
                                      {
@@ -65,14 +68,16 @@ namespace ARMExplorer.Controllers
                                          HttpMethod = "PUT",
                                          RequestBody = fakeRequestBody,
                                          Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
-                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault(),
+                                         Query = queryParameters
                                      },
                                      new MetadataObject
                                      {
                                          MethodName = "Delete",
                                          HttpMethod = "DELETE",
                                          Url = template + provider["namespace"] + "/" + ((string)resourceType["resourceType"]).Split('/').Aggregate((a, b) => a + "/{name}/" + b) + "/{name}",
-                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault()
+                                         ApiVersion = resourceType["apiVersions"].Select(s => s.ToString()).FirstOrDefault(),
+                                         Query = queryParameters
                                      }
                                  };
                              });
@@ -85,27 +90,32 @@ namespace ARMExplorer.Controllers
         private static IEnumerable<MetadataObject> GetMissingApis()
         {
             var fakeRequestBody = new { properties = new { }, location = string.Empty };
+            var queryParameters = new List<string> {"api-version"};
+
             return new List<MetadataObject> {
                 new MetadataObject
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/locations",
-                    ApiVersion = Utils.CSMApiVersion
+                    ApiVersion = Utils.CSMApiVersion,
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "Delete",
                     HttpMethod = "DELETE",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
-                    ApiVersion = Utils.CSMApiVersion
+                    ApiVersion = Utils.CSMApiVersion,
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
-                    ApiVersion = Utils.CSMApiVersion
+                    ApiVersion = Utils.CSMApiVersion,
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
@@ -113,7 +123,8 @@ namespace ARMExplorer.Controllers
                     HttpMethod = "PUT",
                     RequestBody = fakeRequestBody,
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}",
-                    ApiVersion = Utils.CSMApiVersion
+                    ApiVersion = Utils.CSMApiVersion,
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
@@ -121,49 +132,56 @@ namespace ARMExplorer.Controllers
                     HttpMethod = "POST",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/exportTemplate",
                     ApiVersion = "2016-02-01",
-                    RequestBody = new {options = "IncludeParameterDefaultValue, IncludeComments", resources = new [] {"*"} }
+                    RequestBody = new {options = "IncludeParameterDefaultValue, IncludeComments", resources = new [] {"*"} },
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups",
-                    ApiVersion = Utils.CSMApiVersion
+                    ApiVersion = Utils.CSMApiVersion,
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions",
-                    ApiVersion = Utils.CSMApiVersion
+                    ApiVersion = Utils.CSMApiVersion,
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}",
-                    ApiVersion = Utils.CSMApiVersion
+                    ApiVersion = Utils.CSMApiVersion,
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "GetInstanceView",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachines/{vmName}/InstanceView",
-                    ApiVersion = "2017-03-30"
+                    ApiVersion = "2017-03-30",
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/operations",
-                    ApiVersion = "2015-11-01"
+                    ApiVersion = "2015-11-01",
+                    Query = queryParameters
                 },
                 new MetadataObject
                 {
                     MethodName = "Get",
                     HttpMethod = "GET",
                     Url = HyakUtils.CSMUrl + "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Resources/deployments/{name}/operations/{operationId}",
-                    ApiVersion = "2015-11-01"
+                    ApiVersion = "2015-11-01",
+                    Query = queryParameters
                 }
             };
         }

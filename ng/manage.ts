@@ -5,14 +5,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
         $scope.treeControl = <ITreeControl>{};
         $scope.createModel = <ICreateModel>{};
-        $scope.actionsModel = {};
+        $scope.queryParameters = {};
+        $scope.queryParametersUpdated = false;
         $scope.resources = [];
         $scope.readOnlyMode = true;
         $scope.editMode = false;
-        $scope.treeBranchDataOverrides = ClientConfig.treeBranchDataOverrides;
         $scope.aceConfig = ClientConfig.aceConfig;
-        const activeTab: boolean[] = [false, false, false, false, false];
-
+        $scope.activeTab = [false, false, false, false, false];
 
         $timeout(() => {
             $scope.editorCollection = new EditorCollection();
@@ -39,7 +38,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
                 const resourceDefinition = branch.resourceDefinition;
                 if (resourceDefinition) {
-                    const getHttpConfig = branch.getGetHttpConfig();
+                    // Use default api version if query parameters haven't been updated
+                    if (!$scope.queryParametersUpdated) {
+                        $scope.queryParameters = { "api-version": resourceDefinition.apiVersion };
+                    }
+                    $scope.queryParametersUpdated = false;
+                    const getHttpConfig = branch.getGetHttpConfig($scope.queryParameters);
                     if (getHttpConfig) {
                         return rx.Observable.fromPromise($http(getHttpConfig))
                             //http://stackoverflow.com/a/30878646/3234163
@@ -58,19 +62,22 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     setStateForErrorOnResourceClick();
                     let apiVersion = "";
                     let url = "";
+                    let query = [];
                     if (error.config && error.config.resourceDefinition) {
                         url = error.config.filledInUrl;
-                        $scope.editorCollection.setValue(Editor.ResponseEditor, "");
                         $scope.readOnlyResponse = "";
                         apiVersion = error.config.resourceDefinition.apiVersion;
+                        query = error.config.resourceDefinition.query;
                     }
                     $scope.errorResponse = StringUtils.syntaxHighlight({ data: error.data, status: error.status });
+                    const getAction = new Action("GET", "", url);
+                    getAction.query = query;
                     $scope.selectedResource = {
                         url: url,
                         actionsAndVerbs: [],
-                        httpMethods: ["GET"],
+                        getActions: [getAction],
+                        createAction: null,
                         doc: [],
-                        apiVersion: apiVersion,
                         putUrl: url
                     };
                 } else {
@@ -99,18 +106,19 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         $scope.editorCollection.setValue(Editor.ResponseEditor, StringUtils.stringify(value.data));
                         enableCreateEditorIfRequired(resourceDefinition);
 
-                        let actionsAndVerbs = $scope.resourceDefinitionsCollection.getActionsAndVerbs(value.branch);
-                        let doc = resourceDefinition.getDocBody();
-                        let docArray = DocumentationGenerator.getDocumentationFlatArray(value.data, doc);
+                        const getActions = $scope.resourceDefinitionsCollection.getGetActions(url, value.branch);
+                        const actionsAndVerbs = $scope.resourceDefinitionsCollection.getActionsAndVerbs(value.branch);
+                        const createAction = $scope.resourceDefinitionsCollection.getCreateAction(url, value.branch);
+                        const docArray = DocumentationGenerator.getDocumentationFlatArray(value.data, resourceDefinition.getDocBody());
 
                         $scope.selectedResource = {
                             // Some resources may contain # or whitespace in name,
                             // let's selectively URL-encode (for safety)
                             url: StringUtils.selectiveUrlencode(url),
                             actionsAndVerbs: actionsAndVerbs,
-                            httpMethods: resourceDefinition.actions.filter(e => e !== "DELETE" && e !== "CREATE").map((e) => (e === "GETPOST" ? "POST" : e)).sort(),
+                            createAction: createAction,
+                            getActions: getActions,
                             doc: docArray,
-                            apiVersion: resourceDefinition.apiVersion,
                             putUrl: putUrl
                         };
                         $location.path(url.replace(/https:\/\/[^\/]*\//, ""));
@@ -131,17 +139,21 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
         function fixActiveEditor() {
-            const activeIndex = activeTab.indexOf(true);
+            const activeIndex = $scope.activeTab.indexOf(true);
             if ((!$scope.creatable && activeIndex === Editor.CreateEditor) ||
             (!($scope.selectedResource && $scope.selectedResource.actionsAndVerbs &&
                 $scope.selectedResource.actionsAndVerbs.length > 0) && activeIndex === Editor.RequestEditor)) {
-                $timeout(() => { activeTab[Editor.ResponseEditor] = true });
+                $timeout(() => { $scope.activeTab[Editor.ResponseEditor] = true });
             }
         }
 
-        $scope.handleClick = (selectedResource: ISelectedResource, method, event) => {
+        $scope.enableDataTab = (selectedResource: ISelectedResource): boolean => {
+            return selectedResource && selectedResource.url && selectedResource.getActions.length > 0;
+        }
+
+        $scope.handleClick = (selectedResource: ISelectedResource, action: Action, event) => {
+            const method = action.httpMethod;
             if (method === "PUT" || method === "PATCH") {
-                const action = new Action(method, "", "");
                 invokePutOrPatch(selectedResource, action, event);
             } else {
                 refreshContent();
@@ -177,7 +189,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             } else {
                 const repository = new ArmClientRepository($http);
                 try {
-                    await repository.invokePut(selectedResource, action, $scope.editorCollection);
+                    await repository.invokePut(selectedResource, action, $scope.editorCollection, $scope.queryParameters);
                     finalizePut();
                 } catch (error) {
                     invokePutErrorCallback(error);
@@ -309,7 +321,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         data: {
                             Url: getUrl,
                             HttpMethod: "GET",
-                            ApiVersion: resourceDefinition.apiVersion
+                            QueryString: `?api-version=${resourceDefinition.apiVersion}`
                         }
                     };
                 try {
@@ -456,21 +468,20 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.invoking = true;
         }
 
-        async function doInvokeCreate(selectedResource: ISelectedResource, event: Event) {
+        async function doInvokeCreate(selectedResource: ISelectedResource, event: Event, createAction: Action) {
             const resourceName = $scope.createModel.createdResourceName;
             if (resourceName) {
 
                 setStateForInvokeCreate();
-                const action = new Action("PUT", "", "");
 
                 if ($scope.readOnlyMode) {
-                    if (!action.isGetAction()) {
+                    if (!createAction.isGetAction()) {
                         ExplorerScreen.showReadOnlyConfirmation(event);
                     }
                 } else {
                     const repository = new ArmClientRepository($http);
                     try {
-                        await repository.invokeCreate(resourceName, selectedResource, action, $scope.editorCollection);
+                        await repository.invokeCreate(resourceName, selectedResource, createAction, $scope.editorCollection, $scope.queryParameters);
                         finalizeCreate();
                     } catch (error) {
                         invokeCreateErrorCallback(error);
@@ -485,11 +496,12 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
         }
 
 
-        $scope.invokeCreate = (selectedResource: ISelectedResource, event: Event) => {
-            doInvokeCreate(selectedResource, event);
+        $scope.invokeCreate = (selectedResource: ISelectedResource, event: Event, createAction: Action) => {
+            doInvokeCreate(selectedResource, event, createAction);
         }
 
         function refreshContent() {
+            $scope.queryParametersUpdated = true;
             $scope.selectResourceHandler($scope.treeControl.get_selected_branch(), undefined);
         };
 
@@ -538,8 +550,13 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             });
         }
 
-        $scope.showHttpVerb = (verb) => {
-            return ((verb === "GET" || verb === "POST") && !$scope.editMode) || ((verb === "PUT" || verb === "PATCH") && $scope.editMode);
+        $scope.showGetAction = (action: Action) => {
+            const verb: string = action.httpMethod;
+            if ($scope.editMode) {
+                return verb === "PUT" || verb === "PATCH";
+            } else {
+                return verb === "GET" || verb === "POST";
+            }
         };
 
         $scope.logout = () => {
@@ -695,6 +712,8 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             $scope.invoking = false;
             $scope.loading = false;
             $scope.editMode = false;
+            $scope.queryParameters = {};
+            $scope.editorCollection.setValue(Editor.ResponseEditor, "");
         }
 
         function setStateForInvokeAction() {
@@ -752,7 +771,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
             } else {
                 const repository = new ArmClientRepository($http);
                 try {
-                    const invokeResponse = await repository.invokeAction(selectedResource, action, $scope.actionsModel);
+                    const invokeResponse = await repository.invokeAction(selectedResource, action, $scope.queryParameters);
                     finalizeDelete(action, invokeResponse);
                 } catch (error) {
                     invokeActionErrorCallback(error);

@@ -1,7 +1,7 @@
 ﻿interface IArmTreeScope extends ng.IScope {
     treeControl: ITreeControl;
     createModel: ICreateModel;
-    actionsModel: any;
+    queryParameters: any;
     resources: any[];
     readOnlyMode: boolean;
     editMode: boolean;
@@ -13,7 +13,7 @@
     selectedResource: ISelectedResource;
     creatable: any;
     createMetaData: any;
-    handleClick(data: any, method: string, event: Event);
+    handleClick(data: any, action: Action, event: Event);
     invokeAction(selectedResource: ISelectedResource, action: any, event: Event);
     selectResourceHandler(branch: TreeBranch, event?: Event);
     putError: string;
@@ -24,7 +24,7 @@
     leaveCreateMode();
     clearCreate();
     createMode: boolean;
-    invokeCreate(selectedResource: ISelectedResource, event: Event);
+    invokeCreate(selectedResource: ISelectedResource, event: Event, createAction: Action);
     createError: string;
     enterDataTab();
     hideDocs();
@@ -32,7 +32,7 @@
     hideConfirm();
     setReadOnlyMode(readOnlyMode: boolean);
     toggleEditMode();
-    showHttpVerb(verb: string): boolean;
+    showGetAction(action: Action): boolean;
     logout();
     refresh();
     user: any;
@@ -41,11 +41,13 @@
     selectedTenant: ITenantDetails;
     resourceSearchModel: ResourceSearchDataModel;
     selectResourceSearch(item: IResourceSearchSuggestion);
-    treeBranchDataOverrides: ITreeBranchDataOverrides[];
     copyResUrlToClipboard(text: string): void;
     resUrlColor: string;
     resourceSearcher: ResourceSearcher;
     resourceDefinitionsCollection: ResourceDefinitionCollection;
     editorCollection: EditorCollection;
+    activeTab: boolean[];
+    queryParametersUpdated: boolean;
+    enableDataTab(selectedResource: ISelectedResource): boolean;
 }
 

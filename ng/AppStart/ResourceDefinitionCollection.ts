@@ -210,10 +210,37 @@
         return addedElement;
     }
 
+    getCreateAction(url: string, treeBranch: TreeBranch): Action {
+        if (treeBranch.resourceDefinition.hasCreateAction()) {
+            const createAction = new Action("PUT", "", url);
+            createAction.query = treeBranch.resourceDefinition.query;
+            return createAction;
+        }
+        return null;
+    }
+
+    getGetActions(url: string, treeBranch: TreeBranch): Action[] {
+
+        const actions: Action[] = [];
+        const getActionsNames = treeBranch.resourceDefinition.actions.filter(e => e !== "DELETE" && e !== "CREATE")
+            .map((e) => (e === "GETPOST" ? "POST" : e)).sort();
+
+
+        getActionsNames.map(actionName => {
+            const action = new Action(actionName, "", StringUtils.selectiveUrlencode(url));
+            action.query = treeBranch.resourceDefinition.query;
+            actions.push(action);
+        });
+
+        return actions;
+    }
+
     getActionsAndVerbs(treeBranch: TreeBranch): Action[] {
         const actions: Action[] = [];
         if (treeBranch.resourceDefinition.actions.includes("DELETE")) {
-            actions.push(new Action("DELETE", "Delete", treeBranch.getGetActionUrl()));
+            const deleteAction = new Action("DELETE", "Delete", treeBranch.getGetActionUrl());
+            deleteAction.query = treeBranch.resourceDefinition.query;
+            actions.push(deleteAction);
         }
 
         const children = treeBranch.resourceDefinition.children;
