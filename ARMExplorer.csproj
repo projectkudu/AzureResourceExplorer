@@ -376,6 +376,8 @@
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationInfo.cs" />
     <Compile Include="Controllers\ArmRepository.cs" />
+    <Compile Include="Model\ArmResource.cs" />
+    <Compile Include="Model\ArmResourceListResult.cs" />
     <Compile Include="Modules\Extensions.cs" />
     <Compile Include="SwaggerParser\Model\CodeGenerationSettings.cs" />
     <Compile Include="SwaggerParser\Model\ComparisonContext.cs" />
