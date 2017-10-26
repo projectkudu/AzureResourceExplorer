@@ -59,6 +59,7 @@ Swagger files for all ARM providers are under App_Data/SwaggerSpecs. To update s
 3. To delete an API , remove the API from existing files.
 4. To add new API, copy the new files to the provider folder.
 5. To add new provider, create a new folder for the provider under SwaggerSpecs and place all your files inside the folder. 
+6. When adding new files, make sure you include them in the csproj file. Ex: https://github.com/projectkudu/AzureResourceExplorer/blob/526106d2690bfadee6125a9e5c9b36ac1381d485/ARMExplorer.csproj#L193
 
 Create a pull request with your changes.
 
