@@ -3,7 +3,7 @@
   "info": {
     "title": "DiskResourceProviderClient",
     "description": "The Disk Resource Provider Client.",
-    "version": "2017-03-30"
+    "version": "2017-12-01"
   },
   "host": "management.azure.com",
   "schemes": [
