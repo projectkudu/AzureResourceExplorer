@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2017-03-01"
+    "version": "2018-01-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -36,7 +36,7 @@
     }
   },
   "paths": {
-  	"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}": {
       "put": {
         "tags": [
           "VirtualNetworkGateways"
@@ -167,6 +167,56 @@
           }
         },
         "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_UpdateTags",
+        "description": "Updates a virtual network gateway tags.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./network.json#/definitions/TagsObject"
+            },
+            "description": "Parameters supplied to update virtual network gateway tags."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful. The operation returns the resulting VirtualNetworkGateway resource.",
+            "schema": {
+              "$ref": "#/definitions/VirtualNetworkGateway"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update Virtual Network Gateway Tags": { "$ref": "./examples/VirtualNetworkGatewayUpdateTags.json" }
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways": {
@@ -204,6 +254,51 @@
         }
       }
     },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/connections": {
+      "get": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_ListConnections",
+        "description": "Gets all the connections in a virtual network gateway.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successful. The operation returns a list of VirtualNetworkGatewayConnection resource.",
+            "schema": {
+              "$ref": "#/definitions/VirtualNetworkGatewayListConnectionsResult"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        },
+        "x-ms-examples": {
+          "VirtualNetworkGatewaysListConnections": { "$ref": "./examples/VirtualNetworkGatewaysListConnections.json" }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/reset": {
       "post": {
         "tags": [
@@ -226,8 +321,8 @@
             "type": "string",
             "description": "The name of the virtual network gateway."
           },
-          { 
-            "name": "gatewayVip",		
+          {
+            "name": "gatewayVip",
             "in": "query",
             "required": false,
             "type": "string",
@@ -293,13 +388,109 @@
           }
         ],
         "responses": {
-          "202": {
+          "200": {
             "description": "VPN client package URL.",
             "schema": {
               "type": "string"
             }
           }
-        }
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/generatevpnprofile": {
+      "post": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_GenerateVpnProfile",
+        "description": "Generates VPN profile for P2S client of the virtual network gateway in the specified resource group. Used for IKEV2 and radius based authentication.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VpnClientParameters"
+            },
+            "description": "Parameters supplied to the generate virtual network gateway VPN client package operation."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "VPN profile package URL.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "202": {
+            "description": "Accepted and the operation will complete asynchronously."
+          }
+        },
+        "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getvpnprofilepackageurl": {
+      "post": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_GetVpnProfilePackageUrl",
+        "description": "Gets pre-generated VPN profile for P2S client of the virtual network gateway in the specified resource group. The profile needs to be generated first using generateVpnProfile.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "VPN profile package URL.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "202": {
+            "description": "Accepted and the operation will complete asynchronously."
+          }
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getBgpPeerStatus": {
@@ -350,6 +541,45 @@
           }
         },
         "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/supportedvpndevices": {
+      "post": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_SupportedVpnDevices",
+        "description": "Gets a xml format representation for supported vpn devices.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Xml format representation for supported vpn devices.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getLearnedRoutes": {
@@ -443,6 +673,54 @@
           }
         },
         "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/connections/{virtualNetworkGatewayConnectionName}/vpndeviceconfigurationscript": {
+      "post": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_VpnDeviceConfigurationScript",
+        "description": "Gets a xml format representation for vpn device configuration script.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayConnectionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway connection for which the configuration script is generated."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VpnDeviceScriptParameters"
+            },
+            "description": "Parameters supplied to the generate vpn device script operation."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Xml format representation for vpn device configuration script.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/connections/{virtualNetworkGatewayConnectionName}": {
@@ -576,8 +854,58 @@
           }
         },
         "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "tags": [
+          "VirtualNetworkGatewayConnections"
+        ],
+        "operationId": "VirtualNetworkGatewayConnections_UpdateTags",
+        "description": "Updates a virtual network gateway connection tags.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayConnectionName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway connection."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./network.json#/definitions/TagsObject"
+            },
+            "description": "Parameters supplied to update virtual network gateway connection tags."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful. The operation returns the resulting VirtualNetworkGatewayConnection resource.",
+            "schema": {
+              "$ref": "#/definitions/VirtualNetworkGatewayConnectionListEntity"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update Virtual Network Gateway Connection Tags": { "$ref": "./examples/VirtualNetworkGatewayConnectionUpdateTags.json" }
+        },
+        "x-ms-long-running-operation": true
       }
-    },    
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/connections/{virtualNetworkGatewayConnectionName}/sharedkey": {
       "put": {
         "tags": [
@@ -668,9 +996,9 @@
             }
           }
         }
-      }	  
+      }
     },
-	"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/connections": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/connections": {
       "get": {
         "tags": [
           "VirtualNetworkGatewayConnections"
@@ -757,7 +1085,7 @@
         "x-ms-long-running-operation": true
       }
     },
-	"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/localNetworkGateways/{localNetworkGatewayName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/localNetworkGateways/{localNetworkGatewayName}": {
       "put": {
         "tags": [
           "LocalNetworkGateways"
@@ -891,6 +1219,57 @@
           }
         },
         "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "tags": [
+          "LocalNetworkGateways"
+        ],
+        "operationId": "LocalNetworkGateways_UpdateTags",
+        "description": "Updates a local network gateway tags.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "localNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the local network gateway."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./network.json#/definitions/TagsObject"
+            },
+            "description": "Parameters supplied to update local network gateway tags."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful. The operation returns the resulting LocalNetworkGateway resource.",
+            "schema": {
+              "$ref": "#/definitions/LocalNetworkGateway"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update Local Network Gateway Tags": { "$ref": "./examples/LocalNetworkGatewayUpdateTags.json" }
+        },
+        "x-ms-long-running-operation": true
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/localNetworkGateways": {
@@ -930,7 +1309,7 @@
     }
   },
   "definitions": {
-	"VirtualNetworkGatewayIPConfigurationPropertiesFormat": {
+    "VirtualNetworkGatewayIPConfigurationPropertiesFormat": {
       "properties": {
         "privateIPAllocationMethod": {
           "type": "string",
@@ -964,7 +1343,8 @@
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/VirtualNetworkGatewayIPConfigurationPropertiesFormat"
+          "$ref": "#/definitions/VirtualNetworkGatewayIPConfigurationPropertiesFormat",
+          "description": "Properties of the virtual network gateway ip configuration."
         },
         "name": {
           "type": "string",
@@ -1019,7 +1399,7 @@
           "type": "boolean",
           "description": "Whether BGP is enabled for this virtual network gateway or not."
         },
-	    "activeActive": {
+        "activeActive": {
           "type": "boolean",
           "description": "ActiveActive flag"
         },
@@ -1051,7 +1431,7 @@
       },
       "description": "VirtualNetworkGateway properties"
     },
-	"VpnClientRootCertificatePropertiesFormat": {
+    "VpnClientRootCertificatePropertiesFormat": {
       "properties": {
         "publicCertData": {
           "type": "string",
@@ -1072,7 +1452,8 @@
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/VpnClientRootCertificatePropertiesFormat"
+          "$ref": "#/definitions/VpnClientRootCertificatePropertiesFormat",
+          "description": "Properties of the vpn client root certificate."
         },
         "name": {
           "type": "string",
@@ -1093,7 +1474,7 @@
       ],
       "description": "VPN client root certificate of virtual network gateway"
     },
-	"VpnClientRevokedCertificatePropertiesFormat": {
+    "VpnClientRevokedCertificatePropertiesFormat": {
       "properties": {
         "thumbprint": {
           "type": "string",
@@ -1111,7 +1492,8 @@
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/VpnClientRevokedCertificatePropertiesFormat"
+          "$ref": "#/definitions/VpnClientRevokedCertificatePropertiesFormat",
+          "description": "Properties of the vpn client revoked certificate."
         },
         "name": {
           "type": "string",
@@ -1129,7 +1511,7 @@
       ],
       "description": "VPN client revoked certificate of virtual network gateway."
     },
-	"VpnClientConfiguration": {
+    "VpnClientConfiguration": {
       "properties": {
         "vpnClientAddressPool": {
           "$ref": "./virtualNetwork.json#/definitions/AddressSpace",
@@ -1148,6 +1530,30 @@
             "$ref": "#/definitions/VpnClientRevokedCertificate"
           },
           "description": "VpnClientRevokedCertificate for Virtual network gateway."
+        },
+        "vpnClientProtocols": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "VPN client protocol enabled for the virtual network gateway.",
+            "enum": [
+              "IkeV2",
+              "SSTP"
+            ],
+            "x-ms-enum": {
+              "name": "VpnClientProtocol",
+              "modelAsString": true
+            }
+          },
+          "description": "VpnClientProtocols for Virtual network gateway."
+        },
+        "radiusServerAddress": {
+          "type": "string",
+          "description": "The radius server address property of the VirtualNetworkGateway resource for vpn client connection."
+        },
+        "radiusServerSecret": {
+          "type": "string",
+          "description": "The radius secret property of the VirtualNetworkGateway resource for vpn client connection."
         }
       },
       "description": "VpnClientConfiguration for P2S client."
@@ -1196,7 +1602,7 @@
       },
       "description": "VirtualNetworkGatewaySku details"
     },
-	"BgpSettings": {
+    "BgpSettings": {
       "properties": {
         "asn": {
           "type": "integer",
@@ -1320,7 +1726,8 @@
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/VirtualNetworkGatewayPropertiesFormat"
+          "$ref": "#/definitions/VirtualNetworkGatewayPropertiesFormat",
+          "description": "Properties of the virtual network gateway."
         },
         "etag": {
           "type": "string",
@@ -1337,7 +1744,7 @@
       ],
       "description": "A common class for general resource information"
     },
-	"VpnClientParameters": {
+    "VpnClientParameters": {
       "properties": {
         "processorArchitecture": {
           "type": "string",
@@ -1350,14 +1757,34 @@
             "name": "ProcessorArchitecture",
             "modelAsString": true
           }
+        },
+        "authenticationMethod": {
+          "type": "string",
+          "description": "VPN client Authentication Method. Possible values are: 'EAPTLS' and 'EAPMSCHAPv2'.",
+          "enum": [
+            "EAPTLS",
+            "EAPMSCHAPv2"
+          ],
+          "x-ms-enum": {
+            "name": "AuthenticationMethod",
+            "modelAsString": true
+          }
+        },
+        "radiusServerAuthCertificate": {
+          "type": "string",
+          "description": "The public certificate data for the radius server authentication certificate as a Base-64 encoded string. Required only if external radius authentication has been configured with EAPTLS authentication."
+        },
+        "clientRootCertificates": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of client root certificates public certificate data encoded as Base-64 strings. Optional parameter for external radius based authentication with EAPTLS."
         }
       },
-      "required": [
-        "processorArchitecture"
-      ],
       "description": "Vpn Client Parameters for package generation"
     },
-	"VirtualNetworkGatewayListResult": {
+    "VirtualNetworkGatewayListResult": {
       "properties": {
         "value": {
           "type": "array",
@@ -1367,6 +1794,7 @@
           "description": "Gets a list of VirtualNetworkGateway resources that exists in a resource group."
         },
         "nextLink": {
+          "readOnly": true,
           "type": "string",
           "description": "The URL to get the next set of results."
         }
@@ -1420,19 +1848,19 @@
           }
         },
         "ingressBytesTransferred": {
-          "readOnly": true,		
+          "readOnly": true,
           "type": "integer",
           "format": "int64",
           "description": "The Ingress Bytes Transferred in this connection"
         },
         "egressBytesTransferred": {
-          "readOnly": true,		
+          "readOnly": true,
           "type": "integer",
           "format": "int64",
           "description": "The Egress Bytes Transferred in this connection"
-        },		
+        },
         "lastConnectionEstablishedUtcTime": {
-          "readOnly": true,		
+          "readOnly": true,
           "type": "string",
           "description": "The time at which connection was established in Utc format."
         }
@@ -1446,13 +1874,16 @@
           "description": "The authorizationKey."
         },
         "virtualNetworkGateway1": {
-          "$ref": "#/definitions/VirtualNetworkGateway"
+          "$ref": "#/definitions/VirtualNetworkGateway",
+          "description": "The reference to virtual network gateway resource."
         },
         "virtualNetworkGateway2": {
-          "$ref": "#/definitions/VirtualNetworkGateway"
+          "$ref": "#/definitions/VirtualNetworkGateway",
+          "description": "The reference to virtual network gateway resource."
         },
         "localNetworkGateway2": {
-          "$ref": "#/definitions/LocalNetworkGateway"
+          "$ref": "#/definitions/LocalNetworkGateway",
+          "description": "The reference to local network gateway resource."
         },
         "connectionType": {
           "type": "string",
@@ -1551,7 +1982,8 @@
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/VirtualNetworkGatewayConnectionPropertiesFormat"
+          "$ref": "#/definitions/VirtualNetworkGatewayConnectionPropertiesFormat",
+          "description": "Properties of the virtual network gateway connection."
         },
         "etag": {
           "type": "string",
@@ -1578,6 +2010,7 @@
           "description": "Gets a list of VirtualNetworkGatewayConnection resources that exists in a resource group."
         },
         "nextLink": {
+          "readOnly": true,
           "type": "string",
           "description": "The URL to get the next set of results."
         }
@@ -1608,7 +2041,7 @@
       },
       "required": [
         "value"
-      ],	  
+      ],
       "description": "Response for GetConnectionSharedKey API service call"
     },
     "IpsecPolicy": {
@@ -1735,7 +2168,7 @@
       ],
       "description": "An IPSec Policy configuration for a virtual network gateway connection"
     },
-	"LocalNetworkGatewayPropertiesFormat": {
+    "LocalNetworkGatewayPropertiesFormat": {
       "properties": {
         "localNetworkAddressSpace": {
           "$ref": "./virtualNetwork.json#/definitions/AddressSpace",
@@ -1765,7 +2198,8 @@
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/LocalNetworkGatewayPropertiesFormat"
+          "$ref": "#/definitions/LocalNetworkGatewayPropertiesFormat",
+          "description": "Properties of the local network gateway."
         },
         "etag": {
           "type": "string",
@@ -1792,11 +2226,191 @@
           "description": "A list of local network gateways that exists in a resource group."
         },
         "nextLink": {
+          "readOnly": true,
           "type": "string",
           "description": "The URL to get the next set of results."
         }
       },
       "description": "Response for ListLocalNetworkGateways API service call."
+    },
+    "virtualNetworkConnectionGatewayReference": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The ID of VirtualNetworkGateway or LocalNetworkGateway resource."
+        }
+      },
+      "required": [
+        "id"
+      ],
+      "description": "A reference to VirtualNetworkGateway or LocalNetworkGateway resource."
+    },
+    "VirtualNetworkGatewayConnectionListEntityPropertiesFormat": {
+      "properties": {
+        "authorizationKey": {
+          "type": "string",
+          "description": "The authorizationKey."
+        },
+        "virtualNetworkGateway1": {
+          "$ref": "#/definitions/virtualNetworkConnectionGatewayReference",
+          "description": "The reference to virtual network gateway resource."
+        },
+        "virtualNetworkGateway2": {
+          "$ref": "#/definitions/virtualNetworkConnectionGatewayReference",
+          "description": "The reference to virtual network gateway resource."
+        },
+        "localNetworkGateway2": {
+          "$ref": "#/definitions/virtualNetworkConnectionGatewayReference",
+          "description": "The reference to local network gateway resource."
+        },
+        "connectionType": {
+          "type": "string",
+          "description": "Gateway connection type. Possible values are: 'Ipsec','Vnet2Vnet','ExpressRoute', and 'VPNClient.",
+          "enum": [
+            "IPsec",
+            "Vnet2Vnet",
+            "ExpressRoute",
+            "VPNClient"
+          ],
+          "x-ms-enum": {
+            "name": "VirtualNetworkGatewayConnectionType",
+            "modelAsString": true
+          }
+        },
+        "routingWeight": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The routing weight."
+        },
+        "sharedKey": {
+          "type": "string",
+          "description": "The IPSec shared key."
+        },
+        "connectionStatus": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Virtual network Gateway connection status. Possible values are 'Unknown', 'Connecting', 'Connected' and 'NotConnected'.",
+          "enum": [
+            "Unknown",
+            "Connecting",
+            "Connected",
+            "NotConnected"
+          ],
+          "x-ms-enum": {
+            "name": "VirtualNetworkGatewayConnectionStatus",
+            "modelAsString": true
+          }
+        },
+        "tunnelConnectionStatus": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TunnelConnectionHealth"
+          },
+          "description": "Collection of all tunnels' connection health status."
+        },
+        "egressBytesTransferred": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int64",
+          "description": "The egress bytes transferred in this connection."
+        },
+        "ingressBytesTransferred": {
+          "readOnly": true,
+          "type": "integer",
+          "format": "int64",
+          "description": "The ingress bytes transferred in this connection."
+        },
+        "peer": {
+          "$ref": "./network.json#/definitions/SubResource",
+          "description": "The reference to peerings resource."
+        },
+        "enableBgp": {
+          "type": "boolean",
+          "description": "EnableBgp flag"
+        },
+        "usePolicyBasedTrafficSelectors": {
+          "type": "boolean",
+          "description": "Enable policy-based traffic selectors."
+        },
+        "ipsecPolicies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpsecPolicy"
+          },
+          "description": "The IPSec Policies to be considered by this connection."
+        },
+        "resourceGuid": {
+          "type": "string",
+          "description": "The resource GUID property of the VirtualNetworkGatewayConnection resource."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The provisioning state of the VirtualNetworkGatewayConnection resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+        }
+      },
+      "required": [
+        "virtualNetworkGateway1",
+        "connectionType"
+      ],
+      "description": "VirtualNetworkGatewayConnection properties"
+    },
+    "VirtualNetworkGatewayConnectionListEntity": {
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/VirtualNetworkGatewayConnectionListEntityPropertiesFormat",
+          "description": "Properties of the virtual network gateway connection."
+        },
+        "etag": {
+          "type": "string",
+          "description": "Gets a unique read-only string that changes whenever the resource is updated."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/Resource"
+        }
+      ],
+      "required": [
+        "properties"
+      ],
+      "description": "A common class for general resource information"
+    },
+    "VirtualNetworkGatewayListConnectionsResult": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VirtualNetworkGatewayConnectionListEntity"
+          },
+          "description": "Gets a list of VirtualNetworkGatewayConnection resources that exists in a resource group."
+        },
+        "nextLink": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The URL to get the next set of results."
+        }
+      },
+      "description": "Response for the VirtualNetworkGatewayListConnections API service call"
+    },
+    "VpnDeviceScriptParameters": {
+      "properties": {
+        "vendor": {
+          "type": "string",
+          "description": "The vendor for the vpn device."
+        },
+        "deviceFamily": {
+          "type": "string",
+          "description": "The device family for the vpn device."
+        },
+        "firmwareVersion": {
+          "type": "string",
+          "description": "The firmware version for the vpn device."
+        }
+      },
+      "description": "Vpn device configuration script generation parameters"
     }
   },
   "parameters": {

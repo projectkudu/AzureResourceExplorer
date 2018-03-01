@@ -10,12 +10,10 @@
     "https"
   ],
   "consumes": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "produces": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "security": [
     {
@@ -36,24 +34,17 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/CheckDnsNameAvailability": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/virtualNetworkAvailableEndpointServices": {
       "get": {
-        "operationId": "CheckDnsNameAvailability",
-        "description": "Checks whether a domain name in the cloudapp.azure.com zone is available for use.",
+        "operationId": "AvailableEndpointServices_List",
+        "description": "List what values of endpoint services are available for use.",
         "parameters": [
           {
             "name": "location",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The location of the domain name."
-          },
-          {
-            "name": "domainNameLabel",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "The domain name to be verified. It must conform to the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$."
+            "description": "The location to check available endpoint services."
           },
           {
             "$ref": "#/parameters/ApiVersionParameter"
@@ -64,27 +55,57 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. Returns whether the DNS name is available.",
+            "description": "Request successful. Returns list of available endpoint services.",
             "schema": {
-              "$ref": "#/definitions/DnsNameAvailabilityResult"
+              "$ref": "#/definitions/EndpointServicesListResult"
             }
           }
         },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        },
         "x-ms-examples": {
-          "Check Dns Name Availability": { "$ref": "./examples/CheckDnsNameAvailability.json" }
+          "EndpointServicesList": { "$ref": "./examples/EndpointServicesList.json" }
         }
       }
     }
   },
   "definitions": {
-    "DnsNameAvailabilityResult": {
+    "EndpointServicesListResult": {
       "properties": {
-        "available": {
-          "type": "boolean",
-          "description": "Domain availability (True/False)."
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EndpointServiceResult"
+          },
+          "description": "List of available endpoint services in a region."
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The URL to get the next set of results."
         }
       },
-      "description": "Response for the CheckDnsNameAvailability API service call."
+      "description": "Response for the ListAvailableEndpointServices API service call."
+    },
+    "EndpointServiceResult": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the endpoint service.",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of the endpoint service.",
+          "readOnly": true
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/SubResource"
+        }
+      ],
+      "description": "Endpoint service."
     }
   },
   "parameters": {

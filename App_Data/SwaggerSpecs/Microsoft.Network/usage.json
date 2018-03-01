@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2017-03-01"
+    "version": "2018-01-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -36,13 +36,13 @@
     }
   },
   "paths": {
-	"/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/usages": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/locations/{location}/usages": {
       "get": {
         "tags": [
           "Usages"
         ],
         "operationId": "Usages_List",
-        "description": "Lists compute usages for a subscription.",
+        "description": "List network usages for a subscription.",
         "parameters": [
           {
             "name": "location",
@@ -67,6 +67,9 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List usages": { "$ref": "./examples/UsageList.json" }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -74,7 +77,7 @@
     }
   },
   "definitions": {
-	"UsageName": {
+    "UsageName": {
       "properties": {
         "value": {
           "type": "string",
@@ -89,6 +92,11 @@
     },
     "Usage": {
       "properties": {
+        "id": {
+          "type": "string",
+          "readOnly": true,
+          "description": "Resource identifier."
+        },
         "unit": {
           "type": "string",
           "description": "An enum describing the unit of measurement.",

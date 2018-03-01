@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2017-03-01"
+    "version": "2018-01-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -36,7 +36,7 @@
     }
   },
   "paths": {
-	"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPAddresses/{publicIpAddressName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPAddresses/{publicIpAddressName}": {
       "delete": {
         "tags": [
           "PublicIPAddresses"
@@ -76,9 +76,12 @@
             "description": "Delete successful."
           }
         },
+        "x-ms-examples": {
+          "Delete public IP address": { "$ref": "./examples/PublicIpAddressDelete.json" }
+        },
         "x-ms-long-running-operation": true
       },
-	  "get": {
+      "get": {
         "tags": [
           "PublicIPAddresses"
         ],
@@ -120,6 +123,9 @@
               "$ref": "#/definitions/PublicIPAddress"
             }
           }
+        },
+        "x-ms-examples": {
+          "Get public IP address": { "$ref": "./examples/PublicIpAddressGet.json" }
         }
       },
       "put": {
@@ -173,10 +179,65 @@
             }
           }
         },
+        "x-ms-examples": {
+          "Create public IP address defaults": { "$ref": "./examples/PublicIpAddressCreateDefaults.json" },
+          "Create public IP address allocation method": { "$ref": "./examples/PublicIpAddressCreateCustomizedValues.json" },
+          "Create public IP address DNS": { "$ref": "./examples/PublicIpAddressCreateDns.json" }
+        },
+        "x-ms-long-running-operation": true
+      },
+      "patch": {
+        "tags": [
+          "PublicIPAddresses"
+        ],
+        "operationId": "PublicIPAddresses_UpdateTags",
+        "description": "Updates public IP address tags.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "publicIpAddressName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the public IP address."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./network.json#/definitions/TagsObject"
+            },
+            "description": "Parameters supplied to update public IP address tags."
+          },
+          {
+            "$ref": "#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful. The operation returns the resulting PublicIPAddress resource.",
+            "schema": {
+              "$ref": "#/definitions/PublicIPAddress"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update public IP address tags": { "$ref": "./examples/PublicIpAddressUpdateTags.json" }
+        },
         "x-ms-long-running-operation": true
       }
     },
-	"/subscriptions/{subscriptionId}/providers/Microsoft.Network/publicIPAddresses": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/publicIPAddresses": {
       "get": {
         "tags": [
           "PublicIPAddresses"
@@ -198,6 +259,9 @@
               "$ref": "#/definitions/PublicIPAddressListResult"
             }
           }
+        },
+        "x-ms-examples": {
+          "List all public IP addresses": { "$ref": "./examples/PublicIpAddressListAll.json" }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -234,6 +298,9 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List resource group public IP addresses": { "$ref": "./examples/PublicIpAddressList.json" }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -241,6 +308,23 @@
     }
   },
   "definitions": {
+    "PublicIPAddressSku": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of a public IP address SKU.",
+          "enum": [
+            "Basic",
+            "Standard"
+          ],
+          "x-ms-enum": {
+            "name": "PublicIPAddressSkuName",
+            "modelAsString": true
+          }
+        }
+      },
+      "description": "SKU of a public IP address"
+    },
     "PublicIPAddressPropertiesFormat": {
       "properties": {
         "publicIPAllocationMethod": {
@@ -269,14 +353,23 @@
         },
         "ipConfiguration": {
           "readOnly": true,
-          "$ref": "./networkInterface.json#/definitions/IPConfiguration"
+          "$ref": "./networkInterface.json#/definitions/IPConfiguration",
+          "description": "The IP configuration associated with the public IP address."
         },
         "dnsSettings": {
           "$ref": "#/definitions/PublicIPAddressDnsSettings",
           "description": "The FQDN of the DNS record associated with the public IP address."
         },
+        "ipTags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpTag"
+          },
+          "description": "The list of tags associated with the public IP address."
+        },
         "ipAddress": {
-          "type": "string"
+          "type": "string",
+          "description": "The IP address associated with the public IP address resource."
         },
         "idleTimeoutInMinutes": {
           "type": "integer",
@@ -296,13 +389,25 @@
     },
     "PublicIPAddress": {
       "properties": {
+        "sku": {
+          "$ref": "#/definitions/PublicIPAddressSku",
+          "description": "The public IP address SKU."
+        },
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/PublicIPAddressPropertiesFormat"
+          "$ref": "#/definitions/PublicIPAddressPropertiesFormat",
+          "description": "Public IP address properties."
         },
         "etag": {
           "type": "string",
           "description": "A unique read-only string that changes whenever the resource is updated."
+        },
+        "zones": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of availability zones denoting the IP allocated for the resource needs to come from."
         }
       },
       "allOf": [
@@ -328,7 +433,7 @@
       },
       "description": "Response for ListPublicIpAddresses API service call."
     },
-	"PublicIPAddressDnsSettings": {
+    "PublicIPAddressDnsSettings": {
       "properties": {
         "domainNameLabel": {
           "type": "string",
@@ -344,6 +449,19 @@
         }
       },
       "description": "Contains FQDN of the DNS record associated with the public IP address"
+    },
+    "IpTag": {
+      "properties": {
+        "ipTagType": {
+          "type": "string",
+          "description": "Gets or sets the ipTag type: Example FirstPartyUsage."
+        },
+        "tag": {
+          "type": "string",
+          "description": "Gets or sets value of the IpTag associated with the public IP. Example SQL, Storage etc"
+        }
+      },
+      "description": "Contains the IpTag associated with the public IP address"
     }
   },
   "parameters": {
