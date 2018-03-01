@@ -346,6 +346,9 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerService\location.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\autoscale_API.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\servicefabriccontainerInstance.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\applicationSecurityGroup.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\endpointService.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\operation.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
