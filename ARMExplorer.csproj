@@ -24,6 +24,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -252,7 +253,6 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeStore\filesystem.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Devices\iothub.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DevTestLab\DTL.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.DocumentDB\documentdb.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\features.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\links.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\applications.json" />
@@ -349,6 +349,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\applicationSecurityGroup.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\endpointService.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\operation.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DocumentDB\cosmos-db.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
