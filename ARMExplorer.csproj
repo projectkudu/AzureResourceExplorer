@@ -350,6 +350,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\endpointService.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\operation.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DocumentDB\cosmos-db.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.OperationalInsights\OperationalInsights-2015-03-20.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
