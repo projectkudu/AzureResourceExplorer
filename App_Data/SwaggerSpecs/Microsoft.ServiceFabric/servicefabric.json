@@ -329,7 +329,7 @@
         ],
         "x-ms-examples": {
           "Get cluster version": {
-            "$ref": "examples/ClusterVersionsGet_example.json"
+            "$ref": "./examples/ClusterVersionsGet_example.json"
           }
         },
         "tags": [
@@ -369,7 +369,7 @@
         ],
         "x-ms-examples": {
           "Get cluster version by environment": {
-            "$ref": "examples/ClusterVersionsGetByEnvironment_example.json"
+            "$ref": "./examples/ClusterVersionsGetByEnvironment_example.json"
           }
         },
         "tags": [
@@ -403,7 +403,7 @@
         ],
         "x-ms-examples": {
           "List cluster versions": {
-            "$ref": "examples/ClusterVersionsList_example.json"
+            "$ref": "./examples/ClusterVersionsList_example.json"
           }
         },
         "tags": [
@@ -440,7 +440,7 @@
         ],
         "x-ms-examples": {
           "List cluster versions by environment": {
-            "$ref": "examples/ClusterVersionsListByEnvironment.json"
+            "$ref": "./examples/ClusterVersionsListByEnvironment.json"
           }
         },
         "tags": [
