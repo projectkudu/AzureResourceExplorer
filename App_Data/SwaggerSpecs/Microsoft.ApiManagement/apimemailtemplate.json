@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on OpenId Connect Provider entity associated with your Azure API Management deployment. API Management allows you to access APIs secured with token from [OpenID Connect Provider ](http://openid.net/connect/) to be accessed from the Developer Console.",
+    "description": "Use these REST APIs for performing operations on Email Templates associated with your Azure API Management deployment.",
     "version": "2018-01-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/openidConnectProviders": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/templates": {
       "get": {
         "tags": [
-          "OpenIdConnectProviders"
+          "EmailTemplate"
         ],
-        "operationId": "OpenIdConnectProvider_ListByService",
-        "description": "Lists all OpenID Connect Providers.",
+        "operationId": "EmailTemplate_ListByService",
+        "description": "Lists a collection of properties defined within a service instance.",
         "x-ms-examples": {
-          "ApiManagementListOpenIdConnectProviders": {
-            "$ref": "./examples/ApiManagementListOpenIdConnectProviders.json"
+          "ApiManagementListEmailTemplates": {
+            "$ref": "./examples/ApiManagementListEmailTemplates.json"
           }
         },
         "parameters": [
@@ -52,13 +52,6 @@
           },
           {
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "name": "$filter",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": "| Field | Supported operators    | Supported functions                         |\n|-------|------------------------|---------------------------------------------|\n| id    | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |\n| name  | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
@@ -75,28 +68,27 @@
         ],
         "responses": {
           "200": {
-            "description": "Lists of all the OpenId Connect Providers.",
+            "description": "A Collection of the Email Template for the specified API Management service instance.",
             "schema": {
-              "$ref": "#/definitions/OpenIdConnectProviderCollection"
+              "$ref": "#/definitions/EmailTemplateCollection"
             }
           }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "#/definitions/OpenidConnectProviderContract"
+        }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/openidConnectProviders/{opid}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/templates/{templateName}": {
       "head": {
         "tags": [
-          "OpenIdConnectProviders"
+          "EmailTemplates"
         ],
-        "operationId": "OpenIdConnectProvider_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the openIdConnectProvider specified by its identifier.",
+        "operationId": "EmailTemplate_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the email template specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementHeadOpenIdConnectProvider": {
-            "$ref": "./examples/ApiManagementHeadOpenIdConnectProvider.json"
+          "ApiManagementHeadEmailTemplate": {
+            "$ref": "./examples/ApiManagementHeadEmailTemplate.json"
           }
         },
         "parameters": [
@@ -107,7 +99,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/OpenIdConnectIdParameter"
+            "$ref": "#/parameters/TemplateNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -118,12 +110,12 @@
         ],
         "responses": {
           "200": {
-            "description": "Specified openidConnectProvider entity exists and current entity state version is present in the ETag header.",
+            "description": "Specified email template entity exists and current entity state version is present in the ETag header.",
             "headers": {
-               "ETag": {
-                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
-                 "type": "string"
-               }
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -134,15 +126,15 @@
           }
         }
       },
-	  "get": {
+      "get": {
         "tags": [
-          "OpenIdConnectProviders"
+          "EmailTemplates"
         ],
-        "operationId": "OpenIdConnectProvider_Get",
-        "description": "Gets specific OpenID Connect Provider.",
+        "operationId": "EmailTemplate_Get",
+        "description": "Gets the details of the email template specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementGetOpenIdConnectProvider": {
-            "$ref": "./examples/ApiManagementGetOpenIdConnectProvider.json"
+          "ApiManagementGetEmailTemplate": {
+            "$ref": "./examples/ApiManagementGetEmailTemplate.json"
           }
         },
         "parameters": [
@@ -153,7 +145,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/OpenIdConnectIdParameter"
+            "$ref": "#/parameters/TemplateNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -164,9 +156,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified OpenId Connect Provider entity.",
+            "description": "The response body contains the specified Email template.",
             "schema": {
-              "$ref": "#/definitions/OpenidConnectProviderContract"
+              "$ref": "#/definitions/EmailTemplateContract"
             },
             "headers": {
               "ETag": {
@@ -185,13 +177,13 @@
       },
       "put": {
         "tags": [
-          "OpenIdConnectProviders"
+          "EmailTemplates"
         ],
-        "operationId": "OpenIdConnectProvider_CreateOrUpdate",
-        "description": "Creates or updates the OpenID Connect Provider.",
+        "operationId": "EmailTemplate_CreateOrUpdate",
+        "description": "Updates an Email Template.",
         "x-ms-examples": {
-          "ApiManagementCreateOpenIdConnectProvider": {
-            "$ref": "./examples/ApiManagementCreateOpenIdConnectProvider.json"
+          "ApiManagementCreateEmailTemplate": {
+            "$ref": "./examples/ApiManagementCreateEmailTemplate.json"
           }
         },
         "parameters": [
@@ -202,16 +194,16 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/OpenIdConnectIdParameter"
+            "$ref": "#/parameters/TemplateNameParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/OpenidConnectProviderContract"
+              "$ref": "#/definitions/EmailTemplateUpdateParameters"
             },
-            "description": "Create parameters."
+            "description": "Email Template update parameters."
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
@@ -225,15 +217,15 @@
         ],
         "responses": {
           "201": {
-            "description": "OpenIdConnect Provider was successfully created.",
+            "description": "Email Template was successfully updated.",
             "schema": {
-              "$ref": "#/definitions/OpenidConnectProviderContract"
+              "$ref": "#/definitions/EmailTemplateContract"
             }
           },
           "200": {
-            "description": "OpenIdConnect Provider was successfully updated.",
+            "description": "Email Template was successfully updated.",
             "schema": {
-              "$ref": "#/definitions/OpenidConnectProviderContract"
+              "$ref": "#/definitions/EmailTemplateContract"
             }
           },
           "default": {
@@ -246,13 +238,13 @@
       },
       "patch": {
         "tags": [
-          "OpenIdConnectProviders"
+          "EmailTemplates"
         ],
-        "operationId": "OpenIdConnectProvider_Update",
-        "description": "Updates the specific OpenID Connect Provider.",
+        "operationId": "EmailTemplate_Update",
+        "description": "Updates the specific Email Template.",
         "x-ms-examples": {
-          "ApiManagementUpdateOpenIdConnectProvider": {
-            "$ref": "./examples/ApiManagementUpdateOpenIdConnectProvider.json"
+          "ApiManagementUpdateEmailTemplate": {
+            "$ref": "./examples/ApiManagementUpdateEmailTemplate.json"
           }
         },
         "parameters": [
@@ -263,19 +255,16 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/OpenIdConnectIdParameter"
+            "$ref": "#/parameters/TemplateNameParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/OpenidConnectProviderUpdateContract"
+              "$ref": "#/definitions/EmailTemplateUpdateParameters"
             },
             "description": "Update parameters."
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -286,7 +275,7 @@
         ],
         "responses": {
           "204": {
-            "description": "OpenId Connect Provider was successfully updated."
+            "description": "Email Template was successfully updated."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -298,13 +287,13 @@
       },
       "delete": {
         "tags": [
-          "OpenIdConnectProviders"
+          "EmailTemplates"
         ],
-        "operationId": "OpenIdConnectProvider_Delete",
-        "description": "Deletes specific OpenID Connect Provider of the API Management service instance.",
+        "operationId": "EmailTemplate_Delete",
+        "description": "Reset the Email Template to default template provided by the API Management service instance.",
         "x-ms-examples": {
-          "ApiManagementDeleteOpenIdConnectProvider": {
-            "$ref": "./examples/ApiManagementDeleteOpenIdConnectProvider.json"
+          "ApiManagementDeleteEmailTemplate": {
+            "$ref": "./examples/ApiManagementDeleteEmailTemplate.json"
           }
         },
         "parameters": [
@@ -315,7 +304,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/OpenIdConnectIdParameter"
+            "$ref": "#/parameters/TemplateNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -329,10 +318,10 @@
         ],
         "responses": {
           "200": {
-            "description": "OpenId Connect Provider was successfully deleted."
+            "description": "Email Template was successfully reset to default."
           },
           "204": {
-            "description": "OpenId Connect Provider was successfully deleted."
+            "description": "Email Template was successfully reset to default."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -345,12 +334,12 @@
     }
   },
   "definitions": {
-    "OpenIdConnectProviderCollection": {
+    "EmailTemplateCollection": {
       "properties": {
         "value": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/OpenidConnectProviderContract"
+            "$ref": "#/definitions/EmailTemplateContract"
           },
           "description": "Page values."
         },
@@ -359,14 +348,14 @@
           "description": "Next page link if any."
         }
       },
-      "description": "Paged OpenIdProviders list representation."
+      "description": "Paged email template list representation."
     },
-    "OpenidConnectProviderContract": {
+    "EmailTemplateContract": {
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/OpenidConnectProviderContractProperties",
-          "description": "OpenId Connect Provider contract properties."
+          "$ref": "#/definitions/EmailTemplateContractProperties",
+          "description": "Email Template entity contract properties."
         }
       },
       "allOf": [
@@ -374,85 +363,142 @@
           "$ref": "./apimanagement.json#/definitions/Resource"
         }
       ],
-      "description": "OpenId Connect Provider details."
+      "description": "Email Template details."
     },
-    "OpenidConnectProviderContractProperties": {
+    "EmailTemplateContractProperties": {
       "properties": {
-        "displayName": {
+        "subject": {
           "type": "string",
-          "description": "User-friendly OpenID Connect Provider name.",
-          "maxLength": 50
+          "description": "Subject of the Template.",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "body": {
+          "type": "string",
+          "description": "Email Template Body. This should be a valid XDocument",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the Template."
         },
         "description": {
           "type": "string",
-          "description": "User-friendly description of OpenID Connect Provider."
+          "description": "Description of the Email Template."
         },
-        "metadataEndpoint": {
-          "type": "string",
-          "description": "Metadata endpoint URI."
+        "isDefault": {
+          "type": "boolean",
+          "description": "Whether the template is the default template provided by Api Management or has been edited.",
+          "readOnly": true
         },
-        "clientId": {
-          "type": "string",
-          "description": "Client ID of developer console which is the client application."
-        },
-        "clientSecret": {
-          "type": "string",
-          "description": "Client Secret of developer console which is the client application."
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailTemplateParametersContractProperties"
+          },
+          "description": "Email Template Parameter values."
         }
       },
       "required": [
-        "displayName",
-        "metadataEndpoint",
-        "clientId"
+        "body",
+        "subject"
       ],
-      "description": "OpenID Connect Providers Contract."
+      "description": "Email Template Contract properties."
     },
-    "OpenidConnectProviderUpdateContract": {
+    "EmailTemplateUpdateParameters": {
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/OpenidConnectProviderUpdateContractProperties",
-          "description": "OpenId Connect Provider Update contract properties."
+          "$ref": "#/definitions/EmailTemplateUpdateParameterProperties",
+          "description": "Email Template Update contract properties."
         }
       },
-      "description": "Parameters supplied to the Update OpenID Connect Provider operation."
+      "description": "Email Template update Parameters."
     },
-    "OpenidConnectProviderUpdateContractProperties": {
+    "EmailTemplateUpdateParameterProperties": {
       "properties": {
-        "displayName": {
+        "subject": {
           "type": "string",
-          "description": "User-friendly OpenID Connect Provider name.",
-          "maxLength": 50
+          "description": "Subject of the Template.",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the Template."
         },
         "description": {
           "type": "string",
-          "description": "User-friendly description of OpenID Connect Provider."
+          "description": "Description of the Email Template."
         },
-        "metadataEndpoint": {
+        "body": {
           "type": "string",
-          "description": "Metadata endpoint URI."
+          "description": "Email Template Body. This should be a valid XDocument",
+          "minLength": 1
         },
-        "clientId": {
-          "type": "string",
-          "description": "Client ID of developer console which is the client application."
-        },
-        "clientSecret": {
-          "type": "string",
-          "description": "Client Secret of developer console which is the client application."
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EmailTemplateParametersContractProperties"
+          },
+          "description": "Email Template Parameter values."
         }
       },
-      "description": "Parameters supplied to the Update OpenID Connect Provider operation."
+      "description": "Email Template Update Contract properties."
+    },
+    "EmailTemplateParametersContractProperties": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Template parameter name.",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[A-Za-z0-9-._]+$"
+        },
+        "title": {
+          "type": "string",
+          "description": "Template parameter title.",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "description": {
+          "type": "string",
+          "description": "Template parameter description.",
+          "minLength": 1,
+          "maxLength": 256,
+          "pattern": "^[A-Za-z0-9-._]+$"
+        }
+      },
+      "description": "Email Template Parameter contract."
     }
   },
   "parameters": {
-    "OpenIdConnectIdParameter": {
-      "name": "opid",
+    "TemplateNameParameter": {
+      "name": "templateName",
       "in": "path",
       "required": true,
       "type": "string",
-      "description": "Identifier of the OpenID Connect Provider.",
-      "maxLength": 256,
-      "pattern": "^[^*#&+:<>?]+$",
+      "enum": [
+        "applicationApprovedNotificationMessage",
+        "accountClosedDeveloper",
+        "quotaLimitApproachingDeveloperNotificationMessage",
+        "newDeveloperNotificationMessage",
+        "emailChangeIdentityDefault",
+        "inviteUserNotificationMessage",
+        "newCommentNotificationMessage",
+        "confirmSignUpIdentityDefault",
+        "newIssueNotificationMessage",
+        "purchaseDeveloperNotificationMessage",
+        "passwordResetIdentityDefault",
+        "passwordResetByAdminNotificationMessage",
+        "rejectDeveloperNotificationMessage",
+        "requestDeveloperNotificationMessage"
+      ],
+      "x-ms-enum": {
+        "name": "TemplateName",
+        "modelAsString": true
+      },
+      "description": "Email Template Name Identifier.",
       "x-ms-parameter-location": "method"
     }
   }

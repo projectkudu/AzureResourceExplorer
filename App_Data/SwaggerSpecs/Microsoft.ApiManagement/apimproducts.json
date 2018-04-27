@@ -3,7 +3,7 @@
   "info": {
     "title": "ApiManagementClient",
     "description": "Use these REST APIs for performing operations on Product entity associated with your Azure API Management deployment. The Product entity represents a product in API Management. Products include one or more APIs and their associated terms of use. Once a product is published, developers can subscribe to the product and begin to use the product’s APIs.",
-    "version": "2016-10-10"
+    "version": "2018-01-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -39,10 +39,12 @@
         "tags": [
           "Products"
         ],
-        "operationId": "Products_ListByService",
+        "operationId": "Product_ListByService",
         "description": "Lists a collection of products in the specified service instance.",
-        "externalDocs": {
-          "url": "https://msdn.microsoft.com/en-us/library/azure/dn776336.aspx"
+        "x-ms-examples": {
+          "ApiManagementListProducts": {
+            "$ref": "./examples/ApiManagementListProducts.json"
+          }
         },
         "parameters": [
           {
@@ -88,7 +90,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -99,12 +101,63 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}": {
+      "head": {
+        "tags": [
+          "Products"
+        ],
+        "operationId": "Product_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the product specified by its identifier.",
+        "x-ms-examples": {
+          "ApiManagementHeadProduct": {
+            "$ref": "./examples/ApiManagementHeadProduct.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ProductIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Specified Product entity exists and current entity state version is present in the ETag header.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
       "get": {
         "tags": [
           "Products"
         ],
-        "operationId": "Products_Get",
+        "operationId": "Product_Get",
         "description": "Gets the details of the product specified by its identifier.",
+        "x-ms-examples": {
+          "ApiManagementGetProduct": {
+            "$ref": "./examples/ApiManagementGetProduct.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -128,17 +181,17 @@
             "schema": {
               "$ref": "#/definitions/ProductContract"
             },
-            "headers": {              
+            "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
-              }              
+              }
             }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -147,8 +200,13 @@
         "tags": [
           "Products"
         ],
-        "operationId": "Products_CreateOrUpdate",
+        "operationId": "Product_CreateOrUpdate",
         "description": "Creates or Updates a product.",
+        "x-ms-examples": {
+          "ApiManagementCreateProductBasic": {
+            "$ref": "./examples/ApiManagementCreateProductBasic.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -169,6 +227,9 @@
             "description": "Create or update parameters."
           },
           {
+            "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
+          },
+          {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
           },
           {
@@ -177,15 +238,21 @@
         ],
         "responses": {
           "201": {
-            "description": "Product was successfully created."
+            "description": "Product was successfully created.",
+            "schema": {
+              "$ref": "#/definitions/ProductContract"
+            }
           },
-          "204": {
-            "description": "Product was successfully updated."
+          "200": {
+            "description": "Product was successfully updated.",
+            "schema": {
+              "$ref": "#/definitions/ProductContract"
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -194,8 +261,13 @@
         "tags": [
           "Products"
         ],
-        "operationId": "Products_Update",
+        "operationId": "Product_Update",
         "description": "Update product.",
+        "x-ms-examples": {
+          "ApiManagementUpdateProductBasic": {
+            "$ref": "./examples/ApiManagementUpdateProductBasic.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -216,11 +288,7 @@
             "description": "Update parameters."
           },
           {
-            "name": "If-Match",
-            "in": "header",
-            "required": true,
-            "description": "ETag of the Product Entity. ETag should match the current entity state from the header response of the GET request or it should be * for unconditional update.",
-            "type": "string"
+            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -236,7 +304,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -245,8 +313,13 @@
         "tags": [
           "Products"
         ],
-        "operationId": "Products_Delete",
+        "operationId": "Product_Delete",
         "description": "Delete product.",
+        "x-ms-examples": {
+          "ApiManagementDeleteProduct": {
+            "$ref": "./examples/ApiManagementDeleteProduct.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -262,14 +335,10 @@
             "in": "query",
             "required": false,
             "type": "boolean",
-            "description": "Delete existing subscriptions to the product or not."
+            "description": "Delete existing subscriptions associated with the product or not."
           },
           {
-            "name": "If-Match",
-            "in": "header",
-            "required": true,
-            "description": "ETag of the Product Entity. ETag should match the current entity state from the header response of the GET request or it should be * for unconditional update.",
-            "type": "string"
+            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -279,13 +348,16 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "The product was successfully deleted."
+          },
           "204": {
             "description": "The product was successfully deleted."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -296,8 +368,13 @@
         "tags": [
           "ProductApis"
         ],
-        "operationId": "ProductApis_ListByProducts",
+        "operationId": "ProductApi_ListByProduct",
         "description": "Lists a collection of the APIs associated with a product.",
+        "x-ms-examples": {
+          "ApiManagementListProductApis": {
+            "$ref": "./examples/ApiManagementListProductApis.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -338,7 +415,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -349,12 +426,63 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}": {
+      "head": {
+        "tags": [
+          "ProductApis"
+        ],
+        "operationId": "ProductApi_CheckEntityExists",
+        "description": "Checks that API entity specified by identifier is associated with the Product entity.",
+        "x-ms-examples": {
+          "ApiManagementHeadProductApi": {
+            "$ref": "./examples/ApiManagementHeadProductApi.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ProductIdParameter"
+          },
+          {
+            "$ref": "./apimapis.json#/parameters/ApiIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Entity exists"
+          },
+          "404": {
+            "description": "API is not associated with the product."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "ProductApis"
         ],
-        "operationId": "ProductApis_Create",
+        "operationId": "ProductApi_CreateOrUpdate",
         "description": "Adds an API to the specified product.",
+        "x-ms-examples": {
+          "ApiManagementCreateProductApi": {
+            "$ref": "./examples/ApiManagementCreateProductApi.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -377,15 +505,21 @@
         ],
         "responses": {
           "201": {
-            "description": "The API was successfully added to the product."
+            "description": "The API was successfully added to the product.",
+            "schema": {
+              "$ref": "./apimapis.json#/definitions/ApiContract"
+            }
           },
-          "204": {
-            "description": "The specified API is already added to the product."
+          "200": {
+            "description": "The specified API is already added to the product.",
+            "schema": {
+              "$ref": "./apimapis.json#/definitions/ApiContract"
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -394,8 +528,13 @@
         "tags": [
           "ProductApis"
         ],
-        "operationId": "ProductApis_Delete",
+        "operationId": "ProductApi_Delete",
         "description": "Deletes the specified API from the specified product.",
+        "x-ms-examples": {
+          "ApiManagementDeleteProductApi": {
+            "$ref": "./examples/ApiManagementDeleteProductApi.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -417,13 +556,16 @@
           }
         ],
         "responses": {
+          "200": {
+            "description": "The API was successfully removed from the product."
+          },
           "204": {
             "description": "The API was successfully removed from the product."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -434,8 +576,13 @@
         "tags": [
           "ProductGroups"
         ],
-        "operationId": "ProductGroups_ListByProducts",
+        "operationId": "ProductGroup_ListByProduct",
         "description": "Lists the collection of developer groups associated with the specified product.",
+        "x-ms-examples": {
+          "ApiManagementListProductGroups": {
+            "$ref": "./examples/ApiManagementListProductGroups.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -476,7 +623,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -487,12 +634,63 @@
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/groups/{groupId}": {
+      "head": {
+        "tags": [
+          "ProductGroups"
+        ],
+        "operationId": "ProductGroup_CheckEntityExists",
+        "description": "Checks that Group entity specified by identifier is associated with the Product entity.",
+        "x-ms-examples": {
+          "ApiManagementHeadProductGroup": {
+            "$ref": "./examples/ApiManagementHeadProductGroup.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "#/parameters/ProductIdParameter"
+          },
+          {
+            "$ref": "./apimgroups.json#/parameters/GroupIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "The Group is associated with the Product."
+          },
+          "404": {
+            "description": "The Group entity is not associated with the Product."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
       "put": {
         "tags": [
           "ProductGroups"
         ],
-        "operationId": "ProductGroups_Create",
+        "operationId": "ProductGroup_CreateOrUpdate",
         "description": "Adds the association between the specified developer group with the specified product.",
+        "x-ms-examples": {
+          "ApiManagementCreateProductGroup": {
+            "$ref": "./examples/ApiManagementCreateProductGroup.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -515,15 +713,21 @@
         ],
         "responses": {
           "201": {
-            "description": "The group was successfully associated with the product.."
+            "description": "The group was successfully associated with the product.",
+            "schema": {
+              "$ref": "./apimgroups.json#/definitions/GroupContract"
+            }
           },
-          "204": {
-            "description": "The specified group is already associated with the product."
+          "200": {
+            "description": "The specified group is already associated with the product.",
+            "schema": {
+              "$ref": "./apimgroups.json#/definitions/GroupContract"
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -532,8 +736,13 @@
         "tags": [
           "ProductGroups"
         ],
-        "operationId": "ProductGroups_Delete",
+        "operationId": "ProductGroup_Delete",
         "description": "Deletes the association between the specified group and product.",
+        "x-ms-examples": {
+          "ApiManagementDeleteProductGroup": {
+            "$ref": "./examples/ApiManagementDeleteProductGroup.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -555,19 +764,16 @@
           }
         ],
         "responses": {
-          "204": {
+          "200": {
             "description": "The group was successfully disassociated with the product."
           },
-          "400": {
-            "description": "Request validation failed.This is typically caused by an invalid product or group id.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"              
-            }
+          "204": {
+            "description": "The group was successfully disassociated with the product."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -578,8 +784,13 @@
         "tags": [
           "ProductSubscriptions"
         ],
-        "operationId": "ProductSubscriptions_ListByProducts",
+        "operationId": "ProductSubscriptions_List",
         "description": "Lists the collection of subscriptions to the specified product.",
+        "x-ms-examples": {
+          "ApiManagementListProductSubscriptions": {
+            "$ref": "./examples/ApiManagementListProductSubscriptions.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -620,7 +831,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         },
@@ -629,17 +840,19 @@
         },
         "x-ms-odata": "./apimsubscriptions.json#/definitions/SubscriptionContract"
       }
-    },    
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policy": {
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policies": {
       "get": {
         "tags": [
           "ProductPolicy"
         ],
-        "operationId": "ProductPolicy_Get",
+        "operationId": "ProductPolicy_ListByProduct",
         "description": "Get the policy configuration at the Product level.",
-        "produces": [
-          "application/vnd.ms-azure-apim.policy+xml"
-        ],
+        "x-ms-examples": {
+          "ApiManagementListProductPolicy": {
+            "$ref": "./examples/ApiManagementListProductPolicy.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
@@ -658,16 +871,125 @@
           }
         ],
         "responses": {
-          "200": {            
+          "200": {
             "description": "Product Policy information.",
             "schema": {
-              "type": "file"
+              "$ref": "./apimanagement.json#/definitions/PolicyCollection"
             },
-            "headers": {              
+            "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
-              }              
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policies/{policyId}": {
+      "head": {
+        "tags": [
+          "ProductPolicy"
+        ],
+        "operationId": "ProductPolicy_GetEntityTag",
+        "description": "Get the ETag of the policy configuration at the Product level.",
+        "x-ms-examples": {
+          "ApiManagementHeadProductPolicy": {
+            "$ref": "./examples/ApiManagementHeadProductPolicy.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ProductIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product Policy Etag information.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProductPolicy"
+        ],
+        "operationId": "ProductPolicy_Get",
+        "description": "Get the policy configuration at the Product level.",
+        "x-ms-examples": {
+          "ApiManagementGetProductPolicy": {
+            "$ref": "./examples/ApiManagementGetProductPolicy.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/ProductIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product Policy information.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/PolicyContract"
+            },
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -678,35 +1000,35 @@
         ],
         "operationId": "ProductPolicy_CreateOrUpdate",
         "description": "Creates or updates policy configuration for the Product.",
-        "consumes": [
-          "application/vnd.ms-azure-apim.policy+xml"
-        ],
+        "x-ms-examples": {
+          "ApiManagementCreateProductPolicy": {
+            "$ref": "./examples/ApiManagementCreateProductPolicy.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },          
+          },
           {
             "$ref": "#/parameters/ProductIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "schema": {
-              "type": "object",
-              "format": "file"
+              "$ref": "./apimanagement.json#/definitions/PolicyContract"
             },
             "required": true,
             "description": "The policy contents to apply."
-          },
-          {
-            "name": "If-Match",
-            "in": "header",
-            "required": true,
-            "description": "The entity state (Etag) version of the product policy to update. A value of \"*\" can be used for If-Match to unconditionally apply the operation.",
-            "type": "string"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -717,41 +1039,51 @@
         ],
         "responses": {
           "201": {
-            "description": "Product policy configuration was successfully created."
+            "description": "Product policy configuration was successfully created.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/PolicyContract"
+            }
           },
-          "204":{
-            "description": "Product policy configuration of the tenant was successfully updated."
+          "200": {
+            "description": "Product policy configuration of the tenant was successfully updated.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/PolicyContract"
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
-      },      
+      },
       "delete": {
         "tags": [
           "ProductPolicy"
         ],
         "operationId": "ProductPolicy_Delete",
         "description": "Deletes the policy configuration at the Product.",
+        "x-ms-examples": {
+          "ApiManagementDeleteProductPolicy": {
+            "$ref": "./examples/ApiManagementDeleteProductPolicy.json"
+          }
+        },
         "parameters": [
           {
             "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },          
+          },
           {
             "$ref": "#/parameters/ProductIdParameter"
           },
           {
-            "name": "If-Match",
-            "in": "header",
-            "required": true,
-            "description": "The entity state (Etag) version of the product policy to update. A value of \"*\" can be used for If-Match to unconditionally apply the operation.",
-            "type": "string"
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -761,13 +1093,16 @@
           }
         ],
         "responses": {
-           "204": {
+          "200": {
+            "description": "Successfully deleted the policy configuration at the Product level."
+          },
+          "204": {
             "description": "Successfully deleted the policy configuration at the Product level."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
@@ -775,141 +1110,134 @@
     }
   },
   "definitions": {
-		"ProductCollection": {
-		  "properties": {
-			"value": {
-			  "type": "array",
-			  "items": {
-				"$ref": "#/definitions/ProductContract"
-			  },
-			  "description": "Page values."
-			},
-			"count": {
-			  "type": "integer",
-			  "format": "int64",
-			  "description": "Total record count number across all pages."
-			},
-			"nextLink": {
-			  "type": "string",
-			  "description": "Next page link if any."
-			}
-		  },
-		  "description": "Paged Products list representation."
-		},
-		"ProductContract": {
-		  "properties": {
-			"id": {
-			  "type": "string",
-			  "description": "Uniquely identifies the product within the current API Management service instance. The value is a valid relative URL in the format of /products/{productId} where {productId} is a product identifier.",
-			  "readOnly": true
-			},
-			"name": {
-			  "type": "string",
-			  "description": "Product name.",
-			  "minLength": 1,
-			  "maxLength": 300
-			},
-			"description": {
-			  "type": "string",
-			  "description": "Product description. May include HTML formatting tags.",
-			  "minLength": 1,
-			  "maxLength": 1000
-			},
-			"terms": {
-			  "type": "string",
-			  "description": "Product terms of use. Developers trying to subscribe to the product will be presented and required to accept these terms before they can complete the subscription process."
-			},
-			"subscriptionRequired": {
-			  "type": "boolean",
-			  "description": "Whether a product subscription is required for accessing APIs included in this product. If true, the product is referred to as \"protected\" and a valid subscription key is required for a request to an API included in the product to succeed. If false, the product is referred to as \"open\" and requests to an API included in the product can be made without a subscription key. If property is omitted when creating a new product it's value is assumed to be true.",
-			  "default": true
-			},
-			"approvalRequired": {
-			  "type": "boolean",
-			  "description": "whether subscription approval is required. If false, new subscriptions will be approved automatically enabling developers to call the product’s APIs immediately after subscribing. If true, administrators must manually approve the subscription before the developer can any of the product’s APIs. Can be present only if subscriptionRequired property is present and has a value of false."
-			},
-			"subscriptionsLimit": {
-			  "type": "integer",
-			  "format": "int32",
-			  "description": "Whether the number of subscriptions a user can have to this product at the same time. Set to null or omit to allow unlimited per user subscriptions. Can be present only if subscriptionRequired property is present and has a value of false."
-			},
-			"state": {
-			  "type": "string",
-			  "description": "whether product is published or not. Published products are discoverable by users of developer portal. Non published products are visible only to administrators. Default state of Product is NotPublished.",
-			  "enum": [
-				"NotPublished",
-				"Published"
-			  ],
-			  "default": "NotPublished",
-			  "x-ms-enum": {
-				"name": "ProductStateContract",
-				"modelAsString": false
-			  }
-			}
-		  },
-		  "required": [
-			"name"
-		  ],
-		  "description": "Product profile."
-		},
-		"ProductUpdateParameters": {
-		  "properties": {
-			"name": {
-			  "type": "string",
-			  "description": "Product name.",
-			  "maxLength": 300,
-			  "minLength": 1
-			},
-			"description": {
-			  "type": "string",
-			  "description": "Product description.",
-			  "maxLength": 500,
-			  "minLength": 1
-			},
-			"terms": {
-			  "type": "string",
-			  "description": "Product terms and conditions. Developer will have to accept these terms before he's allowed to call product API."
-			},
-			"subscriptionRequired": {
-			  "type": "boolean",
-			  "description": "whether a product subscription is required for accessing APIs included in this product. If true, the product is referred to as \"protected\" and a valid subscription key is required for a request to an API included in the product to succeed. If false, the product is referred to as \"open\" and requests to an API included in the product can be made without a subscription key. If property is omitted when creating a new product it's value is assumed to be true."
-			},
-			"approvalRequired": {
-			  "type": "boolean",
-			  "description": "whether subscription approval is required. If false, new subscriptions will be approved automatically enabling developers to call the product’s APIs immediately after subscribing. If true, administrators must manually approve the subscription before the developer can any of the product’s APIs. Can be present only if subscriptionRequired property is present and has a value of false."
-			},
-			"subscriptionsLimit": {
-			  "type": "integer",
-			  "format": "int32",
-			  "description": "whether the number of subscriptions a user can have to this product at the same time. Set to null or omit to allow unlimited per user subscriptions. Can be present only if subscriptionRequired property is present and has a value of false."
-			},
-			"state": {
-			  "type": "string",
-			  "description": "whether product is published or not. Published products are discoverable by users of developer portal. Non published products are visible only to administrators.",
-			  "enum": [
-				"NotPublished",
-				"Published"
-			  ],
-			  "x-ms-enum": {
-				"name": "ProductStateContract",
-				"modelAsString": false
-			  }
-			}
-		  },
-		  "description": "Parameters supplied to the CreateOrUpdate Product operation."
-		}
+    "ProductCollection": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductContract"
+          },
+          "description": "Page values."
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "Next page link if any."
+        }
+      },
+      "description": "Paged Products list representation."
+    },
+    "ProductContract": {
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/ProductContractProperties",
+          "description": "Product entity contract properties."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "./apimanagement.json#/definitions/Resource"
+        }
+      ],
+      "description": "Product details."
+    },
+    "ProductContractProperties": {
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Product name.",
+          "minLength": 1,
+          "maxLength": 300
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProductEntityBaseParameters"
+        }
+      ],
+      "required": [
+        "displayName"
+      ],
+      "description": "Product profile."
+    },
+    "ProductEntityBaseParameters": {
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Product description. May include HTML formatting tags.",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "terms": {
+          "type": "string",
+          "description": "Product terms of use. Developers trying to subscribe to the product will be presented and required to accept these terms before they can complete the subscription process."
+        },
+        "subscriptionRequired": {
+          "description": "Whether a product subscription is required for accessing APIs included in this product. If true, the product is referred to as \"protected\" and a valid subscription key is required for a request to an API included in the product to succeed. If false, the product is referred to as \"open\" and requests to an API included in the product can be made without a subscription key. If property is omitted when creating a new product it's value is assumed to be true.",
+          "type": "boolean"
+        },
+        "approvalRequired": {
+          "description": "whether subscription approval is required. If false, new subscriptions will be approved automatically enabling developers to call the product’s APIs immediately after subscribing. If true, administrators must manually approve the subscription before the developer can any of the product’s APIs. Can be present only if subscriptionRequired property is present and has a value of false.",
+          "type": "boolean"
+        },
+        "subscriptionsLimit": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Whether the number of subscriptions a user can have to this product at the same time. Set to null or omit to allow unlimited per user subscriptions. Can be present only if subscriptionRequired property is present and has a value of false."
+        },
+        "state": {
+          "type": "string",
+          "description": "whether product is published or not. Published products are discoverable by users of developer portal. Non published products are visible only to administrators. Default state of Product is notPublished.",
+          "enum": [
+            "notPublished",
+            "published"
+          ],
+          "x-ms-enum": {
+            "name": "ProductState",
+            "modelAsString": false
+          }
+        }
+      },
+      "description": "Product Entity Base Parameters"
+    },
+    "ProductUpdateParameters": {
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/ProductUpdateProperties",
+          "description": "Product entity Update contract properties."
+        }
+      },
+      "description": "Product Update parameters."
+    },
+    "ProductUpdateProperties": {
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "Product name.",
+          "maxLength": 300,
+          "minLength": 1
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "#/definitions/ProductEntityBaseParameters"
+        }
+      ],
+      "description": "Parameters supplied to the Update Product operation."
+    }
   },
   "parameters": {
-		"ProductIdParameter": {
-		  "name": "productId",
-		  "in": "path",
-		  "required": true,
-		  "type": "string",
-		  "description": "Product identifier. Must be unique in the current API Management service instance.",
-		  "minLength": 1,
-		  "maxLength": 256,
-		  "pattern": "^[^*#&+:<>?]+$",
-		  "x-ms-parameter-location": "method"
-		}
+    "ProductIdParameter": {
+      "name": "productId",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "description": "Product identifier. Must be unique in the current API Management service instance.",
+      "minLength": 1,
+      "maxLength": 80,
+      "pattern": "(^[\\w]+$)|(^[\\w][\\w\\-]+[\\w]$)",
+      "x-ms-parameter-location": "method"
+    }
   }
 }

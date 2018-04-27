@@ -3,7 +3,7 @@
   "info": {
     "title": "ApiManagementClient",
     "description": "Use these REST APIs for getting the network connectivity status of your Azure API Management deployment. When the API Management service is deployed inside a Virtual Network, it needs to have access to other Azure resources it depends on. This also gives details about the DNS Servers visible to Azure API Management deployment.",
-    "version": "2016-10-10"
+    "version": "2018-01-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -39,10 +39,12 @@
         "tags": [
           "NetworkStatus"
         ],
-        "operationId": "NetworkStatus_GetByService",
+        "operationId": "NetworkStatus_ListByService",
         "description": "Gets the Connectivity Status to the external resources on which the Api Management service depends from inside the Cloud Service. This also returns the DNS Servers as visible to the CloudService.",
-        "x-ms-examples": { 
-          "ApiManagementServiceGetNetworkStatus": { "$ref": "../examples/ApiManagementServiceGetNetworkStatus.json" } 
+        "x-ms-examples": {
+          "ApiManagementServiceGetNetworkStatus": {
+            "$ref": "./examples/ApiManagementServiceGetNetworkStatus.json"
+          }
         },
         "parameters": [
           {
@@ -60,6 +62,55 @@
         ],
         "responses": {
           "200": {
+            "description": "Gets the list Network status details for all regions in which service is deployed.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/NetworkStatusContractByLocation"
+              },
+              "description": "List of Network Status values."
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/locations/{locationName}/networkstatus": {
+      "get": {
+        "tags": [
+          "NetworkStatus"
+        ],
+        "operationId": "NetworkStatus_ListByLocation",
+        "description": "Gets the Connectivity Status to the external resources on which the Api Management service depends from inside the Cloud Service. This also returns the DNS Servers as visible to the CloudService.",
+        "x-ms-examples": {
+          "ApiManagementServiceGetNetworkStatusByLocation": {
+            "$ref": "./examples/ApiManagementServiceGetNetworkStatusByLocation.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "#/parameters/LocationNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
             "description": "Gets the Network status details.",
             "schema": {
               "$ref": "#/definitions/NetworkStatusContract"
@@ -68,14 +119,14 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorBodyContract"
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
         }
       }
     }
   },
-  "definitions": {    
+  "definitions": {
     "ConnectivityStatusContract": {
       "properties": {
         "name": {
@@ -103,7 +154,7 @@
         "lastUpdated": {
           "type": "string",
           "format": "date-time",
-          "description": "The date when the resource connectivity status was last updated. The date conforms to the following format: `yyyy-MM-ddTHH:mm:ssZ` as specified by the ISO 8601 standard.\n"
+          "description": "The date when the resource connectivity status was last updated. This status should be updated every 15 minutes. If this status has not been updated, then it means that the service has lost network connectivity to the resource, from inside the Virtual Network.The date conforms to the following format: `yyyy-MM-ddTHH:mm:ssZ` as specified by the ISO 8601 standard.\n"
         },
         "lastStatusChange": {
           "type": "string",
@@ -119,6 +170,20 @@
       ],
       "description": "Details about connectivity to a resource."
     },
+    "NetworkStatusContractByLocation": {
+      "properties": {
+        "location": {
+          "type": "string",
+          "description": "Location of service",
+          "minLength": 1
+        },
+        "networkStatus": {
+          "$ref": "#/definitions/NetworkStatusContract",
+          "description": "Network status in Location"
+        }
+      },
+      "description": "Network Status in the Location"
+    },
     "NetworkStatusContract": {
       "properties": {
         "dnsServers": {
@@ -133,7 +198,7 @@
           "items": {
             "$ref": "#/definitions/ConnectivityStatusContract"
           },
-          "description": "Gets the list of Connectivity Status to the Resources."
+          "description": "Gets the list of Connectivity Status to the Resources on which the service depends upon."
         }
       },
       "required": [
@@ -144,5 +209,14 @@
     }
   },
   "parameters": {
+    "LocationNameParameter": {
+      "name": "locationName",
+      "in": "path",
+      "required": true,
+      "type": "string",
+      "description": "Location in which the API Management service is deployed. This is one of the Azure Regions like West US, East US, South Central US.",
+      "minLength": 1,
+      "x-ms-parameter-location": "method"
+    }
   }
 }
