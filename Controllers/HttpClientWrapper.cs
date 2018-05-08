@@ -33,6 +33,7 @@ namespace ARMExplorer.Controllers
         {
             using (var client = GetHttpClient(requestMessage))
             {
+                executeRequest.Headers.Add("x-ms-request-id", Guid.NewGuid().ToString("N"));
                 return await Utils.Execute(client.SendAsync(executeRequest));
             }
         }
