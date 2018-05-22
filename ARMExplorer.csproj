@@ -303,7 +303,6 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Search\search.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ServerManagement\servermanagement.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceBus\servicebus.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\servicefabric.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Solutions\managedapplications.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\blobAuditingPolicies.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\failoverGroups.json" />
@@ -354,7 +353,6 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerService\managedClusters.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerService\location.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\autoscale_API.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\servicefabriccontainerInstance.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\applicationSecurityGroup.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\endpointService.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\operation.json" />
@@ -375,6 +373,8 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\elasticPools.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\instanceFailoverGroups.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\shortTermRetentionPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\application.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\cluster.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
