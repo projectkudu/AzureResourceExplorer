@@ -10,7 +10,12 @@ class EditorCollection {
         this.editors[Editor.RequestEditor] = ace.edit("request-json-editor");
         this.editors[Editor.CreateEditor] = ace.edit("json-create-editor");
         this.editors[Editor.PowershellEditor] = ace.edit("powershell-editor");
-        this.editors[Editor.AzureCliEditor] = ace.edit("azurecli-editor");
+        this.editors.length = 4;
+//        this.editors[Editor.AzureCliEditor] = ace.edit("azurecli-editor");
+    }
+
+    private isHidden(editor: Editor) {
+        return editor === Editor.AzureCliEditor;
     }
 
     getValue(editor: Editor, cleanObject: boolean): any {
@@ -21,6 +26,10 @@ class EditorCollection {
     }
 
     setValue(editor: Editor, stringValue: string) {
+        if (this.isHidden(editor)) {
+            return;
+        }
+
         const currentEditor = this.editors[editor];
         currentEditor.setValue(stringValue);
         currentEditor.session.selection.clearSelection();
@@ -28,21 +37,37 @@ class EditorCollection {
     }
 
     setMode(editor: Editor, mode: string) {
+        if (this.isHidden(editor)) {
+            return;
+        }
+
         const currentEditor = this.editors[editor];
         currentEditor.getSession().setMode(mode);
     }
 
     setTheme(editor: Editor, theme: string) {
+        if (this.isHidden(editor)) {
+            return;
+        }
+
         const currentEditor = this.editors[editor];
         currentEditor.setTheme(theme);
     }
 
     setShowGutter(editor: Editor, showGutter: boolean) {
+        if (this.isHidden(editor)) {
+            return;
+        }
+
         const currentEditor = this.editors[editor];
         currentEditor.renderer.setShowGutter(showGutter);
     }
 
     setReadOnly(editor: Editor, setBackground?: boolean) {
+        if (this.isHidden(editor)) {
+            return;
+        }
+
         const currentEditor = this.editors[editor];
         setBackground = typeof setBackground !== 'undefined' ? setBackground : true;
         currentEditor.setOptions({
@@ -63,6 +88,10 @@ class EditorCollection {
     }
 
     resize(editor: Editor) {
+        if (this.isHidden(editor)) {
+            return;
+        }
+
         const currentEditor = this.editors[editor];
         currentEditor.resize();
     }
