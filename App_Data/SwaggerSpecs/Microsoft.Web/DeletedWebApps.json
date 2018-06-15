@@ -1,12 +1,18 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2016-03-01",
+    "version": "2018-02-01",
     "title": "DeletedWebApps API Client"
   },
   "host": "management.azure.com",
   "schemes": [
     "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
   ],
   "paths": {
     "/subscriptions/{subscriptionId}/providers/Microsoft.Web/deletedSites": {
@@ -17,10 +23,6 @@
         "summary": "Get all deleted apps for a subscription.",
         "description": "Get all deleted apps for a subscription.",
         "operationId": "DeletedWebApps_List",
-        "produces": [
-          "application/json",
-          "text/json"
-        ],
         "parameters": [
           {
             "$ref": "#/parameters/subscriptionIdParameter"
@@ -35,6 +37,12 @@
             "schema": {
               "$ref": "#/definitions/DeletedWebAppCollection"
             }
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
           }
         },
         "x-ms-pageable": {
@@ -48,13 +56,12 @@
       "description": "A deleted app.",
       "type": "object",
       "properties": {
-        "id": {
+        "deletedSiteId": {
           "format": "int32",
           "description": "Numeric id for the deleted site",
           "type": "integer"
         },
         "deletedTimestamp": {
-          "format": "date-time",
           "description": "Time in UTC when the app was deleted.",
           "type": "string",
           "readOnly": true
@@ -69,8 +76,13 @@
           "type": "string",
           "readOnly": true
         },
-        "name": {
+        "deletedSiteName": {
           "description": "Name of the deleted site",
+          "type": "string",
+          "readOnly": true
+        },
+        "slot": {
+          "description": "Slot of the deleted site",
           "type": "string",
           "readOnly": true
         }
@@ -92,7 +104,8 @@
         },
         "nextLink": {
           "description": "Link to next page of resources.",
-          "type": "string"
+          "type": "string",
+          "readOnly": true
         }
       }
     }

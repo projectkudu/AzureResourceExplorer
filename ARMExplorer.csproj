@@ -375,6 +375,9 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\shortTermRetentionPolicies.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\application.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\cluster.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\CommonDefinitions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Diagnostics.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ResourceHealthMetadata.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
