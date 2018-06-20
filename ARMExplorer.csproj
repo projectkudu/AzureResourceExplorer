@@ -378,6 +378,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\CommonDefinitions.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Diagnostics.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ResourceHealthMetadata.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforMySQL\mysql.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
