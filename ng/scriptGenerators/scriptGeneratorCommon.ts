@@ -56,11 +56,11 @@
         return script;
     }
 
-    export function getAnsibleScriptsForResource(value: ISelectHandlerReturn, actions: Action[]): string {
+    export function getAnsibleScriptsForResource(value: ISelectHandlerReturn, actions: Action[], resourceDefinition: any): string {
         var script = "# Ansible Playbooks\n\n";
         let urlParser = new ARMUrlParser(value, actions);
         let parameterResolver = new ScriptParametersResolver(urlParser);
-        let scriptGenerator = new AnsibleScriptGenerator(parameterResolver);
+        let scriptGenerator = new AnsibleScriptGenerator(parameterResolver, resourceDefinition);
         for (let cmd of parameterResolver.getSupportedCommands()) {
             script += scriptGenerator.getScript(cmd);
         }

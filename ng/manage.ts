@@ -118,7 +118,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
                         $scope.editorCollection.setValue(Editor.AzureCliEditor, getAzureCliScriptsForResource(value));
                         $scope.editorCollection.setValue(Editor.PowershellEditor, getPowerShellScriptsForResource(value, actionsAndVerbs));
-                        $scope.editorCollection.setValue(Editor.AnsibleEditor, getAnsibleScriptsForResource(value, actionsAndVerbs));
+                        $scope.editorCollection.setValue(Editor.AnsibleEditor, getAnsibleScriptsForResource(value, actionsAndVerbs, resourceDefinition));
                     }
                 }
                 fixActiveEditor();
