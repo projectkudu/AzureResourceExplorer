@@ -15,98 +15,18 @@
             currentScript += "- hosts: localhost\n";
             currentScript += "  tasks:\n";
 
-
             switch (cmdActionPair.cmd) {
                 case CmdType.Get: {
                     currentScript += '    - name: GET ' + this.resolver.getActionName() + '\n';
                     currentScript += '      azure_rm_resource_facts:\n';
-                    switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
-                        case ResourceIdentifierType.WithIDOnly: {
-                            if (cmdParameters.isCollection) {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceId ${cmdParameters.resourceIdentifier.resourceId} -IsCollection -ApiVersion ${cmdParameters.apiVersion}`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        url: " + cmdParameters.resourceIdentifier.resourceId + "\n";
-                            }
-                            else {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceId ${cmdParameters.resourceIdentifier.resourceId} -ApiVersion ${cmdParameters.apiVersion}`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        url: " + cmdParameters.resourceIdentifier.resourceId + "\n";
-                            }
-                            break;
-                        }
-                        case ResourceIdentifierType.WithGroupType: {
-                            if (cmdParameters.isCollection) {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -IsCollection -ApiVersion ${cmdParameters.apiVersion}`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                            }
-                            else {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ApiVersion ${cmdParameters.apiVersion}`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                            }
-
-                            break;
-                        }
-                        case ResourceIdentifierType.WithGroupTypeName: {
-
-                            if (cmdParameters.isCollection) {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ResourceName "${cmdParameters.resourceIdentifier.resourceName}" -IsCollection -ApiVersion ${cmdParameters.apiVersion}`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                            }
-                            else {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ResourceName "${cmdParameters.resourceIdentifier.resourceName}" -ApiVersion ${cmdParameters.apiVersion}`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                            }
-                            break;
-                        }
-                    }
+                    currentScript += this.yamlFromResourceId("        ");
                     break;
                 }
                 case CmdType.New: {
-                    // XXX - resolve this
-                    //$PropertiesObject = @{ \n\t#Property = value; \n }\n`;
-
                     if (cmdActionPair.isSetAction) {
                         currentScript += '    - name: SET ' + this.resolver.getActionName() + '\n';
                         currentScript += '      azure_rm_resource:\n';
-
-                        switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
-                            case ResourceIdentifierType.WithIDOnly: {
-                                // don't think is possible. 
-                                console.log("Attempt to create resource with pre existing id");
-                                break;
-                            }
-                            case ResourceIdentifierType.WithGroupType: {
-                                //currentScript = `${cmdActionPair.cmd} -PropertyObject $PropertiesObject -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                  break;
-                            }
-                            case ResourceIdentifierType.WithGroupTypeName: {
-                                //currentScript = `${cmdActionPair.cmd} -PropertyObject $PropertiesObject -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ResourceName "${cmdParameters.resourceIdentifier.resourceName}" -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                                break;
-                            }
-                        }
+                        currentScript += this.yamlFromResourceId("        ");
                     }
                     else {
                         let newName: string = "New" + this.resolver.getResourceName();
@@ -117,36 +37,13 @@
                         //prefixString += '$ResourceName = "${newName}"\n';
                         //prefixString += '$PropertiesObject = @{ \n\t#Property = value; \n }\n';
 
-                        switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
-                            case ResourceIdentifierType.WithIDOnly: {
-                                // don't think is possible. 
-                                console.log("Attempt to create resource with pre existing id");
-                                break;
-                            }
-                            case ResourceIdentifierType.WithGroupType: {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceName $ResourceName -Location $ResourceLocation -PropertyObject $PropertiesObject -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                break;
-                            }
-                            case ResourceIdentifierType.WithGroupTypeName: {
-                                //currentScript = `${cmdActionPair.cmd} -Location $ResourceLocation -PropertyObject $PropertiesObject -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ResourceName "${cmdParameters.resourceIdentifier.resourceName}/$ResourceName" -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                                break;
-                            }
-                        }
+                        currentScript += this.yamlFromResourceId("        ");
+                    }
 
-                        // append actual structure of request body
-                        if (this.resourceDefinition.requestBody) {
-                            currentScript += "        body:\n";
-                            currentScript += this.yamlFromObject(this.resourceDefinition.requestBody, "          ");
-                        }
+                    // append actual structure of request body
+                    if (this.resourceDefinition.requestBody) {
+                        currentScript += "        body:\n";
+                        currentScript += this.yamlFromObject(this.resourceDefinition.requestBody, "          ");
                     }
                     break;
                 }
@@ -154,35 +51,7 @@
 
                     currentScript += '    - name: SET ' + this.resolver.getActionNameFromList() + '\n';
                     currentScript += '      azure_rm_resource:\n';
-
-                    // XXX - fix this
-                    //prefixString += '$PropertiesObject = @{\n\t#Property = value;\n}\n';
-
-                    switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
-                        case ResourceIdentifierType.WithIDOnly: {
-                            //currentScript = `${cmdActionPair.cmd} -PropertyObject $PropertiesObject -ResourceId ${cmdParameters.resourceIdentifier.resourceId} -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                            currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                            currentScript += "        url: " + cmdParameters.resourceIdentifier.resourceId + "\n";
-                            break;
-                        }
-                        case ResourceIdentifierType.WithGroupType: {
-                            //currentScript = `${cmdActionPair.cmd} -PropertyObject $PropertiesObject -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                            currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                            currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                            currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                            currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                            break;
-                        }
-                        case ResourceIdentifierType.WithGroupTypeName: {
-                            //currentScript = `${cmdActionPair.cmd} -PropertyObject $PropertiesObject -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ResourceName "${cmdParameters.resourceIdentifier.resourceName}" -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                            currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                            currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                            currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                            currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                            currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                            break;
-                        }
-                    }
+                    currentScript += this.yamlFromResourceId("        ");
 
                     // append actual structure of request body
                     if (this.resourceDefinition.requestBody) {
@@ -197,31 +66,9 @@
                     // TODO: consider -force
                     currentScript += '    - name: DELETE ' + this.resolver.getActionNameFromAction(this.actionsIndex) + '\n';
                     currentScript += '      azure_rm_resource:\n';
-                    switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
-                        case ResourceIdentifierType.WithIDOnly: {
-                            currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                            currentScript += "        url: " + cmdParameters.resourceIdentifier.resourceId + "\n";
-                            currentScript += "        state: absent\n";
-                            break;
-                        }
-                        case ResourceIdentifierType.WithGroupType: {
-                            currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                            currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                            currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                            currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                            currentScript += "        state: absent\n";
-                            break;
-                        }
-                        case ResourceIdentifierType.WithGroupTypeName: {
-                            currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                            currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                            currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                            currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                            currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                            currentScript += "        state: absent\n";
-                            break;
-                        }
-                    }
+                    currentScript += this.yamlFromResourceId("        ");
+                    currentScript += "        state: absent\n";
+
                     this.actionsIndex++;
                     break;
                 }
@@ -239,60 +86,12 @@
                         //let parametersObject: string = currentAction.requestBody ? (`$ParametersObject = ${ObjectUtils.getPsObjectFromJson(currentAction.requestBody, 0)}\n`) : '';
                         //prefixString += '${ parametersObject }';
 
-                        switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
-                            case ResourceIdentifierType.WithIDOnly: {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceId ${cmdParameters.resourceIdentifier.resourceId} -Action ${currentAction.name} ${parameters} -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        url: " + cmdParameters.resourceIdentifier.resourceId + "\n";
-                                break;
-                            }
-                            case ResourceIdentifierType.WithGroupType: {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -Action ${currentAction.name} ${parameters} -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                  break;
-                            }
-                            case ResourceIdentifierType.WithGroupTypeName: {
-                                //currentScript = `${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ResourceName ${cmdParameters.resourceIdentifier.resourceName} -Action ${currentAction.name} ${parameters} -ApiVersion ${cmdParameters.apiVersion} -Force`;
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                                break;
-                            }
-                        }
+                        currentScript += this.yamlFromResourceId("        ");
                     }
                     else {
                         currentScript += '    - name: LIST ' + this.resolver.getActionNameFromList() + '\n';
                         currentScript += '      azure_rm_resource:\n';
-                        switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
-                            case ResourceIdentifierType.WithIDOnly: {
-                                //currentScript = `$resource = ${cmdActionPair.cmd} -ResourceId ${cmdParameters.resourceIdentifier.resourceId} -Action list -ApiVersion ${cmdParameters.apiVersion} -Force\n$resource.Properties`
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        url: " + cmdParameters.resourceIdentifier.resourceId + "\n";
-                                break;
-                            }
-                            case ResourceIdentifierType.WithGroupType: {
-                                //currentScript = `$resource = ${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -Action list -ApiVersion ${cmdParameters.apiVersion} -Force\n$resource.Properties`
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                  break;
-                            }
-                            case ResourceIdentifierType.WithGroupTypeName: {
-                                //currentScript = `$resource = ${cmdActionPair.cmd} -ResourceGroupName ${cmdParameters.resourceIdentifier.resourceGroup} -ResourceType ${cmdParameters.resourceIdentifier.resourceType} -ResourceName "${cmdParameters.resourceIdentifier.resourceName}" -Action list -ApiVersion ${cmdParameters.apiVersion} -Force\n$resource.Properties`
-                                currentScript += "        api_version: '" + cmdParameters.apiVersion + "'\n";
-                                currentScript += "        resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
-                                currentScript += "        provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
-                                currentScript += "        resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                                currentScript += "        resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
-                                break;
-                            }
-                        }
+                        currentScript += this.yamlFromResourceId("        ");
                     }
                     break;
                 }
@@ -319,6 +118,36 @@
                     yaml += this.yamlFromObject(o[key], prefix + "  ");
                 } else {
                     yaml += prefix + key + ": " + o[key] + "\n";
+                }
+            }
+
+            return yaml;
+        }
+
+        private yamlFromResourceId(prefix: string): string {
+            let yaml: string = "";
+            let cmdParameters = this.resolver.getParameters();
+
+            switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
+                case ResourceIdentifierType.WithIDOnly: {
+                    yaml += prefix + "api_version: '" + cmdParameters.apiVersion + "'\n";
+                    yaml += prefix + "url: " + cmdParameters.resourceIdentifier.resourceId + "\n";
+                    break;
+                }
+                case ResourceIdentifierType.WithGroupType: {
+                    yaml += prefix + "api_version: '" + cmdParameters.apiVersion + "'\n";
+                    yaml += prefix + "resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
+                    yaml += prefix + "provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
+                    yaml += prefix + "resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
+                    break;
+                }
+                case ResourceIdentifierType.WithGroupTypeName: {
+                    yaml += prefix + "api_version: '" + cmdParameters.apiVersion + "'\n";
+                    yaml += prefix + "resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
+                    yaml += prefix + "provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
+                    yaml += prefix + "resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
+                    yaml += prefix + "resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
+                    break;
                 }
             }
 
