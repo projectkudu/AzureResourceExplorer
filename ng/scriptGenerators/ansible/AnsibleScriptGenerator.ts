@@ -63,7 +63,6 @@
                 }
 
                 case CmdType.RemoveAction: {
-                    // TODO: consider -force
                     currentScript += '    - name: DELETE ' + this.resolver.getActionNameFromAction(this.actionsIndex) + '\n';
                     currentScript += '      azure_rm_resource:\n';
                     currentScript += this.yamlFromResourceId("        ");
@@ -75,8 +74,9 @@
                 case CmdType.Invoke:
                 case CmdType.InvokeAction: {
                     if (cmdActionPair.isAction) {
-                        currentScript += '    - name: Action ${this.resolver.getActionNameFromAction(this.actionsIndex)}\n';
+                        currentScript += '    - name: Action ' + this.resolver.getActionNameFromAction(this.actionsIndex) + '\n';
                         currentScript += '      azure_rm_resource:\n';
+                        currentScript += '        method: POST\n';
 
                         let currentAction: Action = this.resolver.getActionParameters(this.actionsIndex++);
                         let parameters: string = currentAction.requestBody ? "-Parameters $ParametersObject" : "";
