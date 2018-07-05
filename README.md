@@ -6,7 +6,7 @@ This project has dependencies on OAuth authentication.
 2. Open `ARMExplorer.sln` with VS 2017+ and compile.
 
 ### Create AAD application
-1. Go to [Azure Portal](https://manage.windowsazure.com/) while logged in as an Org ID (i.e. not MSA) and create AAD Application. You may create an application on existing AAD directory or a new directory altogether.
+1. Go to [Azure Portal](https://portal.azure.com/) while logged in as an Org ID (i.e. not MSA) and create AAD Application. You may create an application on existing AAD directory or a new directory altogether.
 1. Select 'Azure Active Directory' and then 'App registrations' and click 'New application registration'
 1. Enter any name for application name.
 1. Select `WEB APPLICATION AND/OR WEB API`
