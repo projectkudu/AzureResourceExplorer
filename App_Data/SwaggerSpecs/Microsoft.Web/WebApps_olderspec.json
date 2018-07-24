@@ -3520,23 +3520,6 @@
         }
       }
     },
-    "IpSecurityRestriction": {
-      "description": "IP security restriction on an app.",
-      "required": [
-        "ipAddress"
-      ],
-      "type": "object",
-      "properties": {
-        "ipAddress": {
-          "description": "IP address the security restriction is valid for.",
-          "type": "string"
-        },
-        "subnetMask": {
-          "description": "Subnet mask for the range of IP addresses the restriction is valid for.",
-          "type": "string"
-        }
-      }
-    },
     "LocalizableString": {
       "description": "Localizable string object containing the name and a localized value.",
       "type": "object",
@@ -5080,13 +5063,6 @@
           "description": "<code>true</code> to enable local MySQL; otherwise, <code>false</code>.",
           "default": false,
           "type": "boolean"
-        },
-        "ipSecurityRestrictions": {
-          "description": "IP security restrictions.",
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/IpSecurityRestriction"
-          }
         }
       }
     },
