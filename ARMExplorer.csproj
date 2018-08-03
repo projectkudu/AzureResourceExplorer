@@ -380,6 +380,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ResourceHealthMetadata.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforMySQL\mysql.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforPostgreSQL\postgresql.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Capacity\reservations.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
