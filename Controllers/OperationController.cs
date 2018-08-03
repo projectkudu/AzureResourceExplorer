@@ -90,6 +90,8 @@ namespace ARMExplorer.Controllers
             // This makes the Microsoft.Resources provider show up for any groups that have other resources
             allProviders.Add("MICROSOFT.RESOURCES");
 
+            allProviders.Add("MICROSOFT.CAPACITY");
+
             watch.Stop();
 
             var httpResponseMessage = Request.CreateResponse(HttpStatusCode.OK, allProviders);

@@ -44,7 +44,7 @@
     }
 
     getDocBody() : any {
-        return this.responseBodyDoc ? this.responseBodyDoc : this.requestBodyDoc;
+        return !ObjectUtils.isEmptyObjectOrArray(this.responseBodyDoc) ? this.responseBodyDoc : this.requestBodyDoc;
     }
 
     // Hide operation urls which do not have any actions on them to avoid confusing users. This could happen if we don't have swagger metadata for these operations.
