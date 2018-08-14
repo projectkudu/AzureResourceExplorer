@@ -19,25 +19,20 @@
                 case CmdType.Get: {
                     currentScript += '    - name: GET ' + this.resolver.getActionName() + '\n';
                     currentScript += '      azure_rm_resource_facts:\n';
-                    currentScript += this.yamlFromResourceId("        ");
+                    currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
                     break;
                 }
                 case CmdType.New: {
                     if (cmdActionPair.isSetAction) {
                         currentScript += '    - name: SET ' + this.resolver.getActionName() + '\n';
                         currentScript += '      azure_rm_resource:\n';
-                        currentScript += this.yamlFromResourceId("        ");
+                        currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
                     }
                     else {
                         let newName: string = "New" + this.resolver.getResourceName();
                         currentScript += '    - name: CREATE ' + this.resolver.getActionName() + '\n';
                         currentScript += '      azure_rm_resource:\n';
-                        // XXX - resolve this
-                        //prefixString += '$ResourceLocation = "West US"\n';
-                        //prefixString += '$ResourceName = "${newName}"\n';
-                        //prefixString += '$PropertiesObject = @{ \n\t#Property = value; \n }\n';
-
-                        currentScript += this.yamlFromResourceId("        ");
+                        currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
                     }
 
                     // append actual structure of request body
@@ -51,7 +46,7 @@
 
                     currentScript += '    - name: SET ' + this.resolver.getActionNameFromList() + '\n';
                     currentScript += '      azure_rm_resource:\n';
-                    currentScript += this.yamlFromResourceId("        ");
+                    currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
 
                     // append actual structure of request body
                     if (this.resourceDefinition.requestBody) {
@@ -65,7 +60,7 @@
                 case CmdType.RemoveAction: {
                     currentScript += '    - name: DELETE ' + this.resolver.getActionNameFromAction(this.actionsIndex) + '\n';
                     currentScript += '      azure_rm_resource:\n';
-                    currentScript += this.yamlFromResourceId("        ");
+                    currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
                     currentScript += "        state: absent\n";
 
                     this.actionsIndex++;
@@ -78,20 +73,23 @@
                         currentScript += '      azure_rm_resource:\n';
                         currentScript += '        method: POST\n';
 
-                        let currentAction: Action = this.resolver.getActionParameters(this.actionsIndex++);
-                        let parameters: string = currentAction.requestBody ? "-Parameters $ParametersObject" : "";
+                        currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
 
-                        // XXX - resolve this
-                        //let currentAction: Action = this.resolver.getActionParameters(this.actionsIndex);
-                        //let parametersObject: string = currentAction.requestBody ? (`$ParametersObject = ${ObjectUtils.getPsObjectFromJson(currentAction.requestBody, 0)}\n`) : '';
-                        //prefixString += '${ parametersObject }';
+                        // append actual structure of request body
+                        let body = this.resolver.getActionParameters(this.actionsIndex).requestBody;
 
-                        currentScript += this.yamlFromResourceId("        ");
+                        if (body) {
+                            currentScript += "        body:\n";
+                            // parse, as body is apparently returned as JSON string, not an object
+                            currentScript += this.yamlFromObject(JSON.parse(body), "          ");
+                        }
+
+                        this.actionsIndex++;
                     }
                     else {
                         currentScript += '    - name: LIST ' + this.resolver.getActionNameFromList() + '\n';
                         currentScript += '      azure_rm_resource:\n';
-                        currentScript += this.yamlFromResourceId("        ");
+                        currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
                     }
                     break;
                 }
@@ -124,7 +122,7 @@
             return yaml;
         }
 
-        private yamlFromResourceId(prefix: string): string {
+        private yamlFromResourceId(cmdActionPair: RMCommandInfo, prefix: string): string {
             let yaml: string = "";
             let cmdParameters = this.resolver.getParameters();
 
@@ -146,7 +144,21 @@
                     yaml += prefix + "resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
                     yaml += prefix + "provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
                     yaml += prefix + "resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
-                    yaml += prefix + "resource_name: '" + cmdParameters.resourceIdentifier.resourceName + "'\n";
+
+                    let split_name = cmdParameters.resourceIdentifier.resourceName.split('/');
+
+                    yaml += prefix + "resource_name: '" + split_name[0] + "'\n";
+
+                    if (split_name.length > 1) {
+                        yaml += prefix + "subresource:\n";
+                        yaml += prefix + "  - name: " + split_name[1] + "\n";
+                    }
+
+                    if (cmdActionPair.isAction) {
+                        yaml += prefix + "subresource:\n";
+                        yaml += prefix + "  - name: " + this.resolver.getActionNameFromAction(this.actionsIndex) + "\n";
+                    }
+
                     break;
                 }
             }
