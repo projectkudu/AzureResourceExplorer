@@ -151,12 +151,11 @@
 
                     if (split_name.length > 1) {
                         yaml += prefix + "subresource:\n";
-                        yaml += prefix + "  - name: " + split_name[1] + "\n";
+                        yaml += prefix + "  - type: " + split_name[1] + "\n";
                     }
-
-                    if (cmdActionPair.isAction) {
+                    else if (cmdActionPair.isAction) {
                         yaml += prefix + "subresource:\n";
-                        yaml += prefix + "  - name: " + this.resolver.getActionNameFromAction(this.actionsIndex) + "\n";
+                        yaml += prefix + "  - type: " + this.resolver.getActionNameFromAction(this.actionsIndex) + "\n";
                     }
 
                     break;
