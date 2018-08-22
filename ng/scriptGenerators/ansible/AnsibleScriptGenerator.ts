@@ -9,7 +9,7 @@
         }
 
         getScript(cmdActionPair: RMCommandInfo): string {
-            let cmdParameters = this.resolver.getParameters();
+            const cmdParameters = this.resolver.getParameters();
             let currentScript: string = "";
             
             currentScript += "- hosts: localhost\n";
@@ -76,7 +76,7 @@
                         currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
 
                         // append actual structure of request body
-                        let body = this.resolver.getActionParameters(this.actionsIndex).requestBody;
+                        const body = this.resolver.getActionParameters(this.actionsIndex).requestBody;
 
                         if (body) {
                             currentScript += "        body:\n";
@@ -124,7 +124,7 @@
 
         private yamlFromResourceId(cmdActionPair: RMCommandInfo, prefix: string): string {
             let yaml: string = "";
-            let cmdParameters = this.resolver.getParameters();
+            const cmdParameters = this.resolver.getParameters();
 
             switch (cmdParameters.resourceIdentifier.resourceIdentifierType) {
                 case ResourceIdentifierType.WithIDOnly: {
@@ -145,7 +145,7 @@
                     yaml += prefix + "provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
                     yaml += prefix + "resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
 
-                    let split_name = cmdParameters.resourceIdentifier.resourceName.split('/');
+                    const split_name = cmdParameters.resourceIdentifier.resourceName.split('/');
 
                     yaml += prefix + "resource_name: '" + split_name[0] + "'\n";
 
