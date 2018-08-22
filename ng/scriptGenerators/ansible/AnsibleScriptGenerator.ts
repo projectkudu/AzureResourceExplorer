@@ -29,7 +29,6 @@
                         currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
                     }
                     else {
-                        let newName: string = "New" + this.resolver.getResourceName();
                         currentScript += '    - name: CREATE ' + this.resolver.getActionName() + '\n';
                         currentScript += '      azure_rm_resource:\n';
                         currentScript += this.yamlFromResourceId(cmdActionPair, "        ");
