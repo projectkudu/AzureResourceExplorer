@@ -55,6 +55,17 @@
         }
         return script;
     }
+
+    export function getAnsibleScriptsForResource(value: ISelectHandlerReturn, actions: Action[], resourceDefinition: any): string {
+        var script = "# Ansible Playbooks\n\n";
+        let urlParser = new ARMUrlParser(value, actions);
+        let parameterResolver = new ScriptParametersResolver(urlParser);
+        let scriptGenerator = new AnsibleScriptGenerator(parameterResolver, resourceDefinition);
+        for (let cmd of parameterResolver.getSupportedCommands()) {
+            script += scriptGenerator.getScript(cmd);
+        }
+        return script;
+    }
 }
 
 // converts an array of string pairs into dictionary

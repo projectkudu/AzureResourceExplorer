@@ -473,6 +473,7 @@
     <TypeScriptCompile Include="ng\common\ObjectUtils.ts" />
     <TypeScriptCompile Include="ng\AppStart\ResourceDefinitionCollection.ts" />
     <TypeScriptCompile Include="ng\models\ITreeBranchDataOverrides.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ansible\AnsibleScriptGenerator.ts" />
     <TypeScriptCompile Include="ng\Search\ResourcesCache.ts" />
     <TypeScriptCompile Include="ng\Search\ResourceSearcher.ts" />
     <TypeScriptCompile Include="ng\Search\ResourceSearchDataModel.ts" />

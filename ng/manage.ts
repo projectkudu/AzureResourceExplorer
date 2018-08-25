@@ -82,6 +82,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                         } else {
                             $scope.editorCollection.setValue(Editor.ResponseEditor, StringUtils.stringify({ message: "No GET Url" }));
                             $scope.editorCollection.setValue(Editor.PowershellEditor, "");
+                            $scope.editorCollection.setValue(Editor.AnsibleEditor, "");
                             $scope.editorCollection.setValue(Editor.AzureCliEditor, "");
                         }
                     } else {
@@ -117,6 +118,7 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
 
                         $scope.editorCollection.setValue(Editor.AzureCliEditor, getAzureCliScriptsForResource(value));
                         $scope.editorCollection.setValue(Editor.PowershellEditor, getPowerShellScriptsForResource(value, actionsAndVerbs));
+                        $scope.editorCollection.setValue(Editor.AnsibleEditor, getAnsibleScriptsForResource(value, actionsAndVerbs, resourceDefinition));
                     }
                 }
                 fixActiveEditor();
