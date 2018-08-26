@@ -106,7 +106,10 @@ namespace ARMExplorer.Controllers
 
                 foreach (var item in queryTasks)
                 {
-                    readContentTasks.Add(item.Result.Content.ReadAsAsync<JObject>());
+                    if (item.Result.IsSuccessStatusCode)
+                    {
+                        readContentTasks.Add(item.Result.Content.ReadAsAsync<JObject>());
+                    }
                 }
 
                 await Task.WhenAll(readContentTasks);

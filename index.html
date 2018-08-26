@@ -9,35 +9,40 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-route.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-animate.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-sanitize.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.14/angular-cookies.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.1/ui-bootstrap-tpls.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/rxjs/2.3.25/rx.lite.compat.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/ace/1.1.8/ace.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/md5.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/jquery/2.1.3/jquery.cookie.min.js"></script>
+
+
+    <script src="//az803612.vo.msecnd.net/explorercdn/angular1.6/angular.min.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/angular1.6/angular-route.min.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/angular1.6/angular-animate.min.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/angular1.6/angular-sanitize.min.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/angular1.6/angular-cookies.min.js"></script>
+
+
+    <script src="//az803612.vo.msecnd.net/explorercdn/bootstrap/3.2.0/ui-bootstrap-tpls.min.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/rxjs/2.3.25/rx.lite.compat.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/ace/1.1.8/ace.js"></script>
+    <script src="//az803612.vo.msecnd.net/explorercdn/crypto-js/3.1.2/md5.js"></script>
 
     <script src="Content/Scripts/abn_tree_directive.js"></script>
     <script src="Content/Scripts/rx.angular.js"></script>
     <script src="Content/Scripts/ui-ace.min.js"></script>
     <script src="ng/manage.js"></script>
 
-    <title>ARMExplorer</title>
+    <title>Resource Explorer</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="//az803612.vo.msecnd.net/explorercdn/bootstrap/3.2.0/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link href="Content/Styles/abn_tree.css" rel="stylesheet" />
     <link href="Content/Styles/sb-admin-2.css" rel="stylesheet" />
 
     <!-- Custom Fonts -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="//az803612.vo.msecnd.net/explorercdn/font-awesome/4.1.0/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="Content/Styles/app.css?v=3" rel="stylesheet" type="text/css">
+    <script type="text/javascript">var appInsights = window.appInsights || function (a) { function b(a) { c[a] = function () { var b = arguments; c.queue.push(function () { c[a].apply(c, b) }) } } var c = { config: a }, d = document, e = window; setTimeout(function () { var b = d.createElement("script"); b.src = a.url || "https://az416426.vo.msecnd.net/scripts/a/ai.0.js", d.getElementsByTagName("script")[0].parentNode.appendChild(b) }); try { c.cookie = d.cookie } catch (a) { } c.queue = []; for (var f = ["Event", "Exception", "Metric", "PageView", "Trace", "Dependency"]; f.length;)b("track" + f.pop()); if (b("setAuthenticatedUserContext"), b("clearAuthenticatedUserContext"), b("startTrackEvent"), b("stopTrackEvent"), b("startTrackPage"), b("stopTrackPage"), b("flush"), !a.disableExceptionTracking) { f = "onerror", b("_" + f); var g = e[f]; e[f] = function (a, b, d, e, h) { var i = g && g(a, b, d, e, h); return !0 !== i && c["_" + f](a, b, d, e, h), i } } return c }({ instrumentationKey: "257663f1-a768-42b9-8fa5-36d67a153974" }); window.appInsights = appInsights, appInsights.queue && 0 === appInsights.queue.length && appInsights.trackPageView();</script>
 </head>
 
 <body style="min-width: 1510px">
@@ -45,19 +50,19 @@
     <div id="wrapper" ng-controller="treeBodyController" ng-cloak>
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/" ng-click="refresh()">Azure Resource Explorer (Preview)</a>
+                <a class="navbar-brand" href="/" ng-click="refresh()"><img src="/Images/ARMExplorer.svg" style="height: 25px; padding-bottom: 1px; padding-top: 1px; padding-right: 7px">Azure Resource Explorer (Preview)</a>
                 <form class="navbar-form navbar-left" role="search" ng-submit="resourceSearch()">
                     <div class="input-group">
-                        <input id="resource-search-input" type="text" class="form-control" placeholder="Search" ng-model="resourceSearchModel.searchKeyword" ng-keyup="delayResourceSearch($event)">
+                        <input id="resource-search-input" type="text" class="form-control" placeholder="Search" ng-model="resourceSearcher.resourceSearchModel.searchKeyword" ng-keyup="delayResourceSearch($event)">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-default">
                                 <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             </button>
                         </span>
                     </div>
-                    <ul id="resource-search-list" class="list-group" ng-show="resourceSearchModel.isSuggestListDisplay"
+                    <ul id="resource-search-list" class="list-group" ng-show="resourceSearcher.resourceSearchModel.isSuggestListDisplay"
                         style="position: fixed; top: 45px; z-index:9999; max-height: 500px; overflow-y:auto; overflow-x:hidden;">
-                        <li class="list-group-item" ng-repeat="item in resourceSearchModel.suggestions" ng-click="selectResourceSearch(item)" title="{{item.id}}">
+                        <li class="list-group-item" ng-repeat="item in resourceSearcher.resourceSearchModel.suggestions" ng-click="selectResourceSearch(item)" title="{{item.id}}">
                             {{item.name}}<small>({{item.type}})</small>
                         </li>
                     </ul>
@@ -73,7 +78,7 @@
                 <ul class="nav navbar-nav navbar-right" style="position: relative;" ng-show="user">
                     <li class="dropdown">
                         <img ng-src="{{user.imageUrl}}" style="height: 50px; padding-top: 1px" />
-                        <a href="#" data-toggle="dropdown" style="display: inline">{{ user.name }}</a>
+                        <a href="#" data-toggle="dropdown" style="display: inline"> {{ user.name }} {{ user.email }} </a>
                         <ul class="dropdown-menu">
                             <li><a target="_blank" href="https://github.com/projectkudu/ARMExplorer/issues">Give feedback</a></li>
                             <li><a href="/logout" ng-click="logout()">Logout</a></li>
@@ -82,35 +87,36 @@
                 </ul>
             </div>
         </nav>
+
         <div id="sidebar" class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav" style="white-space: nowrap">
                 <abn-tree tree-data="resources" tree-control="treeControl" on-select="selectResourceHandler(branch, event)" on-expand="expandResourceHandler(branch, row, event)" expand-level="0"></abn-tree>
             </div>
         </div>
+
         <div id="content">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">{{ treeControl.get_selected_branch().label }}</h1>
                 </div>
-                <span class="loading-spinner" ng-show="loading || invoking">
-                    <i class="fa fa-spinner fa-spin" title="Please wait" style="margin-top: 10px"></i>
+                <span class="alert alert-info loading-spinner overlayCenter" ng-show="loading || invoking">
+                    <i class="fa fa-spinner fa-spin" title="Please wait"></i>
                 </span>
-                <span id="success-marker" class="loading-spinner" style="display: none">
-                    <i class="fa fa-check" title="success" style="margin-top: 10px"></i>
+                <span class="alert alert-success loading-spinner success-marker overlayCenter" style="display: none">
+                    <i class="fa fa-check" title="success"></i>
                 </span>
-                <span id="failure-marker" class="loading-spinner" style="display: none">
-                    <i class="fa fa-exclamation-triangle" title="error" style="margin-top: 10px"></i>
+                <span class="alert alert-warning loading-spinner failure-marker overlayCenter" style="display: none">
+                    <i class="fa fa-exclamation-triangle" title="error"></i>
                 </span>
             </div>
+            
             <tabset>
                 <tab id="data-tab" select="enterDataTab()" active="activeTab[0]">
-                    <tab-heading>
-                        <i class="fa fa-database"></i> Data (GET, PUT)
-                    </tab-heading>
+                    <tab-heading><i class="fa fa-database"></i> Data (GET, PUT)</tab-heading>
                     <div ng-show="selectedResource && selectedResource.url">
-                        <button ng-repeat="httpMethod in selectedResource.httpMethods | filter:showHttpVerb" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(httpMethod, $event)">{{httpMethod}}</button>
+                        <button ng-repeat="httpMethod in selectedResource.httpMethods | filter:showHttpVerb" class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="handleClick(selectedResource, httpMethod, $event)">{{httpMethod}}</button>
                         <button ng-show="selectedResource.httpMethods.length > 1" class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="toggleEditMode()">{{ editMode ? 'Cancel' : 'Edit' }}</button>
-                        <pre style="">{{ selectedResource.url + "?api-version=" + apiVersion }}</pre>
+                        <pre id="selected-resource-url" ng-style="{'color': resUrlColor}"><span class="btn copy-button fa fa-copy" ng-click="copyResUrlToClipboard(selectedResource.url + '?api-version=' + selectedResource.apiVersion);"></span><span>{{ selectedResource.url + "?api-version=" + selectedResource.apiVersion }}</span></pre>
                     </div>
                     <div id="response-json-editor" class="explorer-editor" ng-show="!editMode"></div>
                     <div id="request-json-editor" class="explorer-editor" ng-show="editMode"></div>
@@ -118,81 +124,86 @@
                     <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
                     <pre ng-show="putError" ng-bind-html="putError" style="max-height: 400px"></pre>
                 </tab>
+
                 <tab disabled="!(selectedResource && selectedResource.actionsAndVerbs && selectedResource.actionsAndVerbs.length > 0)" active="activeTab[1]">
-                    <tab-heading>
-                        <i class="fa fa-bolt"></i> Actions (POST, DELETE)
-                    </tab-heading>
+                    <tab-heading><i class="fa fa-bolt"></i> Actions (POST, DELETE)</tab-heading>
                     <table class="table table-no-border" style="margin: 20px" ng-show="(selectedResource && selectedResource.actionsAndVerbs && selectedResource.actionsAndVerbs.length > 0)">
                         <colgroup>
                             <col class="col-xs-1">
                             <col class="col-xs-7">
                         </colgroup>
                         <tbody>
-                            <tr ng-repeat="action in selectedResource.actionsAndVerbs">
-                                <td>
-                                    <button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(action, $event)">
-                                        {{ action.name }}
-                                    </button>
-                                </td>
-                                <td>
-                                    <pre>{{ action.httpMethod }} {{ action.url + "?api-version=" + apiVersion }}</pre>
-                                    <div ng-repeat="query in action.query">
-                                        <pre style="float: left; margin-right: 10px">{{ "&" + query + "=" + actionsModel[query] }}</pre>
-                                        <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="actionsModel[query]">
-                                    </div>
-                                    <div id="{{ action.name + '-editor' }}" ng-show="action.requestBody" class="explorer-editor action-editor" ui-ace="aceConfig" ng-model="action.requestBody "></div>
-                                </td>
-                            </tr>
+                        <tr ng-repeat="action in selectedResource.actionsAndVerbs">
+                            <td>
+                                <button class="btn btn-lg" ng-class="action.name === 'Delete' ? 'btn-danger' : 'btn-primary'" style="float: left; margin-right: 10px; margin-top: -3px" ng-click="invokeAction(selectedResource, action, $event)">
+                                    {{ action.name }}
+                                </button>
+                            </td>
+                            <td>
+                                <pre>{{ action.httpMethod }} {{ action.url + "?api-version=" + selectedResource.apiVersion}}</pre>
+                                <div ng-repeat="query in action.query">
+                                    <pre style="float: left; margin-right: 10px">{{ "&" + query + "=" + actionsModel[query] }}</pre>
+                                    <input type="text" style="float: left; margin-top: 2px; height: 35px; width: 147px; padding-left: 5px; font-size: 25px" ng-model="actionsModel[query]">
+                                </div>
+                                <div id="{{ action.name + '-editor' }}" ng-show="action.requestBody" class="explorer-editor action-editor" ui-ace="aceConfig" ng-model="action.requestBody "></div>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                     <pre ng-show="actionResponse" ng-bind-html="actionResponse" style="max-height: 400px"></pre>
-
                 </tab>
+
                 <tab disabled="!creatable" select="enterCreateMode()" deselect="leaveCreateMode()" active="activeTab[2]">
-                    <tab-heading>
-                        <i class="fa fa-database"></i> Create
-                    </tab-heading>
+                    <tab-heading><i class="fa fa-database"></i> Create</tab-heading>
                     <div ng-show="creatable">
                         <button class="btn btn-info" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="clearCreate($event)">
                             Reset
                         </button>
-                        <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate($event)">
+                        <button class="btn btn-success" style="float: left; margin-right: 5px; margin-top: 3px" ng-click="invokeCreate(selectedResource, $event)">
                             PUT
                         </button>
                         <input type="text" style="float: left; margin-right: 5px; margin-top: 3px; height: 35px; width: 210px; padding-left: 5px; font-size: 25px" ng-model="createModel.createdResourceName" ng-show="createMode" placeholder="{Resource Name}">
-                        <pre>{{ selectedResource.url + "/" + createModel.createdResourceName + "?api-version=" + apiVersion }}</pre>
+                        <pre>{{ selectedResource.url + "/" + createModel.createdResourceName + "?api-version=" + selectedResource.apiVersion }}</pre>
                         <div id="json-create-editor" class="explorer-editor"></div>
                         <h2 ng-show="errorResponse || createError">Error:</h2>
                         <pre ng-show="errorResponse" ng-bind-html="errorResponse" style="max-height: 400px"></pre>
                         <pre ng-show="createError" ng-bind-html="createError" style="max-height: 400px"></pre>
                     </div>
                 </tab>
+                
                 <tab active="activeTab[3]">
-                    <tab-heading>
-                        Documentation
-                    </tab-heading>
+                    <tab-heading>Documentation</tab-heading>
                     <table class="table table-hover table-bordered">
                         <thead>
                         <th>Property</th>
                         <th>Documentation</th>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="e in selectedResource.doc">
-                                <th>{{ e.name }}</th>
-                                <td>{{ e.doc }}</td>
-                            </tr>
+                        <tr ng-repeat="e in selectedResource.doc">
+                            <th>{{ e.name }}</th>
+                            <td>{{ e.doc }}</td>
+                        </tr>
                         </tbody>
                     </table>
                 </tab>
+
                 <tab active="activeTab[4]">
-                    <tab-heading>
-                        PowerShell
-                    </tab-heading>
-                    <div id="powershell-editor" class="explorer-editor">></div>
+                    <tab-heading>PowerShell</tab-heading>
+                    <pre class="ng-binding">Please install the latest Azure PowerShell from <a href="https://github.com/Azure/azure-powershell/releases">here</a>.</pre>
+                    <div id="powershell-editor" class="explorer-editor"></div>
                 </tab>
+                <tab active="activeTab[5]">
+                    <tab-heading>Ansible</tab-heading>
+                    <div id="ansible-editor" class="explorer-editor"></div>
+                </tab>
+
+                <!--tab active="activeTab[5]">
+                    <tab-heading>Azure CLI 2.0</tab-heading>
+                    <pre class="ng-binding">To install <strong>azure-cli</strong> follow <a href="https://github.com/Azure/azure-cli">this link</a>.</pre>
+                    <div id="azurecli-editor" class="explorer-editor">></div>
+                </tab-->
             </tabset>
         </div>
-
 
         <div id="sidebar-resizer"
              resizer="vertical"
@@ -213,17 +224,27 @@
                 </button>
             </div>
         </div>
+
         <div id="readonly-confirm-box" class="confirm-box">
             <div class="confirm-content">
-                <div class="confirm-message">You can't do this opration because you are in <strong>'Read Only'</strong> mode.<br> Switch to <strong>'Read/Write'</strong> mode from the top to enable this HttpVerb</div>
+                <div class="confirm-message">You can't do this operation because you are in <strong>'Read Only'</strong> mode.<br> Switch to <strong>'Read/Write'</strong> mode from the top to enable this HttpVerb</div>
                 <button class="btn btn-primary confirm-answer" ng-click="hideConfirm()">
                     Ok
                 </button>
             </div>
         </div>
+
     </div>
     <div id="dark-blocker" class="dark-full-site-blocker" style="display: none"></div>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        try {
+            eval('"use strict"; class foo {}');
+        } catch (e) {
+            var browserSupportOverlay = jQuery('<div id="browserSupportOverlay"> Your browser is not supported. <br> Please use any of the following browsers: Mozilla Firefox, Google Chrome, Microsoft Edge </div>');
+            browserSupportOverlay.appendTo(document.body);
+        }
+    </script>
 </body>
 
 </html>

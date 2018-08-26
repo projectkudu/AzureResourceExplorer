@@ -12,8 +12,9 @@ namespace ARMExplorer.Controllers
         public const string AntaresApiVersion = "2014-06-01";
         public const string CSMApiVersion = "2014-04-01";
 
-        public const string resourcesTemplate = "{0}/subscriptions/{1}/resources?api-version={2}";
-        public const string subscriptionTemplate = "{0}/subscriptions/{1}?api-version={2}";
+        public const string ResourcesTemplate = "{0}/subscriptions/{1}/resources?api-version={2}";
+        public const string SubscriptionTemplate = "{0}/subscriptions/{1}?api-version={2}";
+        public const string AllSubscriptionsTemplate = "{0}/subscriptions?api-version={1}";
 
         public static string GetApiVersion(string path)
         {
@@ -31,7 +32,7 @@ namespace ARMExplorer.Controllers
             watch.Start();
             var response = await task;
             watch.Stop();
-            response.Headers.Add(Utils.X_MS_Ellapsed, watch.ElapsedMilliseconds + "ms");
+            response.Headers.Add(X_MS_Ellapsed, watch.ElapsedMilliseconds + "ms");
             return response;
         }
 

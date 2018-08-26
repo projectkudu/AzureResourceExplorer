@@ -15,7 +15,6 @@ _ReSharper.*
 *[Rr]e[Ss]harper.user
 _ReSharper.*/
 packages/*
-App_Data/
 /apps
 /artifacts
 msbuild.log
@@ -27,3 +26,5 @@ ng/*.js
 ng/*.js.map
 ng/*/*.js
 ng/*/*.js.map
+.vs/
+Tools/node_modules

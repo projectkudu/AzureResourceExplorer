@@ -1,69 +1,69 @@
 ﻿
 //http://stackoverflow.com/a/22253161
 angular.module("mp.resizer", [])
-     .directive('resizer', function ($document) {
+    .directive('resizer', function ($document) {
 
-         return function ($scope, $element, $attrs) {
+        return function ($scope, $element, $attrs) {
 
-             $element.on('mousedown', function (event) {
-                 event.preventDefault();
+            $element.on('mousedown', function (event) {
+                event.preventDefault();
 
-                 $document.on('mousemove', mousemove);
-                 $document.on('mouseup', mouseup);
-             });
+                $document.on('mousemove', mousemove);
+                $document.on('mouseup', mouseup);
+            });
 
-             function mousemove(event) {
+            function mousemove(event) {
 
-                 if ($attrs.resizer == 'vertical') {
-                     // Handle vertical resizer
-                     var x = event.pageX;
+                if ($attrs.resizer == 'vertical') {
+                    // Handle vertical resizer
+                    var x = event.pageX;
 
-                     if ($attrs.resizerMax && x > $attrs.resizerMax) {
-                         x = parseInt($attrs.resizerMax);
-                     }
+                    if ($attrs.resizerMax && x > $attrs.resizerMax) {
+                        x = parseInt($attrs.resizerMax);
+                    }
 
-                     $element.css({
-                         left: x + 'px'
-                     });
+                    $element.css({
+                        left: x + 'px'
+                    });
 
-                     var offset = 0;
-                     if ($attrs.resizerOffsetElement) {
-                         offset = $($attrs.resizerOffsetElement).outerWidth(true);
-                     }
+                    var offset = 0;
+                    if ($attrs.resizerOffsetElement) {
+                        offset = $($attrs.resizerOffsetElement).outerWidth(true);
+                    }
 
-                     $($attrs.resizerLeft).css({
-                         width: (x - offset) + 'px'
-                     });
+                    $($attrs.resizerLeft).css({
+                        width: (x - offset) + 'px'
+                    });
 
-                     var oldLeft = $($attrs.resizerRight).position().left;
-                     $($attrs.resizerRight).css({
-                         left: (x + parseInt($attrs.resizerWidth)) + 'px',
-                         width: $($attrs.resizerRight).outerWidth() - ((x + parseInt($attrs.resizerWidth)) - oldLeft) + 'px'
-                     });
+                    var oldLeft = $($attrs.resizerRight).position().left;
+                    $($attrs.resizerRight).css({
+                        left: (x + parseInt($attrs.resizerWidth)) + 'px',
+                        width: $($attrs.resizerRight).outerWidth() - ((x + parseInt($attrs.resizerWidth)) - oldLeft) + 'px'
+                    });
 
-                 } else {
-                     // Handle horizontal resizer
-                     var y = window.innerHeight - event.pageY;
+                } else {
+                    // Handle horizontal resizer
+                    var y = window.innerHeight - event.pageY;
 
-                     $element.css({
-                         bottom: y + 'px'
-                     });
+                    $element.css({
+                        bottom: y + 'px'
+                    });
 
-                     $($attrs.resizerTop).css({
-                         bottom: (y + parseInt($attrs.resizerHeight)) + 'px'
-                     });
-                     $($attrs.resizerBottom).css({
-                         height: y + 'px'
-                     });
-                 }
-             }
+                    $($attrs.resizerTop).css({
+                        bottom: (y + parseInt($attrs.resizerHeight)) + 'px'
+                    });
+                    $($attrs.resizerBottom).css({
+                        height: y + 'px'
+                    });
+                }
+            }
 
-             function mouseup() {
-                 $document.unbind('mousemove', mousemove);
-                 $document.unbind('mouseup', mouseup);
-             }
-         };
-     })
+            function mouseup() {
+                $document.unbind('mousemove', mousemove);
+                $document.unbind('mouseup', mouseup);
+            }
+        };
+    })
 
 angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstrap", "angularBootstrapNavTree", "rx", "mp.resizer"])
     .controller("rawBodyController", function ($scope, $routeParams, $location, $http, $q, $timeout, rx) {
@@ -80,6 +80,22 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                     if (window.localStorage) {
                         window.localStorage.csmRawContent = requestEditor.getValue();
                     }
+
+                    var handleResponse = function (data, status, headers) {
+                        var statusText = "# Status: " + status;
+
+                        var headersText = Object.keys(headers())
+                            .filter(function (name) { return ["cache-control", "server", "x-aspnet-version", "pragma", "x-powered-by"].indexOf(name) === -1; })
+                            .sort()
+                            .map(function (name) { return "# " + name + ": " + headers(name); })
+                            .reduce(function (a, b) { return a + "\n" + b }, '');
+
+                        var bodyText = typeof data === "string" ? data : JSON.stringify(data, undefined, 2);
+
+                        var value = statusText + "\n" + headersText + "\n" + bodyText;
+
+                        responseEditor.setValue(value);
+                    };
                     $http({
                         method: "POST",
                         url: "api/operations",
@@ -89,16 +105,15 @@ angular.module("armExplorer", ["ngRoute", "ngAnimate", "ngSanitize", "ui.bootstr
                             RequestBody: message.body,
                             RequireApiVersion: true
                         }
-                    }).error(function (err) {
-                        responseEditor.setValue(JSON.stringify(err, undefined, 2));
-                    }).success(function (data) {
-                        responseEditor.setValue(JSON.stringify(data, undefined, 2));
-                    }).finally(function () {
-                        responseEditor.moveCursorTo(0, 0);
-                        responseEditor.session.selection.clearSelection();
-                        responseEditor.resize();
-                        $scope.loading = false;
-                    });
+                    })
+                        .error(handleResponse)
+                        .success(handleResponse)
+                        .finally(function () {
+                            responseEditor.moveCursorTo(0, 0);
+                            responseEditor.session.selection.clearSelection();
+                            responseEditor.resize();
+                            $scope.loading = false;
+                        });
 
                 } else {
                     responseEditor.setValue("Couldn't parse the selected text below \n\n" + content);
@@ -251,20 +266,20 @@ ace.define('ace/mode/example_highlight_rules', function (require, exports, modul
                 regex: "^Couldn't parse.*$"
             }],
             "qqstring": [
-            {
-                token: "constant.language.escape",
-                regex: escapedRe
-            }, {
-                token: "string",
-                regex: "\\\\$",
-                next: "qqstring"
-            }, {
-                token: "string",
-                regex: '"|$',
-                next: "start"
-            }, {
-                defaultToken: "string"
-            }
+                {
+                    token: "constant.language.escape",
+                    regex: escapedRe
+                }, {
+                    token: "string",
+                    regex: "\\\\$",
+                    next: "qqstring"
+                }, {
+                    token: "string",
+                    regex: '"|$',
+                    next: "start"
+                }, {
+                    defaultToken: "string"
+                }
             ],
             "qstring": [
                 {

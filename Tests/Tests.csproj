@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8994BE5C-A107-4D13-9F05-9D482C0843E8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Tests</RootNamespace>
+    <AssemblyName>Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.0.0\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq, Version=4.7.25.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.7.25\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.abstractions.2.0.1\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.2.0\lib\netstandard1.1\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.core.2.2.0\lib\netstandard1.1\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop, Version=2.2.0.3545, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.extensibility.execution.2.2.0\lib\net452\xunit.execution.desktop.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SwaggerParserTests\ParseMultiFileSwaggerTests.cs" />
+    <Compile Include="SwaggerParserTests\ParseSingleFileSwaggerTests.cs" />
+    <Compile Include="SwaggerParserTests\ParserValidationTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebApiTests\ArmRepositoryTests.cs" />
+    <Compile Include="WebApiTests\MockHttpClientWrapper.cs" />
+    <Compile Include="WebApiTests\OperationControllerTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterCreate.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterDelete.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterGet.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterList.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterListByResourceGroup.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterRuleCreate.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterRuleDelete.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterRuleGet.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterRuleListByRouteFilter.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterRuleUpdate.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\RouteFilterUpdate.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\ServiceCommunityList.json" />
+    <None Include="Resource\arm-network\2017-03-01\examples\VirtualNetworkListUsage.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\applicationGateway.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\checkDnsAvailability.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\expressRouteCircuit.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\loadBalancer.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\network.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\networkInterface.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\networkSecurityGroup.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\networkWatcher.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\publicIpAddress.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\routeFilter.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\routeTable.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\serviceCommunity.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\usage.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\virtualNetwork.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\virtualNetworkGateway.json" />
+    <None Include="Resource\arm-network\2017-03-01\swagger\vmssNetworkInterface.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\OperationsList.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountCheckNameAvailability.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountCreate.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountDelete.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountGetProperties.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountList.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountListAccountSAS.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountListByResourceGroup.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountListKeys.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountListServiceSAS.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountRegenerateKey.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\StorageAccountUpdate.json" />
+    <None Include="Resource\arm-storage\2017-06-01\examples\UsageList.json" />
+    <None Include="Resource\arm-storage\2017-06-01\swagger\storage.json" />
+    <None Include="Resource\arm-web\2016-03-01\swagger\Certificates.json" />
+    <None Include="Resource\arm-web\2016-03-01\swagger\DeletedWebApps.json" />
+    <None Include="Resource\arm-web\2016-03-01\swagger\Provider.json" />
+    <None Include="Resource\arm-web\2016-03-01\swagger\Recommendations.json" />
+    <None Include="Resource\arm-web\2016-03-01\swagger\ResourceProvider.json" />
+    <Content Include="WebApiTests\data\subscriptions.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebApiTests\data\resourcesForSubscription.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ARMExplorer.csproj">
+      <Project>{70989f92-fbbc-408f-8bf9-d22f281f8e75}</Project>
+      <Name>ARMExplorer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+</Project>

@@ -1,8 +1,8 @@
-﻿interface ISelelctHandlerReturn {
-    resourceDefinition: IResourceDefinition;
+﻿interface ISelectHandlerReturn {
+    resourceDefinition: ResourceDefinition;
     data: any;
     url: string;
-    branch: ITreeBranch;
+    branch: TreeBranch;
     httpMethod: string;
     error: any;
 } 

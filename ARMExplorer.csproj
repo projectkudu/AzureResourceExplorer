@@ -20,8 +20,11 @@
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
-    <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
-    <NuGetPackageImportStamp>86a6151d</NuGetPackageImportStamp>
+    <TypeScriptToolsVersion>2.5</TypeScriptToolsVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <UseGlobalApplicationHostFile />
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,6 +34,20 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>None</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptOutFile>ng/manage.js</TypeScriptOutFile>
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -39,48 +56,71 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TypeScriptTarget>ES6</TypeScriptTarget>
+    <TypeScriptJSXEmit>None</TypeScriptJSXEmit>
+    <TypeScriptCompileOnSaveEnabled>True</TypeScriptCompileOnSaveEnabled>
+    <TypeScriptNoImplicitAny>False</TypeScriptNoImplicitAny>
+    <TypeScriptModuleKind>None</TypeScriptModuleKind>
+    <TypeScriptRemoveComments>True</TypeScriptRemoveComments>
+    <TypeScriptOutFile>ng/manage.js</TypeScriptOutFile>
+    <TypeScriptOutDir />
+    <TypeScriptGeneratesDeclarations>False</TypeScriptGeneratesDeclarations>
+    <TypeScriptNoEmitOnError>True</TypeScriptNoEmitOnError>
+    <TypeScriptSourceMap>False</TypeScriptSourceMap>
+    <TypeScriptMapRoot />
+    <TypeScriptSourceRoot />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Hyak.Core, Version=1.0.5478.27459, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>ref\Hyak.Core.dll</HintPath>
+    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
     </Reference>
-    <Reference Include="Hyak.Specs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>ref\Hyak.Specs.dll</HintPath>
+    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.DependencyCollector.2.5.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=0.17.0.576, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.0.17.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.5.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.Extensibility.PerfCollector, Version=0.17.0.587, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.PerfCounterCollector.0.17.0\lib\net45\Microsoft.ApplicationInsights.Extensibility.PerfCollector.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.5.1\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry, Version=0.17.0.582, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.DependencyCollector.0.17.0\lib\net45\Microsoft.ApplicationInsights.Extensibility.RuntimeTelemetry.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.Web, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.Web.2.5.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.Extensibility.Web, Version=0.17.0.582, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.Web.0.17.0\lib\net45\Microsoft.ApplicationInsights.Extensibility.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AI.WindowsServer, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.WindowsServer.2.5.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights, Version=2.5.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.ApplicationInsights.2.5.1\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ApplicationInsights.Web.TelemetryChannel, Version=0.17.0.582, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.ApplicationInsights.Web.TelemetryChannel.0.17.0\lib\net45\Microsoft.ApplicationInsights.Web.TelemetryChannel.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Diagnostics.Instrumentation.Extensions.Intercept, Version=0.17.0.194, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>packages\Microsoft.ApplicationInsights.Agent.Intercept.0.17.0\lib\net45\Microsoft.Diagnostics.Instrumentation.Extensions.Intercept.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.25.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.25\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>packages\Ninject.Web.WebApi.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Diagnostics.DiagnosticSource.4.4.0\lib\net45\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.identitymodel.services" />
@@ -94,6 +134,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -119,16 +160,227 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\HydraSpecs\*.dll" />
     <Content Include="Content\Scripts\ui-ace.min.js" />
     <Content Include="Content\Styles\app2.css" />
+    <Content Include="Images\ARMExplorer.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="ng\manage2.js" />
     <Content Include="applicationHost.xdt" />
     <Content Include="packages.config" />
-    <Content Include="ApplicationInsights.config" />
-    <Content Include="App_Data\JsonSpecs\*.json" />
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\ProvidersSpecs\ProvidersList.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\AppServiceEnvironments.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\AppServicePlans.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Compute\compute.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Compute\disk.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Compute\runCommands.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\applicationGateway.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\checkDnsAvailability.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\expressRouteCircuit.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\loadBalancer.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\network.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\networkInterface.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\networkSecurityGroup.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\networkWatcher.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\publicIpAddress.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\routeFilter.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\routeTable.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\serviceCommunity.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\usage.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualNetwork.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualNetworkGateway.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\vmssNetworkInterface.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Storage\storage.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.CDN\cdn.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.EventHub\EventHub.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Logic\logic.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\dns.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\trafficmanager.json" />
+    <Content Include="App_Data\SwaggerSpecs\arm-graphrbac\graphrbac.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Advisor\advisor.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.AnalysisServices\analysisservices.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimanagement.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimapis.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimauthorizationservers.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimbackends.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimcertificates.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimdeployment.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimgroups.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimidentityprovider.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimloggers.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimnetworkstatus.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimopenidconnectproviders.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimproducts.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimproperties.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimquotas.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimreports.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimsubscriptions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimtenant.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimusers.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Authorization\authorization.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Authorization\locks.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Authorization\policy.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\account.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\certificate.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\connection.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\connectionType.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\credential.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\definitions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\dscCompilationJob.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\dscConfiguration.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\dscNode.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\dscNodeConfiguration.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\hybridRunbookWorkerGroup.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\job.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\jobSchedule.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\module.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\runbook.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\schedule.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\variable.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Automation\webhook.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Batch\BatchManagement.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Billing\billing.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Cache\redis.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.CognitiveServices\cognitiveservices.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Commerce\commerce.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Consumption\consumption.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerRegistry\containerregistry.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.CustomerInsights\customer-insights.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeAnalytics\account.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeAnalytics\catalog.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeAnalytics\job.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeStore\account.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeStore\filesystem.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Devices\iothub.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DevTestLab\DTL.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\features.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\links.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\applications.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\capabilities.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\cluster.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\configurations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\extensions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\operations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\scriptActions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ImportExport\storageimportexport.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\actionGroups_API.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\activityLogAlerts_API.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\aiOperations_API.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\components_API.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\insightsManagementClient_AlertRules.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\insightsManagementClient_AlertRulesIncidents.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\insightsManagementClient_LogProfiles.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\webTests_API.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Intune\intune.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.KeyVault\keyvault.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.MachineLearning\webservices.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\media.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.MobileEngagement\mobile-engagement.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.NotificationHubs\notificationhubs.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.OperationalInsights\arm-service-map.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.OperationalInsights\OperationalInsights.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.PowerBI\powerbiembedded.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\backup.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\backupManagement.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\registeredidentities.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\replicationusages.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\service.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\vaults.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\vaultusages.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Relay\relay.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ResourceHealth\resourcehealth.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Resources\resources.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Scheduler\scheduler.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Search\search.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServerManagement\servermanagement.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceBus\servicebus.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Solutions\managedapplications.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\blobAuditingPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\failoverGroups.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\virtualNetworkRules.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StorSimple\storsimple.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.TimeSeriesInsights\timeseriesinsights.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\missing.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\WebApps_olderspec.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\vmssPublicIpAddress.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Certificates.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ClassicMobileServices.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\DeletedWebApps.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Domains.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Global.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Provider.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Recommendations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ResourceProvider.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\TopLevelDomains.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\WebApps.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\AppServiceCertificateOrders.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\encryptionProtectors.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverKeys.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\servers.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\backupLongTermRetentionPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\backupLongTermRetentionVaults.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\backups.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\capabilities.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databaseSecurityAlertPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\firewallRules.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\geoBackupPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\importExport.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\metrics.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\operations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\replicationLinks.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverAzureADAdministrators.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverCommunicationLinks.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serviceObjectives.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\sql.core.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\usages.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\functions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\inputs.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\outputs.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\streamingjobs.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\subscriptions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.StreamAnalytics\transformations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerInstance\containerInstance.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerService\containerService.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerService\managedClusters.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ContainerService\location.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\autoscale_API.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\applicationSecurityGroup.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\endpointService.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\operation.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DocumentDB\cosmos-db.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.OperationalInsights\OperationalInsights-2015-03-20.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimdiagnostics.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimemailtemplate.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimissues.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimnotifications.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimportalsettings.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimtagresources.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimtags.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimversionsets.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\cancelOperations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\cancelPoolOperations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databases.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databaseVulnerabilityAssessmentScans.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\elasticPools.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\instanceFailoverGroups.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\shortTermRetentionPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\application.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\cluster.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\CommonDefinitions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Diagnostics.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ResourceHealthMetadata.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforMySQL\mysql.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforPostgreSQL\postgresql.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Capacity\reservations.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -142,23 +394,64 @@
     <Content Include="Content\Styles\abn_tree.css" />
     <Content Include="Content\Styles\app.css" />
     <Content Include="Content\Styles\sb-admin-2.css" />
-    <Content Include="favicon.ico" />
+    <Content Include="favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Global.asax" />
     <Content Include="index.html" />
     <Content Include="raw\index.html" />
-    <Content Include="ref\Hyak.Core.dll" />
-    <Content Include="ref\Hyak.Specs.dll" />
     <Content Include="ref\System.IdentityModel.Tokens.Jwt.dll" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ARMController.cs" />
+    <Compile Include="Controllers\HttpClientWrapper.cs" />
     <Compile Include="Controllers\HyakUtils.cs" />
+    <Compile Include="Controllers\IArmRepository.cs" />
+    <Compile Include="Controllers\IHttpClientWrapper.cs" />
     <Compile Include="Controllers\MetadataObject.cs" />
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationInfo.cs" />
+    <Compile Include="Controllers\ArmRepository.cs" />
+    <Compile Include="Model\ArmResource.cs" />
+    <Compile Include="Model\ArmResourceListResult.cs" />
     <Compile Include="Modules\Extensions.cs" />
+    <Compile Include="SwaggerParser\Model\CodeGenerationSettings.cs" />
+    <Compile Include="SwaggerParser\Model\ComparisonContext.cs" />
+    <Compile Include="SwaggerParser\Model\Contact.cs" />
+    <Compile Include="SwaggerParser\Model\Extensions.cs" />
+    <Compile Include="SwaggerParser\Model\ExternalDoc.cs" />
+    <Compile Include="SwaggerParser\FileSystem.cs" />
+    <Compile Include="SwaggerParser\Model\Header.cs" />
+    <Compile Include="SwaggerParser\IFileSystem.cs" />
+    <Compile Include="SwaggerParser\Model\Info.cs" />
+    <Compile Include="SwaggerParser\Model\License.cs" />
+    <Compile Include="SwaggerParser\MetaDataObjectBuilder.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPath.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPathPart.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPathPartIndex.cs" />
+    <Compile Include="SwaggerParser\Model\ObjectPathPartProperty.cs" />
+    <Compile Include="SwaggerParser\Model\Operation.cs" />
+    <Compile Include="SwaggerParser\Model\OperationResponse.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\PathItemRefConverter.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\PathLevelParameterConverter.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\ResponseRefConverter.cs" />
+    <Compile Include="SwaggerParser\Model\Schema.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\SchemaRequiredItemConverter.cs" />
+    <Compile Include="SwaggerParser\Model\SecurityDefinition.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\SecurityDefinitionConverter.cs" />
+    <Compile Include="SwaggerParser\Model\ServiceDefinition.cs" />
+    <Compile Include="SwaggerParser\Settings.cs" />
+    <Compile Include="SwaggerParser\Model\SpecObject.cs" />
+    <Compile Include="SwaggerParser\Model\SwaggerBase.cs" />
+    <Compile Include="SwaggerParser\JsonConverters\SwaggerJsonConverter.cs" />
+    <Compile Include="SwaggerParser\Model\SwaggerObject.cs" />
+    <Compile Include="SwaggerParser\Model\SwaggerParameter.cs" />
+    <Compile Include="SwaggerParser\SwaggerParser.cs" />
+    <Compile Include="SwaggerParser\SwaggerSpecLoader.cs" />
+    <Compile Include="SwaggerParser\Model\Tag.cs" />
     <Compile Include="Telemetry\ITelemetryEvent.cs" />
     <Compile Include="Telemetry\CsmTypeEvent.cs" />
     <Compile Include="Telemetry\TelemetryHelper.cs" />
@@ -173,17 +466,49 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="ng\AppStart\ClientConfig.ts" />
+    <TypeScriptCompile Include="ng\AppStart\DocumentationGenerator.ts" />
+    <TypeScriptCompile Include="ng\AppStart\EditorCollection.ts" />
+    <TypeScriptCompile Include="ng\models\ICreateModel.ts" />
+    <TypeScriptCompile Include="ng\common\ObjectUtils.ts" />
+    <TypeScriptCompile Include="ng\AppStart\ResourceDefinitionCollection.ts" />
+    <TypeScriptCompile Include="ng\models\ITreeBranchDataOverrides.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ansible\AnsibleScriptGenerator.ts" />
+    <TypeScriptCompile Include="ng\Search\ResourcesCache.ts" />
+    <TypeScriptCompile Include="ng\Search\ResourceSearcher.ts" />
+    <TypeScriptCompile Include="ng\Search\ResourceSearchDataModel.ts" />
+    <TypeScriptCompile Include="ng\AppStart\ExplorerScreen.ts" />
+    <TypeScriptCompile Include="ng\models\SelectedResource.ts" />
+    <TypeScriptCompile Include="ng\common\StringUtils.ts" />
+    <TypeScriptCompile Include="ng\models\TenantCollection.ts" />
+    <TypeScriptCompile Include="ng\common\angularPolyfill.ts" />
+    <TypeScriptCompile Include="ng\common\helpers.ts" />
+    <TypeScriptCompile Include="ng\common\polyfill.ts" />
     <TypeScriptCompile Include="ng\manage.ts" />
-    <TypeScriptCompile Include="ng\models\IAction.ts" />
+    <TypeScriptCompile Include="ng\models\Action.ts" />
     <TypeScriptCompile Include="ng\models\IArmTreeScope.ts" />
     <TypeScriptCompile Include="ng\models\IMetadataObject.ts" />
-    <TypeScriptCompile Include="ng\models\IResourceDefinition.ts" />
+    <TypeScriptCompile Include="ng\models\ResourceDefinition.ts" />
     <TypeScriptCompile Include="ng\models\IResourceSearch.ts" />
     <TypeScriptCompile Include="ng\models\ISelectHandlerReturn.ts" />
     <TypeScriptCompile Include="ng\models\ITenantDetails.ts" />
-    <TypeScriptCompile Include="ng\models\ITreeBranch.ts" />
+    <TypeScriptCompile Include="ng\models\TreeBranch.ts" />
     <TypeScriptCompile Include="ng\models\ITreeControl.ts" />
-    <TypeScriptCompile Include="ng\polyfill.ts" />
+    <TypeScriptCompile Include="ng\modules\resizerModule.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ARMUrlParser.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\CliScriptGenerator.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\ResourceHandlerResolver.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\GernericResource.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\ResourceGroup.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\ResourceGroups.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\Subscription.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\SubscriptionLocations.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\Subscriptions.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\WebApp.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\cli\resources\WebApps.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\powershell\PowerShellScriptGenerator.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\scriptGeneratorCommon.ts" />
+    <TypeScriptCompile Include="ng\scriptGenerators\ScriptParametersResolver.ts" />
     <TypeScriptCompile Include="ng\typings\ace\ace.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular-animate.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular-cookies.d.ts" />
@@ -192,10 +517,16 @@
     <TypeScriptCompile Include="ng\typings\angularjs\angular-route.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular-sanitize.d.ts" />
     <TypeScriptCompile Include="ng\typings\angularjs\angular.d.ts" />
+    <TypeScriptCompile Include="ng\typings\angularjs\mocks.d.ts" />
     <TypeScriptCompile Include="ng\typings\cryptojs\cryptojs.d.ts" />
     <TypeScriptCompile Include="ng\typings\jquery.cookie\jquery.cookie.d.ts" />
     <TypeScriptCompile Include="ng\typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="ng\AppStart\ArmClientRepository.ts" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -216,7 +547,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>55365</DevelopmentServerPort>
+          <DevelopmentServerPort>44300</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>https://localhost:44300/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
@@ -232,10 +563,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('packages\Microsoft.ApplicationInsights.Agent.Intercept.0.17.0\build\Microsoft.ApplicationInsights.Agent.Intercept.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.ApplicationInsights.Agent.Intercept.0.17.0\build\Microsoft.ApplicationInsights.Agent.Intercept.targets'))" />
     <Error Condition="!Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
-  <Import Project="packages\Microsoft.ApplicationInsights.Agent.Intercept.0.17.0\build\Microsoft.ApplicationInsights.Agent.Intercept.targets" Condition="Exists('packages\Microsoft.ApplicationInsights.Agent.Intercept.0.17.0\build\Microsoft.ApplicationInsights.Agent.Intercept.targets')" />
   <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
