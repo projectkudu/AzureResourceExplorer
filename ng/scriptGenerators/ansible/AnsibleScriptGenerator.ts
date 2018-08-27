@@ -131,7 +131,7 @@
                     yaml += prefix + key + ": " + o[key] + "\n";
                 }
 
-                prefix = prefix.replace('-', ' ');
+                if (prefix.indexOf('-') >= 0) prefix = prefix.replace('-', ' ');
             }
 
             return yaml;
