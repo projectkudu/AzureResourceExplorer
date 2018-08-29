@@ -3,19 +3,17 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-01-01"
+    "version": "2018-07-01"
   },
   "host": "management.azure.com",
   "schemes": [
     "https"
   ],
   "consumes": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "produces": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "security": [
     {
@@ -59,10 +57,10 @@
             "description": "The name of the subnet."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -103,10 +101,10 @@
             "description": "The name of the subnet."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "$expand",
@@ -159,10 +157,10 @@
             "description": "Parameters supplied to the create or update public IP address operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -217,10 +215,10 @@
             "description": "Parameters supplied to update public IP address tags."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -246,10 +244,10 @@
         "description": "Gets all the public IP addresses in a subscription.",
         "parameters": [
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -284,10 +282,10 @@
             "description": "The name of the resource group."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -370,6 +368,10 @@
         "ipAddress": {
           "type": "string",
           "description": "The IP address associated with the public IP address resource."
+        },
+        "publicIPPrefix": {
+          "$ref":"./network.json#/definitions/SubResource",
+          "description": "The Public IP Prefix this Public IP Address should be allocated from."
         },
         "idleTimeoutInMinutes": {
           "type": "integer",
@@ -461,23 +463,7 @@
           "description": "Gets or sets value of the IpTag associated with the public IP. Example SQL, Storage etc"
         }
       },
-      "description": "Contains the IpTag associated with the public IP address"
-    }
-  },
-  "parameters": {
-    "SubscriptionIdParameter": {
-      "name": "subscriptionId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call."
-    },
-    "ApiVersionParameter": {
-      "name": "api-version",
-      "in": "query",
-      "required": true,
-      "type": "string",
-      "description": "Client API version."
+      "description": "Contains the IpTag associated with the object"
     }
   }
 }

@@ -3,19 +3,17 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-01-01"
+    "version": "2018-07-01"
   },
   "host": "management.azure.com",
   "schemes": [
     "https"
   ],
   "consumes": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "produces": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "security": [
     {
@@ -68,10 +66,10 @@
             "description": "Parameters that define the network watcher resource."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -85,6 +83,12 @@
             "description": "Create successful. The operation returns the resulting network watcher resource.",
             "schema": {
               "$ref": "#/definitions/NetworkWatcher"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -114,10 +118,10 @@
             "description": "The name of the network watcher."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -125,6 +129,12 @@
             "description": "Request successful. The operation returns a network watcher resource.",
             "schema": {
               "$ref": "#/definitions/NetworkWatcher"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -155,10 +165,10 @@
             "description": "The name of the network watcher."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -167,6 +177,12 @@
           },
           "204": {
             "description": "Delete successful."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -204,10 +220,10 @@
             "description": "Parameters supplied to update network watcher tags."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -215,6 +231,12 @@
             "description": "Update successful. The operation returns the resulting network watcher resource.",
             "schema": {
               "$ref": "#/definitions/NetworkWatcher"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -239,10 +261,10 @@
             "description": "The name of the resource group."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -250,6 +272,12 @@
             "description": "Request successful. The operation returns a list of network watcher resources.",
             "schema": {
               "$ref": "#/definitions/NetworkWatcherListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -270,10 +298,10 @@
         "description": "Gets all network watchers by subscription.",
         "parameters": [
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -281,6 +309,12 @@
             "description": "Request successful. The operation returns a list of network watcher resources.",
             "schema": {
               "$ref": "#/definitions/NetworkWatcherListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -324,10 +358,10 @@
             "description": "Parameters that define the representation of topology."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -335,6 +369,12 @@
             "description": "Request successful. The operation returns the topology of resource group.",
             "schema": {
               "$ref": "#/definitions/Topology"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -378,10 +418,10 @@
             "description": "Parameters that define the IP flow to be verified."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -395,6 +435,12 @@
             "description": "Accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/VerificationIPFlowResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -436,10 +482,10 @@
             "description": "Parameters that define the source and destination endpoint."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -453,6 +499,12 @@
             "description": "Accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/NextHopResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -494,10 +546,10 @@
             "description": "Parameters that define the VM to check security groups for."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -511,6 +563,12 @@
             "description": "Accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/SecurityGroupViewResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -559,10 +617,10 @@
             "description": "Parameters that define the create packet capture operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -570,6 +628,12 @@
             "description": "Request successful. The operation returns the resulting packet capture session.",
             "schema": {
               "$ref": "#/definitions/PacketCaptureResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -606,10 +670,10 @@
             "description": "The name of the packet capture session."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -617,6 +681,12 @@
             "description": "Request successful. The operation returns a packet capture session.",
             "schema": {
               "$ref": "#/definitions/PacketCaptureResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -654,10 +724,10 @@
             "description": "The name of the packet capture session."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -666,6 +736,12 @@
           },
           "202": {
             "description": "Accepted and the operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -704,10 +780,10 @@
             "description": "The name of the packet capture session."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -716,6 +792,12 @@
           },
           "202": {
             "description": "Accepted and the operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -730,6 +812,9 @@
         ],
         "operationId": "PacketCaptures_GetStatus",
         "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
         "description": "Query the status of a running packet capture session.",
         "parameters": [
           {
@@ -754,10 +839,10 @@
             "description": "The name given to the packet capture session."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -771,6 +856,12 @@
             "description": "Accepted query status of packet capture.",
             "schema": {
               "$ref": "#/definitions/PacketCaptureQueryStatusResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -802,10 +893,10 @@
             "description": "The name of the Network Watcher resource."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -813,6 +904,12 @@
             "description": "Successful packet capture enumeration request.",
             "schema": {
               "$ref": "#/definitions/PacketCaptureListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -857,10 +954,10 @@
             "description": "Parameters that define the resource to troubleshoot."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -874,6 +971,12 @@
             "description": "Accepted get troubleshooting request.",
             "schema": {
               "$ref": "#/definitions/TroubleshootingResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -915,10 +1018,10 @@
             "description": "Parameters that define the resource to query the troubleshooting result."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -933,6 +1036,12 @@
             "schema": {
               "$ref": "#/definitions/TroubleshootingResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -943,11 +1052,12 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/configureFlowLog": {
       "post": {
         "tags": [
-          "NetworkWatchers"
+          "NetworkWatchers",
+          "TrafficAnalytics"
         ],
         "operationId": "NetworkWatchers_SetFlowLogConfiguration",
         "x-ms-long-running-operation": true,
-        "description": "Configures flow log on a specified resource.",
+        "description": "Configures flow log  and traffic analytics (optional) on a specified resource.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -973,15 +1083,15 @@
             "description": "Parameters that define the configuration of flow log."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful request for setting flow log configuration.",
+            "description": "Successful request for setting flow log  and traffic analytics (optional) configuration.",
             "schema": {
               "$ref": "#/definitions/FlowLogInformation"
             }
@@ -990,6 +1100,12 @@
             "description": "Accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/FlowLogInformation"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1001,11 +1117,12 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/queryFlowLogStatus": {
       "post": {
         "tags": [
-          "NetworkWatchers"
+          "NetworkWatchers",
+          "TrafficAnalytics"
         ],
         "operationId": "NetworkWatchers_GetFlowLogStatus",
         "x-ms-long-running-operation": true,
-        "description": "Queries status of flow log on a specified resource.",
+        "description": "Queries status of flow log and traffic analytics (optional) on a specified resource.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -1028,18 +1145,18 @@
             "schema": {
               "$ref": "#/definitions/FlowLogStatusParameters"
             },
-            "description": "Parameters that define a resource to query flow log status."
+            "description": "Parameters that define a resource to query flow log and traffic analytics (optional)  status."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful request for query flow log status.",
+            "description": "Successful request for query flow log and traffic analytics (optional) status.",
             "schema": {
               "$ref": "#/definitions/FlowLogInformation"
             }
@@ -1048,6 +1165,12 @@
             "description": "Accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/FlowLogInformation"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1089,10 +1212,10 @@
             "description": "Parameters that determine how the connectivity check will be performed."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1106,6 +1229,12 @@
             "description": "Accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/ConnectivityInformation"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1147,10 +1276,10 @@
             "description": "Parameters that determine Azure reachability report configuration."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1164,6 +1293,12 @@
             "description": "Accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/AzureReachabilityReport"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1207,10 +1342,10 @@
             "description": "Parameters that scope the list of available providers."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1225,10 +1360,16 @@
             "schema": {
               "$ref": "#/definitions/AvailableProvidersList"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
-          "Get Azure Reachability Report": {
+          "Get Available Providers List": {
             "$ref": "./examples/NetworkWatcherAvailableProvidersListGet.json"
           }
         }
@@ -1274,23 +1415,29 @@
             "description": "Parameters that define the operation to create a connection monitor."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "Update successful. The operation returns the resulting connection monitor resource.",
+            "description": "Update successful. The operation returns the resulting network watcher resource.",
             "schema": {
               "$ref": "#/definitions/ConnectionMonitorResult"
             }
           },
           "201": {
-            "description": "Create successful. The operation returns the resulting connection monitor resource.",
+            "description": "Create successful. The operation returns the resulting network watcher resource.",
             "schema": {
               "$ref": "#/definitions/ConnectionMonitorResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1327,10 +1474,10 @@
             "description": "The name of the connection monitor."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1338,6 +1485,12 @@
             "description": "Request successful. The operation returns a connection monitor.",
             "schema": {
               "$ref": "#/definitions/ConnectionMonitorResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1375,10 +1528,10 @@
             "description": "The name of the connection monitor."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1387,6 +1540,12 @@
           },
           "202": {
             "description": "Accepted. The operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -1425,10 +1584,10 @@
             "description": "The name of the connection monitor."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1437,6 +1596,12 @@
           },
           "202": {
             "description": "Accepted. The operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -1475,10 +1640,10 @@
             "description": "The name of the connection monitor."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1487,6 +1652,12 @@
           },
           "202": {
             "description": "Accepted. The operation will complete asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -1525,10 +1696,10 @@
             "description": "The name given to the connection monitor."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1542,6 +1713,12 @@
             "description": "Accepted query of connection states.",
             "schema": {
               "$ref": "#/definitions/ConnectionMonitorQueryResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1573,10 +1750,10 @@
             "description": "The name of the Network Watcher resource."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1584,6 +1761,12 @@
             "description": "Successful connection monitor enumeration request.",
             "schema": {
               "$ref": "#/definitions/ConnectionMonitorListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
             }
           }
         },
@@ -1594,29 +1777,90 @@
           "List connection monitors": { "$ref": "./examples/NetworkWatcherConnectionMonitorList.json" }
         }
       }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkWatchers/{networkWatcherName}/networkConfigurationDiagnostic": {
+      "post": {
+        "tags": [
+          "NetworkWatchers"
+        ],
+        "operationId": "NetworkWatchers_GetNetworkConfigurationDiagnostic",
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": { 
+          "final-state-via": "location" 
+        },
+        "description": "Get network configuration diagnostic.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "networkWatcherName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the network watcher."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NetworkConfigurationDiagnosticParameters"
+            },
+            "description": "Parameters to get network configuration diagnostic."
+          },
+          {
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successful. The operation returns the result of network condifuration diagnostic.",
+            "schema": {
+              "$ref": "#/definitions/NetworkConfigurationDiagnosticResponse"
+            }
+          },
+          "202": {
+            "description": "Accepted and the operation will complete asynchronously.",
+            "schema": {
+              "$ref": "#/definitions/NetworkConfigurationDiagnosticResponse"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Network configuration diagnostic": { "$ref": "./examples/NetworkWatcherNetworkConfigurationDiagnostic.json" }
+        }
+      }
     }
   },
   "definitions": {
+    "ErrorResponse": {
+      "description": "The error object.",
+      "properties": {
+        "error": {
+          "title": "Error",
+          "$ref": "./network.json#/definitions/ErrorDetails"
+        }
+      }
+    },
     "NetworkWatcher": {
       "properties": {
-        "name": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Name of the network watcher."
-        },
-        "id": {
-          "readOnly": true,
-          "type": "string",
-          "description": "ID of the network watcher."
-        },
         "etag": {
           "type": "string",
-          "default": "A unique read-only string that changes whenever the resource is updated."
-        },
-        "type": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Network watcher type."
+          "description": "A unique read-only string that changes whenever the resource is updated."
         },
         "properties": {
           "x-ms-client-flatten": true,
@@ -1627,9 +1871,6 @@
         {
           "$ref": "./network.json#/definitions/Resource"
         }
-      ],
-      "required": [
-        "location"
       ],
       "description": "Network watcher in a resource group."
     },
@@ -1793,7 +2034,7 @@
             "UDP"
           ],
           "x-ms-enum": {
-            "name": "Protocol",
+            "name": "IpFlowProtocol",
             "modelAsString": true
           },
           "description": "Protocol to be verified on."
@@ -1993,21 +2234,6 @@
     },
     "PacketCapture": {
       "properties": {
-        "name": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Name of the packet capture."
-        },
-        "id": {
-          "readOnly": true,
-          "type": "string",
-          "description": "ID of the packet capture."
-        },
-        "type": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Packet capture type."
-        },
         "properties": {
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/PacketCaptureParameters"
@@ -2124,17 +2350,12 @@
         "name": {
           "readOnly": true,
           "type": "string",
-          "description": "Name of the packet capture."
+          "description": "Name of the packet capture session."
         },
         "id": {
           "readOnly": true,
           "type": "string",
-          "description": "ID of the packet capture."
-        },
-        "type": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Packet capture type."
+          "description": "ID of the packet capture operation."
         },
         "etag": {
           "type": "string",
@@ -2368,13 +2589,13 @@
       }
     },
     "FlowLogStatusParameters": {
-      "description": "Parameters that define a resource to query flow log status.",
+      "description": "Parameters that define a resource to query flow log and traffic analytics (optional) status.",
       "required": [
         "targetResourceId"
       ],
       "properties": {
         "targetResourceId": {
-          "description": "The target resource where getting the flow logging status.",
+          "description": "The target resource where getting the flow log and traffic analytics (optional) status.",
           "type": "string"
         }
       }
@@ -2395,19 +2616,60 @@
       }
     },
     "FlowLogInformation": {
-      "description": "Information on the configuration of flow log.",
+      "description": "Information on the configuration of flow log and traffic analytics (optional) .",
       "required": [
         "targetResourceId",
         "properties"
       ],
       "properties": {
         "targetResourceId": {
-          "description": "The ID of the resource to configure for flow logging.",
+          "description": "The ID of the resource to configure for flow log and traffic analytics (optional) .",
           "type": "string"
         },
         "properties": {
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/FlowLogProperties"
+        },
+        "flowAnalyticsConfiguration": {
+          "$ref": "#/definitions/TrafficAnalyticsProperties"
+        }
+      }
+    },
+     "TrafficAnalyticsProperties": {
+      "description": "Parameters that define the configuration of traffic analytics.",
+      "required": [
+        "networkWatcherFlowAnalyticsConfiguration"
+      ],
+      "properties": {
+        "networkWatcherFlowAnalyticsConfiguration": {
+          "$ref": "#/definitions/TrafficAnalyticsConfigurationProperties"
+        }
+      }
+    },
+    "TrafficAnalyticsConfigurationProperties": {
+      "description": "Parameters that define the configuration of traffic analytics.",
+      "required": [
+        "enabled",
+        "workspaceId",
+        "workspaceRegion",
+        "workspaceResourceId"
+      ],
+      "properties": {
+        "enabled": {
+          "description": "Flag to enable/disable traffic analytics.",
+          "type": "boolean"
+        },
+        "workspaceId": {
+          "description": "The resource guid of the attached workspace",
+          "type": "string"
+        },
+        "workspaceRegion": {
+          "description": "The location of the attached workspace",
+          "type": "string"
+        },
+        "workspaceResourceId": {
+          "description": "Resource Id of the attached workspace ",
+         "type": "string"
         }
       }
     },
@@ -2423,6 +2685,23 @@
         },
         "destination": {
           "$ref": "#/definitions/ConnectivityDestination"
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Network protocol.",
+          "enum": [
+            "Tcp",
+            "Http",
+            "Https",
+            "Icmp"
+          ],
+          "x-ms-enum": {
+            "name": "Protocol",
+            "modelAsString": true
+          }
+        },
+        "protocolConfiguration": {
+          "$ref": "#/definitions/ProtocolConfiguration"
         }
       }
     },
@@ -2619,6 +2898,57 @@
       "additionalProperties": {
         "type": "string"
       }
+    },
+    "ProtocolConfiguration": {
+      "description": "Configuration of the protocol.",
+      "properties": {
+        "HTTPConfiguration": {
+          "$ref": "#/definitions/HTTPConfiguration"
+        }
+      }
+    },
+    "HTTPConfiguration": {
+      "properties": {
+        "method": {
+          "type": "string",
+          "description": "HTTP method.",
+          "enum": [
+            "Get"
+          ],
+          "x-ms-enum": {
+            "name": "HTTPMethod",
+            "modelAsString": true
+          }
+        },
+        "headers": {
+          "type": "array",
+          "description": "List of HTTP headers.",
+          "items": {
+            "$ref": "#/definitions/HTTPHeader"
+          }
+        },
+        "validStatusCodes": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          },
+          "description": "Valid status codes."
+        }
+      },
+      "description": "HTTP configuration of the connectivity check."
+    },
+    "HTTPHeader": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name in HTTP header."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value in HTTP header."
+        }
+      },
+      "description": "Describes the HTTP header."
     },
     "AzureReachabilityReportParameters": {
       "properties": {
@@ -3006,6 +3336,19 @@
     },
     "ConnectionMonitorQueryResult": {
       "properties": {
+        "sourceStatus": {
+          "type": "string",
+          "enum": [
+            "Uknown",
+            "Active",
+            "Inactive"
+          ],
+          "x-ms-enum": {
+            "name": "ConnectionMonitorSourceStatus",
+            "modelAsString": true
+          },
+          "description": "Status of connection monitor source."
+        },
         "states": {
           "type": "array",
           "items": {
@@ -3054,6 +3397,26 @@
           },
           "description": "Connectivity analysis evaluation state."
         },
+        "avgLatencyInMs": {
+          "type": "integer",
+          "description": "Average latency in ms."
+        },
+        "minLatencyInMs": {
+          "type": "integer",
+          "description": "Minimum latency in ms."
+        },
+        "maxLatencyInMs": {
+          "type": "integer",
+          "description": "Maximum latency in ms."
+        },
+        "probesSent": {
+          "type": "integer",
+          "description": "The number of sent probes."
+        },
+        "probesFailed": {
+          "type": "integer",
+          "description": "The number of failed probes."
+        },
         "hops": {
           "readOnly": true,
           "type": "array",
@@ -3064,22 +3427,177 @@
         }
       },
       "description": "Connection state snapshot."
-    }
-  },
-  "parameters": {
-    "SubscriptionIdParameter": {
-      "name": "subscriptionId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call."
     },
-    "ApiVersionParameter": {
-      "name": "api-version",
-      "in": "query",
-      "required": true,
-      "type": "string",
-      "description": "Client API version."
+    "NetworkConfigurationDiagnosticParameters": {
+      "description": "Parameters to get network configuration diagnostic.",
+      "required": [
+        "targetResourceId",
+        "queries"
+      ],
+      "properties": {
+        "targetResourceId": {
+          "type": "string",
+          "description": "The ID of the target resource to perform network configuration diagnostic. Valid options are VM, NetworkInterface, VMSS/NetworkInterface and Application Gateway."
+        },
+        "queries": {
+          "type": "array",
+          "description": "List of traffic queries.",
+          "items": {
+            "$ref": "#/definitions/TrafficQuery"
+          }
+        }
+      }
+    },
+    "TrafficQuery": {
+      "description": "Parameters to compare with network configuration.",
+      "required": [
+        "direction",
+        "protocol",
+        "source",
+        "destination",
+        "destinationPort"
+      ],
+      "properties": {
+        "direction": {
+          "type": "string",
+          "enum": [
+            "Inbound",
+            "Outbound"
+          ],
+          "x-ms-enum": {
+            "name": "Direction",
+            "modelAsString": true
+          },
+          "description": "The direction of the traffic. Accepted values are 'Inbound' and 'Outbound'."
+        },
+        "protocol": {
+          "type": "string",
+          "description": "Protocol to be verified on. Accepted values are '*', TCP, UDP."
+        },
+        "source": {
+          "type": "string",
+          "description": "Traffic source. Accepted values are '*', IP Address/CIDR, Service Tag."
+        },
+        "destination": {
+          "type": "string",
+          "description": "Traffic destination. Accepted values are: '*', IP Address/CIDR, Service Tag."
+        },
+        "destinationPort": {
+          "type": "string",
+          "description": "Traffice destination port. Accepted values are '*', port (for example, 3389) and port range (for example, 80-100)."
+        }
+      }
+    },
+    "NetworkConfigurationDiagnosticResponse": {
+      "description": "Results of network configuration diagnostic on the target resource.",
+      "properties": {
+        "results": {
+          "readOnly": true,
+          "type": "array",
+          "description": "List of network configuration diagnostic results.",
+          "items": {
+            "$ref": "#/definitions/NetworkConfigurationDiagnosticResult"
+          }
+        }
+      }
+    },
+    "NetworkConfigurationDiagnosticResult": {
+      "description": "Network configuration diagnostic result corresponded to provided traffic query.",
+      "properties": {
+        "trafficQuery": {
+          "$ref": "#/definitions/TrafficQuery"
+        },
+        "networkSecurityGroupResult": {
+          "$ref": "#/definitions/NetworkSecurityGroupResult"
+        }
+      }
+    },
+    "NetworkSecurityGroupResult": {
+      "description": "Network configuration diagnostic result corresponded provided traffic query.",
+      "properties": {
+        "securityRuleAccessResult": {
+          "type": "string",
+          "description": "The network traffic is allowed or denied. Possible values are 'Allow' and 'Deny'.",
+          "enum": [
+            "Allow",
+            "Deny"
+          ],
+          "x-ms-enum": {
+            "name": "SecurityRuleAccess",
+            "modelAsString": true
+          }
+        },
+        "evaluatedNetworkSecurityGroups": {
+          "readOnly": true,
+          "type": "array",
+          "description": "List of results network security groups diagnostic.",
+          "items": {
+            "$ref": "#/definitions/EvaluatedNetworkSecurityGroup"
+          }
+        }
+      }
+    },
+    "EvaluatedNetworkSecurityGroup": {
+      "description": "Results of network security group evaluation.",
+      "properties": {
+        "networkSecurityGroupId": {
+          "type": "string",
+          "description": "Network security group ID."
+        },
+        "matchedRule": {
+          "$ref": "#/definitions/MatchedRule"
+        },
+        "rulesEvaluationResult": {
+          "readOnly": true,
+          "type": "array",
+          "description": "List of network security rules evaluation results.",
+          "items": {
+            "$ref": "#/definitions/NetworkSecurityRulesEvaluationResult"
+          }
+        }
+      }
+    },
+    "MatchedRule": {
+      "description": "Matched rule.",
+      "properties": {
+        "ruleName": {
+          "type": "string",
+          "description": "Name of the matched network security rule."
+        },
+        "action": {
+          "type": "string",
+          "description": "The network traffic is allowed or denied. Possible values are 'Allow' and 'Deny'."
+        }
+      }
+    },
+    "NetworkSecurityRulesEvaluationResult": {
+      "description": "Network security rules evaluation result.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the network security rule."
+        },
+        "protocolMatched": {
+          "type": "boolean",
+          "description": "Value indicating whether protocol is matched."
+        },
+        "sourceMatched": {
+          "type": "boolean",
+          "description": "Value indicating whether source is matched."
+        },
+        "sourcePortMatched": {
+          "type": "boolean",
+          "description": "Value indicating whether source port is matched."
+        },
+        "destinationMatched": {
+          "type": "boolean",
+          "description": "Value indicating whether destination is matched."
+        },
+        "destinationPortMatched": {
+          "type": "boolean",
+          "description": "Value indicating whether destination port is matched."
+        }
+      }
     }
   }
 }

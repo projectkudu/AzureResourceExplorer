@@ -34,13 +34,13 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationSecurityGroups/{applicationSecurityGroupName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}": {
       "delete": {
         "tags": [
-          "ApplicationSecurityGroups"
+          "DdosProtectionPlans"
         ],
-        "operationId": "ApplicationSecurityGroups_Delete",
-        "description": "Deletes the specified application security group.",
+        "operationId": "DdosProtectionPlans_Delete",
+        "description": "Deletes the specified DDoS protection plan.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -50,11 +50,11 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "applicationSecurityGroupName",
+            "name": "ddosProtectionPlanName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the application security group."
+            "description": "The name of the DDoS protection plan."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -76,15 +76,17 @@
         },
         "x-ms-long-running-operation": true,
         "x-ms-examples": {
-          "Delete application security group": { "$ref": "./examples/ApplicationSecurityGroupDelete.json" }
+          "Delete DDoS protection plan": {
+            "$ref": "./examples/DdosProtectionPlanDelete.json"
+          }
         }
       },
       "get": {
         "tags": [
-          "ApplicationSecurityGroups"
+          "DdosProtectionPlans"
         ],
-        "operationId": "ApplicationSecurityGroups_Get",
-        "description": "Gets information about the specified application security group.",
+        "operationId": "DdosProtectionPlans_Get",
+        "description": "Gets information about the specified DDoS protection plan.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -94,11 +96,11 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "applicationSecurityGroupName",
+            "name": "ddosProtectionPlanName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the application security group."
+            "description": "The name of the DDoS protection plan."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -109,22 +111,24 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns the specified application security group resource.",
+            "description": "Request successful. The operation returns the specified DDoS protection plan resource.",
             "schema": {
-              "$ref": "#/definitions/ApplicationSecurityGroup"
+              "$ref": "#/definitions/DdosProtectionPlan"
             }
           }
         },
         "x-ms-examples": {
-          "Get application security group": { "$ref": "./examples/ApplicationSecurityGroupGet.json" }
+          "Get DDoS protection plan": {
+            "$ref": "./examples/DdosProtectionPlanGet.json"
+          }
         }
       },
       "put": {
         "tags": [
-          "ApplicationSecurityGroups"
+          "DdosProtectionPlans"
         ],
-        "operationId": "ApplicationSecurityGroups_CreateOrUpdate",
-        "description": "Creates or updates an application security group.",
+        "operationId": "DdosProtectionPlans_CreateOrUpdate",
+        "description": "Creates or updates a DDoS protection plan.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -134,20 +138,20 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "applicationSecurityGroupName",
+            "name": "ddosProtectionPlanName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the application security group."
+            "description": "The name of the DDoS protection plan."
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ApplicationSecurityGroup"
+              "$ref": "#/definitions/DdosProtectionPlan"
             },
-            "description": "Parameters supplied to the create or update ApplicationSecurityGroup operation."
+            "description": "Parameters supplied to the create or update operation."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -158,31 +162,33 @@
         ],
         "responses": {
           "201": {
-            "description": "Create successful. The operation returns the resulting application security group resource.",
+            "description": "Create successful. The operation returns the resulting DDoS protection plan resource.",
             "schema": {
-              "$ref": "#/definitions/ApplicationSecurityGroup"
+              "$ref": "#/definitions/DdosProtectionPlan"
             }
           },
           "200": {
-            "description": "Update successful. The operation returns the resulting application security group resource.",
+            "description": "Update successful. The operation returns the resulting DDoS protection plan resource.",
             "schema": {
-              "$ref": "#/definitions/ApplicationSecurityGroup"
+              "$ref": "#/definitions/DdosProtectionPlan"
             }
           }
         },
         "x-ms-long-running-operation": true,
         "x-ms-examples": {
-          "Create application security group": { "$ref": "./examples/ApplicationSecurityGroupCreate.json" }
+          "Create DDoS protection plan": {
+            "$ref": "./examples/DdosProtectionPlanCreate.json"
+          }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/applicationSecurityGroups": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/ddosProtectionPlans": {
       "get": {
         "tags": [
-          "ApplicationSecurityGroups"
+          "DdosProtectionPlans"
         ],
-        "operationId": "ApplicationSecurityGroups_ListAll",
-        "description": "Gets all application security groups in a subscription.",
+        "operationId": "DdosProtectionPlans_List",
+        "description": "Gets all DDoS protection plans in a subscription.",
         "parameters": [
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -193,9 +199,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns a list of application security group resources.",
+            "description": "Request successful. The operation returns a list of DDoS protection plan resources.",
             "schema": {
-              "$ref": "#/definitions/ApplicationSecurityGroupListResult"
+              "$ref": "#/definitions/DdosProtectionPlanListResult"
             }
           }
         },
@@ -203,17 +209,19 @@
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "List all application security groups": { "$ref": "./examples/ApplicationSecurityGroupListAll.json" }
+          "List all DDoS protection plans": {
+            "$ref": "./examples/DdosProtectionPlanListAll.json"
+          }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/applicationSecurityGroups": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans": {
       "get": {
         "tags": [
-          "ApplicationSecurityGroups"
+          "DdosProtectionPlans"
         ],
-        "operationId": "ApplicationSecurityGroups_List",
-        "description": "Gets all the application security groups in a resource group.",
+        "operationId": "DdosProtectionPlans_ListByResourceGroup",
+        "description": "Gets all the DDoS protection plans in a resource group.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -231,14 +239,16 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns a list of application security group resources.",
+            "description": "Request successful. The operation returns a list of DDoS protection plan resources.",
             "schema": {
-              "$ref": "#/definitions/ApplicationSecurityGroupListResult"
+              "$ref": "#/definitions/DdosProtectionPlanListResult"
             }
           }
         },
         "x-ms-examples": {
-          "List load balancers in resource group": { "$ref": "./examples/ApplicationSecurityGroupList.json" }
+          "List DDoS protection plans in resource group": {
+            "$ref": "./examples/DdosProtectionPlanList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -247,49 +257,79 @@
     }
   },
   "definitions": {
-    "ApplicationSecurityGroup": {
+    "DdosProtectionPlan": {
+      "description": "A DDoS protection plan in a resource group.",
+      "x-ms-azure-resource": true,
       "properties": {
+        "id": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Resource ID."
+        },
+        "name": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Resource name."
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string",
+          "description": "Resource type."
+        },
+        "location": {
+          "type": "string",
+          "description": "Resource location."
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Resource tags."
+        },
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/ApplicationSecurityGroupPropertiesFormat",
-          "description": "Properties of the application security group."
+          "$ref": "#/definitions/DdosProtectionPlanPropertiesFormat",
+          "description": "Properties of the DDoS protection plan."
         },
         "etag": {
           "readOnly": true,
           "type": "string",
           "description": "A unique read-only string that changes whenever the resource is updated."
         }
-      },
-      "allOf": [
-        {
-          "$ref": "./network.json#/definitions/Resource"
-        }
-      ],
-      "description": "An application security group in a resource group."
+      }
     },
-    "ApplicationSecurityGroupPropertiesFormat": {
+    "DdosProtectionPlanPropertiesFormat": {
       "properties": {
         "resourceGuid": {
           "readOnly": true,
           "type": "string",
-          "description": "The resource GUID property of the application security group resource. It uniquely identifies a resource, even if the user changes its name or migrate the resource across subscriptions or resource groups."
+          "description": "The resource GUID property of the DDoS protection plan resource. It uniquely identifies the resource, even if the user changes its name or migrate the resource across subscriptions or resource groups."
         },
         "provisioningState": {
           "readOnly": true,
           "type": "string",
-          "description": "The provisioning state of the application security group resource. Possible values are: 'Succeeded', 'Updating', 'Deleting', and 'Failed'."
+          "description": "The provisioning state of the DDoS protection plan resource. Possible values are: 'Succeeded', 'Updating', 'Deleting', and 'Failed'."
+        },
+        "virtualNetworks": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "./network.json#/definitions/SubResource"
+          },
+          "description": "The list of virtual networks associated with the DDoS protection plan resource. This list is read-only."
         }
       },
-      "description": "Application security group properties."
+      "description": "DDoS protection plan properties."
     },
-    "ApplicationSecurityGroupListResult": {
+    "DdosProtectionPlanListResult": {
       "properties": {
         "value": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ApplicationSecurityGroup"
+            "$ref": "#/definitions/DdosProtectionPlan"
           },
-          "description": "A list of application security groups."
+          "description": "A list of DDoS protection plans."
         },
         "nextLink": {
           "readOnly": true,
@@ -297,7 +337,7 @@
           "description": "The URL to get the next set of results."
         }
       },
-      "description": "A list of application security groups."
+      "description": "A list of DDoS protection plans."
     }
   }
 }

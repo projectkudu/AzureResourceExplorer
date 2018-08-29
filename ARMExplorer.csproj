@@ -381,6 +381,12 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforMySQL\mysql.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforPostgreSQL\postgresql.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Capacity\reservations.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\azureFirewall.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\ddosProtectionPlan.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\expressRouteCrossConnection.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\publicIpPrefix.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\serviceEndpointPolicy.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualWan.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -3,19 +3,17 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-01-01"
+    "version": "2018-07-01"
   },
   "host": "management.azure.com",
   "schemes": [
     "https"
   ],
   "consumes": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "produces": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "security": [
     {
@@ -59,10 +57,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -103,10 +101,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "$expand",
@@ -159,10 +157,10 @@
             "description": "Parameters supplied to the create or update load balancer operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -216,10 +214,10 @@
             "description": "Parameters supplied to update load balancer tags."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -245,10 +243,10 @@
         "description": "Gets all the load balancers in a subscription.",
         "parameters": [
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -283,10 +281,10 @@
             "description": "The name of the resource group."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -328,10 +326,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -380,10 +378,10 @@
             "description": "The name of the backend address pool."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -422,10 +420,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -474,10 +472,10 @@
             "description": "The name of the frontend IP configuration."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -516,10 +514,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -568,10 +566,10 @@
             "description": "The name of the inbound nat rule."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -619,10 +617,10 @@
             "description": "The name of the inbound nat rule."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "$expand",
@@ -682,10 +680,10 @@
             "description": "Parameters supplied to the create or update inbound nat rule operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -731,10 +729,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -783,10 +781,10 @@
             "description": "The name of the load balancing rule."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -825,10 +823,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -871,10 +869,10 @@
             "description": "The name of the load balancer."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -923,10 +921,10 @@
             "description": "The name of the probe."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -979,7 +977,7 @@
           },
           "description": "Read only. Inbound pools URIs that use this frontend IP."
         },
-        "outboundNatRules": {
+        "outboundRules": {
           "readOnly": true,
           "type": "array",
           "items": {
@@ -1018,6 +1016,10 @@
         "publicIPAddress": {
           "$ref": "./publicIpAddress.json#/definitions/PublicIPAddress",
           "description": "The reference of the Public IP resource."
+        },
+        "publicIPPrefix": {
+          "$ref":"./network.json#/definitions/SubResource",
+          "description": "The reference of the Public IP Prefix resource."
         },
         "provisioningState": {
           "type": "string",
@@ -1074,7 +1076,7 @@
           },
           "description": "Gets load balancing rules that use this backend address pool."
         },
-        "outboundNatRule": {
+        "outboundRule": {
           "readOnly": true,
           "$ref": "./network.json#/definitions/SubResource",
           "description": "Gets outbound rules that use this backend address pool."
@@ -1158,6 +1160,10 @@
           "type": "boolean",
           "description": "Configures a virtual machine's endpoint for the floating IP capability required to configure a SQL AlwaysOn Availability Group. This setting is required when using the SQL AlwaysOn Availability Groups in SQL server. This setting can't be changed after you create the endpoint."
         },
+        "enableTcpReset": {
+          "type": "boolean",
+          "description": "Receive bidirectional TCP Reset on TCP flow idle timeout or unexpected connection termination. This element is only used when the protocol is set to TCP."
+        },
         "disableOutboundSnat": {
           "type": "boolean",
           "description": "Configures SNAT for the VMs in the backend pool to use the publicIP address specified in the frontend of the load balancing rule."
@@ -1208,10 +1214,11 @@
         },
         "protocol": {
           "type": "string",
-          "description": "The protocol of the end point. Possible values are: 'Http' or 'Tcp'. If 'Tcp' is specified, a received ACK is required for the probe to be successful. If 'Http' is specified, a 200 OK response from the specifies URI is required for the probe to be successful.",
+          "description": "The protocol of the end point. Possible values are: 'Http', 'Tcp', or 'Https'. If 'Tcp' is specified, a received ACK is required for the probe to be successful. If 'Http' or 'Https' is specified, a 200 OK response from the specifies URI is required for the probe to be successful.",
           "enum": [
             "Http",
-            "Tcp"
+            "Tcp",
+            "Https"
           ],
           "x-ms-enum": {
             "name": "ProbeProtocol",
@@ -1304,6 +1311,10 @@
           "type": "boolean",
           "description": "Configures a virtual machine's endpoint for the floating IP capability required to configure a SQL AlwaysOn Availability Group. This setting is required when using the SQL AlwaysOn Availability Groups in SQL server. This setting can't be changed after you create the endpoint."
         },
+        "enableTcpReset": {
+          "type": "boolean",
+          "description": "Receive bidirectional TCP Reset on TCP flow idle timeout or unexpected connection termination. This element is only used when the protocol is set to TCP."
+        },
         "provisioningState": {
           "type": "string",
           "description": "Gets the provisioning state of the public IP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
@@ -1367,6 +1378,10 @@
           "type": "boolean",
           "description": "Configures a virtual machine's endpoint for the floating IP capability required to configure a SQL AlwaysOn Availability Group. This setting is required when using the SQL AlwaysOn Availability Groups in SQL server. This setting can't be changed after you create the endpoint."
         },
+        "enableTcpReset": {
+          "type": "boolean",
+          "description": "Receive bidirectional TCP Reset on TCP flow idle timeout or unexpected connection termination. This element is only used when the protocol is set to TCP."
+        },
         "provisioningState": {
           "type": "string",
           "description": "Gets the provisioning state of the PublicIP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
@@ -1403,7 +1418,7 @@
       ],
       "description": "Inbound NAT pool of the load balancer."
     },
-    "OutboundNatRulePropertiesFormat": {
+    "OutboundRulePropertiesFormat": {
       "properties": {
         "allocatedOutboundPorts": {
           "type": "integer",
@@ -1424,19 +1439,38 @@
         "provisioningState": {
           "type": "string",
           "description": "Gets the provisioning state of the PublicIP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+        }, 
+        "protocol": {
+           "type": "string",
+           "description": "Protocol - TCP, UDP or All",
+           "enum": [
+            "Tcp",
+            "Udp", 
+            "All"
+          ]
+        },
+        "enableTcpReset": {
+           "type": "boolean",
+           "description": "Receive bidirectional TCP Reset on TCP flow idle timeout or unexpected connection termination. This element is only used when the protocol is set to TCP."
+        },
+        "idleTimeoutInMinutes": {
+           "type": "integer",
+           "description": "The timeout for the TCP idle connection"
         }
       },
       "required": [
-        "backendAddressPool"
+        "backendAddressPool", 
+        "frontendIPConfigurations", 
+        "protocol"
       ],
-      "description": "Outbound NAT pool of the load balancer."
+      "description": "Outbound pool of the load balancer."
     },
-    "OutboundNatRule": {
+    "OutboundRule": {
       "properties": {
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/OutboundNatRulePropertiesFormat",
-          "description": "Properties of load balancer outbound nat rule."
+          "$ref": "#/definitions/OutboundRulePropertiesFormat",
+          "description": "Properties of load balancer outbound rule."
         },
         "name": {
           "type": "string",
@@ -1452,7 +1486,7 @@
           "$ref": "./network.json#/definitions/SubResource"
         }
       ],
-      "description": "Outbound NAT pool of the load balancer."
+      "description": "Outbound pool of the load balancer."
     },
     "LoadBalancerPropertiesFormat": {
       "properties": {
@@ -1498,12 +1532,12 @@
           },
           "description": "Defines an external port range for inbound NAT to a single backend port on NICs associated with a load balancer. Inbound NAT rules are created automatically for each NIC associated with the Load Balancer using an external port from this range. Defining an Inbound NAT pool on your Load Balancer is mutually exclusive with defining inbound Nat rules. Inbound NAT pools are referenced from virtual machine scale sets. NICs that are associated with individual virtual machines cannot reference an inbound NAT pool. They have to reference individual inbound NAT rules."
         },
-        "outboundNatRules": {
+        "outboundRules": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/OutboundNatRule"
+            "$ref": "#/definitions/OutboundRule"
           },
-          "description": "The outbound NAT rules."
+          "description": "The outbound rules."
         },
         "resourceGuid": {
           "type": "string",
@@ -1643,7 +1677,7 @@
     },
     "TransportProtocol": {
       "type": "string",
-      "description": "The transport protocol for the endpoint. Possible values are 'Udp' or 'Tcp' or 'All.'",
+      "description": "The transport protocol for the endpoint. Possible values are 'Udp' or 'Tcp' or 'All'.",
       "enum": [
         "Udp",
         "Tcp",
@@ -1653,22 +1687,6 @@
         "name": "TransportProtocol",
         "modelAsString": true
       }
-    }
-  },
-  "parameters": {
-    "SubscriptionIdParameter": {
-      "name": "subscriptionId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call."
-    },
-    "ApiVersionParameter": {
-      "name": "api-version",
-      "in": "query",
-      "required": true,
-      "type": "string",
-      "description": "Client API version."
     }
   }
 }

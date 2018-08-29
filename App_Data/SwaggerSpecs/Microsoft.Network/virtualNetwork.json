@@ -3,19 +3,17 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-01-01"
+    "version": "2018-07-01"
   },
   "host": "management.azure.com",
   "schemes": [
     "https"
   ],
   "consumes": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "produces": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "security": [
     {
@@ -59,10 +57,10 @@
             "description": "The name of the virtual network."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -103,10 +101,10 @@
             "description": "The name of the virtual network."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "$expand",
@@ -159,10 +157,10 @@
             "description": "Parameters supplied to the create or update virtual network operation"
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -217,10 +215,10 @@
             "description": "Parameters supplied to update virtual network tags."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -246,10 +244,10 @@
         "description": "Gets all virtual networks in a subscription.",
         "parameters": [
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -284,10 +282,10 @@
             "description": "The name of the resource group."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -336,10 +334,10 @@
             "description": "The name of the subnet."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -387,10 +385,10 @@
             "description": "The name of the subnet."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           },
           {
             "name": "$expand",
@@ -450,10 +448,10 @@
             "description": "Parameters supplied to the create or update subnet operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -500,10 +498,10 @@
             "description": "The name of the virtual network."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -552,10 +550,10 @@
             "description": "The name of the virtual network peering."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -603,10 +601,10 @@
             "description": "The name of the virtual network peering."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -659,10 +657,10 @@
             "description": "Parameters supplied to the create or update virtual network peering operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -708,10 +706,10 @@
             "description": "The name of the virtual network."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -757,10 +755,10 @@
             "description": "The name of the virtual network."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -796,10 +794,10 @@
             "description": "The name of the virtual network."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -882,6 +880,13 @@
             "$ref": "#/definitions/ServiceEndpointPropertiesFormat"
           },
           "description": "An array of service endpoints."
+        },
+        "serviceEndpointPolicies": {
+          "type": "array",
+            "items": {
+              "$ref": "./serviceEndpointPolicy.json#/definitions/ServiceEndpointPolicy"
+          },
+          "description": "An array of service endpoint policies."
         },
         "ipConfigurations": {
           "readOnly": true,
@@ -1081,13 +1086,20 @@
           "type": "string",
           "description": "The provisioning state of the PublicIP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
         },
-        "enableDdosProtection": { 
-          "type": "boolean", 
-          "description": "Indicates if DDoS protection is enabled for all the protected resources in a Virtual Network." 
-        }, 
-        "enableVmProtection": { 
-          "type": "boolean", 
-          "description": "Indicates if Vm protection is enabled for all the subnets in a Virtual Network." 
+        "enableDdosProtection": {
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates if DDoS protection is enabled for all the protected resources in the virtual network. It requires a DDoS protection plan associated with the resource."
+        },
+        "enableVmProtection": {
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates if VM protection is enabled for all the subnets in the virtual network."
+        },
+        "ddosProtectionPlan": {
+          "$ref": "./network.json#/definitions/SubResource",
+          "default": null,
+          "description": "The DDoS protection plan associated with the virtual network."
         }
       },
       "description": "Properties of the virtual network."
@@ -1230,22 +1242,6 @@
         }
       },
       "description": "Usage strings container."
-    }
-  },
-  "parameters": {
-    "SubscriptionIdParameter": {
-      "name": "subscriptionId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call."
-    },
-    "ApiVersionParameter": {
-      "name": "api-version",
-      "in": "query",
-      "required": true,
-      "type": "string",
-      "description": "Client API version."
     }
   }
 }

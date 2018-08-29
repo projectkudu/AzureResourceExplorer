@@ -3,19 +3,17 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-01-01"
+    "version": "2018-07-01"
   },
   "host": "management.azure.com",
   "schemes": [
     "https"
   ],
   "consumes": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "produces": [
-    "application/json",
-    "text/json"
+    "application/json"
   ],
   "security": [
     {
@@ -68,10 +66,10 @@
             "description": "Parameters supplied to create or update virtual network gateway operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -87,6 +85,9 @@
               "$ref": "#/definitions/VirtualNetworkGateway"
             }
           }
+        },
+        "x-ms-examples": {
+          "UpdateVirtualNetworkGateway": { "$ref": "./examples/VirtualNetworkGatewayUpdate.json" }
         },
         "x-ms-long-running-operation": true
       },
@@ -112,10 +113,10 @@
             "description": "The name of the virtual network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -125,6 +126,9 @@
               "$ref": "#/definitions/VirtualNetworkGateway"
             }
           }
+        },
+        "x-ms-examples": {
+          "GetVirtualNetworkGateway": { "$ref": "./examples/VirtualNetworkGatewayGet.json" }
         }
       },
       "delete": {
@@ -149,10 +153,10 @@
             "description": "The name of the virtual network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -165,6 +169,9 @@
           "200": {
             "description": "Delete successful."
           }
+        },
+        "x-ms-examples": {
+          "DeleteVirtualNetworkGateway": { "$ref": "./examples/VirtualNetworkGatewayDelete.json" }
         },
         "x-ms-long-running-operation": true
       },
@@ -199,10 +206,10 @@
             "description": "Parameters supplied to update virtual network gateway tags."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -214,7 +221,7 @@
           }
         },
         "x-ms-examples": {
-          "Update Virtual Network Gateway Tags": { "$ref": "./examples/VirtualNetworkGatewayUpdateTags.json" }
+          "UpdateVirtualNetworkGatewayTags": { "$ref": "./examples/VirtualNetworkGatewayUpdateTags.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -235,10 +242,10 @@
             "description": "The name of the resource group."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -248,6 +255,9 @@
               "$ref": "#/definitions/VirtualNetworkGatewayListResult"
             }
           }
+        },
+        "x-ms-examples": {
+          "ListVirtualNetworkGatewaysinResourceGroup": { "$ref": "./examples/VirtualNetworkGatewayList.json" }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -277,10 +287,10 @@
             "description": "The name of the virtual network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -329,10 +339,10 @@
             "description": "Virtual network gateway vip address supplied to the begin reset of the active-active feature enabled gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -345,6 +355,9 @@
               "$ref": "#/definitions/VirtualNetworkGateway"
             }
           }
+        },
+        "x-ms-examples": {
+          "ResetVirtualNetworkGateway": { "$ref": "./examples/VirtualNetworkGatewayReset.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -381,10 +394,10 @@
             "description": "Parameters supplied to the generate virtual network gateway VPN client package operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -394,6 +407,9 @@
               "type": "string"
             }
           }
+        },
+        "x-ms-examples": {
+          "GenerateVPNClientPackage": { "$ref": "./examples/VirtualNetworkGatewayGenerateVpnClientPackage.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -430,10 +446,10 @@
             "description": "Parameters supplied to the generate virtual network gateway VPN client package operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -446,6 +462,9 @@
           "202": {
             "description": "Accepted and the operation will complete asynchronously."
           }
+        },
+        "x-ms-examples": {
+          "GenerateVirtualNetworkGatewayVPNProfile": { "$ref": "./examples/VirtualNetworkGatewayGenerateVpnProfile.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -473,10 +492,10 @@
             "description": "The name of the virtual network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -489,6 +508,9 @@
           "202": {
             "description": "Accepted and the operation will complete asynchronously."
           }
+        },
+        "x-ms-examples": {
+          "GetVirtualNetworkGatewayVPNProfilePackageURL": { "$ref": "./examples/VirtualNetworkGatewayGetVpnProfilePackageUrl.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -523,10 +545,10 @@
             "description": "The IP address of the peer to retrieve the status of."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -539,6 +561,9 @@
           "202": {
             "description": "Accepted and the operation will complete asynchronously."
           }
+        },
+        "x-ms-examples": {
+          "GetVirtualNetworkGatewayBGPPeerStatus": { "$ref": "./examples/VirtualNetworkGatewayGetBGPPeerStatus.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -566,10 +591,10 @@
             "description": "The name of the virtual network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -579,6 +604,9 @@
               "type": "string"
             }
           }
+        },
+        "x-ms-examples": {
+          "ListVirtualNetworkGatewaySupportedVPNDevices": { "$ref": "./examples/VirtualNetworkGatewaySupportedVpnDevice.json" }
         }
       }
     },
@@ -605,10 +633,10 @@
             "description": "The name of the virtual network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -621,6 +649,9 @@
           "202": {
             "description": "Accepted and the operation will complete asynchronously."
           }
+        },
+        "x-ms-examples": {
+          "GetVirtualNetworkGatewayLearnedRoutes": { "$ref": "./examples/VirtualNetworkGatewayLearnedRoutes.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -655,10 +686,10 @@
             "description": "The IP address of the peer"
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -672,7 +703,109 @@
             "description": "Accepted and the operation will complete asynchronously."
           }
         },
+        "x-ms-examples": {
+          "GetVirtualNetworkGatewayAdvertisedRoutes": { "$ref": "./examples/VirtualNetworkGatewayGetAdvertisedRoutes.json" }
+        },
         "x-ms-long-running-operation": true
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/setvpnclientipsecparameters": {
+      "post": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_SetVpnclientIpsecParameters",
+        "description": "The Set VpnclientIpsecParameters operation sets the vpnclient ipsec policy for P2S client of virtual network gateway in the specified resource group through Network resource provider.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the virtual network gateway."
+          },
+          {
+            "name": "vpnclientIpsecParams",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/VpnClientIPsecParameters"
+            },
+            "description": "Parameters supplied to the Begin Set vpnclient ipsec parameters of Virtual Network Gateway P2S client operation through Network resource provider."
+          },
+          {
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Accepted and the operation will complete asynchronously."
+          },
+          "200": {
+            "description": "Request successful. The operation sets the specificed vpnclient ipsec parameters for P2S client of the virtual network gateway.",
+            "schema": {
+              "$ref": "#/definitions/VpnClientIPsecParameters"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-examples": {
+          "Set VirtualNetworkGateway VpnClientIpsecParameters": { "$ref": "./examples/VirtualNetworkGatewaySetVpnClientIpsecParameters.json" }
+        }
+      }
+    },
+	"/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkGateways/{virtualNetworkGatewayName}/getvpnclientipsecparameters": {
+      "post": {
+        "tags": [
+          "VirtualNetworkGateways"
+        ],
+        "operationId": "VirtualNetworkGateways_GetVpnclientIpsecParameters",
+        "description": "The Get VpnclientIpsecParameters operation retrieves information about the vpnclient ipsec policy for P2S client of virtual network gateway in the specified resource group through Network resource provider.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "virtualNetworkGatewayName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The virtual network gateway name."
+          },
+          {
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Request successful. The operation returns the set vpnclient ipsec parameters for P2S client of VirtualNetworkGateway resource.",
+            "schema": {
+              "$ref": "#/definitions/VpnClientIPsecParameters"
+            }
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-examples": {
+          "Get VirtualNetworkGateway VpnClientIpsecParameters": { "$ref": "./examples/VirtualNetworkGatewayGetVpnClientIpsecParameters.json" } 
+        }               
+
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/connections/{virtualNetworkGatewayConnectionName}/vpndeviceconfigurationscript": {
@@ -707,10 +840,10 @@
             "description": "Parameters supplied to the generate vpn device script operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -720,6 +853,9 @@
               "type": "string"
             }
           }
+        },
+        "x-ms-examples": {
+          "GetVPNDeviceConfigurationScript": { "$ref": "./examples/VirtualNetworkGatewayVpnDeviceConfigurationScript.json" }
         }
       }
     },
@@ -755,10 +891,10 @@
             "description": "Parameters supplied to the create or update virtual network gateway connection operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -774,6 +910,9 @@
               "$ref": "#/definitions/VirtualNetworkGatewayConnection"
             }
           }
+        },
+        "x-ms-examples": {
+          "CreateVirtualNetworkGatewayConnection_S2S": { "$ref": "./examples/VirtualNetworkGatewayConnectionCreate.json" }
         },
         "x-ms-long-running-operation": true
       },
@@ -799,19 +938,22 @@
             "description": "The name of the virtual network gateway connection."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns the resulting VirtualNetworkPeering resource.",
+            "description": "Request successful. The operation returns the resulting VirtualNetworkGatewayConnection resource.",
             "schema": {
               "$ref": "#/definitions/VirtualNetworkGatewayConnection"
             }
           }
+        },
+        "x-ms-examples": {
+          "GetVirtualNetworkGatewayConnection": { "$ref": "./examples/VirtualNetworkGatewayConnectionGet.json" }
         }
       },
       "delete": {
@@ -836,10 +978,10 @@
             "description": "The name of the virtual network gateway connection."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -852,6 +994,9 @@
           "204": {
             "description": "Delete successful."
           }
+        },
+        "x-ms-examples": {
+          "DeleteVirtualNetworkGatewayConnection": { "$ref": "./examples/VirtualNetworkGatewayConnectionDelete.json" }
         },
         "x-ms-long-running-operation": true
       },
@@ -886,22 +1031,22 @@
             "description": "Parameters supplied to update virtual network gateway connection tags."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
           "200": {
             "description": "Update successful. The operation returns the resulting VirtualNetworkGatewayConnection resource.",
             "schema": {
-              "$ref": "#/definitions/VirtualNetworkGatewayConnectionListEntity"
+              "$ref": "#/definitions/VirtualNetworkGatewayConnection"
             }
           }
         },
         "x-ms-examples": {
-          "Update Virtual Network Gateway Connection Tags": { "$ref": "./examples/VirtualNetworkGatewayConnectionUpdateTags.json" }
+          "UpdateVirtualNetworkGatewayConnectionTags": { "$ref": "./examples/VirtualNetworkGatewayConnectionUpdateTags.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -938,10 +1083,10 @@
             "description": "Parameters supplied to the Begin Set Virtual Network Gateway connection Shared key operation throughNetwork resource provider."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -957,6 +1102,9 @@
               "$ref": "#/definitions/ConnectionSharedKey"
             }
           }
+        },
+        "x-ms-examples": {
+          "SetVirtualNetworkGatewayConnectionSharedKey": { "$ref": "./examples/VirtualNetworkGatewayConnectionSetSharedKey.json" }
         },
         "x-ms-long-running-operation": true
       },
@@ -982,10 +1130,10 @@
             "description": "The virtual network gateway connection shared key name."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -995,6 +1143,9 @@
               "$ref": "#/definitions/ConnectionSharedKey"
             }
           }
+        },
+        "x-ms-examples": {
+          "GetVirtualNetworkGatewayConnectionSharedKey": { "$ref": "./examples/VirtualNetworkGatewayConnectionGetSharedKey.json" }
         }
       }
     },
@@ -1014,10 +1165,10 @@
             "description": "The name of the resource group."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1027,6 +1178,9 @@
               "$ref": "#/definitions/VirtualNetworkGatewayConnectionListResult"
             }
           }
+        },
+        "x-ms-examples": {
+          "ListVirtualNetworkGatewayConnectionsinResourceGroup": { "$ref": "./examples/VirtualNetworkGatewayConnectionsList.json" }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -1065,10 +1219,10 @@
             "description": "Parameters supplied to the begin reset virtual network gateway connection shared key operation through network resource provider."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1081,6 +1235,9 @@
           "202": {
             "description": ""
           }
+        },
+        "x-ms-examples": {
+          "ResetVirtualNetworkGatewayConnectionSharedKey": { "$ref": "./examples/VirtualNetworkGatewayConnectionResetSharedKey.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -1118,10 +1275,10 @@
             "description": "Parameters supplied to the create or update local network gateway operation."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1137,6 +1294,9 @@
               "$ref": "#/definitions/LocalNetworkGateway"
             }
           }
+        },
+        "x-ms-examples": {
+          "CreateLocalNetworkGateway": { "$ref": "./examples/LocalNetworkGatewayCreate.json" }
         },
         "x-ms-long-running-operation": true
       },
@@ -1163,10 +1323,10 @@
             "description": "The name of the local network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1176,6 +1336,9 @@
               "$ref": "#/definitions/LocalNetworkGateway"
             }
           }
+        },
+        "x-ms-examples": {
+          "GetLocalNetworkGateway": { "$ref": "./examples/LocalNetworkGatewayGet.json" }
         }
       },
       "delete": {
@@ -1201,10 +1364,10 @@
             "description": "The name of the local network gateway."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1217,6 +1380,9 @@
           "202": {
             "description": "Accepted and the operation will complete asynchronously."
           }
+        },
+        "x-ms-examples": {
+          "DeleteLocalNetworkGateway": { "$ref": "./examples/LocalNetworkGatewayDelete.json" }
         },
         "x-ms-long-running-operation": true
       },
@@ -1252,10 +1418,10 @@
             "description": "Parameters supplied to update local network gateway tags."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1267,7 +1433,7 @@
           }
         },
         "x-ms-examples": {
-          "Update Local Network Gateway Tags": { "$ref": "./examples/LocalNetworkGatewayUpdateTags.json" }
+          "UpdateLocalNetworkGatewayTags": { "$ref": "./examples/LocalNetworkGatewayUpdateTags.json" }
         },
         "x-ms-long-running-operation": true
       }
@@ -1288,10 +1454,10 @@
             "description": "The name of the resource group."
           },
           {
-            "$ref": "#/parameters/ApiVersionParameter"
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
           },
           {
-            "$ref": "#/parameters/SubscriptionIdParameter"
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
@@ -1301,6 +1467,9 @@
               "$ref": "#/definitions/LocalNetworkGatewayListResult"
             }
           }
+        },
+        "x-ms-examples": {
+          "ListLocalNetworkGateways": { "$ref": "./examples/LocalNetworkGatewayList.json" }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -1538,7 +1707,8 @@
             "description": "VPN client protocol enabled for the virtual network gateway.",
             "enum": [
               "IkeV2",
-              "SSTP"
+              "SSTP",
+              "OpenVPN"
             ],
             "x-ms-enum": {
               "name": "VpnClientProtocol",
@@ -1547,6 +1717,13 @@
           },
           "description": "VpnClientProtocols for Virtual network gateway."
         },
+		"vpnClientIpsecPolicies": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpsecPolicy"
+          },
+          "description": "VpnClientIpsecPolicies for virtual network gateway P2S client."
+        },		
         "radiusServerAddress": {
           "type": "string",
           "description": "The radius server address property of the VirtualNetworkGateway resource for vpn client connection."
@@ -1570,7 +1747,13 @@
             "UltraPerformance",
             "VpnGw1",
             "VpnGw2",
-            "VpnGw3"
+            "VpnGw3",
+            "VpnGw1AZ",
+            "VpnGw2AZ",
+            "VpnGw3AZ",
+            "ErGw1AZ",
+            "ErGw2AZ",
+            "ErGw3AZ"
           ],
           "x-ms-enum": {
             "name": "VirtualNetworkGatewaySkuName",
@@ -1587,7 +1770,13 @@
             "UltraPerformance",
             "VpnGw1",
             "VpnGw2",
-            "VpnGw3"
+            "VpnGw3",
+            "VpnGw1AZ",
+            "VpnGw2AZ",
+            "VpnGw3AZ",
+            "ErGw1AZ",
+            "ErGw2AZ",
+            "ErGw3AZ"
           ],
           "x-ms-enum": {
             "name": "VirtualNetworkGatewaySkuTier",
@@ -1970,6 +2159,10 @@
           "readOnly": true,
           "type": "string",
           "description": "The provisioning state of the VirtualNetworkGatewayConnection resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+        },
+        "expressRouteGatewayBypass": {
+          "type": "boolean",
+          "description": "Bypass ExpressRoute Gateway for data forwarding"
         }
       },
       "required": [
@@ -2039,6 +2232,11 @@
           "description": "The virtual network connection shared key value."
         }
       },
+	  "allOf": [
+        {
+          "$ref": "./network.json#/definitions/SubResource"
+        }
+      ],
       "required": [
         "value"
       ],
@@ -2099,7 +2297,9 @@
             "DES3",
             "AES128",
             "AES192",
-            "AES256"
+            "AES256",
+            "GCMAES256",
+            "GCMAES128"
           ],
           "x-ms-enum": {
             "name": "IkeEncryption",
@@ -2113,7 +2313,9 @@
             "MD5",
             "SHA1",
             "SHA256",
-            "SHA384"
+            "SHA384",
+            "GCMAES256",
+            "GCMAES128"
           ],
           "x-ms-enum": {
             "name": "IkeIntegrity",
@@ -2140,7 +2342,7 @@
         },
         "pfsGroup": {
           "type": "string",
-          "description": "The DH Groups used in IKE Phase 2 for new child SA.",
+          "description": "The Pfs Groups used in IKE Phase 2 for new child SA.",
           "enum": [
             "None",
             "PFS1",
@@ -2148,7 +2350,9 @@
             "PFS2048",
             "ECP256",
             "ECP384",
-            "PFS24"
+            "PFS24",
+            "PFS14",
+            "PFSMM"		
           ],
           "x-ms-enum": {
             "name": "PfsGroup",
@@ -2168,6 +2372,136 @@
       ],
       "description": "An IPSec Policy configuration for a virtual network gateway connection"
     },
+    "VpnClientIPsecParameters": {
+      "properties": {
+        "saLifeTimeSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The IPSec Security Association (also called Quick Mode or Phase 2 SA) lifetime in seconds for P2S client."
+        },
+        "saDataSizeKilobytes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The IPSec Security Association (also called Quick Mode or Phase 2 SA) payload size in KB for P2S client.."
+        },
+        "ipsecEncryption": {
+          "type": "string",
+          "description": "The IPSec encryption algorithm (IKE phase 1).",
+          "enum": [
+            "None",
+            "DES",
+            "DES3",
+            "AES128",
+            "AES192",
+            "AES256",
+            "GCMAES128",
+            "GCMAES192",
+            "GCMAES256"
+          ],
+          "x-ms-enum": {
+            "name": "IpsecEncryption",
+            "modelAsString": true
+          }
+        },
+        "ipsecIntegrity": {
+          "type": "string",
+          "description": "The IPSec integrity algorithm (IKE phase 1).",
+          "enum": [
+            "MD5",
+            "SHA1",
+            "SHA256",
+            "GCMAES128",
+            "GCMAES192",
+            "GCMAES256"
+          ],
+          "x-ms-enum": {
+            "name": "IpsecIntegrity",
+            "modelAsString": true
+          }
+        },
+        "ikeEncryption": {
+          "type": "string",
+          "description": "The IKE encryption algorithm (IKE phase 2).",
+          "enum": [
+            "DES",
+            "DES3",
+            "AES128",
+            "AES192",
+            "AES256",
+            "GCMAES256",
+            "GCMAES128"
+          ],
+          "x-ms-enum": {
+            "name": "IkeEncryption",
+            "modelAsString": true
+          }
+        },
+        "ikeIntegrity": {
+          "type": "string",
+          "description": "The IKE integrity algorithm (IKE phase 2).",
+          "enum": [
+            "MD5",
+            "SHA1",
+            "SHA256",
+            "SHA384",
+            "GCMAES256",
+            "GCMAES128"
+          ],
+          "x-ms-enum": {
+            "name": "IkeIntegrity",
+            "modelAsString": true
+          }
+        },
+        "dhGroup": {
+          "type": "string",
+          "description": "The DH Groups used in IKE Phase 1 for initial SA.",
+          "enum": [
+            "None",
+            "DHGroup1",
+            "DHGroup2",
+            "DHGroup14",
+            "DHGroup2048",
+            "ECP256",
+            "ECP384",
+            "DHGroup24"
+          ],
+          "x-ms-enum": {
+            "name": "DhGroup",
+            "modelAsString": true
+          }
+        },
+        "pfsGroup": {
+          "type": "string",
+          "description": "The Pfs Groups used in IKE Phase 2 for new child SA.",
+          "enum": [
+            "None",
+            "PFS1",
+            "PFS2",
+            "PFS2048",
+            "ECP256",
+            "ECP384",
+            "PFS24",
+            "PFS14",
+            "PFSMM"
+          ],
+          "x-ms-enum": {
+            "name": "PfsGroup",
+            "modelAsString": true
+          }
+        }
+      },
+      "required": [
+        "saLifeTimeSeconds",
+        "saDataSizeKilobytes",
+        "ipsecEncryption",
+        "ipsecIntegrity",
+        "ikeEncryption",
+        "ikeIntegrity",
+        "dhGroup",
+        "pfsGroup"
+      ],
+      "description": "An IPSec parameters for a virtual network gateway P2S connection."
+    },	
     "LocalNetworkGatewayPropertiesFormat": {
       "properties": {
         "localNetworkAddressSpace": {
@@ -2348,6 +2682,10 @@
           "readOnly": true,
           "type": "string",
           "description": "The provisioning state of the VirtualNetworkGatewayConnection resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+        },
+        "expressRouteGatewayBypass": {
+          "type": "boolean",
+          "description": "Bypass ExpressRoute Gateway for data forwarding"
         }
       },
       "required": [
@@ -2411,22 +2749,6 @@
         }
       },
       "description": "Vpn device configuration script generation parameters"
-    }
-  },
-  "parameters": {
-    "SubscriptionIdParameter": {
-      "name": "subscriptionId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call."
-    },
-    "ApiVersionParameter": {
-      "name": "api-version",
-      "in": "query",
-      "required": true,
-      "type": "string",
-      "description": "Client API version."
     }
   }
 }
