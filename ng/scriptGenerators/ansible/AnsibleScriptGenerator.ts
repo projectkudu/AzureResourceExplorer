@@ -108,14 +108,30 @@
 
         private yamlFromObject(o: any, prefix: string): string {
             let yaml: string = ""
+            let __this = this;
 
             for (let key in o) {
                 if (typeof o[key] === 'object') {
-                    yaml += prefix + key + ":\n";
-                    yaml += this.yamlFromObject(o[key], prefix + "  ");
+                    if (Array.isArray(o[key])) {
+                        yaml += prefix + key + ":\n";
+
+                        o[key].forEach(function (e) {
+                            if (typeof e != 'object') {
+                                yaml += prefix + "  - " + e + "\n";
+                            } else {
+                                yaml += __this.yamlFromObject(e, prefix + "  - ")
+                            }
+
+                        })
+                    } else {
+                        yaml += prefix + key + ":\n";
+                        yaml += this.yamlFromObject(o[key], prefix + "  ");
+                    }
                 } else {
                     yaml += prefix + key + ": " + o[key] + "\n";
                 }
+
+                if (prefix.indexOf('-') >= 0) prefix = prefix.replace('-', ' ');
             }
 
             return yaml;
@@ -136,6 +152,10 @@
                     yaml += prefix + "resource_group: '" + cmdParameters.resourceIdentifier.resourceGroup + "'\n";
                     yaml += prefix + "provider: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[0].split('.')[1] + "'\n";
                     yaml += prefix + "resource_type: '" + cmdParameters.resourceIdentifier.resourceType.split('/')[1] + "'\n";
+                    
+                    if (cmdActionPair.cmd == CmdType.New && ! cmdActionPair.isSetAction) {
+                        yaml += prefix + "resource_name: '{{ name }}'\n";
+                    }
                     break;
                 }
                 case ResourceIdentifierType.WithGroupTypeName: {
