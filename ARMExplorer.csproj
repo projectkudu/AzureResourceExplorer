@@ -387,6 +387,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\publicIpPrefix.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\serviceEndpointPolicy.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualWan.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforMariaDB\mariadb.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
