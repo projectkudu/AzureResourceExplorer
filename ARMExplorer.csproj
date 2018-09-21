@@ -388,6 +388,8 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\serviceEndpointPolicy.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualWan.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DBforMariaDB\mariadb.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\frontdoor.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\webapplicationfirewall.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
