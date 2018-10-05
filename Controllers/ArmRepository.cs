@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using ARMExplorer.Model;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ARMExplorer.Controllers
 {
@@ -24,22 +20,9 @@ namespace ARMExplorer.Controllers
 
         public async Task<IList<string>> GetSubscriptionIdsAsync(HttpRequestMessage requestMessage)
         {
-            var response = await GetSubscriptionsAsync(requestMessage);
-            response.EnsureSuccessStatusCode();
-
-            dynamic resources = await response.Content.ReadAsAsync<JObject>();
-            var subscriptionIds = new List<string>();
-
-            for (var i = 0; i < ((JArray)resources.value).Count; i++)
-            {
-                var subscription = JsonConvert.DeserializeObject(((JArray)resources.value)[i].ToString()) as JObject;
-                if (subscription != null)
-                {
-                    var subscriptionIdPath = subscription["id"].ToString();
-                    subscriptionIds.Add(subscriptionIdPath.Substring(subscriptionIdPath.LastIndexOf("/", StringComparison.Ordinal) + 1));
-                }
-            }
-            return subscriptionIds;
+            var initialGetResourcesUrl = string.Format(Utils.AllSubscriptionsTemplate, HyakUtils.CSMUrl, Utils.CSMApiVersion);
+            var resources = await GetResources(requestMessage, initialGetResourcesUrl);
+            return resources.Select(r => r.SubscriptionId).ToList();
         }
 
         private static bool AddResourceToList(IEnumerable<ArmResource> resources, ISet<ArmResource> allResources)
@@ -154,12 +137,6 @@ namespace ARMExplorer.Controllers
         public async Task<HttpResponseMessage> InvokeAsync(HttpRequestMessage requestMessage, HttpRequestMessage executeRequest)
         {
             return await _clientWrapper.ExecuteAsync(requestMessage, executeRequest);
-        }
-
-        private async Task<HttpResponseMessage> GetSubscriptionsAsync(HttpRequestMessage requestMessage)
-        {
-            var sendRequest = new HttpRequestMessage(HttpMethod.Get, string.Format(Utils.AllSubscriptionsTemplate, HyakUtils.CSMUrl, Utils.CSMApiVersion));
-            return await _clientWrapper.SendAsync(requestMessage, sendRequest);
         }
 
         private async Task<HttpResponseMessage> GetAsync(HttpRequestMessage requestMessage, string url)

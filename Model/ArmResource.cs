@@ -6,6 +6,9 @@ namespace ARMExplorer.Model
     {
         [Newtonsoft.Json.JsonProperty("id", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Id { get; set; }
+
+        [Newtonsoft.Json.JsonProperty("subscriptionId", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string SubscriptionId { get; set; }
         // other fields ignored
 
         public bool Equals(ArmResource other)
