@@ -391,6 +391,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\frontdoor.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\webapplicationfirewall.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HardwareSecurityModules\dedicatedhsm.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.BotService\botservice.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
