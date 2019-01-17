@@ -283,7 +283,14 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Intune\intune.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.KeyVault\keyvault.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.MachineLearning\webservices.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\media.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\AccountFilters.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\Accounts.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\AssetsAndAssetFilters.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\Common.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\ContentKeyPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\Encoding.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\StreamingPoliciesAndStreamingLocators.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\streamingservice.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.MobileEngagement\mobile-engagement.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.NotificationHubs\notificationhubs.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.OperationalInsights\arm-service-map.json" />
