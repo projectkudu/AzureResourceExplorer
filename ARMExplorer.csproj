@@ -376,7 +376,14 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\cancelOperations.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\cancelPoolOperations.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databases.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databaseVulnerabilityAssessments.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databaseVulnerabilityAssessmentScans.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databaseVulnerabilityAssessmentBaselines.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\managedDatabaseVulnerabilityAssessments.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\managedDatabaseVulnerabilityAssessmentScans.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\managedDatabaseVulnerabilityAssesmentRuleBaselines.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\ManagedInstanceVulnerabilityAssessments.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\ServerVulnerabilityAssessments.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\elasticPools.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\instanceFailoverGroups.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\shortTermRetentionPolicies.json" />
@@ -584,7 +591,7 @@
     <Error Condition="!Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
   </Target>
   <Import Project="packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
