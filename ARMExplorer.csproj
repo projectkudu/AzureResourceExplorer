@@ -338,6 +338,9 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\backups.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\capabilities.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databaseSecurityAlertPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\ManagedDatabaseSecurityAlertPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\serverSecurityAlertPolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\ManagedServerSecurityAlertPolicy.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\firewallRules.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\geoBackupPolicies.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\importExport.json" />
