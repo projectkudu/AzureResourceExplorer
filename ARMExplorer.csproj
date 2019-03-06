@@ -409,6 +409,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\webapplicationfirewall.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HardwareSecurityModules\dedicatedhsm.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.BotService\botservice.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\common\v1\types.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
