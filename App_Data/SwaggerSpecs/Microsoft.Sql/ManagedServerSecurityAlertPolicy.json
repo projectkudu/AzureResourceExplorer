@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2018-06-01-preview",
+    "version": "2017-03-01-preview",
     "title": "SqlManagementClient",
     "description": "The Azure SQL Database management API provides a RESTful set of web APIs that interact with Azure SQL Database services to manage your databases. The API enables users to create, retrieve, update, and delete databases, servers, and other entities."
   },
@@ -16,30 +16,19 @@
     "application/json"
   ],
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/securityAlertPolicies/{securityAlertPolicyName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}/securityAlertPolicies/{securityAlertPolicyName}": {
       "get": {
         "tags": [
-          "DatabaseSecurityAlertPolicies"
+          "ManagedServerSecurityAlertPolicies"
         ],
-        "description": "Gets a  database's security alert policy.",
-        "operationId": "DatabaseSecurityAlertPolicies_Get",
+        "description": "Get a managed server's threat detection policy.",
+        "operationId": "ManagedServerSecurityAlertPolicies_Get",
         "parameters": [
           {
             "$ref": "#/parameters/ResourceGroupParameter"
           },
           {
-            "name": "serverName",
-            "in": "path",
-            "description": "The name of the  server.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "databaseName",
-            "in": "path",
-            "description": "The name of the  database for which the security alert policy is defined.",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/ManagedInstanceNameParameter"
           },
           {
             "name": "securityAlertPolicyName",
@@ -48,7 +37,7 @@
             "required": true,
             "type": "string",
             "enum": [
-              "default"
+              "Default"
             ],
             "x-ms-enum": {
               "name": "SecurityAlertPolicyName",
@@ -64,44 +53,33 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved the  database security alert policy.",
+            "description": "Successfully retrieved the managed server threat detection policy.",
             "schema": {
-              "$ref": "#/definitions/DatabaseSecurityAlertPolicy"
+              "$ref": "#/definitions/ManagedServerSecurityAlertPolicy"
             }
           },
           "default": {
-            "description": "*** Error Responses: ***\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountName - The provided storage account is not valid or does not exist.\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountCredentials - The provided storage account access key is not valid.\n\n * 400 InvalidDatabaseSecurityAlertPolicyCreateRequest - The create database Threat Detection security alert policy request does not exist or has no properties object.\n\n * 400 DataSecurityInvalidUserSuppliedParameter - An invalid parameter value was provided by the client.\n\n * 400 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 400 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 404 SubscriptionDoesNotHaveServer - The requested server was not found\n\n * 404 DatabaseDoesNotExist - User has specified a database name that does not exist on this server instance.\n\n * 404 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 409 DatabaseSecurityAlertPolicyInProgress - Set database security alert policy is already in progress\n\n * 409 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 DatabaseIsUnavailable - Loading failed. Please try again later.\n\n * 500 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 GetDatabaseSecurityAlertPolicyFailed - Failed to get Threat Detection settings"
+            "description": "*** Error Responses: ***\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountName - The provided storage account is not valid or does not exist.\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountCredentials - The provided storage account access key is not valid.\n\n * 400 InvalidServerSecurityAlertPolicyCreateRequest - The create server Threat Detection security alert policy request does not exist or has no properties object.\n\n * 400 DataSecurityInvalidUserSuppliedParameter - An invalid parameter value was provided by the client.\n\n * 400 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 400 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 404 SubscriptionDoesNotHaveServer - The requested server was not found\n\n * 404 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 409 ServerSecurityAlertPolicyInProgress - Set server security alert policy is already in progress\n\n * 409 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 DatabaseIsUnavailable - Loading failed. Please try again later.\n\n * 500 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 GetServerSecurityAlertPolicyFailed - Failed to get Threat Detection settings"
           }
         },
         "x-ms-examples": {
-          "Get a database's threat detection policy": {
-            "$ref": "./examples/DatabaseSecurityAlertGet.json"
+          "Get a managed server's threat detection policy": {
+            "$ref": "./examples/ManagedServerSecurityAlertGet.json"
           }
         }
       },
       "put": {
         "tags": [
-          "DatabaseSecurityAlertPolicies"
+          "ManagedServerSecurityAlertPolicies"
         ],
-        "description": "Creates or updates a database's security alert policy.",
-        "operationId": "DatabaseSecurityAlertPolicies_CreateOrUpdate",
+        "description": "Creates or updates a threat detection policy.",
+        "operationId": "ManagedServerSecurityAlertPolicies_CreateOrUpdate",
         "parameters": [
           {
             "$ref": "#/parameters/ResourceGroupParameter"
           },
           {
-            "name": "serverName",
-            "in": "path",
-            "description": "The name of the  server.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "databaseName",
-            "in": "path",
-            "description": "The name of the  database for which the security alert policy is defined.",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/ManagedInstanceNameParameter"
           },
           {
             "name": "securityAlertPolicyName",
@@ -110,7 +88,7 @@
             "required": true,
             "type": "string",
             "enum": [
-              "default"
+              "Default"
             ],
             "x-ms-enum": {
               "name": "SecurityAlertPolicyName",
@@ -120,10 +98,10 @@
           {
             "name": "parameters",
             "in": "body",
-            "description": "The database security alert policy.",
+            "description": "The managed server security alert policy.",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DatabaseSecurityAlertPolicy"
+              "$ref": "#/definitions/ManagedServerSecurityAlertPolicy"
             }
           },
           {
@@ -135,55 +113,42 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully set the  database security alert policy.",
+            "description": "Successfully updated the threat detection policy.",
             "schema": {
-              "$ref": "#/definitions/DatabaseSecurityAlertPolicy"
+              "$ref": "#/definitions/ManagedServerSecurityAlertPolicy"
             }
           },
           "default": {
-            "description": "*** Error Responses: ***\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountName - The provided storage account is not valid or does not exist.\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountCredentials - The provided storage account access key is not valid.\n\n * 400 InvalidDatabaseSecurityAlertPolicyCreateRequest - The create database Threat Detection security alert policy request does not exist or has no properties object.\n\n * 400 DataSecurityInvalidUserSuppliedParameter - An invalid parameter value was provided by the client.\n\n * 400 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 400 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 404 SubscriptionDoesNotHaveServer - The requested server was not found\n\n * 404 DatabaseDoesNotExist - User has specified a database name that does not exist on this server instance.\n\n * 404 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 409 DatabaseSecurityAlertPolicyInProgress - Set database security alert policy is already in progress\n\n * 409 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 DatabaseIsUnavailable - Loading failed. Please try again later.\n\n * 500 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 GetDatabaseSecurityAlertPolicyFailed - Failed to get Threat Detection settings"
+            "description": "*** Error Responses: ***\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountName - The provided storage account is not valid or does not exist.\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountCredentials - The provided storage account access key is not valid.\n\n * 400 InvalidServerSecurityAlertPolicyCreateRequest - The create server Threat Detection security alert policy request does not exist or has no properties object.\n\n * 400 DataSecurityInvalidUserSuppliedParameter - An invalid parameter value was provided by the client.\n\n * 400 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 400 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 404 SubscriptionDoesNotHaveServer - The requested server was not found\n\n * 404 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 409 ServerSecurityAlertPolicyInProgress - Set server security alert policy is already in progress\n\n * 409 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 DatabaseIsUnavailable - Loading failed. Please try again later.\n\n * 500 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later"
           },
-          "201": {
-            "description": "Successfully created the  database security alert policy.",
-            "schema": {
-              "$ref": "#/definitions/DatabaseSecurityAlertPolicy"
-            }
+          "202": {
+            "description": "Created request to set the server threat detection policy."
           }
         },
+        "x-ms-long-running-operation": true,
         "x-ms-examples": {
-          "Update a database's threat detection policy with minimal parameters": {
-            "$ref": "./examples/DatabaseSecurityAlertCreateMin.json"
+          "Update a server's threat detection policy with minimal parameters": {
+            "$ref": "./examples/ManagedServerSecurityAlertCreateMin.json"
           },
-          "Update a database's threat detection policy with all parameters": {
-            "$ref": "./examples/DatabaseSecurityAlertCreateMax.json"
+          "Update a server's threat detection policy with all parameters": {
+            "$ref": "./examples/ManagedServerSecurityAlertCreateMax.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/servers/{serverName}/databases/{databaseName}/securityAlertPolicies": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Sql/managedInstances/{managedInstanceName}/securityAlertPolicies": {
       "get": {
         "tags": [
-          "DatabaseSecurityAlertPolicies"
+          "ManagedServerSecurityAlertPolicies"
         ],
-        "description": "Gets a list of database's security alert policies.",
-        "operationId": "DatabaseSecurityAlertPolicies_ListByDatabase",
+        "description": "Get the managed server's threat detection policies.",
+        "operationId": "ManagedServerSecurityAlertPolicies_ListByInstance",
         "parameters": [
           {
             "$ref": "#/parameters/ResourceGroupParameter"
           },
           {
-            "name": "serverName",
-            "in": "path",
-            "description": "The name of the  server.",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "databaseName",
-            "in": "path",
-            "description": "The name of the  database for which the security alert policy is defined.",
-            "required": true,
-            "type": "string"
+            "$ref": "#/parameters/ManagedInstanceNameParameter"
           },
           {
             "$ref": "#/parameters/SubscriptionIdParameter"
@@ -194,21 +159,21 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully retrieved the  database security alert policy.",
+            "description": "Successfully retrieved the managed server threat detection policies.",
             "schema": {
-              "$ref": "#/definitions/DatabaseSecurityAlertListResult"
+              "$ref": "#/definitions/ManagedServerSecurityAlertPolicyListResult"
             }
           },
           "default": {
-            "description": "*** Error Responses: ***\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountName - The provided storage account is not valid or does not exist.\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountCredentials - The provided storage account access key is not valid.\n\n * 400 InvalidDatabaseSecurityAlertPolicyCreateRequest - The create database Threat Detection security alert policy request does not exist or has no properties object.\n\n * 400 DataSecurityInvalidUserSuppliedParameter - An invalid parameter value was provided by the client.\n\n * 400 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 400 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 404 SubscriptionDoesNotHaveServer - The requested server was not found\n\n * 404 DatabaseDoesNotExist - User has specified a database name that does not exist on this server instance.\n\n * 404 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 409 DatabaseSecurityAlertPolicyInProgress - Set database security alert policy is already in progress\n\n * 409 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 DatabaseIsUnavailable - Loading failed. Please try again later.\n\n * 500 UpsertDatabaseSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 GetDatabaseSecurityAlertPolicyFailed - Failed to get Threat Detection settings"
+            "description": "*** Error Responses: ***\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountName - The provided storage account is not valid or does not exist.\n\n * 400 SecurityAlertPoliciesInvalidStorageAccountCredentials - The provided storage account access key is not valid.\n\n * 400 InvalidServerSecurityAlertPolicyCreateRequest - The create server Threat Detection security alert policy request does not exist or has no properties object.\n\n * 400 DataSecurityInvalidUserSuppliedParameter - An invalid parameter value was provided by the client.\n\n * 400 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 400 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 404 SubscriptionDoesNotHaveServer - The requested server was not found\n\n * 404 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 409 ServerSecurityAlertPolicyInProgress - Set server security alert policy is already in progress\n\n * 409 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 DatabaseIsUnavailable - Loading failed. Please try again later.\n\n * 500 UpsertServerSecurityAlertPolicyFailed - An error has occurred while saving Threat detection settings, please try again later\n\n * 500 GetServerSecurityAlertPolicyFailed - Failed to get Threat Detection settings"
           }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "Get the database's threat detection policies": {
-            "$ref": "./examples/DatabaseSecurityAlertListByDatabase.json"
+          "Get the managed server's threat detection policies": {
+            "$ref": "./examples/ManagedServerSecurityAlertListByInstance.json"
           }
         }
       }
@@ -274,8 +239,8 @@
         }
       }
     },
-    "DatabaseSecurityAlertPolicy": {
-      "description": "A database security alert policy.",
+    "ManagedServerSecurityAlertPolicy": {
+      "description": "A managed server security alert policy.",
       "type": "object",
       "allOf": [
         {
@@ -290,15 +255,15 @@
         }
       }
     },
-    "DatabaseSecurityAlertListResult": {
-      "description": "A list of the database's security alert policies.",
+    "ManagedServerSecurityAlertPolicyListResult": {
+      "description": "A list of the managed Server's security alert policies.",
       "type": "object",
       "properties": {
         "value": {
           "description": "Array of results.",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/DatabaseSecurityAlertPolicy"
+            "$ref": "#/definitions/ManagedServerSecurityAlertPolicy"
           },
           "readOnly": true
         },
