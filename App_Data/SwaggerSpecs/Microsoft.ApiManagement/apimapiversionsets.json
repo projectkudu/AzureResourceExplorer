@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on logger entity Azure API Management deployment.The Logger entity in API Management represents an event sink that you can use to log API Management events. Currently the Logger entity supports logging API Management events to Azure EventHub.",
+    "description": "Use these REST APIs for performing operations on the ApiVersionSet entity associated with your Azure API Management deployment. Using this entity you create and manage API Version Sets that are used to group APIs for consistent versioning.",
     "version": "2018-06-01-preview"
   },
   "host": "management.azure.com",
@@ -34,19 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/loggers": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/api-version-sets": {
       "get": {
         "tags": [
-          "Logger"
+          "ApiVersionSets"
         ],
-        "operationId": "Logger_ListByService",
-        "description": "Lists a collection of loggers in the specified service instance.",
-        "externalDocs": {
-          "url": "https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-log-event-hubs"
-        },
+        "operationId": "ApiVersionSet_ListByService",
+        "description": "Lists a collection of API Version Sets in the specified service instance.",
         "x-ms-examples": {
-          "ApiManagementListLoggers": {
-            "$ref": "./examples/ApiManagementListLoggers.json"
+          "ApiManagementListApiVersionSets": {
+            "$ref": "./examples/ApiManagementListApiVersionSets.json"
           }
         },
         "parameters": [
@@ -61,7 +58,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n\r\n|name | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|description | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|loggerType | eq |    |\n|resourceId | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n"
+            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n\r\n"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
@@ -78,9 +75,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Lists a collection of Logger entities.",
+            "description": "Lists a collection of Api Version Set entities.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/LoggerCollection"
+              "$ref": "./definitions.json#/definitions/ApiVersionSetCollection"
             }
           },
           "default": {
@@ -93,19 +90,19 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
-        "x-ms-odata": "./definitions.json#/definitions/LoggerContract"
+        "x-ms-odata": "./definitions.json#/definitions/ApiVersionSetContract"
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/loggers/{loggerId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/api-version-sets/{versionSetId}": {
       "head": {
         "tags": [
-          "Logger"
+          "ApiVersionSets"
         ],
-        "operationId": "Logger_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the logger specified by its identifier.",
+        "operationId": "ApiVersionSet_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the Api Version Set specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementHeadLogger": {
-            "$ref": "./examples/ApiManagementHeadLogger.json"
+          "ApiManagementHeadApiVersionSet": {
+            "$ref": "./examples/ApiManagementHeadApiVersionSet.json"
           }
         },
         "parameters": [
@@ -116,7 +113,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/LoggerIdParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiVersionSetIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -127,7 +124,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Specified logger entity exists and current entity state version is present in the ETag header.",
+            "description": "Specified Api Version Set entity exists and current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -145,13 +142,13 @@
       },
       "get": {
         "tags": [
-          "Logger"
+          "ApiVersionSets"
         ],
-        "operationId": "Logger_Get",
-        "description": "Gets the details of the logger specified by its identifier.",
+        "operationId": "ApiVersionSet_Get",
+        "description": "Gets the details of the Api Version Set specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementGetLogger": {
-            "$ref": "./examples/ApiManagementGetLogger.json"
+          "ApiManagementGetApiVersionSet": {
+            "$ref": "./examples/ApiManagementGetApiVersionSet.json"
           }
         },
         "parameters": [
@@ -162,7 +159,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/LoggerIdParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiVersionSetIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -173,9 +170,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified Logger entity.",
+            "description": "Gets the specified Api Version Set entity.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/LoggerContract"
+              "$ref": "./definitions.json#/definitions/ApiVersionSetContract"
             },
             "headers": {
               "ETag": {
@@ -194,16 +191,13 @@
       },
       "put": {
         "tags": [
-          "Logger"
+          "ApiVersionSets"
         ],
-        "operationId": "Logger_CreateOrUpdate",
-        "description": "Creates or Updates a logger.",
+        "operationId": "ApiVersionSet_CreateOrUpdate",
+        "description": "Creates or Updates a Api Version Set.",
         "x-ms-examples": {
-          "ApiManagementCreateEHLogger": {
-            "$ref": "./examples/ApiManagementCreateEHLogger.json"
-          },
-          "ApiManagementCreateAILogger": {
-            "$ref": "./examples/ApiManagementCreateAILogger.json"
+          "ApiManagementCreateApiVersionSet": {
+            "$ref": "./examples/ApiManagementCreateApiVersionSet.json"
           }
         },
         "parameters": [
@@ -214,16 +208,16 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/LoggerIdParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiVersionSetIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/LoggerContract"
+              "$ref": "./definitions.json#/definitions/ApiVersionSetContract"
             },
-            "description": "Create parameters."
+            "description": "Create or update parameters."
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
@@ -237,9 +231,9 @@
         ],
         "responses": {
           "201": {
-            "description": "Logger was successfully created.",
+            "description": "Api Version Set was successfully created.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/LoggerContract"
+              "$ref": "./definitions.json#/definitions/ApiVersionSetContract"
             },
             "headers": {
               "ETag": {
@@ -249,9 +243,9 @@
             }
           },
           "200": {
-            "description": "The existing logger was successfully updated.",
+            "description": "Api Version Set was successfully updated.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/LoggerContract"
+              "$ref": "./definitions.json#/definitions/ApiVersionSetContract"
             },
             "headers": {
               "ETag": {
@@ -270,13 +264,13 @@
       },
       "patch": {
         "tags": [
-          "Logger"
+          "ApiVersionSets"
         ],
-        "operationId": "Logger_Update",
-        "description": "Updates an existing logger.",
+        "operationId": "ApiVersionSet_Update",
+        "description": "Updates the details of the Api VersionSet specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementUpdateLogger": {
-            "$ref": "./examples/ApiManagementUpdateLogger.json"
+          "ApiManagementUpdateApiVersionSet": {
+            "$ref": "./examples/ApiManagementUpdateApiVersionSet.json"
           }
         },
         "parameters": [
@@ -287,14 +281,14 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/LoggerIdParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiVersionSetIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/LoggerUpdateContract"
+              "$ref": "./definitions.json#/definitions/ApiVersionSetUpdateParameters"
             },
             "description": "Update parameters."
           },
@@ -310,7 +304,7 @@
         ],
         "responses": {
           "204": {
-            "description": "The existing logger was successfully updated."
+            "description": "The Api Version Set details were successfully updated."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -322,13 +316,13 @@
       },
       "delete": {
         "tags": [
-          "Logger"
+          "ApiVersionSets"
         ],
-        "operationId": "Logger_Delete",
-        "description": "Deletes the specified logger.",
+        "operationId": "ApiVersionSet_Delete",
+        "description": "Deletes specific Api Version Set.",
         "x-ms-examples": {
-          "ApiManagementDeleteLogger": {
-            "$ref": "./examples/ApiManagementDeleteLogger.json"
+          "ApiManagementDeleteApiVersionSet": {
+            "$ref": "./examples/ApiManagementDeleteApiVersionSet.json"
           }
         },
         "parameters": [
@@ -339,17 +333,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/LoggerIdParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiVersionSetIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
-          },
-          {
-            "name": "force",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "description": "Force deletion even if diagnostic is attached."
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -360,10 +347,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The logger was successfully deleted."
+            "description": "The ApiVersion Set details were successfully deleted."
           },
           "204": {
-            "description": "The logger was successfully deleted."
+            "description": "The ApiVersion Set details were successfully deleted."
           },
           "default": {
             "description": "Error response describing why the operation failed.",

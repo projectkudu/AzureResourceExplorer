@@ -369,13 +369,11 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DocumentDB\cosmos-db.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.OperationalInsights\OperationalInsights-2015-03-20.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimdiagnostics.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimemailtemplate.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimissues.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimnotifications.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimportalsettings.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimtagresources.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimtags.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimversionsets.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\cancelOperations.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\cancelPoolOperations.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\databases.json" />
@@ -410,6 +408,15 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HardwareSecurityModules\dedicatedhsm.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.BotService\botservice.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\common\v1\types.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimapisByTags.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimapiversionsets.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimemailtemplates.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimpolicies.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimpolicysnippets.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimproductsByTags.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimregions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\definitions.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimcaches.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

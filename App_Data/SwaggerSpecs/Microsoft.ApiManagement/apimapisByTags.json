@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for querying APIs. Operations and Products by tags in your Azure API Management deployment.",
+    "description": "Use these REST APIs for performing retrieve a collection of Apis associated with a tag in Azure API Management deployment.",
     "version": "2018-06-01-preview"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/tagResources": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/apisByTags": {
       "get": {
         "tags": [
-          "TagResource"
+          "ApisByTags"
         ],
-        "operationId": "TagResource_ListByService",
-        "description": "Lists a collection of resources associated with tags.",
+        "operationId": "Api_ListByTags",
+        "description": "Lists a collection of apis associated with tags.",
         "x-ms-examples": {
-          "ApiManagementListTagResources": {
-            "$ref": "./examples/ApiManagementListTagResources.json"
+          "ApiManagementListApisByTags": {
+            "$ref": "./examples/ApiManagementListApisByTags.json"
           }
         },
         "parameters": [
@@ -58,13 +58,20 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n\r\n|aid | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|name | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|displayName | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|apiName | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|apiRevision | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|path | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|description | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|serviceUrl | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|method | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|urlTemplate | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|terms | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|state | eq |    |\n|isCurrent | eq |    |\n"
+            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n\r\n|name | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|displayName | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|apiRevision | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|path | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|description | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|serviceUrl | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|isCurrent | eq |    |\n"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
+          },
+          {
+            "name": "includeNotTaggedApis",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "description": "Include not tagged APIs."
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"

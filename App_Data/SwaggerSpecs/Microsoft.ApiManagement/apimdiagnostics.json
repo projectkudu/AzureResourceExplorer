@@ -3,7 +3,7 @@
   "info": {
     "title": "ApiManagementClient",
     "description": "Use these REST APIs for performing operations on Diagnostic entity associated with your Azure API Management deployment. Diagnostics are used to log requests/responses in the APIM proxy.",
-    "version": "2018-01-01"
+    "version": "2018-06-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -37,7 +37,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics": {
       "get": {
         "tags": [
-          "Diagnostics"
+          "Diagnostic"
         ],
         "operationId": "Diagnostic_ListByService",
         "description": "Lists all diagnostics of the API Management service instance.",
@@ -54,30 +54,30 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          },
-          {
             "name": "$filter",
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n| id          | ge, le, eq, ne, gt, lt | substringof, startswith, endswith |"
+            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n\r\n|name | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "Paged Result reponse of diagnostics.",
+            "description": "Paged Result response of diagnostics.",
             "schema": {
-              "$ref": "#/definitions/DiagnosticCollection"
+              "$ref": "./definitions.json#/definitions/DiagnosticCollection"
             }
           },
           "default": {
@@ -90,13 +90,13 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
-        "x-ms-odata": "#/definitions/DiagnosticContract"
+        "x-ms-odata": "./definitions.json#/definitions/DiagnosticContract"
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics/{diagnosticId}": {
       "head": {
         "tags": [
-          "Diagnostics"
+          "Diagnostic"
         ],
         "operationId": "Diagnostic_GetEntityTag",
         "description": "Gets the entity state (Etag) version of the Diagnostic specified by its identifier.",
@@ -113,7 +113,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -124,7 +124,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Operation completed successfully.",
+            "description": "Gets the entity tag of the diagnostic",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -142,7 +142,7 @@
       },
       "get": {
         "tags": [
-          "Diagnostics"
+          "Diagnostic"
         ],
         "operationId": "Diagnostic_Get",
         "description": "Gets the details of the Diagnostic specified by its identifier.",
@@ -159,7 +159,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -171,14 +171,14 @@
         "responses": {
           "200": {
             "description": "The response body contains the specified Diagnostic entity.",
-            "schema": {
-              "$ref": "#/definitions/DiagnosticContract"
-            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "default": {
@@ -191,7 +191,7 @@
       },
       "put": {
         "tags": [
-          "Diagnostics"
+          "Diagnostic"
         ],
         "operationId": "Diagnostic_CreateOrUpdate",
         "description": "Creates a new Diagnostic or updates an existing one.",
@@ -208,14 +208,14 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             },
             "description": "Create parameters."
           },
@@ -232,14 +232,26 @@
         "responses": {
           "201": {
             "description": "Diagnostic was successfully created.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "$ref": "#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "200": {
-            "description": "Diagnostic was successfully updated.",
+            "description": "Diagnostic successfully updated",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "$ref": "#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "default": {
@@ -252,7 +264,7 @@
       },
       "patch": {
         "tags": [
-          "Diagnostics"
+          "Diagnostic"
         ],
         "operationId": "Diagnostic_Update",
         "description": "Updates the details of the Diagnostic specified by its identifier.",
@@ -269,14 +281,14 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             },
             "description": "Diagnostic Update parameters."
           },
@@ -304,7 +316,7 @@
       },
       "delete": {
         "tags": [
-          "Diagnostics"
+          "Diagnostic"
         ],
         "operationId": "Diagnostic_Delete",
         "description": "Deletes the specified Diagnostic.",
@@ -321,7 +333,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -348,272 +360,8 @@
           }
         }
       }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics/{diagnosticId}/loggers": {
-      "get": {
-        "tags": [
-          "DiagnosticLoggers"
-        ],
-        "operationId": "DiagnosticLogger_ListByService",
-        "description": "Lists all loggers assosiated with the specified Diagnostic of the API Management service instance.",
-        "x-ms-examples": {
-          "ApiManagementListDiagnosticLoggers": {
-            "$ref": "./examples/ApiManagementListDiagnosticLoggers.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          },
-          {
-            "$ref": "#/parameters/DiagnosticIdParameter"
-          },
-          {
-            "name": "$filter",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n| id          | ge, le, eq, ne, gt, lt | substringof, startswith, endswith |\n| type        | eq                     |                                   |"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Paged Result reponse of loggers assigned to the specified Diagnostic.",
-            "schema": {
-              "$ref": "./apimloggers.json#/definitions/LoggerCollection"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "./apimloggers.json#/definitions/LoggerContract"
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics/{diagnosticId}/loggers/{loggerid}": {
-      "head": {
-        "tags": [
-          "DiagnosticLoggers"
-        ],
-        "operationId": "DiagnosticLogger_CheckEntityExists",
-        "description": "Checks that logger entity specified by identifier is associated with the diagnostics entity.",
-        "x-ms-examples": {
-          "ApiManagementHeadDiagnosticLogger": {
-            "$ref": "./examples/ApiManagementHeadDiagnosticLogger.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "#/parameters/DiagnosticIdParameter"
-          },
-          {
-            "$ref": "./apimloggers.json#/parameters/LoggerIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The logger is associated with the diagnostic entity."
-          },
-          "404": {
-            "description": "The logger is not associated with the diagnostic entity."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "DiagnosticLoggers"
-        ],
-        "operationId": "DiagnosticLogger_CreateOrUpdate",
-        "description": "Attaches a logger to a dignostic.",
-        "x-ms-examples": {
-          "ApiManagementCreateDiagnosticLogger": {
-            "$ref": "./examples/ApiManagementCreateDiagnosticLogger.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "#/parameters/DiagnosticIdParameter"
-          },
-          {
-            "$ref": "./apimloggers.json#/parameters/LoggerIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Logger was successfully attached to Diagnostic.",
-            "schema": {
-              "$ref": "./apimloggers.json#/definitions/LoggerContract"
-            }
-          },
-          "200": {
-            "description": "Logger to Diagnostic link was successfully updated.",
-            "schema": {
-              "$ref": "./apimloggers.json#/definitions/LoggerContract"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "DiagnosticLoggers"
-        ],
-        "operationId": "DiagnosticLogger_Delete",
-        "description": "Deletes the specified Logger from Diagnostic.",
-        "x-ms-examples": {
-          "ApiManagementDeleteDiagnosticLogger": {
-            "$ref": "./examples/ApiManagementDeleteDiagnosticLogger.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "#/parameters/DiagnosticIdParameter"
-          },
-          {
-            "$ref": "./apimloggers.json#/parameters/LoggerIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The Logger was successfully detached from Diagnostic."
-          },
-          "204": {
-            "description": "The Logger was successfully detached from Diagnostic."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
     }
   },
-  "definitions": {
-    "DiagnosticCollection": {
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/DiagnosticContract"
-          },
-          "description": "Page values."
-        },
-        "nextLink": {
-          "type": "string",
-          "description": "Next page link if any."
-        }
-      },
-      "description": "Paged Diagnostic list representation."
-    },
-    "DiagnosticContract": {
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "$ref": "#/definitions/DiagnosticContractProperties",
-          "description": "Diagnostic entity contract properties."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "./apimanagement.json#/definitions/Resource"
-        }
-      ],
-      "description": "Diagnostic details."
-    },
-    "DiagnosticContractProperties": {
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "description": "Indicates whether a diagnostic should receive data or not."
-        }
-      },
-      "required": [
-        "enabled"
-      ],
-      "description": "Diagnostic Entity Properties"
-    }
-  },
-  "parameters": {
-    "DiagnosticIdParameter": {
-      "name": "diagnosticId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "Diagnostic identifier. Must be unique in the current API Management service instance.",
-      "minLength": 1,
-      "maxLength": 80,
-      "pattern": "(^[\\w]+$)|(^[\\w][\\w\\-]+[\\w]$)",
-      "x-ms-parameter-location": "method"
-    }
-  }
+  "definitions": {  },
+  "parameters": {  }
 }
