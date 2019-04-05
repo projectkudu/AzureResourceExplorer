@@ -410,6 +410,8 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HardwareSecurityModules\dedicatedhsm.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.BotService\botservice.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\common\v1\types.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\scheduledQueryRule_API.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\metricAlert_API.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
