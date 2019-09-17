@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
@@ -7,6 +8,7 @@ using System.Net.Http;
 using System.Runtime.Caching;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using ARMExplorer.SwaggerParser;
 using Newtonsoft.Json;
@@ -133,6 +135,11 @@ namespace ARMExplorer.Controllers
         [Authorize]
         public async Task<HttpResponseMessage> Invoke(OperationInfo info)
         {
+            if (!IsValidHost())
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid request domain");
+            }
+
             HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
 
             // escaping "#" as it may appear in some resource names
@@ -145,6 +152,36 @@ namespace ARMExplorer.Controllers
             }
 
             return await _armRepository.InvokeAsync(Request, executeRequest);
+        }
+
+        private static bool IsValidHost()
+        {
+            if (HttpContext.Current.Request.Url.IsLoopback)
+            {
+                return true;
+            }
+
+            // For Azure scenarios we do extra checks for cross domains
+            var currentRequest = HttpContext.Current.Request;
+
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.ServerVariables["HTTP_REFERER"]))
+            {
+                var requestHost = currentRequest.UrlReferrer?.Host;
+                if (requestHost != null)
+                {
+                    return requestHost.EndsWith(".azure.com", StringComparison.OrdinalIgnoreCase);
+                }
+            }
+
+            // If referrer is not set check origin headers.
+            var originHeader = currentRequest.Headers.GetValues("Origin")?.FirstOrDefault();
+            if (originHeader != null)
+            {
+                var originHost = new Uri(originHeader, UriKind.Absolute).Host;
+                return originHost.EndsWith(".azure.com", StringComparison.OrdinalIgnoreCase);
+            }
+
+            return false;
         }
     }
 }
