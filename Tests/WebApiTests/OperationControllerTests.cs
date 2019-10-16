@@ -30,7 +30,7 @@ namespace Tests.WebApiTests
             Assert.NotNull(objectContent);
             var providers = objectContent.Value as HashSet<string>;
             Assert.NotNull(providers);
-            Assert.Equal(11, providers.Count);
+            Assert.Equal(12, providers.Count);
         }
 
         [Fact]

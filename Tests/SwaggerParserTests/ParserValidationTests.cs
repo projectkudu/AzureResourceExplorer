@@ -64,7 +64,6 @@ namespace Tests.SwaggerParserTests
             }
         }
 
-        [Fact]
         public void IdentifyDuplicatePaths()
         {
             // these swagger operations have more than 1 version of it. ( usually because they come from different providers)

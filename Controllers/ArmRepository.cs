@@ -118,17 +118,28 @@ namespace ARMExplorer.Controllers
                     result[resourceGroup][provider].Add(collection);
                 }
             }
-            // Add Microsoft.Resources/deployments to the response
+            // Add Microsoft.Resources/deployments to the response if it doesn't already exist
             // This makes the Microsoft.Resources provider show up for any groups that have other resources
             foreach (var group in result.Values)
             {
-                group.Add(
-                    "MICROSOFT.RESOURCES",
-                    new HashSet<string>
+                HashSet<string> hashSet;
+                if (group.TryGetValue("MICROSOFT.RESOURCES", out hashSet))
+                {
+                    if (!hashSet.Contains("DEPLOYMENTS"))
                     {
-                        "DEPLOYMENTS",
+                        hashSet.Add("DEPLOYMENTS");
                     }
-                );
+                }
+                else
+                {
+                    group.Add(
+                        "MICROSOFT.RESOURCES",
+                        new HashSet<string>
+                        {
+                            "DEPLOYMENTS",
+                        }
+                    );
+                }
             }
 
             return result;

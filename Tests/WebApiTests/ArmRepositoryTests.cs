@@ -24,8 +24,8 @@ namespace Tests.WebApiTests
         {
             var armRepository = new ArmRepository(new MockHttpClientWrapper());
             var providerNames = armRepository.GetProviderNamesFor(null, "00000000-0000-0000-0000-000000000003").Result;
-            Assert.Equal(10,providerNames.Count);
-            HashSet<string> expectedProviderNames = new HashSet<string>{ "MICROSOFT.EVENTHUB", "MICROSOFT.INSIGHTS", "MICROSOFT.KEYVAULT", "MICROSOFT.SQL", "MICROSOFT.STORAGE", "MICROSOFT.WEB", "MICROSOFT.CLASSICCOMPUTE", "MICROSOFT.NETWORK", "MICROSOFT.PORTAL", "MICROSOFT.CLASSICSTORAGE" }; 
+            Assert.Equal(11,providerNames.Count);
+            HashSet<string> expectedProviderNames = new HashSet<string>{ "MICROSOFT.EVENTHUB", "MICROSOFT.INSIGHTS", "MICROSOFT.KEYVAULT", "MICROSOFT.SQL", "MICROSOFT.STORAGE", "MICROSOFT.WEB", "MICROSOFT.CLASSICCOMPUTE", "MICROSOFT.NETWORK", "MICROSOFT.PORTAL", "MICROSOFT.CLASSICSTORAGE", "MICROSOFT.RESOURCES" }; 
             Assert.Equal(expectedProviderNames.Count, providerNames.Count);
             Assert.True(providerNames.All(s => expectedProviderNames.Contains(s)));
         }
@@ -59,6 +59,13 @@ namespace Tests.WebApiTests
             Assert.Equal(2, hashSet.Count);
             Assert.True(hashSet.Contains("SERVERFARMS"));
             Assert.True(hashSet.Contains("SITES"));
+
+            var resourceGroupDictionary = providers["SECURITYDATA"];
+            Assert.Equal(2, resourceGroupDictionary.Count);
+            var resources = resourceGroupDictionary["MICROSOFT.RESOURCES"];
+            Assert.Equal(2, resources.Count);
+            Assert.True(resources.Contains("RESOURCES"));
+            Assert.True(resources.Contains("DEPLOYMENTS"));
         }
     }
 }
