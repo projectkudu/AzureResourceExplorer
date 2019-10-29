@@ -411,6 +411,10 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.BotService\botservice.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Sql\common\v1\types.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\bastionHost.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Resources\deploymentScripts.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Blueprint\assignmentOperation.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Blueprint\blueprintAssignment.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Blueprint\blueprintDefinition.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
