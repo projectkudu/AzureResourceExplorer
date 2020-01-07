@@ -1,5 +1,5 @@
 ﻿enum Editor {
-    ResponseEditor, RequestEditor, CreateEditor, PowershellEditor, AnsibleEditor, AzureCliEditor
+    ResponseEditor, RequestEditor, CreateEditor, AnsibleEditor, PowershellEditor, AzureCliEditor
 }
 
 class EditorCollection {
@@ -9,14 +9,14 @@ class EditorCollection {
         this.editors[Editor.ResponseEditor] = ace.edit("response-json-editor");
         this.editors[Editor.RequestEditor] = ace.edit("request-json-editor");
         this.editors[Editor.CreateEditor] = ace.edit("json-create-editor");
-        this.editors[Editor.PowershellEditor] = ace.edit("powershell-editor");
         this.editors[Editor.AnsibleEditor] = ace.edit("ansible-editor");
-        this.editors.length = 5;
+        this.editors.length = 4;
+//        this.editors[Editor.PowershellEditor] = ace.edit("powershell-editor");
 //        this.editors[Editor.AzureCliEditor] = ace.edit("azurecli-editor");
     }
 
     private isHidden(editor: Editor) {
-        return editor === Editor.AzureCliEditor;
+        return editor === Editor.AzureCliEditor || editor === Editor.PowershellEditor;
     }
 
     getValue(editor: Editor, cleanObject: boolean): any {
