@@ -282,6 +282,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Insights\webTests_API.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Intune\intune.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.KeyVault\keyvault.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Kusto\kusto.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.MachineLearning\webservices.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\AccountFilters.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Media\Accounts.json" />
