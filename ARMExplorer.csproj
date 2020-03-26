@@ -417,6 +417,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Blueprint\blueprintAssignment.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Blueprint\blueprintDefinition.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.EventGrid\EventGrid.json" />
+    <Content Include="App_Data\SwaggerSpecs\common-types\resource-management\v1\types.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
