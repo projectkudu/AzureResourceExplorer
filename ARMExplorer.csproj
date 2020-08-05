@@ -264,6 +264,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DevTestLab\DTL.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\features.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\links.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.GuestConfiguration\guestconfiguration.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\applications.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\capabilities.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.HDInsight\cluster.json" />
@@ -418,6 +419,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Blueprint\blueprintDefinition.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.EventGrid\EventGrid.json" />
     <Content Include="App_Data\SwaggerSpecs\common-types\resource-management\v1\types.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.GuestConfiguration\definitions.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
