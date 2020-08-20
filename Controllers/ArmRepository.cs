@@ -11,7 +11,7 @@ namespace ARMExplorer.Controllers
     public class ArmRepository : IArmRepository 
     {
         private readonly IHttpClientWrapper _clientWrapper;
-        private readonly int _maxNextLinkDepth = 5;
+        private readonly int _maxNextLinkDepth = 20;
 
         public ArmRepository(IHttpClientWrapper clientWrapper)
         {
@@ -53,11 +53,12 @@ namespace ARMExplorer.Controllers
                 var newResourceFound = AddResourceToList(armResourceListResult.Value, allResources);
 
                 // ARM API returns the same skiptoken and resources repeatedly when there are no more resources. To avoid infinite cycle break when
-                // 1. No new resource was found in the current response or
+                // 1. No new resource was found in the current response and resources were provided (return arrays can be empty with nextLins, see
+                //    issue https://github.com/projectkudu/AzureResourceExplorer/issues/254) or
                 // 2. Limit the max number of links to follow to _maxNextLinkDepth or
                 // 3. When nextLink is empty
 
-                if (!newResourceFound)
+                if (!newResourceFound && armResourceListResult.Value.Count > 0)
                 {
                     break;
                 }
