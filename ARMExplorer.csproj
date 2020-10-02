@@ -405,6 +405,8 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\azureFirewall.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\ddosProtectionPlan.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\expressRouteCrossConnection.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\privateEndpoint.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\privateLinkService.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\publicIpPrefix.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\serviceEndpointPolicy.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualWan.json" />
