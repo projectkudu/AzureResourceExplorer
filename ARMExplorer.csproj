@@ -424,9 +424,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.EventGrid\EventGrid.json" />
     <Content Include="App_Data\SwaggerSpecs\common-types\resource-management\v1\types.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.GuestConfiguration\definitions.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabricManagedClusters\managedapplication.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabricManagedClusters\managedcluster.json" />
-    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabricManagedClusters\nodetype.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\managedapplication.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
