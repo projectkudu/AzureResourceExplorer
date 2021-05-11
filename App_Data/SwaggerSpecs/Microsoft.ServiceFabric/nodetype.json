@@ -3,7 +3,7 @@
   "info": {
     "title": "ServiceFabricManagementClient",
     "description": "Azure Service Fabric Resource Provider API Client",
-    "version": "2020-01-01-preview"
+    "version": "2021-05-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -34,47 +34,6 @@
     }
   ],
   "paths": {
-    "/providers/Microsoft.ServiceFabric/operations": {
-      "get": {
-        "tags": [
-          "Operations"
-        ],
-        "summary": "Lists all of the available Service Fabric resource provider API operations.",
-        "description": "Get the list of available Service Fabric resource provider API operations.",
-        "operationId": "Operations_List",
-        "parameters": [
-          {
-            "name": "api-version",
-            "in": "query",
-            "description": "The version of the Service Fabric resource provider API",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "x-ms-examples": {
-          "List node type of the specified managed cluster": {
-            "$ref": "./examples/Operations_example.json"
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK. The request has succeeded.",
-            "schema": {
-              "$ref": "#/definitions/OperationListResult"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "#/definitions/ErrorModel"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        }
-      }
-    },
     "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/nodeTypes": {
       "get": {
         "operationId": "NodeTypes_ListByManagedClusters",
@@ -393,12 +352,6 @@
           "final-state-via": "location"
         },
         "responses": {
-          "201": {
-            "description": "The request was accepted and the operation will complete asynchronously.",
-            "schema": {
-              "$ref": "#/definitions/NodeType"
-            }
-          },
           "200": {
             "description": "The operation completed successfully.",
             "schema": {
@@ -424,8 +377,8 @@
           "NodeType"
         ],
         "operationId": "NodeTypes_Update",
-        "summary": "Updates the configuration of a node type of a given managed cluster.",
-        "description": "Update the configuration of a node type of a given managed cluster.",
+        "summary": "Update the tags of a node type resource of a given managed cluster.",
+        "description": "Update the configuration of a node type of a given managed cluster, only updating tags.",
         "parameters": [
           {
             "$ref": "#/parameters/subscriptionId"
@@ -453,10 +406,6 @@
             "x-ms-parameter-location": "method"
           }
         ],
-        "x-ms-long-running-operation": true,
-        "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
-        },
         "x-ms-examples": {
           "Patch a node type": {
             "$ref": "./examples/NodeTypePatchOperation_example.json"
@@ -465,12 +414,6 @@
         "responses": {
           "200": {
             "description": "The operation completed successfully.",
-            "schema": {
-              "$ref": "#/definitions/NodeType"
-            }
-          },
-          "202": {
-            "description": "The request was accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/NodeType"
             }
@@ -537,6 +480,69 @@
     }
   },
   "definitions": {
+    "DiskType": {
+      "type": "string",
+      "description": "Managed data disk type. IOPS and throughput are given by the disk size, to see more information go to https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types.\n",
+      "enum": [
+        "Standard_LRS",
+        "StandardSSD_LRS",
+        "Premium_LRS"
+      ],
+      "default": "StandardSSD_LRS",
+      "x-ms-enum": {
+        "name": "DiskType",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Standard_LRS",
+            "description": "Standard HDD locally redundant storage. Best for backup, non-critical, and infrequent access."
+          },
+          {
+            "value": "StandardSSD_LRS",
+            "description": "Standard SSD locally redundant storage. Best for web servers, lightly used enterprise applications and dev/test."
+          },
+          {
+            "value": "Premium_LRS",
+            "description": "Premium SSD locally redundant storage. Best for production and performance sensitive workloads."
+          }
+        ]
+      }
+    },
+    "ManagedProxyResource": {
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Azure resource identifier.",
+          "readOnly": true
+        },
+        "name": {
+          "type": "string",
+          "description": "Azure resource name.",
+          "readOnly": true
+        },
+        "type": {
+          "type": "string",
+          "description": "Azure resource type.",
+          "readOnly": true
+        },
+        "tags": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Azure resource tags.",
+          "x-ms-mutability": [
+            "create",
+            "read"
+          ]
+        },
+        "systemData": {
+          "$ref": "#/definitions/SystemData"
+        }
+      },
+      "description": "The resource model definition for proxy-only resource.",
+      "x-ms-azure-resource": true
+    },
     "NodeType": {
       "allOf": [
         {
@@ -593,6 +599,9 @@
           "type": "integer",
           "format": "int32",
           "description": "Disk size for each vm in the node type in GBs."
+        },
+        "dataDiskType": {
+          "$ref": "#/definitions/DiskType"
         },
         "placementProperties": {
           "type": "object",
@@ -654,10 +663,23 @@
             "$ref": "#/definitions/VMSSExtension"
           }
         },
+        "vmManagedIdentity": {
+          "$ref": "#/definitions/VmManagedIdentity"
+        },
+        "isStateless": {
+          "type": "boolean",
+          "description": "Indicates if the node type can only host Stateless workloads.",
+          "default": false
+        },
+        "multiplePlacementGroups": {
+          "type": "boolean",
+          "description": "Indicates if scale set associated with the node type can be composed of multiple placement groups.",
+          "default": false
+        },
         "provisioningState": {
           "$ref": "#/definitions/ManagedResourceProvisioningState",
-          "description": "The provisioning state of the managed cluster resource.",
-          "readOnly": true
+          "readOnly": true,
+          "description": "The provisioning state of the managed cluster resource."
         }
       },
       "description": "Describes a node type in the cluster, each node type represents sub set of nodes in the cluster."
@@ -679,65 +701,8 @@
       },
       "description": "Node type list results"
     },
-    "NodeTypePropertiesUpdateParameters": {
-      "properties": {
-        "vmInstanceCount": {
-          "type": "integer",
-          "format": "int32",
-          "description": "The number of nodes in the node type. This count should match the capacity property in the corresponding VirtualMachineScaleSet resource.",
-          "minimum": 1,
-          "maximum": 2147483647
-        },
-        "placementProperties": {
-          "type": "object",
-          "description": "The placement tags applied to nodes in the node type, which can be used to indicate where certain services (workload) should run.",
-          "additionalProperties": {
-            "type": "string",
-            "description": "Placement tag value"
-          }
-        },
-        "capacities": {
-          "type": "object",
-          "description": "The capacity tags applied to the nodes in the node type, the cluster resource manager uses these tags to understand how much resource a node has.",
-          "additionalProperties": {
-            "type": "string",
-            "description": "Capacity tag value"
-          }
-        },
-        "applicationPorts": {
-          "$ref": "#/definitions/EndpointRangeDescription",
-          "description": "The range of ports from which cluster assigned port to Service Fabric applications."
-        },
-        "ephemeralPorts": {
-          "$ref": "#/definitions/EndpointRangeDescription",
-          "description": "The range of ephemeral ports that nodes in this node type should be configured with."
-        },
-        "vmSecrets": {
-          "type": "array",
-          "title": "virtual machine secretes.",
-          "description": "The secrets to install in the virtual machines.",
-          "items": {
-            "$ref": "#/definitions/VaultSecretGroup"
-          }
-        },
-        "vmExtensions": {
-          "type": "array",
-          "title": "virtual machine extensions.",
-          "description": "Set of extensions that should be installed onto the virtual machines.",
-          "items": {
-            "$ref": "#/definitions/VMSSExtension"
-          }
-        }
-      },
-      "description": "Node type update properties."
-    },
     "NodeTypeUpdateParameters": {
       "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "$ref": "#/definitions/NodeTypePropertiesUpdateParameters",
-          "description": "Node type update properties."
-        },
         "tags": {
           "type": "object",
           "description": "Node type update parameters",
@@ -747,54 +712,6 @@
         }
       },
       "description": "Node type update request"
-    },
-    "ManagedProxyResource": {
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "Azure resource identifier.",
-          "readOnly": true
-        },
-        "name": {
-          "type": "string",
-          "description": "Azure resource name.",
-          "readOnly": true
-        },
-        "type": {
-          "type": "string",
-          "description": "Azure resource type.",
-          "readOnly": true
-        },
-        "tags": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Azure resource tags.",
-          "x-ms-mutability": [
-            "create",
-            "read"
-          ]
-        }
-      },
-      "description": "The resource model definition for proxy-only resource.",
-      "x-ms-azure-resource": true
-    },
-    "ManagedResourceProvisioningState": {
-      "type": "string",
-      "description": "The provisioning state of the managed resource.",
-      "enum": [
-        "None",
-        "Creating",
-        "Created",
-        "Updating",
-        "Succeeded",
-        "Failed",
-        "Canceled",
-        "Deleting",
-        "Deleted",
-        "Other"
-      ]
     },
     "SubResource": {
       "properties": {
@@ -843,6 +760,18 @@
       },
       "description": "Specifies set of certificates that should be installed onto the virtual machines."
     },
+    "VmManagedIdentity": {
+      "properties": {
+        "userAssignedIdentities": {
+          "type": "array",
+          "description": "The list of user identities associated with the virtual machine scale set under the node type. Each entry will be an ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Identities for the virtual machine scale set under the node type."
+    },
     "VMSSExtension": {
       "required": [
         "name",
@@ -868,10 +797,6 @@
         "typeHandlerVersion"
       ],
       "properties": {
-        "forceUpdateTag": {
-          "type": "string",
-          "description": "If a value is provided and is different from the previous value, the extension handler will be forced to update even if the extension configuration has not changed."
-        },
         "publisher": {
           "type": "string",
           "description": "The name of the extension handler publisher."
@@ -896,10 +821,9 @@
           "type": "object",
           "description": "The extension can contain either protectedSettings or protectedSettingsFromKeyVault or no protected settings at all."
         },
-        "provisioningState": {
-          "readOnly": true,
+        "forceUpdateTag": {
           "type": "string",
-          "description": "The provisioning state, which only appears in the response."
+          "description": "If a value is provided and is different from the previous value, the extension handler will be forced to update even if the extension configuration has not changed."
         },
         "provisionAfterExtensions": {
           "type": "array",
@@ -907,6 +831,11 @@
             "type": "string"
           },
           "description": "Collection of extension names after which this extension needs to be provisioned."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The provisioning state, which only appears in the response."
         }
       },
       "description": "Describes the properties of a Virtual Machine Scale Set Extension."
@@ -940,10 +869,12 @@
       "properties": {
         "startPort": {
           "type": "integer",
+          "format": "int32",
           "description": "Starting port of a range of ports"
         },
         "endPort": {
           "type": "integer",
+          "format": "int32",
           "description": "End port of a range of ports"
         }
       },
@@ -971,28 +902,35 @@
       },
       "description": "The error details."
     },
-    "OperationListResult": {
-      "properties": {
-        "value": {
-          "type": "array",
-          "description": "List of operations supported by the Service Fabric resource provider.",
-          "items": {
-            "$ref": "#/definitions/OperationResult"
-          }
-        },
-        "nextLink": {
-          "type": "string",
-          "description": "URL to get the next set of operation list results if there are any.",
-          "readOnly": true
-        }
-      },
-      "description": "Describes the result of the request to list Service Fabric resource provider operations."
+    "ManagedResourceProvisioningState": {
+      "type": "string",
+      "description": "The provisioning state of the managed resource.",
+      "enum": [
+        "None",
+        "Creating",
+        "Created",
+        "Updating",
+        "Succeeded",
+        "Failed",
+        "Canceled",
+        "Deleting",
+        "Deleted",
+        "Other"
+      ],
+      "x-ms-enum": {
+        "name": "ManagedResourceProvisioningState",
+        "modelAsString": true
+      }
     },
     "OperationResult": {
       "properties": {
         "name": {
           "type": "string",
           "description": "The name of the operation."
+        },
+        "isDataAction": {
+          "type": "boolean",
+          "description": "Indicates whether the operation is a data action"
         },
         "display": {
           "$ref": "#/definitions/AvailableOperationDisplay",
@@ -1008,19 +946,51 @@
         }
       },
       "description": "Available operation list result"
+    },
+    "SystemData": {
+      "description": "Metadata pertaining to creation and last modification of the resource.",
+      "type": "object",
+      "readOnly": true,
+      "properties": {
+        "createdBy": {
+          "type": "string",
+          "description": "The identity that created the resource."
+        },
+        "createdByType": {
+          "type": "string",
+          "description": "The type of identity that created the resource."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of resource creation (UTC)."
+        },
+        "lastModifiedBy": {
+          "type": "string",
+          "description": "The identity that last modified the resource."
+        },
+        "lastModifiedByType": {
+          "type": "string",
+          "description": "The type of identity that last modified the resource."
+        },
+        "lastModifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of resource last modification (UTC)."
+        }
+      }
     }
   },
   "parameters": {
     "api-version": {
       "name": "api-version",
       "in": "query",
-      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2020-01-01-preview\" for this specification.",
+      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2021-05-01\" for this specification.",
       "required": true,
       "type": "string",
       "enum": [
-        "2020-01-01-preview"
+        "2021-05-01"
       ],
-      "default": "2020-01-01-preview",
       "x-ms-parameter-location": "client"
     },
     "clusterNameParameter": {
