@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2018-02-01",
+    "version": "2020-12-01",
     "title": "Certificates API Client"
   },
   "host": "management.azure.com",
@@ -21,7 +21,7 @@
           "Certificates"
         ],
         "summary": "Get all certificates for a subscription.",
-        "description": "Get all certificates for a subscription.",
+        "description": "Description for Get all certificates for a subscription.",
         "operationId": "Certificates_List",
         "parameters": [
           {
@@ -61,7 +61,7 @@
           "Certificates"
         ],
         "summary": "Get all certificates in a resource group.",
-        "description": "Get all certificates in a resource group.",
+        "description": "Description for Get all certificates in a resource group.",
         "operationId": "Certificates_ListByResourceGroup",
         "parameters": [
           {
@@ -104,7 +104,7 @@
           "Certificates"
         ],
         "summary": "Get a certificate.",
-        "description": "Get a certificate.",
+        "description": "Description for Get a certificate.",
         "operationId": "Certificates_Get",
         "parameters": [
           {
@@ -149,7 +149,7 @@
           "Certificates"
         ],
         "summary": "Create or update a certificate.",
-        "description": "Create or update a certificate.",
+        "description": "Description for Create or update a certificate.",
         "operationId": "Certificates_CreateOrUpdate",
         "parameters": [
           {
@@ -203,7 +203,7 @@
           "Certificates"
         ],
         "summary": "Delete a certificate.",
-        "description": "Delete a certificate.",
+        "description": "Description for Delete a certificate.",
         "operationId": "Certificates_Delete",
         "parameters": [
           {
@@ -225,10 +225,16 @@
         ],
         "responses": {
           "200": {
-            "description": "Succesfully deleted certificate."
+            "description": "Successfully deleted certificate."
           },
           "204": {
             "description": "Certificate does not exist."
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
           }
         },
         "x-ms-examples": {
@@ -242,7 +248,7 @@
           "Certificates"
         ],
         "summary": "Create or update a certificate.",
-        "description": "Create or update a certificate.",
+        "description": "Description for Create or update a certificate.",
         "operationId": "Certificates_Update",
         "parameters": [
           {
@@ -354,7 +360,7 @@
             },
             "expirationDate": {
               "format": "date-time",
-              "description": "Certificate expriration date.",
+              "description": "Certificate expiration date.",
               "type": "string",
               "readOnly": true
             },
@@ -423,6 +429,14 @@
             },
             "serverFarmId": {
               "description": "Resource ID of the associated App Service plan, formatted as: \"/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}\".",
+              "type": "string"
+            },
+            "canonicalName": {
+              "description": "CNAME of the certificate to be issued via free certificate",
+              "type": "string"
+            },
+            "domainValidationMethod": {
+              "description": "Method of domain validation for free cert",
               "type": "string"
             }
           },
@@ -511,7 +525,7 @@
             },
             "expirationDate": {
               "format": "date-time",
-              "description": "Certificate expriration date.",
+              "description": "Certificate expiration date.",
               "type": "string",
               "readOnly": true
             },
@@ -580,6 +594,14 @@
             },
             "serverFarmId": {
               "description": "Resource ID of the associated App Service plan, formatted as: \"/subscriptions/{subscriptionID}/resourceGroups/{groupName}/providers/Microsoft.Web/serverfarms/{appServicePlanName}\".",
+              "type": "string"
+            },
+            "canonicalName": {
+              "description": "CNAME of the certificate to be issued via free certificate",
+              "type": "string"
+            },
+            "domainValidationMethod": {
+              "description": "Method of domain validation for free cert",
               "type": "string"
             }
           },

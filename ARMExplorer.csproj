@@ -326,9 +326,11 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\DeletedWebApps.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Domains.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Global.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\KubeEnvironments.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Provider.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\Recommendations.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\ResourceProvider.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\StaticSites.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\TopLevelDomains.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\WebApps.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Web\AppServiceCertificateOrders.json" />

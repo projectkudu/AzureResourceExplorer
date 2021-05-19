@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2018-02-01",
+    "version": "2020-12-01",
     "title": "Diagnostics API Client"
   },
   "host": "management.azure.com",
@@ -15,13 +15,269 @@
     "application/json"
   ],
   "paths": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/detectors": {
+      "get": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "List Hosting Environment Detector Responses",
+        "description": "Description for List Hosting Environment Detector Responses",
+        "operationId": "Diagnostics_ListHostingEnvironmentDetectorResponses",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "Site Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/subscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/apiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DetectorResponseCollection"
+            }
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Service Environment Detector Responses": {
+            "$ref": "./examples/Diagnostics_ListHostingEnvironmentDetectorResponses.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/hostingEnvironments/{name}/detectors/{detectorName}": {
+      "get": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "Get Hosting Environment Detector Response",
+        "description": "Description for Get Hosting Environment Detector Response",
+        "operationId": "Diagnostics_GetHostingEnvironmentDetectorResponse",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "name": "name",
+            "in": "path",
+            "description": "App Service Environment Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "detectorName",
+            "in": "path",
+            "description": "Detector Resource Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "Start Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "End Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "timeGrain",
+            "in": "query",
+            "description": "Time Grain",
+            "type": "string",
+            "pattern": "PT[1-9][0-9]+[SMH]"
+          },
+          {
+            "$ref": "#/parameters/subscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/apiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DetectorResponse"
+            }
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Service Environment Detector Responses": {
+            "$ref": "./examples/Diagnostics_GetHostingEnvironmentDetectorResponse.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/detectors": {
+      "get": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "List Site Detector Responses",
+        "description": "Description for List Site Detector Responses",
+        "operationId": "Diagnostics_ListSiteDetectorResponses",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "Site Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/subscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/apiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DetectorResponseCollection"
+            }
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Detector Responses": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectorResponses.json"
+          },
+          "Get App Slot Detector Responses": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectorResponsesSlot.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/detectors/{detectorName}": {
+      "get": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "Get site detector response",
+        "description": "Description for Get site detector response",
+        "operationId": "Diagnostics_GetSiteDetectorResponse",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "Site Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "detectorName",
+            "in": "path",
+            "description": "Detector Resource Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "Start Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "End Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "timeGrain",
+            "in": "query",
+            "description": "Time Grain",
+            "type": "string",
+            "pattern": "PT[1-9][0-9]+[SMH]"
+          },
+          {
+            "$ref": "#/parameters/subscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/apiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DetectorResponse"
+            }
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Detector Response": {
+            "$ref": "./examples/Diagnostics_GetSiteDetectorResponse.json"
+          },
+          "Get App Slot Detector Response": {
+            "$ref": "./examples/Diagnostics_GetSiteDetectorResponseSlot.json"
+          }
+        }
+      }
+    },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/diagnostics": {
       "get": {
         "tags": [
           "Diagnostics"
         ],
         "summary": "Get Diagnostics Categories",
-        "description": "Get Diagnostics Categories",
+        "description": "Description for Get Diagnostics Categories",
         "operationId": "Diagnostics_ListSiteDiagnosticCategories",
         "parameters": [
           {
@@ -55,6 +311,14 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List App Diagnostic Categories": {
+            "$ref": "./examples/Diagnostics_ListSiteDiagnosticCategories.json"
+          },
+          "List App Slot Diagnostic Categories": {
+            "$ref": "./examples/Diagnostics_ListSiteDiagnosticCategoriesSlot.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -66,7 +330,7 @@
           "Diagnostics"
         ],
         "summary": "Get Diagnostics Category",
-        "description": "Get Diagnostics Category",
+        "description": "Description for Get Diagnostics Category",
         "operationId": "Diagnostics_GetSiteDiagnosticCategory",
         "parameters": [
           {
@@ -106,6 +370,14 @@
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Get App Diagnostic Category": {
+            "$ref": "./examples/Diagnostics_GetSiteDiagnosticCategory.json"
+          },
+          "Get App Slot Diagnostic Category": {
+            "$ref": "./examples/Diagnostics_GetSiteDiagnosticCategorySlot.json"
+          }
         }
       }
     },
@@ -115,7 +387,7 @@
           "Diagnostics"
         ],
         "summary": "Get Site Analyses",
-        "description": "Get Site Analyses",
+        "description": "Description for Get Site Analyses",
         "operationId": "Diagnostics_ListSiteAnalyses",
         "parameters": [
           {
@@ -156,6 +428,14 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List App Analyses": {
+            "$ref": "./examples/Diagnostics_ListSiteAnalyses.json"
+          },
+          "List App Slot Analyses": {
+            "$ref": "./examples/Diagnostics_ListSiteAnalysesSlot.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -167,7 +447,7 @@
           "Diagnostics"
         ],
         "summary": "Get Site Analysis",
-        "description": "Get Site Analysis",
+        "description": "Description for Get Site Analysis",
         "operationId": "Diagnostics_GetSiteAnalysis",
         "parameters": [
           {
@@ -205,7 +485,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/DiagnosticAnalysis"
+              "$ref": "#/definitions/AnalysisDefinition"
             }
           },
           "default": {
@@ -213,6 +493,14 @@
             "schema": {
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Analysis": {
+            "$ref": "./examples/Diagnostics_GetSiteAnalysis.json"
+          },
+          "Get App Slot Analysis": {
+            "$ref": "./examples/Diagnostics_GetSiteAnalysisSlot.json"
           }
         }
       }
@@ -223,7 +511,7 @@
           "Diagnostics"
         ],
         "summary": "Execute Analysis",
-        "description": "Execute Analysis",
+        "description": "Description for Execute Analysis",
         "operationId": "Diagnostics_ExecuteSiteAnalysis",
         "parameters": [
           {
@@ -291,6 +579,14 @@
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Execute site slot analysis": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteAnalysisSlot.json"
+          },
+          "Execute site analysis": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteAnalysis.json"
+          }
         }
       }
     },
@@ -300,7 +596,7 @@
           "Diagnostics"
         ],
         "summary": "Get Detectors",
-        "description": "Get Detectors",
+        "description": "Description for Get Detectors",
         "operationId": "Diagnostics_ListSiteDetectors",
         "parameters": [
           {
@@ -341,6 +637,14 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List App Detectors": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectors.json"
+          },
+          "List App Slot Detectors": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectorsSlot.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -352,7 +656,7 @@
           "Diagnostics"
         ],
         "summary": "Get Detector",
-        "description": "Get Detector",
+        "description": "Description for Get Detector",
         "operationId": "Diagnostics_GetSiteDetector",
         "parameters": [
           {
@@ -390,7 +694,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/DiagnosticDetectorCollection"
+              "$ref": "#/definitions/DetectorDefinition"
             }
           },
           "default": {
@@ -400,8 +704,13 @@
             }
           }
         },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
+        "x-ms-examples": {
+          "Get App Detector": {
+            "$ref": "./examples/Diagnostics_GetSiteDetector.json"
+          },
+          "Get App Slot Detector": {
+            "$ref": "./examples/Diagnostics_GetSiteDetectorSlot.json"
+          }
         }
       }
     },
@@ -411,7 +720,7 @@
           "Diagnostics"
         ],
         "summary": "Execute Detector",
-        "description": "Execute Detector",
+        "description": "Description for Execute Detector",
         "operationId": "Diagnostics_ExecuteSiteDetector",
         "parameters": [
           {
@@ -479,6 +788,159 @@
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Execute site detector": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteDetector.json"
+          },
+          "Execute site slot detector": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteDetectorSlot.json"
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/slots/{slot}/detectors": {
+      "get": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "List Site Detector Responses",
+        "description": "Description for List Site Detector Responses",
+        "operationId": "Diagnostics_ListSiteDetectorResponsesSlot",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "Site Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slot",
+            "in": "path",
+            "description": "Slot Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "$ref": "#/parameters/subscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/apiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DetectorResponseCollection"
+            }
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Detector Responses": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectorResponses.json"
+          },
+          "Get App Slot Detector Responses": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectorResponsesSlot.json"
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Web/sites/{siteName}/slots/{slot}/detectors/{detectorName}": {
+      "get": {
+        "tags": [
+          "Diagnostics"
+        ],
+        "summary": "Get site detector response",
+        "description": "Description for Get site detector response",
+        "operationId": "Diagnostics_GetSiteDetectorResponseSlot",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "name": "siteName",
+            "in": "path",
+            "description": "Site Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "detectorName",
+            "in": "path",
+            "description": "Detector Resource Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "slot",
+            "in": "path",
+            "description": "Slot Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "Start Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "End Time",
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "timeGrain",
+            "in": "query",
+            "description": "Time Grain",
+            "type": "string",
+            "pattern": "PT[1-9][0-9]+[SMH]"
+          },
+          {
+            "$ref": "#/parameters/subscriptionIdParameter"
+          },
+          {
+            "$ref": "#/parameters/apiVersionParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DetectorResponse"
+            }
+          },
+          "default": {
+            "description": "App Service error response.",
+            "schema": {
+              "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Detector Response": {
+            "$ref": "./examples/Diagnostics_GetSiteDetectorResponse.json"
+          },
+          "Get App Slot Detector Response": {
+            "$ref": "./examples/Diagnostics_GetSiteDetectorResponseSlot.json"
+          }
         }
       }
     },
@@ -488,7 +950,7 @@
           "Diagnostics"
         ],
         "summary": "Get Diagnostics Categories",
-        "description": "Get Diagnostics Categories",
+        "description": "Description for Get Diagnostics Categories",
         "operationId": "Diagnostics_ListSiteDiagnosticCategoriesSlot",
         "parameters": [
           {
@@ -529,6 +991,14 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List App Diagnostic Categories": {
+            "$ref": "./examples/Diagnostics_ListSiteDiagnosticCategories.json"
+          },
+          "List App Slot Diagnostic Categories": {
+            "$ref": "./examples/Diagnostics_ListSiteDiagnosticCategoriesSlot.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -540,7 +1010,7 @@
           "Diagnostics"
         ],
         "summary": "Get Diagnostics Category",
-        "description": "Get Diagnostics Category",
+        "description": "Description for Get Diagnostics Category",
         "operationId": "Diagnostics_GetSiteDiagnosticCategorySlot",
         "parameters": [
           {
@@ -587,6 +1057,14 @@
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Get App Diagnostic Category": {
+            "$ref": "./examples/Diagnostics_GetSiteDiagnosticCategory.json"
+          },
+          "Get App Slot Diagnostic Category": {
+            "$ref": "./examples/Diagnostics_GetSiteDiagnosticCategorySlot.json"
+          }
         }
       }
     },
@@ -596,7 +1074,7 @@
           "Diagnostics"
         ],
         "summary": "Get Site Analyses",
-        "description": "Get Site Analyses",
+        "description": "Description for Get Site Analyses",
         "operationId": "Diagnostics_ListSiteAnalysesSlot",
         "parameters": [
           {
@@ -644,6 +1122,14 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List App Analyses": {
+            "$ref": "./examples/Diagnostics_ListSiteAnalyses.json"
+          },
+          "List App Slot Analyses": {
+            "$ref": "./examples/Diagnostics_ListSiteAnalysesSlot.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -655,7 +1141,7 @@
           "Diagnostics"
         ],
         "summary": "Get Site Analysis",
-        "description": "Get Site Analysis",
+        "description": "Description for Get Site Analysis",
         "operationId": "Diagnostics_GetSiteAnalysisSlot",
         "parameters": [
           {
@@ -700,7 +1186,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/DiagnosticAnalysis"
+              "$ref": "#/definitions/AnalysisDefinition"
             }
           },
           "default": {
@@ -708,6 +1194,14 @@
             "schema": {
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Get App Analysis": {
+            "$ref": "./examples/Diagnostics_GetSiteAnalysis.json"
+          },
+          "Get App Slot Analysis": {
+            "$ref": "./examples/Diagnostics_GetSiteAnalysisSlot.json"
           }
         }
       }
@@ -718,7 +1212,7 @@
           "Diagnostics"
         ],
         "summary": "Execute Analysis",
-        "description": "Execute Analysis",
+        "description": "Description for Execute Analysis",
         "operationId": "Diagnostics_ExecuteSiteAnalysisSlot",
         "parameters": [
           {
@@ -793,6 +1287,14 @@
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
           }
+        },
+        "x-ms-examples": {
+          "Execute site slot analysis": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteAnalysisSlot.json"
+          },
+          "Execute site analysis": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteAnalysis.json"
+          }
         }
       }
     },
@@ -802,7 +1304,7 @@
           "Diagnostics"
         ],
         "summary": "Get Detectors",
-        "description": "Get Detectors",
+        "description": "Description for Get Detectors",
         "operationId": "Diagnostics_ListSiteDetectorsSlot",
         "parameters": [
           {
@@ -850,6 +1352,14 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List App Detectors": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectors.json"
+          },
+          "List App Slot Detectors": {
+            "$ref": "./examples/Diagnostics_ListSiteDetectorsSlot.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
@@ -861,7 +1371,7 @@
           "Diagnostics"
         ],
         "summary": "Get Detector",
-        "description": "Get Detector",
+        "description": "Description for Get Detector",
         "operationId": "Diagnostics_GetSiteDetectorSlot",
         "parameters": [
           {
@@ -906,7 +1416,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/DiagnosticDetectorCollection"
+              "$ref": "#/definitions/DetectorDefinition"
             }
           },
           "default": {
@@ -916,8 +1426,13 @@
             }
           }
         },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
+        "x-ms-examples": {
+          "Get App Detector": {
+            "$ref": "./examples/Diagnostics_GetSiteDetector.json"
+          },
+          "Get App Slot Detector": {
+            "$ref": "./examples/Diagnostics_GetSiteDetectorSlot.json"
+          }
         }
       }
     },
@@ -927,7 +1442,7 @@
           "Diagnostics"
         ],
         "summary": "Execute Detector",
-        "description": "Execute Detector",
+        "description": "Description for Execute Detector",
         "operationId": "Diagnostics_ExecuteSiteDetectorSlot",
         "parameters": [
           {
@@ -1001,6 +1516,14 @@
             "schema": {
               "$ref": "./CommonDefinitions.json#/definitions/DefaultErrorResponse"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Execute site detector": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteDetector.json"
+          },
+          "Execute site slot detector": {
+            "$ref": "./examples/Diagnostics_ExecuteSiteDetectorSlot.json"
           }
         }
       }
@@ -1099,7 +1622,7 @@
       "type": "object",
       "properties": {
         "instructions": {
-          "description": "Instrunctions if any for the data source",
+          "description": "Instructions if any for the data source",
           "type": "array",
           "items": {
             "type": "string"
@@ -1120,12 +1643,12 @@
       "properties": {
         "startTime": {
           "format": "date-time",
-          "description": "Start time of the corelated event",
+          "description": "Start time of the correlated event",
           "type": "string"
         },
         "endTime": {
           "format": "date-time",
-          "description": "End time of the corelated event",
+          "description": "End time of the correlated event",
           "type": "string"
         },
         "message": {
@@ -1350,7 +1873,7 @@
       }
     },
     "DiagnosticDetectorResponse": {
-      "description": "Class representing Reponse from Diagnostic Detectors",
+      "description": "Class representing Response from Diagnostic Detectors",
       "type": "object",
       "allOf": [
         {
