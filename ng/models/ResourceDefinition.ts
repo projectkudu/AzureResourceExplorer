@@ -10,9 +10,16 @@
     resourceName: string;
     query?: string[];
 
-
-    getGetActions(): string[] {
-        return this.actions.filter(a => (a === "GET" || a === "GETPOST"));
+    getGetAction(): string | undefined {
+        if (this.actions.includes("GET")) {
+            return "GET";
+        } else if (this.actions.includes("GETPOST")) {
+            return "GETPOST";
+        } else if (this.actions.includes("GETLIST")) {
+            return "GETLIST";
+        } else {
+            return undefined;
+        }
     }
 
     hasCreateAction(): boolean {

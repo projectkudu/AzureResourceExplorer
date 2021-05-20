@@ -21,17 +21,17 @@
 
 
     getGetHttpConfig(): ng.IRequestConfig {
-        const getActions = this.resourceDefinition.getGetActions();
+        const getAction = this.resourceDefinition.getGetAction();
         let httpConfig = null;
 
-        if (getActions.length === 1) {
-            const getAction = (getActions[0] === "GETPOST" ? "POST" : "GET");
+        if (getAction !== undefined) {
+            const method = (getAction === "GETPOST" ? "POST" : "GET");
             httpConfig = {
                 method: "POST",
                 url: "api/operations",
                 data: {
-                    Url: (getAction === "POST" ? this.elementUrl + "/list" : this.elementUrl),
-                    HttpMethod: getAction,
+                    Url: (getAction === "GETPOST" || getAction === "GETLIST" ? this.elementUrl + "/list" : this.elementUrl),
+                    HttpMethod: method,
                     ApiVersion: this.resourceDefinition.apiVersion
                 }
             };
@@ -40,10 +40,10 @@
     }
 
     getGetActionUrl(): string {
-        const getActions = this.resourceDefinition.getGetActions();
+        const getAction = this.resourceDefinition.getGetAction();
         let getActionUrl = null;
-        if (getActions.length === 1) {
-            if (getActions[0] === "GETPOST") {
+        if (getAction !== undefined) {
+            if (getAction === "GETPOST" || getAction == "GETLIST") {
                 getActionUrl = this.elementUrl + "/list";
             } else {
                 getActionUrl = this.elementUrl;
