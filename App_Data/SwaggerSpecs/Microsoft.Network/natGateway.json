@@ -34,13 +34,13 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPPrefixes/{publicIpPrefixName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/natGateways/{natGatewayName}": {
       "delete": {
         "tags": [
-          "PublicIPPrefixes"
+          "NatGateways"
         ],
-        "operationId": "PublicIPPrefixes_Delete",
-        "description": "Deletes the specified public IP prefix.",
+        "operationId": "NatGateways_Delete",
+        "description": "Deletes the specified nat gateway.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -50,11 +50,11 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "publicIpPrefixName",
+            "name": "natGatewayName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the PublicIpPrefix."
+            "description": "The name of the nat gateway."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -81,8 +81,8 @@
           }
         },
         "x-ms-examples": {
-          "Delete public IP prefix": {
-            "$ref": "./examples/PublicIpPrefixDelete.json"
+          "Delete nat gateway": {
+            "$ref": "./examples/NatGatewayDelete.json"
           }
         },
         "x-ms-long-running-operation": true,
@@ -92,10 +92,10 @@
       },
       "get": {
         "tags": [
-          "PublicIPPrefixes"
+          "NatGateways"
         ],
-        "operationId": "PublicIPPrefixes_Get",
-        "description": "Gets the specified public IP prefix in a specified resource group.",
+        "operationId": "NatGateways_Get",
+        "description": "Gets the specified nat gateway in a specified resource group.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -105,11 +105,11 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "publicIpPrefixName",
+            "name": "natGatewayName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the public IP prefix."
+            "description": "The name of the nat gateway."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -127,9 +127,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns the resulting PublicIPPrefix resource.",
+            "description": "Request successful. The operation returns the resulting NatGateway resource.",
             "schema": {
-              "$ref": "#/definitions/PublicIPPrefix"
+              "$ref": "#/definitions/NatGateway"
             }
           },
           "default": {
@@ -140,17 +140,17 @@
           }
         },
         "x-ms-examples": {
-          "Get public IP prefix": {
-            "$ref": "./examples/PublicIpPrefixGet.json"
+          "Get nat gateway": {
+            "$ref": "./examples/NatGatewayGet.json"
           }
         }
       },
       "put": {
         "tags": [
-          "PublicIPPrefixes"
+          "NatGateways"
         ],
-        "operationId": "PublicIPPrefixes_CreateOrUpdate",
-        "description": "Creates or updates a static or dynamic public IP prefix.",
+        "operationId": "NatGateways_CreateOrUpdate",
+        "description": "Creates or updates a nat gateway.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -160,20 +160,20 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "publicIpPrefixName",
+            "name": "natGatewayName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the public IP prefix."
+            "description": "The name of the nat gateway."
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/PublicIPPrefix"
+              "$ref": "#/definitions/NatGateway"
             },
-            "description": "Parameters supplied to the create or update public IP prefix operation."
+            "description": "Parameters supplied to the create or update nat gateway operation."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -184,16 +184,19 @@
         ],
         "responses": {
           "201": {
-            "description": "Create successful. The operation returns the resulting PublicIPPrefix resource.",
+            "description": "Create successful. The operation returns the resulting NatGateway resource.",
             "schema": {
-              "$ref": "#/definitions/PublicIPPrefix"
+              "$ref": "#/definitions/NatGateway"
             }
           },
           "200": {
-            "description": "Update successful. The operation returns the resulting PublicIPPrefix resource.",
+            "description": "Update successful. The operation returns the resulting NatGateway resource.",
             "schema": {
-              "$ref": "#/definitions/PublicIPPrefix"
+              "$ref": "#/definitions/NatGateway"
             }
+          },
+          "202": {
+            "description": "Accepted and the operation will complete asynchronously."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -203,24 +206,21 @@
           }
         },
         "x-ms-examples": {
-          "Create public IP prefix defaults": {
-            "$ref": "./examples/PublicIpPrefixCreateDefaults.json"
-          },
-          "Create public IP prefix allocation method": {
-            "$ref": "./examples/PublicIpPrefixCreateCustomizedValues.json"
+          "Create nat gateway": {
+            "$ref": "./examples/NatGatewayCreateOrUpdate.json"
           }
         },
         "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
-          "final-state-via": "location"
+          "final-state-via": "azure-async-operation"
         }
       },
       "patch": {
         "tags": [
-          "PublicIPPrefixes"
+          "NatGateways"
         ],
-        "operationId": "PublicIPPrefixes_UpdateTags",
-        "description": "Updates public IP prefix tags.",
+        "operationId": "NatGateways_UpdateTags",
+        "description": "Updates nat gateway tags.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -230,11 +230,11 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "publicIpPrefixName",
+            "name": "natGatewayName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the public IP prefix."
+            "description": "The name of the nat gateway."
           },
           {
             "name": "parameters",
@@ -243,7 +243,7 @@
             "schema": {
               "$ref": "./network.json#/definitions/TagsObject"
             },
-            "description": "Parameters supplied to update public IP prefix tags."
+            "description": "Parameters supplied to update nat gateway tags."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -254,9 +254,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Update successful. The operation returns the resulting PublicIPPrefix resource.",
+            "description": "Update successful. The operation returns the resulting NatGateway resource.",
             "schema": {
-              "$ref": "#/definitions/PublicIPPrefix"
+              "$ref": "#/definitions/NatGateway"
             }
           },
           "default": {
@@ -267,19 +267,19 @@
           }
         },
         "x-ms-examples": {
-          "Update public IP prefix tags": {
-            "$ref": "./examples/PublicIpPrefixUpdateTags.json"
+          "Update nat gateway tags": {
+            "$ref": "./examples/NatGatewayUpdateTags.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/publicIPPrefixes": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/natGateways": {
       "get": {
         "tags": [
-          "PublicIPPrefixes"
+          "NatGateways"
         ],
-        "operationId": "PublicIPPrefixes_ListAll",
-        "description": "Gets all the public IP prefixes in a subscription.",
+        "operationId": "NatGateways_ListAll",
+        "description": "Gets all the Nat Gateways in a subscription.",
         "parameters": [
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -290,9 +290,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns a list of PublicIPPrefix resources.",
+            "description": "Request successful. The operation returns a list of NatGateway resources.",
             "schema": {
-              "$ref": "#/definitions/PublicIPPrefixListResult"
+              "$ref": "#/definitions/NatGatewayListResult"
             }
           },
           "default": {
@@ -303,8 +303,8 @@
           }
         },
         "x-ms-examples": {
-          "List all public IP prefixes": {
-            "$ref": "./examples/PublicIpPrefixListAll.json"
+          "List all nat gateways": {
+            "$ref": "./examples/NatGatewayListAll.json"
           }
         },
         "x-ms-pageable": {
@@ -312,13 +312,13 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/publicIPPrefixes": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/natGateways": {
       "get": {
         "tags": [
-          "PublicIPPrefixes"
+          "NatGateways"
         ],
-        "operationId": "PublicIPPrefixes_List",
-        "description": "Gets all public IP prefixes in a resource group.",
+        "operationId": "NatGateways_List",
+        "description": "Gets all nat gateways in a resource group.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -336,9 +336,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns a list of PublicIPPrefix resources.",
+            "description": "Request successful. The operation returns a list of NatGateway resources.",
             "schema": {
-              "$ref": "#/definitions/PublicIPPrefixListResult"
+              "$ref": "#/definitions/NatGatewayListResult"
             }
           },
           "default": {
@@ -349,8 +349,8 @@
           }
         },
         "x-ms-examples": {
-          "List resource group public IP prefixes": {
-            "$ref": "./examples/PublicIpPrefixList.json"
+          "List nat gateways in resource group": {
+            "$ref": "./examples/NatGatewayList.json"
           }
         },
         "x-ms-pageable": {
@@ -360,117 +360,86 @@
     }
   },
   "definitions": {
-    "PublicIPPrefixSku": {
+    "NatGatewaySku": {
       "properties": {
         "name": {
           "type": "string",
-          "description": "Name of a public IP prefix SKU.",
+          "description": "Name of Nat Gateway SKU.",
           "enum": [
             "Standard"
           ],
           "x-ms-enum": {
-            "name": "PublicIPPrefixSkuName",
-            "modelAsString": true
-          }
-        },
-        "tier": {
-          "type": "string",
-          "description": "Tier of a public IP prefix SKU.",
-          "enum": [
-            "Regional",
-            "Global"
-          ],
-          "x-ms-enum": {
-            "name": "PublicIPPrefixSkuTier",
+            "name": "NatGatewaySkuName",
             "modelAsString": true
           }
         }
       },
-      "description": "SKU of a public IP prefix."
+      "description": "SKU of nat gateway."
     },
-    "PublicIPPrefixPropertiesFormat": {
+    "NatGatewayPropertiesFormat": {
       "properties": {
-        "publicIPAddressVersion": {
-          "$ref": "./network.json#/definitions/IPVersion",
-          "description": "The public IP address version."
-        },
-        "ipTags": {
-          "type": "array",
-          "items": {
-            "$ref": "./publicIpAddress.json#/definitions/IpTag"
-          },
-          "description": "The list of tags associated with the public IP prefix."
-        },
-        "prefixLength": {
+        "idleTimeoutInMinutes": {
           "type": "integer",
           "format": "int32",
-          "description": "The Length of the Public IP Prefix."
+          "description": "The idle timeout of the nat gateway."
         },
-        "ipPrefix": {
-          "readOnly": true,
-          "type": "string",
-          "description": "The allocated Prefix."
+        "publicIpAddresses": {
+          "type": "array",
+          "items": {
+            "$ref": "./network.json#/definitions/SubResource"
+          },
+          "description": "An array of public ip addresses associated with the nat gateway resource."
         },
-        "publicIPAddresses": {
+        "publicIpPrefixes": {
+          "type": "array",
+          "items": {
+            "$ref": "./network.json#/definitions/SubResource"
+          },
+          "description": "An array of public ip prefixes associated with the nat gateway resource."
+        },
+        "subnets": {
           "readOnly": true,
           "type": "array",
           "items": {
-            "$ref": "#/definitions/ReferencedPublicIpAddress"
+            "$ref": "./network.json#/definitions/SubResource"
           },
-          "description": "The list of all referenced PublicIPAddresses."
-        },
-        "loadBalancerFrontendIpConfiguration": {
-          "readOnly": true,
-          "$ref": "./network.json#/definitions/SubResource",
-          "description": "The reference to load balancer frontend IP configuration associated with the public IP prefix."
-        },
-        "customIPPrefix": {
-          "$ref": "./network.json#/definitions/SubResource",
-          "description": "The customIpPrefix that this prefix is associated with."
+          "description": "An array of references to the subnets using this nat gateway resource."
         },
         "resourceGuid": {
           "readOnly": true,
           "type": "string",
-          "description": "The resource GUID property of the public IP prefix resource."
+          "description": "The resource GUID property of the NAT gateway resource."
         },
         "provisioningState": {
           "readOnly": true,
           "$ref": "./network.json#/definitions/ProvisioningState",
-          "description": "The provisioning state of the public IP prefix resource."
-        },
-        "natGateway": {
-          "$ref": "./natGateway.json#/definitions/NatGateway",
-          "description": "NatGateway of Public IP Prefix."
+          "description": "The provisioning state of the NAT gateway resource."
         }
       },
-      "description": "Public IP prefix properties."
+      "description": "Nat Gateway properties."
     },
-    "PublicIPPrefix": {
+    "NatGateway": {
       "properties": {
-        "extendedLocation": {
-          "$ref": "./network.json#/definitions/ExtendedLocation",
-          "description": "The extended location of the public ip address."
-        },
         "sku": {
-          "$ref": "#/definitions/PublicIPPrefixSku",
-          "description": "The public IP prefix SKU."
+          "$ref": "#/definitions/NatGatewaySku",
+          "description": "The nat gateway SKU."
         },
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/PublicIPPrefixPropertiesFormat",
-          "description": "Public IP prefix properties."
-        },
-        "etag": {
-          "readOnly": true,
-          "type": "string",
-          "description": "A unique read-only string that changes whenever the resource is updated."
+          "$ref": "#/definitions/NatGatewayPropertiesFormat",
+          "description": "Nat Gateway properties."
         },
         "zones": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "A list of availability zones denoting the IP allocated for the resource needs to come from."
+          "description": "A list of availability zones denoting the zone in which Nat Gateway should be deployed."
+        },
+        "etag": {
+          "readOnly": true,
+          "type": "string",
+          "description": "A unique read-only string that changes whenever the resource is updated."
         }
       },
       "allOf": [
@@ -478,32 +447,23 @@
           "$ref": "./network.json#/definitions/Resource"
         }
       ],
-      "description": "Public IP prefix resource."
+      "description": "Nat Gateway resource."
     },
-    "PublicIPPrefixListResult": {
+    "NatGatewayListResult": {
       "properties": {
         "value": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/PublicIPPrefix"
+            "$ref": "#/definitions/NatGateway"
           },
-          "description": "A list of public IP prefixes that exists in a resource group."
+          "description": "A list of Nat Gateways that exists in a resource group."
         },
         "nextLink": {
           "type": "string",
           "description": "The URL to get the next set of results."
         }
       },
-      "description": "Response for ListPublicIpPrefixes API service call."
-    },
-    "ReferencedPublicIpAddress": {
-      "properties": {
-        "id": {
-          "type": "string",
-          "description": "The PublicIPAddress Reference."
-        }
-      },
-      "description": "Reference to a public IP address."
+      "description": "Response for ListNatGateways API service call."
     }
   }
 }

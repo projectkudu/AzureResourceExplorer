@@ -34,13 +34,13 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkTaps/{tapName}": {
       "delete": {
         "tags": [
-          "DdosProtectionPlans"
+          "VirtualNetworkTap"
         ],
-        "operationId": "DdosProtectionPlans_Delete",
-        "description": "Deletes the specified DDoS protection plan.",
+        "operationId": "VirtualNetworkTaps_Delete",
+        "description": "Deletes the specified virtual network tap.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -50,11 +50,11 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "ddosProtectionPlanName",
+            "name": "tapName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the DDoS protection plan."
+            "description": "The name of the virtual network tap."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -64,38 +64,38 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "Request successful. Resource does not exist."
-          },
-          "202": {
-            "description": "Accepted and the operation will complete asynchronously."
-          },
           "200": {
             "description": "Delete successful."
+          },
+          "202": {
+            "description": "Accepted. Sets 'Deleting' provisioningState until the operation completes. Returns an operation URI that can be queried to find the current state of the operation."
+          },
+          "204": {
+            "description": "Request successful. Resource does not exist."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
               "$ref": "./network.json#/definitions/CloudError"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Delete Virtual Network Tap resource": {
+            "$ref": "./examples/VirtualNetworkTapDelete.json"
           }
         },
         "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "location"
-        },
-        "x-ms-examples": {
-          "Delete DDoS protection plan": {
-            "$ref": "./examples/DdosProtectionPlanDelete.json"
-          }
         }
       },
       "get": {
         "tags": [
-          "DdosProtectionPlans"
+          "VirtualNetworkTap"
         ],
-        "operationId": "DdosProtectionPlans_Get",
-        "description": "Gets information about the specified DDoS protection plan.",
+        "operationId": "VirtualNetworkTaps_Get",
+        "description": "Gets information about the specified virtual network tap.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -105,11 +105,11 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "ddosProtectionPlanName",
+            "name": "tapName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the DDoS protection plan."
+            "description": "The name of virtual network tap."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -120,9 +120,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns the specified DDoS protection plan resource.",
+            "description": "Request successful. The operation returns the resulting VirtualNetworkTap resource.",
             "schema": {
-              "$ref": "#/definitions/DdosProtectionPlan"
+              "$ref": "#/definitions/VirtualNetworkTap"
             }
           },
           "default": {
@@ -133,17 +133,17 @@
           }
         },
         "x-ms-examples": {
-          "Get DDoS protection plan": {
-            "$ref": "./examples/DdosProtectionPlanGet.json"
+          "Get Virtual Network Tap": {
+            "$ref": "./examples/VirtualNetworkTapGet.json"
           }
         }
       },
       "put": {
         "tags": [
-          "DdosProtectionPlans"
+          "VirtualNetworkTap"
         ],
-        "operationId": "DdosProtectionPlans_CreateOrUpdate",
-        "description": "Creates or updates a DDoS protection plan.",
+        "operationId": "VirtualNetworkTaps_CreateOrUpdate",
+        "description": "Creates or updates a Virtual Network Tap.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -153,20 +153,20 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "ddosProtectionPlanName",
+            "name": "tapName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the DDoS protection plan."
+            "description": "The name of the virtual network tap."
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/DdosProtectionPlan"
+              "$ref": "#/definitions/VirtualNetworkTap"
             },
-            "description": "Parameters supplied to the create or update operation."
+            "description": "Parameters supplied to the create or update virtual network tap operation."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -176,16 +176,16 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Create successful. The operation returns the resulting DDoS protection plan resource.",
+          "200": {
+            "description": "Update successful. The operation returns the resulting VirtualNetworkTap resource.",
             "schema": {
-              "$ref": "#/definitions/DdosProtectionPlan"
+              "$ref": "#/definitions/VirtualNetworkTap"
             }
           },
-          "200": {
-            "description": "Update successful. The operation returns the resulting DDoS protection plan resource.",
+          "201": {
+            "description": "Create successful. The operation returns the resulting VirtualNetworkTap resource.",
             "schema": {
-              "$ref": "#/definitions/DdosProtectionPlan"
+              "$ref": "#/definitions/VirtualNetworkTap"
             }
           },
           "default": {
@@ -193,24 +193,24 @@
             "schema": {
               "$ref": "./network.json#/definitions/CloudError"
             }
+          }
+        },
+        "x-ms-examples": {
+          "Create Virtual Network Tap": {
+            "$ref": "./examples/VirtualNetworkTapCreate.json"
           }
         },
         "x-ms-long-running-operation": true,
         "x-ms-long-running-operation-options": {
           "final-state-via": "azure-async-operation"
-        },
-        "x-ms-examples": {
-          "Create DDoS protection plan": {
-            "$ref": "./examples/DdosProtectionPlanCreate.json"
-          }
         }
       },
       "patch": {
         "tags": [
-          "DdosProtectionPlans"
+          "VirtualNetworkTap"
         ],
-        "operationId": "DdosProtectionPlans_UpdateTags",
-        "description": "Update a DDoS protection plan tags.",
+        "operationId": "VirtualNetworkTaps_UpdateTags",
+        "description": "Updates an VirtualNetworkTap tags.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -220,20 +220,20 @@
             "description": "The name of the resource group."
           },
           {
-            "name": "ddosProtectionPlanName",
+            "name": "tapName",
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the DDoS protection plan."
+            "description": "The name of the tap."
           },
           {
-            "name": "parameters",
+            "name": "tapParameters",
             "in": "body",
             "required": true,
             "schema": {
               "$ref": "./network.json#/definitions/TagsObject"
             },
-            "description": "Parameters supplied to the update DDoS protection plan resource tags."
+            "description": "Parameters supplied to update VirtualNetworkTap tags."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -244,9 +244,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Update successful. The operation returns the resulting DDoS protection plan resource.",
+            "description": "Update successful. The operation returns the resulting VirtualNetworkTap resource.",
             "schema": {
-              "$ref": "#/definitions/DdosProtectionPlan"
+              "$ref": "#/definitions/VirtualNetworkTap"
             }
           },
           "default": {
@@ -257,19 +257,19 @@
           }
         },
         "x-ms-examples": {
-          "DDoS protection plan Update tags": {
-            "$ref": "./examples/DdosProtectionPlanUpdateTags.json"
+          "Update virtual network tap tags": {
+            "$ref": "./examples/VirtualNetworkTapUpdateTags.json"
           }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/ddosProtectionPlans": {
+    "/subscriptions/{subscriptionId}/providers/Microsoft.Network/virtualNetworkTaps": {
       "get": {
         "tags": [
-          "DdosProtectionPlans"
+          "VirtualNetworkTaps"
         ],
-        "operationId": "DdosProtectionPlans_List",
-        "description": "Gets all DDoS protection plans in a subscription.",
+        "operationId": "VirtualNetworkTaps_ListAll",
+        "description": "Gets all the VirtualNetworkTaps in a subscription.",
         "parameters": [
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -280,9 +280,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns a list of DDoS protection plan resources.",
+            "description": "Request successful. The operation returns a list of Virtual Network Tap resources.",
             "schema": {
-              "$ref": "#/definitions/DdosProtectionPlanListResult"
+              "$ref": "#/definitions/VirtualNetworkTapListResult"
             }
           },
           "default": {
@@ -292,23 +292,23 @@
             }
           }
         },
+        "x-ms-examples": {
+          "List all virtual network taps": {
+            "$ref": "./examples/VirtualNetworkTapListAll.json"
+          }
+        },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-examples": {
-          "List all DDoS protection plans": {
-            "$ref": "./examples/DdosProtectionPlanListAll.json"
-          }
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/virtualNetworkTaps": {
       "get": {
         "tags": [
-          "DdosProtectionPlans"
+          "VirtualNetworkTaps"
         ],
-        "operationId": "DdosProtectionPlans_ListByResourceGroup",
-        "description": "Gets all the DDoS protection plans in a resource group.",
+        "operationId": "VirtualNetworkTaps_ListByResourceGroup",
+        "description": "Gets all the VirtualNetworkTaps in a subscription.",
         "parameters": [
           {
             "name": "resourceGroupName",
@@ -326,9 +326,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Request successful. The operation returns a list of DDoS protection plan resources.",
+            "description": "Request successful. The operation returns a list of Virtual Network Tap resources.",
             "schema": {
-              "$ref": "#/definitions/DdosProtectionPlanListResult"
+              "$ref": "#/definitions/VirtualNetworkTapListResult"
             }
           },
           "default": {
@@ -339,8 +339,8 @@
           }
         },
         "x-ms-examples": {
-          "List DDoS protection plans in resource group": {
-            "$ref": "./examples/DdosProtectionPlanList.json"
+          "List virtual network taps in resource group": {
+            "$ref": "./examples/VirtualNetworkTapList.json"
           }
         },
         "x-ms-pageable": {
@@ -350,87 +350,77 @@
     }
   },
   "definitions": {
-    "DdosProtectionPlan": {
-      "description": "A DDoS protection plan in a resource group.",
-      "x-ms-azure-resource": true,
+    "VirtualNetworkTap": {
       "properties": {
-        "id": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Resource ID."
-        },
-        "name": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Resource name."
-        },
-        "type": {
-          "readOnly": true,
-          "type": "string",
-          "description": "Resource type."
-        },
-        "location": {
-          "type": "string",
-          "description": "Resource location."
-        },
-        "tags": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          },
-          "description": "Resource tags."
-        },
         "properties": {
           "x-ms-client-flatten": true,
-          "$ref": "#/definitions/DdosProtectionPlanPropertiesFormat",
-          "description": "Properties of the DDoS protection plan."
+          "$ref": "#/definitions/VirtualNetworkTapPropertiesFormat",
+          "description": "Virtual Network Tap Properties."
         },
         "etag": {
           "readOnly": true,
           "type": "string",
           "description": "A unique read-only string that changes whenever the resource is updated."
         }
-      }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/Resource"
+        }
+      ],
+      "description": "Virtual Network Tap resource."
     },
-    "DdosProtectionPlanPropertiesFormat": {
+    "VirtualNetworkTapPropertiesFormat": {
+      "description": "Virtual Network Tap properties.",
       "properties": {
-        "resourceGuid": {
+        "networkInterfaceTapConfigurations": {
           "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "./networkInterface.json#/definitions/NetworkInterfaceTapConfiguration",
+            "description": "The reference to the Network Interface."
+          },
+          "description": "Specifies the list of resource IDs for the network interface IP configuration that needs to be tapped."
+        },
+        "resourceGuid": {
           "type": "string",
-          "description": "The resource GUID property of the DDoS protection plan resource. It uniquely identifies the resource, even if the user changes its name or migrate the resource across subscriptions or resource groups."
+          "readOnly": true,
+          "description": "The resource GUID property of the virtual network tap resource."
         },
         "provisioningState": {
           "readOnly": true,
           "$ref": "./network.json#/definitions/ProvisioningState",
-          "description": "The provisioning state of the DDoS protection plan resource."
+          "description": "The provisioning state of the virtual network tap resource."
         },
-        "virtualNetworks": {
-          "readOnly": true,
-          "type": "array",
-          "items": {
-            "$ref": "./network.json#/definitions/SubResource"
-          },
-          "description": "The list of virtual networks associated with the DDoS protection plan resource. This list is read-only."
+        "destinationNetworkInterfaceIPConfiguration": {
+          "$ref": "./networkInterface.json#/definitions/NetworkInterfaceIPConfiguration",
+          "description": "The reference to the private IP Address of the collector nic that will receive the tap."
+        },
+        "destinationLoadBalancerFrontEndIPConfiguration": {
+          "$ref": "./loadBalancer.json#/definitions/FrontendIPConfiguration",
+          "description": "The reference to the private IP address on the internal Load Balancer that will receive the tap."
+        },
+        "destinationPort": {
+          "type": "integer",
+          "description": "The VXLAN destination port that will receive the tapped traffic."
         }
-      },
-      "description": "DDoS protection plan properties."
+      }
     },
-    "DdosProtectionPlanListResult": {
+    "VirtualNetworkTapListResult": {
       "properties": {
         "value": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/DdosProtectionPlan"
+            "$ref": "#/definitions/VirtualNetworkTap"
           },
-          "description": "A list of DDoS protection plans."
+          "description": "A list of VirtualNetworkTaps in a resource group."
         },
         "nextLink": {
-          "readOnly": true,
           "type": "string",
           "description": "The URL to get the next set of results."
         }
       },
-      "description": "A list of DDoS protection plans."
+      "description": "Response for ListVirtualNetworkTap API service call."
     }
   }
 }

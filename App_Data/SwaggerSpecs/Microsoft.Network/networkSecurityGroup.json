@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-07-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -72,12 +72,23 @@
           },
           "204": {
             "description": "Request successful. Resource does not exist."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Delete network security group": { "$ref": "./examples/NetworkSecurityGroupDelete.json" }
+          "Delete network security group": {
+            "$ref": "./examples/NetworkSecurityGroupDelete.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
       },
       "get": {
         "tags": [
@@ -120,10 +131,18 @@
             "schema": {
               "$ref": "#/definitions/NetworkSecurityGroup"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get network security group": { "$ref": "./examples/NetworkSecurityGroupGet.json" }
+          "Get network security group": {
+            "$ref": "./examples/NetworkSecurityGroupGet.json"
+          }
         }
       },
       "put": {
@@ -175,13 +194,26 @@
             "schema": {
               "$ref": "#/definitions/NetworkSecurityGroup"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Create network security group": { "$ref": "./examples/NetworkSecurityGroupCreate.json" },
-          "Create network security group with rule": { "$ref": "./examples/NetworkSecurityGroupCreateWithRule.json" }
+          "Create network security group": {
+            "$ref": "./examples/NetworkSecurityGroupCreate.json"
+          },
+          "Create network security group with rule": {
+            "$ref": "./examples/NetworkSecurityGroupCreateWithRule.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        }
       },
       "patch": {
         "tags": [
@@ -226,12 +258,19 @@
             "schema": {
               "$ref": "#/definitions/NetworkSecurityGroup"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Update network security group tags": { "$ref": "./examples/NetworkSecurityGroupUpdateTags.json" }
-        },
-        "x-ms-long-running-operation": true
+          "Update network security group tags": {
+            "$ref": "./examples/NetworkSecurityGroupUpdateTags.json"
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Network/networkSecurityGroups": {
@@ -255,10 +294,18 @@
             "schema": {
               "$ref": "#/definitions/NetworkSecurityGroupListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List all network security groups": { "$ref": "./examples/NetworkSecurityGroupListAll.json" }
+          "List all network security groups": {
+            "$ref": "./examples/NetworkSecurityGroupListAll.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -293,10 +340,18 @@
             "schema": {
               "$ref": "#/definitions/NetworkSecurityGroupListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List network security groups in resource group": { "$ref": "./examples/NetworkSecurityGroupList.json" }
+          "List network security groups in resource group": {
+            "$ref": "./examples/NetworkSecurityGroupList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -348,12 +403,23 @@
           },
           "200": {
             "description": "Delete successful."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Delete network security rule from network security group": { "$ref": "./examples/NetworkSecurityGroupRuleDelete.json" }
+          "Delete network security rule from network security group": {
+            "$ref": "./examples/NetworkSecurityGroupRuleDelete.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
       },
       "get": {
         "tags": [
@@ -396,10 +462,18 @@
             "schema": {
               "$ref": "#/definitions/SecurityRule"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get network security rule in network security group": { "$ref": "./examples/NetworkSecurityGroupRuleGet.json" }
+          "Get network security rule in network security group": {
+            "$ref": "./examples/NetworkSecurityGroupRuleGet.json"
+          }
         }
       },
       "put": {
@@ -458,12 +532,23 @@
             "schema": {
               "$ref": "#/definitions/SecurityRule"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Create security rule": { "$ref": "./examples/NetworkSecurityGroupRuleCreate.json" }
+          "Create security rule": {
+            "$ref": "./examples/NetworkSecurityGroupRuleCreate.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkSecurityGroups/{networkSecurityGroupName}/securityRules": {
@@ -501,10 +586,18 @@
             "schema": {
               "$ref": "#/definitions/SecurityRuleListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List network security rules in network security group": { "$ref": "./examples/NetworkSecurityGroupRuleList.json" }
+          "List network security rules in network security group": {
+            "$ref": "./examples/NetworkSecurityGroupRuleList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -546,17 +639,25 @@
             "schema": {
               "$ref": "#/definitions/SecurityRuleListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "DefaultSecurityRuleList": { "$ref": "./examples/DefaultSecurityRuleList.json" }
+          "DefaultSecurityRuleList": {
+            "$ref": "./examples/DefaultSecurityRuleList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkSecurityGroups/{networkSecurityGroupName}/defaultSecurityRules/{defaultSecurityRuleName}" : {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/networkSecurityGroups/{networkSecurityGroupName}/defaultSecurityRules/{defaultSecurityRuleName}": {
       "get": {
         "tags": [
           "SecurityRules"
@@ -598,10 +699,18 @@
             "schema": {
               "$ref": "#/definitions/SecurityRule"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "DefaultSecurityRuleGet": { "$ref": "./examples/DefaultSecurityRuleGet.json" }
+          "DefaultSecurityRuleGet": {
+            "$ref": "./examples/DefaultSecurityRuleGet.json"
+          }
         }
       }
     }
@@ -615,11 +724,14 @@
         },
         "protocol": {
           "type": "string",
-          "description": "Network protocol this rule applies to. Possible values are 'Tcp', 'Udp', and '*'.",
+          "description": "Network protocol this rule applies to.",
           "enum": [
             "Tcp",
             "Udp",
-            "*"
+            "Icmp",
+            "Esp",
+            "*",
+            "Ah"
           ],
           "x-ms-enum": {
             "name": "SecurityRuleProtocol",
@@ -628,15 +740,15 @@
         },
         "sourcePortRange": {
           "type": "string",
-          "description": "The source port or range. Integer or range between 0 and 65535. Asterix '*' can also be used to match all ports."
+          "description": "The source port or range. Integer or range between 0 and 65535. Asterisk '*' can also be used to match all ports."
         },
         "destinationPortRange": {
           "type": "string",
-          "description": "The destination port or range. Integer or range between 0 and 65535. Asterix '*' can also be used to match all ports."
+          "description": "The destination port or range. Integer or range between 0 and 65535. Asterisk '*' can also be used to match all ports."
         },
         "sourceAddressPrefix": {
           "type": "string",
-          "description": "The CIDR or source IP range. Asterix '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress rule, specifies where network traffic originates from. "
+          "description": "The CIDR or source IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used. If this is an ingress rule, specifies where network traffic originates from."
         },
         "sourceAddressPrefixes": {
           "type": "array",
@@ -654,7 +766,7 @@
         },
         "destinationAddressPrefix": {
           "type": "string",
-          "description": "The destination address prefix. CIDR or destination IP range. Asterix '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used."
+          "description": "The destination address prefix. CIDR or destination IP range. Asterisk '*' can also be used to match all source IPs. Default tags such as 'VirtualNetwork', 'AzureLoadBalancer' and 'Internet' can also be used."
         },
         "destinationAddressPrefixes": {
           "type": "array",
@@ -687,16 +799,8 @@
           "description": "The destination port ranges."
         },
         "access": {
-          "type": "string",
-          "description": "The network traffic is allowed or denied. Possible values are: 'Allow' and 'Deny'.",
-          "enum": [
-            "Allow",
-            "Deny"
-          ],
-          "x-ms-enum": {
-            "name": "SecurityRuleAccess",
-            "modelAsString": true
-          }
+          "$ref": "#/definitions/SecurityRuleAccess",
+          "description": "The network traffic is allowed or denied."
         },
         "priority": {
           "type": "integer",
@@ -704,20 +808,13 @@
           "description": "The priority of the rule. The value can be between 100 and 4096. The priority number must be unique for each rule in the collection. The lower the priority number, the higher the priority of the rule."
         },
         "direction": {
-          "type": "string",
-          "description": "The direction of the rule. The direction specifies if rule will be evaluated on incoming or outcoming traffic. Possible values are: 'Inbound' and 'Outbound'.",
-          "enum": [
-            "Inbound",
-            "Outbound"
-          ],
-          "x-ms-enum": {
-            "name": "SecurityRuleDirection",
-            "modelAsString": true
-          }
+          "$ref": "#/definitions/SecurityRuleDirection",
+          "description": "The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic."
         },
         "provisioningState": {
-          "type": "string",
-          "description": "The provisioning state of the public IP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the security rule resource."
         }
       },
       "required": [
@@ -732,15 +829,20 @@
         "properties": {
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/SecurityRulePropertiesFormat",
-          "description": "Properties of the security rule"
+          "description": "Properties of the security rule."
         },
         "name": {
           "type": "string",
           "description": "The name of the resource that is unique within a resource group. This name can be used to access the resource."
         },
         "etag": {
+          "readOnly": true,
           "type": "string",
           "description": "A unique read-only string that changes whenever the resource is updated."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource."
         }
       },
       "allOf": [
@@ -776,6 +878,7 @@
           "description": "A collection of security rules of the network security group."
         },
         "defaultSecurityRules": {
+          "readOnly": true,
           "type": "array",
           "items": {
             "$ref": "#/definitions/SecurityRule"
@@ -798,13 +901,23 @@
           },
           "description": "A collection of references to subnets."
         },
+        "flowLogs": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "./networkWatcher.json#/definitions/FlowLog"
+          },
+          "description": "A collection of references to flow log resources."
+        },
         "resourceGuid": {
+          "readOnly": true,
           "type": "string",
           "description": "The resource GUID property of the network security group resource."
         },
         "provisioningState": {
-          "type": "string",
-          "description": "The provisioning state of the public IP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the network security group resource."
         }
       },
       "description": "Network Security Group resource."
@@ -814,9 +927,10 @@
         "properties": {
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/NetworkSecurityGroupPropertiesFormat",
-          "description": "Properties of the network security group"
+          "description": "Properties of the network security group."
         },
         "etag": {
+          "readOnly": true,
           "type": "string",
           "description": "A unique read-only string that changes whenever the resource is updated."
         }
@@ -843,6 +957,30 @@
         }
       },
       "description": "Response for ListNetworkSecurityGroups API service call."
+    },
+    "SecurityRuleAccess": {
+      "type": "string",
+      "description": "Whether network traffic is allowed or denied.",
+      "enum": [
+        "Allow",
+        "Deny"
+      ],
+      "x-ms-enum": {
+        "name": "SecurityRuleAccess",
+        "modelAsString": true
+      }
+    },
+    "SecurityRuleDirection": {
+      "type": "string",
+      "description": "The direction of the rule. The direction specifies if rule will be evaluated on incoming or outgoing traffic.",
+      "enum": [
+        "Inbound",
+        "Outbound"
+      ],
+      "x-ms-enum": {
+        "name": "SecurityRuleDirection",
+        "modelAsString": true
+      }
     }
   }
 }

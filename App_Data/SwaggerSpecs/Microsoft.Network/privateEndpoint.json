@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2020-05-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -333,7 +333,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-                "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -383,7 +383,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -446,7 +446,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -505,7 +505,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -575,7 +575,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -644,341 +644,328 @@
       }
     }
   },
-    "definitions": {
-        "PrivateEndpoint": {
-            "properties": {
-                "properties": {
-                    "x-ms-client-flatten": true,
-                    "$ref": "#/definitions/PrivateEndpointProperties",
-                    "description": "Properties of the private endpoint."
-                },
-                "etag": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "A unique read-only string that changes whenever the resource is updated."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "./network.json#/definitions/Resource"
-                }
-            ],
-            "description": "Private endpoint resource."
+  "definitions": {
+    "PrivateEndpoint": {
+      "properties": {
+        "extendedLocation": {
+          "$ref": "./network.json#/definitions/ExtendedLocation",
+          "description": "The extended location of the load balancer."
         },
-        "PrivateEndpointProperties": {
-            "properties": {
-                "subnet": {
-                    "$ref": "./virtualNetwork.json#/definitions/Subnet",
-                    "description": "The ID of the subnet from which the private IP will be allocated."
-                },
-                "networkInterfaces": {
-                    "type": "array",
-                    "readOnly": true,
-                    "items": {
-                        "$ref": "./networkInterface.json#/definitions/NetworkInterface"
-                    },
-                    "description": "An array of references to the network interfaces created for this private endpoint."
-                },
-                "provisioningState": {
-                    "readOnly": true,
-                    "$ref": "./network.json#/definitions/ProvisioningState",
-                    "description": "The provisioning state of the private endpoint resource."
-                },
-                "privateLinkServiceConnections": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateLinkServiceConnection"
-                    },
-                    "description": "A grouping of information about the connection to the remote resource."
-                },
-                "manualPrivateLinkServiceConnections": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateLinkServiceConnection"
-                    },
-                    "description": "A grouping of information about the connection to the remote resource. Used when the network admin does not have access to approve connections to the remote resource."
-                },
-                "customDnsConfigs": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/CustomDnsConfigPropertiesFormat"
-                    },
-                    "description": "An array of custom dns configurations."
-                }
-            },
-            "description": "Properties of the private endpoint."
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/PrivateEndpointProperties",
+          "description": "Properties of the private endpoint."
         },
-        "CustomDnsConfigPropertiesFormat": {
-            "properties": {
-                "fqdn": {
-                    "type": "string",
-                    "description": "Fqdn that resolves to private endpoint ip address."
-                },
-                "ipAddresses": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "A list of private ip addresses of the private endpoint."
-                }
-            },
-            "description": "Contains custom Dns resolution configuration from customer."
-        },
-        "PrivateLinkServiceConnection": {
-            "properties": {
-                "properties": {
-                    "x-ms-client-flatten": true,
-                    "$ref": "#/definitions/PrivateLinkServiceConnectionProperties",
-                    "description": "Properties of the private link service connection."
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the resource that is unique within a resource group. This name can be used to access the resource."
-                },
-                "type": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "The resource type."
-                },
-                "etag": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "A unique read-only string that changes whenever the resource is updated."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "./network.json#/definitions/SubResource"
-                }
-            ],
-            "description": "PrivateLinkServiceConnection resource."
-        },
-        "PrivateLinkServiceConnectionProperties": {
-            "properties": {
-                "provisioningState": {
-                    "readOnly": true,
-                    "$ref": "./network.json#/definitions/ProvisioningState",
-                    "description": "The provisioning state of the private link service connection resource."
-                },
-                "privateLinkServiceId": {
-                    "type": "string",
-                    "description": "The resource id of private link service."
-                },
-                "groupIds": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The ID(s) of the group(s) obtained from the remote resource that this private endpoint should connect to."
-                },
-                "requestMessage": {
-                    "type": "string",
-                    "description": "A message passed to the owner of the remote resource with this connection request. Restricted to 140 chars."
-                },
-                "privateLinkServiceConnectionState": {
-                    "$ref": "./privateLinkService.json#/definitions/PrivateLinkServiceConnectionState",
-                    "description": "A collection of read-only information about the state of the connection to the remote resource."
-                }
-            },
-            "description": "Properties of the PrivateLinkServiceConnection."
-        },
-        "PrivateEndpointListResult": {
-            "properties": {
-                "value": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateEndpoint"
-                    },
-                    "description": "A list of private endpoint resources in a resource group."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL to get the next set of results.",
-                    "readOnly": true
-                }
-            },
-            "description": "Response for the ListPrivateEndpoints API service call."
-        },
-        "PrivateDnsZoneGroupListResult": {
-            "properties": {
-                "value": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateDnsZoneGroup"
-                    },
-                    "description": "A list of private dns zone group resources in a private endpoint."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL to get the next set of results.",
-                    "readOnly": true
-                }
-            },
-            "description": "Response for the ListPrivateDnsZoneGroups API service call."
-        },
-        "AvailablePrivateEndpointTypesResult": {
-            "properties": {
-                "value": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/AvailablePrivateEndpointType"
-                    },
-                    "description": "An array of available privateEndpoint type."
-                },
-                "nextLink": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "The URL to get the next set of results."
-                }
-            },
-            "description": "An array of available PrivateEndpoint types."
-        },
-        "AvailablePrivateEndpointType": {
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "The name of the service and resource."
-                },
-                "id": {
-                    "type": "string",
-                    "description": "A unique identifier of the AvailablePrivateEndpoint Type resource."
-                },
-                "type": {
-                    "type": "string",
-                    "description": "Resource type."
-                },
-                "resourceName": {
-                    "type": "string",
-                    "description": "The name of the service and resource."
-                }
-            },
-            "description": "The information of an AvailablePrivateEndpointType."
-        },
-        "PrivateDnsZoneGroup": {
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "Name of the resource that is unique within a resource group. This name can be used to access the resource."
-                },
-                "etag": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "A unique read-only string that changes whenever the resource is updated."
-                },
-                "properties": {
-                    "x-ms-client-flatten": true,
-                    "$ref": "#/definitions/PrivateDnsZoneGroupPropertiesFormat",
-                    "description": "Properties of the private dns zone group."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "./network.json#/definitions/SubResource"
-                }
-            ],
-            "description": "Private dns zone group resource."
-        },
-        "CloudError": {
-            "description": "Error from a REST request.",
-            "type": "object",
-            "properties": { "error": { "$ref": "#/definitions/CloudErrorBody" } },
-            "x-ms-external": true
-        },
-        "CloudErrorBody": {
-            "description": "Body of an error from a REST request.",
-            "type": "object",
-            "properties": {
-                "code": { "type": "string" },
-                "message": { "type": "string" },
-                "target": { "type": "string" },
-                "details": {
-                    "description": "Inner errors.",
-                    "type": "array",
-                    "items": { "$ref": "#/definitions/CloudErrorBody" }
-                }
-            },
-            "x-ms-external": true
-        },
-        "PrivateDnsZoneGroupPropertiesFormat": {
-            "properties": {
-                "provisioningState": {
-                    "readOnly": true,
-                    "$ref": "./network.json#/definitions/ProvisioningState",
-                    "description": "The provisioning state of the private dns zone group resource."
-                },
-                "privateDnsZoneConfigs": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateDnsZoneConfig"
-                    },
-                    "description": "A collection of private dns zone configurations of the private dns zone group."
-                }
-            },
-            "description": "Properties of the private dns zone group."
-        },
-        "PrivateDnsZoneConfig": {
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "Name of the resource that is unique within a resource group. This name can be used to access the resource."
-                },
-                "properties": {
-                    "x-ms-client-flatten": true,
-                    "$ref": "#/definitions/PrivateDnsZonePropertiesFormat",
-                    "description": "Properties of the private dns zone configuration."
-                }
-            },
-            "description": "PrivateDnsZoneConfig resource."
-        },
-        "PrivateDnsZonePropertiesFormat": {
-            "properties": {
-                "privateDnsZoneId": {
-                    "type": "string",
-                    "description": "The resource id of the private dns zone."
-                },
-                "recordSets": {
-                    "type": "array",
-                    "readOnly": true,
-                    "items": {
-                        "$ref": "#/definitions/RecordSet"
-                    },
-                    "description": "A collection of information regarding a recordSet, holding information to identify private resources."
-                }
-            },
-            "description": "Properties of the private dns zone configuration resource."
-        },
-        "RecordSet": {
-            "properties": {
-                "recordType": {
-                    "type": "string",
-                    "description": "Resource record type."
-                },
-                "recordSetName": {
-                    "type": "string",
-                    "description": "Recordset name."
-                },
-                "fqdn": {
-                    "type": "string",
-                    "description": "Fqdn that resolves to private endpoint ip address."
-                },
-                "provisioningState": {
-                    "readOnly": true,
-                    "$ref": "./network.json#/definitions/ProvisioningState",
-                    "description": "The provisioning state of the recordset."
-                },
-                "ttl": {
-                    "type": "integer",
-                    "description": "Recordset time to live."
-                },
-                "ipAddresses": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The private ip address of the private endpoint."
-                }
-            },
-            "description": "A collective group of information about the record set information."
+        "etag": {
+          "readOnly": true,
+          "type": "string",
+          "description": "A unique read-only string that changes whenever the resource is updated."
         }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/Resource"
+        }
+      ],
+      "description": "Private endpoint resource."
+    },
+    "PrivateEndpointProperties": {
+      "properties": {
+        "subnet": {
+          "$ref": "./virtualNetwork.json#/definitions/Subnet",
+          "description": "The ID of the subnet from which the private IP will be allocated."
+        },
+        "networkInterfaces": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "./networkInterface.json#/definitions/NetworkInterface"
+          },
+          "description": "An array of references to the network interfaces created for this private endpoint."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the private endpoint resource."
+        },
+        "privateLinkServiceConnections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateLinkServiceConnection"
+          },
+          "description": "A grouping of information about the connection to the remote resource."
+        },
+        "manualPrivateLinkServiceConnections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateLinkServiceConnection"
+          },
+          "description": "A grouping of information about the connection to the remote resource. Used when the network admin does not have access to approve connections to the remote resource."
+        },
+        "customDnsConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomDnsConfigPropertiesFormat"
+          },
+          "description": "An array of custom dns configurations."
+        }
+      },
+      "description": "Properties of the private endpoint."
+    },
+    "CustomDnsConfigPropertiesFormat": {
+      "properties": {
+        "fqdn": {
+          "type": "string",
+          "description": "Fqdn that resolves to private endpoint ip address."
+        },
+        "ipAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "A list of private ip addresses of the private endpoint."
+        }
+      },
+      "description": "Contains custom Dns resolution configuration from customer."
+    },
+    "PrivateLinkServiceConnection": {
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/PrivateLinkServiceConnectionProperties",
+          "description": "Properties of the private link service connection."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the resource that is unique within a resource group. This name can be used to access the resource."
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The resource type."
+        },
+        "etag": {
+          "readOnly": true,
+          "type": "string",
+          "description": "A unique read-only string that changes whenever the resource is updated."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/SubResource"
+        }
+      ],
+      "description": "PrivateLinkServiceConnection resource."
+    },
+    "PrivateLinkServiceConnectionProperties": {
+      "properties": {
+        "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the private link service connection resource."
+        },
+        "privateLinkServiceId": {
+          "type": "string",
+          "description": "The resource id of private link service."
+        },
+        "groupIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The ID(s) of the group(s) obtained from the remote resource that this private endpoint should connect to."
+        },
+        "requestMessage": {
+          "type": "string",
+          "description": "A message passed to the owner of the remote resource with this connection request. Restricted to 140 chars."
+        },
+        "privateLinkServiceConnectionState": {
+          "$ref": "./privateLinkService.json#/definitions/PrivateLinkServiceConnectionState",
+          "description": "A collection of read-only information about the state of the connection to the remote resource."
+        }
+      },
+      "description": "Properties of the PrivateLinkServiceConnection."
+    },
+    "PrivateEndpointListResult": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateEndpoint"
+          },
+          "description": "A list of private endpoint resources in a resource group."
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The URL to get the next set of results.",
+          "readOnly": true
+        }
+      },
+      "description": "Response for the ListPrivateEndpoints API service call."
+    },
+    "PrivateDnsZoneGroupListResult": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateDnsZoneGroup"
+          },
+          "description": "A list of private dns zone group resources in a private endpoint."
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The URL to get the next set of results.",
+          "readOnly": true
+        }
+      },
+      "description": "Response for the ListPrivateDnsZoneGroups API service call."
+    },
+    "AvailablePrivateEndpointTypesResult": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AvailablePrivateEndpointType"
+          },
+          "description": "An array of available privateEndpoint type."
+        },
+        "nextLink": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The URL to get the next set of results."
+        }
+      },
+      "description": "An array of available PrivateEndpoint types."
+    },
+    "AvailablePrivateEndpointType": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the service and resource."
+        },
+        "id": {
+          "type": "string",
+          "description": "A unique identifier of the AvailablePrivateEndpoint Type resource."
+        },
+        "type": {
+          "type": "string",
+          "description": "Resource type."
+        },
+        "resourceName": {
+          "type": "string",
+          "description": "The name of the service and resource."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Display name of the resource."
+        }
+      },
+      "description": "The information of an AvailablePrivateEndpointType."
+    },
+    "PrivateDnsZoneGroup": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the resource that is unique within a resource group. This name can be used to access the resource."
+        },
+        "etag": {
+          "readOnly": true,
+          "type": "string",
+          "description": "A unique read-only string that changes whenever the resource is updated."
+        },
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/PrivateDnsZoneGroupPropertiesFormat",
+          "description": "Properties of the private dns zone group."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/SubResource"
+        }
+      ],
+      "description": "Private dns zone group resource."
+    },
+    "PrivateDnsZoneGroupPropertiesFormat": {
+      "properties": {
+        "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the private dns zone group resource."
+        },
+        "privateDnsZoneConfigs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateDnsZoneConfig"
+          },
+          "description": "A collection of private dns zone configurations of the private dns zone group."
+        }
+      },
+      "description": "Properties of the private dns zone group."
+    },
+    "PrivateDnsZoneConfig": {
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the resource that is unique within a resource group. This name can be used to access the resource."
+        },
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/PrivateDnsZonePropertiesFormat",
+          "description": "Properties of the private dns zone configuration."
+        }
+      },
+      "description": "PrivateDnsZoneConfig resource."
+    },
+    "PrivateDnsZonePropertiesFormat": {
+      "properties": {
+        "privateDnsZoneId": {
+          "type": "string",
+          "description": "The resource id of the private dns zone."
+        },
+        "recordSets": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/RecordSet"
+          },
+          "description": "A collection of information regarding a recordSet, holding information to identify private resources."
+        }
+      },
+      "description": "Properties of the private dns zone configuration resource."
+    },
+    "RecordSet": {
+      "properties": {
+        "recordType": {
+          "type": "string",
+          "description": "Resource record type."
+        },
+        "recordSetName": {
+          "type": "string",
+          "description": "Recordset name."
+        },
+        "fqdn": {
+          "type": "string",
+          "description": "Fqdn that resolves to private endpoint ip address."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the recordset."
+        },
+        "ttl": {
+          "type": "integer",
+          "description": "Recordset time to live."
+        },
+        "ipAddresses": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The private ip address of the private endpoint."
+        }
+      },
+      "description": "A collective group of information about the record set information."
     }
+  }
 }
