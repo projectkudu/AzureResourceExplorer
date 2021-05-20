@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-07-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -49,20 +49,28 @@
             "schema": {
               "$ref": "#/definitions/OperationListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "Get a list of operations for a resource provider": { "$ref": "./examples/OperationList.json" }
+          "Get a list of operations for a resource provider": {
+            "$ref": "./examples/OperationList.json"
+          }
         }
       }
     }
   },
   "definitions": {
     "OperationListResult": {
-     "description": "Result of the request to list Network operations. It contains a list of operations and a URL link to get the next set of results.",
+      "description": "Result of the request to list Network operations. It contains a list of operations and a URL link to get the next set of results.",
       "properties": {
         "value": {
           "type": "array",
@@ -82,7 +90,7 @@
       "type": "object",
       "properties": {
         "name": {
-          "description": "Operation name: {provider}/{resource}/{operation}",
+          "description": "Operation name: {provider}/{resource}/{operation}.",
           "type": "string"
         },
         "display": {

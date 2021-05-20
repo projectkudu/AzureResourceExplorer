@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2017-03-30"
+    "version": "2018-10-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -64,18 +64,7 @@
             "description": "The virtual machine index."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -87,10 +76,18 @@
             "schema": {
               "$ref": "./networkInterface.json#/definitions/NetworkInterfaceListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List virtual machine scale set vm network interfaces": { "$ref": "./examples/VmssVmNetworkInterfaceList.json" }
+          "List virtual machine scale set vm network interfaces": {
+            "$ref": "./examples/VmssVmNetworkInterfaceList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -120,18 +117,7 @@
             "description": "The name of the virtual machine scale set."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -143,10 +129,18 @@
             "schema": {
               "$ref": "./networkInterface.json#/definitions/NetworkInterfaceListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List virtual machine scale set network interfaces": { "$ref": "./examples/VmssNetworkInterfaceList.json" }
+          "List virtual machine scale set network interfaces": {
+            "$ref": "./examples/VmssNetworkInterfaceList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -190,18 +184,7 @@
             "description": "The name of the network interface."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -220,10 +203,18 @@
             "schema": {
               "$ref": "./networkInterface.json#/definitions/NetworkInterface"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get virtual machine scale set network interface": { "$ref": "./examples/VmssNetworkInterfaceGet.json" }
+          "Get virtual machine scale set network interface": {
+            "$ref": "./examples/VmssNetworkInterfaceGet.json"
+          }
         }
       }
     },
@@ -264,18 +255,7 @@
             "description": "The name of the network interface."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -294,10 +274,18 @@
             "schema": {
               "$ref": "./networkInterface.json#/definitions/NetworkInterfaceIPConfigurationListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List virtual machine scale set network interface ip configurations": { "$ref": "./examples/VmssNetworkInterfaceIpConfigList.json" }
+          "List virtual machine scale set network interface ip configurations": {
+            "$ref": "./examples/VmssNetworkInterfaceIpConfigList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -348,18 +336,7 @@
             "description": "The name of the ip configuration."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -378,10 +355,18 @@
             "schema": {
               "$ref": "./networkInterface.json#/definitions/NetworkInterfaceIPConfiguration"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get virtual machine scale set network interface": { "$ref": "./examples/VmssNetworkInterfaceIpConfigGet.json" }
+          "Get virtual machine scale set network interface": {
+            "$ref": "./examples/VmssNetworkInterfaceIpConfigGet.json"
+          }
         }
       }
     }

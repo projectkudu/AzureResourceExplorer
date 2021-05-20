@@ -425,6 +425,9 @@
     <Content Include="App_Data\SwaggerSpecs\common-types\resource-management\v1\types.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.GuestConfiguration\definitions.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ServiceFabric\managedapplication.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\natGateway.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\networkProfile.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualNetworkTap.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
