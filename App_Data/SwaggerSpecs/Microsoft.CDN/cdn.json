@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "2019-12-31",
+    "version": "2020-09-01",
     "title": "CdnManagementClient",
     "description": "Use these APIs to manage Azure CDN resources through the Azure Resource Manager. You must make sure that requests made to these resources are secure."
   },
@@ -2477,6 +2477,11 @@
           "readOnly": true,
           "description": "Provisioning status of the profile.",
           "type": "string"
+        },
+        "frontdoorId": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The Id of the frontdoor."
         }
       }
     },
@@ -2694,6 +2699,13 @@
           "type": "object",
           "$ref": "#/definitions/ResourceReference"
         },
+        "urlSigningKeys": {
+          "description": "List of keys used to validate the signed URL hashes.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UrlSigningKey"
+          }
+        },
         "deliveryPolicy": {
           "description": "A policy that specifies the delivery rules to be used for an endpoint.",
           "type": "object",
@@ -2711,6 +2723,16 @@
               "items": {
                 "$ref": "#/definitions/DeliveryRule"
               }
+            }
+          }
+        },
+        "webApplicationFirewallPolicyLink": {
+          "description": "Defines the Web Application Firewall policy for the endpoint (if applicable)",
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Resource ID."
             }
           }
         }
@@ -3037,7 +3059,6 @@
       "description": "Defines the parameters for RemoteAddress match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3084,7 +3105,6 @@
       "description": "Defines the parameters for RequestMethod match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3131,7 +3151,6 @@
       "description": "Defines the parameters for QueryString match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3153,7 +3172,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "QueryStringOperator",
@@ -3184,8 +3204,6 @@
       "description": "Defines the parameters for PostArgs match conditions",
       "required": [
         "operator",
-        "matchValues",
-        "selector",
         "@odata.type"
       ],
       "properties": {
@@ -3211,7 +3229,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "PostArgsOperator",
@@ -3242,7 +3261,6 @@
       "description": "Defines the parameters for RequestUri match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3264,7 +3282,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "RequestUriOperator",
@@ -3295,8 +3314,6 @@
       "description": "Defines the parameters for RequestHeader match conditions",
       "required": [
         "operator",
-        "matchValues",
-        "selector",
         "@odata.type"
       ],
       "properties": {
@@ -3322,7 +3339,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "RequestHeaderOperator",
@@ -3353,7 +3371,6 @@
       "description": "Defines the parameters for RequestBody match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3375,7 +3392,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "RequestBodyOperator",
@@ -3406,7 +3424,6 @@
       "description": "Defines the parameters for RequestScheme match conditions ",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3444,7 +3461,6 @@
       "description": "Defines the parameters for UrlPath match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3467,7 +3483,8 @@
             "LessThanOrEqual",
             "GreaterThan",
             "GreaterThanOrEqual",
-            "Wildcard"
+            "Wildcard",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "UrlPathOperator",
@@ -3498,7 +3515,6 @@
       "description": "Defines the parameters for UrlFileExtension match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3520,7 +3536,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "UrlFileExtensionOperator",
@@ -3551,7 +3568,6 @@
       "description": "Defines the parameters for UrlFilename match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3573,7 +3589,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "UrlFileNameOperator",
@@ -3604,7 +3621,6 @@
       "description": "Defines the parameters for HttpVersion match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3642,8 +3658,6 @@
       "description": "Defines the parameters for Cookies match conditions",
       "required": [
         "operator",
-        "matchValues",
-        "selector",
         "@odata.type"
       ],
       "properties": {
@@ -3669,7 +3683,8 @@
             "LessThan",
             "LessThanOrEqual",
             "GreaterThan",
-            "GreaterThanOrEqual"
+            "GreaterThanOrEqual",
+            "RegEx"
           ],
           "x-ms-enum": {
             "name": "CookiesOperator",
@@ -3700,7 +3715,6 @@
       "description": "Defines the parameters for IsDevice match conditions",
       "required": [
         "operator",
-        "matchValues",
         "@odata.type"
       ],
       "properties": {
@@ -3761,7 +3775,9 @@
             "ModifyRequestHeader",
             "ModifyResponseHeader",
             "UrlRedirect",
-            "UrlRewrite"
+            "UrlRewrite",
+            "UrlSigning",
+            "OriginGroupOverride"
           ],
           "x-ms-enum": {
             "name": "DeliveryRuleAction",
@@ -3843,6 +3859,120 @@
         "customFragment": {
           "type": "string",
           "description": "Fragment to add to the redirect URL. Fragment is the part of the URL that comes after #. Do not include the #."
+        }
+      }
+    },
+    "UrlSigningAction": {
+      "description": "Defines the url signing action for the delivery rule.",
+      "x-ms-discriminator-value": "UrlSigning",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryRuleAction"
+        }
+      ],
+      "required": [
+        "parameters"
+      ],
+      "properties": {
+        "parameters": {
+          "description": "Defines the parameters for the action.",
+          "$ref": "#/definitions/UrlSigningActionParameters"
+        }
+      }
+    },
+    "UrlSigningActionParameters": {
+      "description": "Defines the parameters for the Url Signing action.",
+      "required": [
+        "@odata.type"
+      ],
+      "properties": {
+        "@odata.type": {
+          "type": "string",
+          "enum": [
+            "#Microsoft.Azure.Cdn.Models.DeliveryRuleUrlSigningActionParameters"
+          ]
+        },
+        "algorithm": {
+          "description": "Algorithm to use for URL signing",
+          "type": "string",
+          "enum": [
+            "SHA256"
+          ],
+          "x-ms-enum": {
+            "name": "algorithm",
+            "modelAsString": true
+          }
+        },
+        "parameterNameOverride": {
+          "description": "Defines which query string parameters in the url to be considered for expires, key id etc. ",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UrlSigningParamIdentifier"
+          }
+        }
+      }
+    },
+    "UrlSigningParamIdentifier": {
+      "description": "Defines how to identify a parameter for a specific purpose e.g. expires",
+      "required": [
+        "paramIndicator",
+        "paramName"
+      ],
+      "properties": {
+        "paramIndicator": {
+          "description": "Indicates the purpose of the parameter",
+          "type": "string",
+          "enum": [
+            "Expires",
+            "KeyId",
+            "Signature"
+          ],
+          "x-ms-enum": {
+            "name": "paramIndicator",
+            "modelAsString": true
+          }
+        },
+        "paramName": {
+          "description": "Parameter name",
+          "type": "string"
+        }
+      }
+    },
+    "OriginGroupOverrideAction": {
+      "description": "Defines the origin group override action for the delivery rule.",
+      "x-ms-discriminator-value": "OriginGroupOverride",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DeliveryRuleAction"
+        }
+      ],
+      "required": [
+        "parameters"
+      ],
+      "properties": {
+        "parameters": {
+          "description": "Defines the parameters for the action.",
+          "$ref": "#/definitions/OriginGroupOverrideActionParameters"
+        }
+      }
+    },
+    "OriginGroupOverrideActionParameters": {
+      "description": "Defines the parameters for the origin group override action.",
+      "required": [
+        "originGroup",
+        "@odata.type"
+      ],
+      "properties": {
+        "@odata.type": {
+          "type": "string",
+          "enum": [
+            "#Microsoft.Azure.Cdn.Models.DeliveryRuleOriginGroupOverrideActionParameters"
+          ]
+        },
+        "originGroup": {
+          "description": "defines the OriginGroup that would override the DefaultOriginGroup.",
+          "type": "object",
+          "$ref": "#/definitions/ResourceReference"
         }
       }
     },
@@ -4156,6 +4286,22 @@
         "enabled": {
           "description": "Origin is enabled for load balancing or not. By default, origin is always enabled.",
           "type": "boolean"
+        },
+        "privateLinkAlias": {
+          "description": "The Alias of the Private Link resource. Populating this optional field indicates that this origin is 'Private'",
+          "type": "string"
+        },
+        "privateLinkResourceId": {
+          "description": "The Resource Id of the Private Link resource. Populating this optional field indicates that this backend is 'Private'",
+          "type": "string"
+        },
+        "privateLinkLocation": {
+          "description": "The location of the Private Link resource. Required only if 'privateLinkResourceId' is populated",
+          "type": "string"
+        },
+        "privateLinkApprovalMessage": {
+          "description": "A custom message to be included in the approval request to connect to the Private Link.",
+          "type": "string"
         }
       },
       "x-ms-azure-resource": true
@@ -4272,6 +4418,62 @@
         }
       }
     },
+    "UrlSigningKey": {
+      "description": "Url signing key",
+      "required": [
+        "keyId",
+        "keySourceParameters"
+      ],
+      "properties": {
+        "keyId": {
+          "description": "Defines the customer defined key Id. This id will exist in the incoming request to indicate the key used to form the hash.",
+          "type": "string"
+        },
+        "keySourceParameters": {
+          "description": "Defines the parameters for using customer key vault for Url Signing Key.",
+          "$ref": "#/definitions/KeyVaultSigningKeyParameters"
+        }
+      }
+    },
+    "KeyVaultSigningKeyParameters": {
+      "description": "Describes the parameters for using a user's KeyVault for URL Signing Key.",
+      "required": [
+        "@odata.type",
+        "subscriptionId",
+        "resourceGroupName",
+        "vaultName",
+        "secretName",
+        "secretVersion"
+      ],
+      "properties": {
+        "@odata.type": {
+          "type": "string",
+          "enum": [
+            "#Microsoft.Azure.Cdn.Models.KeyVaultSigningKeyParameters"
+          ]
+        },
+        "subscriptionId": {
+          "description": "Subscription Id of the user's Key Vault containing the secret",
+          "type": "string"
+        },
+        "resourceGroupName": {
+          "description": "Resource group of the user's Key Vault containing the secret",
+          "type": "string"
+        },
+        "vaultName": {
+          "description": "The name of the user's Key Vault containing the secret",
+          "type": "string"
+        },
+        "secretName": {
+          "description": "The name of secret in Key Vault.",
+          "type": "string"
+        },
+        "secretVersion": {
+          "description": "The version(GUID) of secret in Key Vault.",
+          "type": "string"
+        }
+      }
+    },
     "LoadParameters": {
       "type": "object",
       "description": "Parameters required for content load.",
@@ -4293,7 +4495,7 @@
       "type": "object",
       "allOf": [
         {
-          "$ref": "#/definitions/TrackedResource"
+          "$ref": "#/definitions/ProxyResource"
         }
       ],
       "properties": {
@@ -4332,6 +4534,22 @@
           "readOnly": true,
           "description": "Provisioning status of the origin.",
           "type": "string"
+        },
+        "privateEndpointStatus": {
+          "description": "The approval status for the connection to the Private Link",
+          "type": "string",
+          "readOnly": true,
+          "enum": [
+            "Pending",
+            "Approved",
+            "Rejected",
+            "Disconnected",
+            "Timeout"
+          ],
+          "x-ms-enum": {
+            "name": "PrivateEndpointStatus",
+            "modelAsString": true
+          }
         }
       }
     },
@@ -4339,13 +4557,6 @@
       "type": "object",
       "description": "Origin properties needed for origin update.",
       "properties": {
-        "tags": {
-          "description": "Origin tags.",
-          "type": "object",
-          "additionalProperties": {
-            "type": "string"
-          }
-        },
         "properties": {
           "x-ms-client-flatten": true,
           "$ref": "#/definitions/OriginUpdatePropertiesParameters"
@@ -4395,6 +4606,22 @@
         "enabled": {
           "description": "Origin is enabled for load balancing or not",
           "type": "boolean"
+        },
+        "privateLinkAlias": {
+          "description": "The Alias of the Private Link resource. Populating this optional field indicates that this origin is 'Private'",
+          "type": "string"
+        },
+        "privateLinkResourceId": {
+          "description": "The Resource Id of the Private Link resource. Populating this optional field indicates that this backend is 'Private'",
+          "type": "string"
+        },
+        "privateLinkLocation": {
+          "description": "The location of the Private Link resource. Required only if 'privateLinkResourceId' is populated",
+          "type": "string"
+        },
+        "privateLinkApprovalMessage": {
+          "description": "A custom message to be included in the approval request to connect to the Private Link.",
+          "type": "string"
         }
       }
     },
@@ -4836,7 +5063,6 @@
         "resourceGroupName",
         "vaultName",
         "secretName",
-        "secretVersion",
         "updateRule",
         "deleteRule"
       ],
@@ -5219,9 +5445,59 @@
           "description": "Resource type.",
           "readOnly": true,
           "type": "string"
+        },
+        "systemData": {
+          "$ref": "#/definitions/SystemData",
+          "readOnly": true
         }
       },
       "x-ms-azure-resource": true
+    },
+    "SystemData": {
+      "description": "Read only system data",
+      "type": "object",
+      "properties": {
+        "createdBy": {
+          "type": "string",
+          "description": "An identifier for the identity that created the resource"
+        },
+        "createdByType": {
+          "$ref": "#/definitions/IdentityType",
+          "description": "The type of identity that created the resource"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of resource creation (UTC)"
+        },
+        "lastModifiedBy": {
+          "type": "string",
+          "description": "An identifier for the identity that last modified the resource"
+        },
+        "lastModifiedByType": {
+          "$ref": "#/definitions/IdentityType",
+          "description": "The type of identity that last modified the resource"
+        },
+        "lastModifiedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The timestamp of resource last modification (UTC)"
+        }
+      }
+    },
+    "IdentityType": {
+      "description": "The type of identity that creates/modifies resources",
+      "type": "string",
+      "enum": [
+        "user",
+        "application",
+        "managedIdentity",
+        "key"
+      ],
+      "x-ms-enum": {
+        "name": "IdentityType",
+        "modelAsString": true
+      }
     },
     "TrackedResource": {
       "description": "The resource model definition for a ARM tracked top level resource.",
@@ -5258,7 +5534,8 @@
         {
           "$ref": "#/definitions/Resource"
         }
-      ]
+      ],
+      "properties": {}
     },
     "QueryStringCachingBehavior": {
       "description": "Defines how CDN caches requests that include query strings. You can ignore any query strings when caching, bypass caching to prevent requests that contain query strings from being cached, or cache every request with a unique URL.",
@@ -5286,7 +5563,14 @@
             "Standard_Akamai",
             "Standard_ChinaCdn",
             "Standard_Microsoft",
-            "Premium_ChinaCdn"
+            "Premium_ChinaCdn",
+            "Standard_AzureFrontDoor",
+            "Premium_AzureFrontDoor",
+            "Standard_955BandWidth_ChinaCdn",
+            "Standard_AvgBandWidth_ChinaCdn",
+            "StandardPlus_ChinaCdn",
+            "StandardPlus_955BandWidth_ChinaCdn",
+            "StandardPlus_AvgBandWidth_ChinaCdn"
           ],
           "type": "string",
           "x-ms-enum": {
@@ -5342,7 +5626,7 @@
       "in": "query",
       "required": true,
       "type": "string",
-      "description": "Version of the API to be used with the client request. Current version is 2017-04-02."
+      "description": "Version of the API to be used with the client request. Current version is 2020-09-01."
     },
     "resourceGroupNameParameter": {
       "name": "resourceGroupName",
