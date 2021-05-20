@@ -166,7 +166,10 @@
             // handle resources that has a "secure GET"
             this.setParent(url, "GETPOST", operation.RequestBody, operation.RequestBodyDoc, operation.ApiVersion);
             return addedElement;
-        } else if (operation && (operation.MethodName.startsWith("Create") || operation.MethodName.startsWith("BeginCreate") || operation.MethodName.startsWith("Put")) && operation.HttpMethod === "PUT") {
+        } else if(resourceName == "list" && operation && operation.HttpMethod == "GET") {
+            this.setParent(url, "GETLIST", operation.RequestBody, operation.RequestBodyDoc, operation.ApiVersion);
+            return addedElement;
+        }else if (operation && (operation.MethodName.startsWith("Create") || operation.MethodName.startsWith("BeginCreate") || operation.MethodName.startsWith("Put")) && operation.HttpMethod === "PUT") {
             // handle resources that has a CreateOrUpdate
             this.setParent(url, "CREATE", operation.RequestBody, operation.RequestBodyDoc);
             if (operation.MethodName.indexOf("Updat") === -1) {
