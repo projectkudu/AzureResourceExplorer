@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-07-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -72,11 +72,22 @@
           },
           "202": {
             "description": "Accepted. If route table not found returned synchronously, otherwise if found returned asynchronously."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
         "x-ms-examples": {
-          "Delete route table": { "$ref": "./examples/RouteTableDelete.json" }
+          "Delete route table": {
+            "$ref": "./examples/RouteTableDelete.json"
+          }
         }
       },
       "get": {
@@ -120,10 +131,18 @@
             "schema": {
               "$ref": "#/definitions/RouteTable"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get route table": { "$ref": "./examples/RouteTableGet.json" }
+          "Get route table": {
+            "$ref": "./examples/RouteTableGet.json"
+          }
         }
       },
       "put": {
@@ -175,13 +194,26 @@
             "schema": {
               "$ref": "#/definitions/RouteTable"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Create route table": { "$ref": "./examples/RouteTableCreate.json" },
-          "Create route table with route": { "$ref": "./examples/RouteTableCreateWithRoute.json" }
+          "Create route table": {
+            "$ref": "./examples/RouteTableCreate.json"
+          },
+          "Create route table with route": {
+            "$ref": "./examples/RouteTableCreateWithRoute.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        }
       },
       "patch": {
         "tags": [
@@ -226,12 +258,19 @@
             "schema": {
               "$ref": "#/definitions/RouteTable"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Update route table tags": { "$ref": "./examples/RouteTableUpdateTags.json" }
-        },
-        "x-ms-long-running-operation": true
+          "Update route table tags": {
+            "$ref": "./examples/RouteTableUpdateTags.json"
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables": {
@@ -262,10 +301,18 @@
             "schema": {
               "$ref": "#/definitions/RouteTableListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List route tables in resource group": { "$ref": "./examples/RouteTableList.json" }
+          "List route tables in resource group": {
+            "$ref": "./examples/RouteTableList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -293,10 +340,18 @@
             "schema": {
               "$ref": "#/definitions/RouteTableListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List all route tables": { "$ref": "./examples/RouteTableListAll.json" }
+          "List all route tables": {
+            "$ref": "./examples/RouteTableListAll.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -348,12 +403,23 @@
           },
           "204": {
             "description": "Route was deleted or not found."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Delete route": { "$ref": "./examples/RouteTableRouteDelete.json" }
+          "Delete route": {
+            "$ref": "./examples/RouteTableRouteDelete.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
       },
       "get": {
         "tags": [
@@ -396,10 +462,18 @@
             "schema": {
               "$ref": "#/definitions/Route"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get route": { "$ref": "./examples/RouteTableRouteGet.json" }
+          "Get route": {
+            "$ref": "./examples/RouteTableRouteGet.json"
+          }
         }
       },
       "put": {
@@ -458,12 +532,23 @@
             "schema": {
               "$ref": "#/definitions/Route"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Create route": { "$ref": "./examples/RouteTableRouteCreate.json" }
+          "Create route": {
+            "$ref": "./examples/RouteTableRouteCreate.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        }
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/routeTables/{routeTableName}/routes": {
@@ -501,16 +586,24 @@
             "schema": {
               "$ref": "#/definitions/RouteListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "List routes": { "$ref": "./examples/RouteTableRouteList.json" }
+          "List routes": {
+            "$ref": "./examples/RouteTableRouteList.json"
+          }
         }
       }
-    }    
+    }
   },
   "definitions": {
     "RoutePropertiesFormat": {
@@ -520,33 +613,27 @@
           "description": "The destination CIDR to which the route applies."
         },
         "nextHopType": {
-          "type": "string",
-          "description": "The type of Azure hop the packet should be sent to. Possible values are: 'VirtualNetworkGateway', 'VnetLocal', 'Internet', 'VirtualAppliance', and 'None'",
-          "enum": [
-            "VirtualNetworkGateway",
-            "VnetLocal",
-            "Internet",
-            "VirtualAppliance",
-            "None"
-          ],
-          "x-ms-enum": {
-            "name": "RouteNextHopType",
-            "modelAsString": true
-          }
+          "$ref": "#/definitions/RouteNextHopType",
+          "description": "The type of Azure hop the packet should be sent to."
         },
         "nextHopIpAddress": {
           "type": "string",
           "description": "The IP address packets should be forwarded to. Next hop values are only allowed in routes where the next hop type is VirtualAppliance."
         },
         "provisioningState": {
-          "type": "string",
-          "description": "The provisioning state of the resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the route resource."
+        },
+        "hasBgpOverride": {
+          "type": "boolean",
+          "description": "A value indicating whether this route overrides overlapping BGP routes regardless of LPM."
         }
       },
       "required": [
         "nextHopType"
       ],
-      "description": "Route resource"
+      "description": "Route resource."
     },
     "Route": {
       "properties": {
@@ -560,8 +647,13 @@
           "description": "The name of the resource that is unique within a resource group. This name can be used to access the resource."
         },
         "etag": {
+          "readOnly": true,
           "type": "string",
           "description": "A unique read-only string that changes whenever the resource is updated."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the resource."
         }
       },
       "allOf": [
@@ -569,7 +661,7 @@
           "$ref": "./network.json#/definitions/SubResource"
         }
       ],
-      "description": "Route resource"
+      "description": "Route resource."
     },
     "RouteTablePropertiesFormat": {
       "properties": {
@@ -590,14 +682,20 @@
         },
         "disableBgpRoutePropagation": {
           "type": "boolean",
-          "description": "Gets or sets whether to disable the routes learned by BGP on that route table. True means disable."
+          "description": "Whether to disable the routes learned by BGP on that route table. True means disable."
         },
         "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the route table resource."
+        },
+        "resourceGuid": {
           "type": "string",
-          "description": "The provisioning state of the resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+          "readOnly": true,
+          "description": "The resource GUID property of the route table."
         }
       },
-      "description": "Route Table resource"
+      "description": "Route Table resource."
     },
     "RouteTable": {
       "properties": {
@@ -607,8 +705,9 @@
           "description": "Properties of the route table."
         },
         "etag": {
+          "readOnly": true,
           "type": "string",
-          "description": "Gets a unique read-only string that changes whenever the resource is updated."
+          "description": "A unique read-only string that changes whenever the resource is updated."
         }
       },
       "allOf": [
@@ -625,7 +724,7 @@
           "items": {
             "$ref": "#/definitions/RouteTable"
           },
-          "description": "Gets a list of route tables in a resource group."
+          "description": "A list of route tables in a resource group."
         },
         "nextLink": {
           "type": "string",
@@ -641,14 +740,29 @@
           "items": {
             "$ref": "#/definitions/Route"
           },
-          "description": "Gets a list of routes in a resource group."
+          "description": "A list of routes in a resource group."
         },
         "nextLink": {
           "type": "string",
           "description": "The URL to get the next set of results."
         }
       },
-      "description": "Response for the ListRoute API service call"
+      "description": "Response for the ListRoute API service call."
+    },
+    "RouteNextHopType": {
+      "type": "string",
+      "description": "The type of Azure hop the packet should be sent to.",
+      "enum": [
+        "VirtualNetworkGateway",
+        "VnetLocal",
+        "Internet",
+        "VirtualAppliance",
+        "None"
+      ],
+      "x-ms-enum": {
+        "name": "RouteNextHopType",
+        "modelAsString": true
+      }
     }
   }
 }
