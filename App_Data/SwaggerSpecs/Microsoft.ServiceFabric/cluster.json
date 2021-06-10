@@ -3,7 +3,7 @@
   "info": {
     "title": "ServiceFabricManagementClient",
     "description": "Azure Service Fabric Resource Provider API Client",
-    "version": "2018-02-01"
+    "version": "2020-03-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -80,7 +80,7 @@
         "tags": [
           "Cluster"
         ],
-        "operationId": "Clusters_Create",
+        "operationId": "Clusters_CreateOrUpdate",
         "summary": "Creates or updates a Service Fabric cluster resource.",
         "description": "Create or update a Service Fabric cluster resource with the specified name.",
         "parameters": [
@@ -108,7 +108,7 @@
           }
         ],
         "x-ms-examples": {
-          "Put a cluster with mininum parameters": {
+          "Put a cluster with minimum parameters": {
             "$ref": "./examples/ClusterPutOperation_example_min.json"
           },
           "Put a cluster with maximum parameters": {
@@ -474,7 +474,7 @@
           {
             "name": "api-version",
             "in": "query",
-            "description": "The version of the Service Fabric resouce provider API",
+            "description": "The version of the Service Fabric resource provider API",
             "required": true,
             "type": "string"
           }
@@ -509,6 +509,18 @@
         "BackupRestoreService",
         "ResourceMonitorService"
       ]
+    },
+    "ApplicationTypeVersionsCleanupPolicy": {
+      "required": [
+        "maxUnusedVersionsToKeep"
+      ],
+      "properties": {
+        "maxUnusedVersionsToKeep": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of unused versions per application type to keep."
+        }
+      }
     },
     "ApplicationDeltaHealthPolicy": {
       "type": "object",
@@ -571,7 +583,7 @@
           "description": "Operation description"
         }
       },
-      "description": "Operation supported by Service Fabric resource provider"
+      "description": "Operation supported by the Service Fabric resource provider"
     },
     "AzureActiveDirectory": {
       "properties": {
@@ -684,7 +696,7 @@
           "description": "The URL to use for getting the next set of results."
         }
       },
-      "description": "The list results of the ServiceFabric runtime versions."
+      "description": "The list results of the Service Fabric runtime versions."
     },
     "ClusterCodeVersionsResult": {
       "properties": {
@@ -706,7 +718,7 @@
           "description": "The detail of the Service Fabric runtime version result"
         }
       },
-      "description": "The result of the ServiceFabric runtime versions"
+      "description": "The result of the Service Fabric runtime versions"
     },
     "ClusterEnvironment": {
       "type": "string",
@@ -825,6 +837,10 @@
           "$ref": "#/definitions/DiagnosticsStorageAccountConfig",
           "description": "The storage account information for storing Service Fabric diagnostic logs."
         },
+        "eventStoreServiceEnabled": {
+          "type": "boolean",
+          "description": "Indicates if the event store service is enabled."
+        },
         "fabricSettings": {
           "type": "array",
           "description": "The list of custom fabric settings to configure the cluster.",
@@ -860,7 +876,7 @@
         },
         "reliabilityLevel": {
           "$ref": "#/definitions/ReliabilityLevel",
-          "description": "The reliability level sets the replica set size of system services. Learn about [ReliabilityLevel](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - None - Run the System services with a target replica set count of 1. This should only be used for test clusters.\n  - Bronze - Run the System services with a target replica set count of 3. This should only be used for test clusters.\n  - Silver - Run the System services with a target replica set count of 5.\n  - Gold - Run the System services with a target replica set count of 7.\n  - Platinum - Run the System services with a target replica set count of 9.\n"
+          "description": "The reliability level sets the replica set size of system services. Learn about [ReliabilityLevel](https://docs.microsoft.com/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - None - Run the System services with a target replica set count of 1. This should only be used for test clusters.\n  - Bronze - Run the System services with a target replica set count of 3. This should only be used for test clusters.\n  - Silver - Run the System services with a target replica set count of 5.\n  - Gold - Run the System services with a target replica set count of 7.\n  - Platinum - Run the System services with a target replica set count of 9.\n"
         },
         "reverseProxyCertificate": {
           "$ref": "#/definitions/CertificateDescription",
@@ -877,6 +893,10 @@
         "upgradeMode": {
           "$ref": "#/definitions/UpgradeMode",
           "description": "The upgrade mode of the cluster when new Service Fabric runtime version is available.\n\n  - Automatic - The cluster will be automatically upgraded to the latest Service Fabric runtime version as soon as it is available.\n  - Manual - The cluster will not be automatically upgraded to the latest Service Fabric runtime version. The cluster is upgraded by setting the **clusterCodeVersion** property in the cluster resource.\n"
+        },
+        "applicationTypeVersionsCleanupPolicy": {
+          "$ref": "#/definitions/ApplicationTypeVersionsCleanupPolicy",
+          "description": "The policy used to clean up unused versions."
         },
         "vmImage": {
           "type": "string",
@@ -920,6 +940,10 @@
           "type": "string",
           "description": "The Service Fabric runtime version of the cluster. This property can only by set the user when **upgradeMode** is set to 'Manual'. To get list of available Service Fabric versions for new clusters use [ClusterVersion API](./ClusterVersion.md). To get the list of available version for existing clusters use **availableClusterVersions**."
         },
+        "eventStoreServiceEnabled": {
+          "type": "boolean",
+          "description": "Indicates if the event store service is enabled."
+        },
         "fabricSettings": {
           "type": "array",
           "description": "The list of custom fabric settings to configure the cluster. This will overwrite the existing list.",
@@ -936,7 +960,7 @@
         },
         "reliabilityLevel": {
           "$ref": "#/definitions/ReliabilityLevel",
-          "description": "The reliability level sets the replica set size of system services. Learn about [ReliabilityLevel](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - None - Run the System services with a target replica set count of 1. This should only be used for test clusters.\n  - Bronze - Run the System services with a target replica set count of 3. This should only be used for test clusters.\n  - Silver - Run the System services with a target replica set count of 5.\n  - Gold - Run the System services with a target replica set count of 7.\n  - Platinum - Run the System services with a target replica set count of 9.\n"
+          "description": "The reliability level sets the replica set size of system services. Learn about [ReliabilityLevel](https://docs.microsoft.com/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - None - Run the System services with a target replica set count of 1. This should only be used for test clusters.\n  - Bronze - Run the System services with a target replica set count of 3. This should only be used for test clusters.\n  - Silver - Run the System services with a target replica set count of 5.\n  - Gold - Run the System services with a target replica set count of 7.\n  - Platinum - Run the System services with a target replica set count of 9.\n"
         },
         "reverseProxyCertificate": {
           "$ref": "#/definitions/CertificateDescription",
@@ -949,6 +973,10 @@
         "upgradeMode": {
           "$ref": "#/definitions/UpgradeMode",
           "description": "The upgrade mode of the cluster when new Service Fabric runtime version is available.\n\n  - Automatic - The cluster will be automatically upgraded to the latest Service Fabric runtime version as soon as it is available.\n  - Manual - The cluster will not be automatically upgraded to the latest Service Fabric runtime version. The cluster is upgraded by setting the **clusterCodeVersion** property in the cluster resource.\n"
+        },
+        "applicationTypeVersionsCleanupPolicy": {
+          "$ref": "#/definitions/ApplicationTypeVersionsCleanupPolicy",
+          "description": "The policy used to clean up unused versions."
         }
       },
       "description": "Describes the cluster resource properties that can be updated during PATCH operation."
@@ -1035,7 +1063,7 @@
         },
         "upgradeReplicaSetCheckTimeout": {
           "type": "string",
-          "description": "The maximum amount of time to block processing of an upgrade domain and revent loss of availability when there are unexpected issues. When this timeout expires, processing of the upgrade domain will proceed regardless of availability loss issues. The timeout is reset at the start of each upgrade domain. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format."
+          "description": "The maximum amount of time to block processing of an upgrade domain and prevent loss of availability when there are unexpected issues. When this timeout expires, processing of the upgrade domain will proceed regardless of availability loss issues. The timeout is reset at the start of each upgrade domain. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format."
         },
         "healthCheckWaitDuration": {
           "type": "string",
@@ -1102,6 +1130,10 @@
           "type": "string",
           "description": "The protected diagnostics storage key name."
         },
+        "protectedAccountKeyName2": {
+          "type": "string",
+          "description": "The secondary protected diagnostics storage key name. If one of the storage account keys is rotated the cluster will fallback to using the other."
+        },
         "blobEndpoint": {
           "type": "string",
           "description": "The blob endpoint of the azure storage account."
@@ -1119,7 +1151,7 @@
     },
     "DurabilityLevel": {
       "type": "string",
-      "description": "The durability level of the node type. Learn about [DurabilityLevel](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - Bronze - No privileges. This is the default.\n  - Silver - The infrastructure jobs can be paused for a duration of 10 minutes per UD.\n  - Gold - The infrastructure jobs can be paused for a duration of 2 hours per UD. Gold durability can be enabled only on full node VM skus like D15_V2, G5 etc.\n",
+      "description": "The durability level of the node type. Learn about [DurabilityLevel](https://docs.microsoft.com/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - Bronze - No privileges. This is the default.\n  - Silver - The infrastructure jobs can be paused for a duration of 10 minutes per UD.\n  - Gold - The infrastructure jobs can be paused for a duration of 2 hours per UD. Gold durability can be enabled only on full node VM skus like D15_V2, G5 etc.\n",
       "enum": [
         "Bronze",
         "Silver",
@@ -1182,7 +1214,7 @@
         },
         "durabilityLevel": {
           "$ref": "#/definitions/DurabilityLevel",
-          "description": "The durability level of the node type. Learn about [DurabilityLevel](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - Bronze - No privileges. This is the default.\n  - Silver - The infrastructure jobs can be paused for a duration of 10 minutes per UD.\n  - Gold - The infrastructure jobs can be paused for a duration of 2 hours per UD. Gold durability can be enabled only on full node VM skus like D15_V2, G5 etc.\n"
+          "description": "The durability level of the node type. Learn about [DurabilityLevel](https://docs.microsoft.com/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - Bronze - No privileges. This is the default.\n  - Silver - The infrastructure jobs can be paused for a duration of 10 minutes per UD.\n  - Gold - The infrastructure jobs can be paused for a duration of 2 hours per UD. Gold durability can be enabled only on full node VM skus like D15_V2, G5 etc.\n"
         },
         "applicationPorts": {
           "$ref": "#/definitions/EndpointRangeDescription",
@@ -1190,7 +1222,7 @@
         },
         "ephemeralPorts": {
           "$ref": "#/definitions/EndpointRangeDescription",
-          "description": "The range of empheral ports that nodes in this node type should be configured with."
+          "description": "The range of ephemeral ports that nodes in this node type should be configured with."
         },
         "isPrimary": {
           "type": "boolean",
@@ -1213,7 +1245,7 @@
       "properties": {
         "value": {
           "type": "array",
-          "description": "List of Service Fabric operations supported by the Microsoft.ServiceFabric resource provider.",
+          "description": "List of operations supported by the Service Fabric resource provider.",
           "items": {
             "$ref": "#/definitions/OperationResult"
           }
@@ -1224,7 +1256,7 @@
           "readOnly": true
         }
       },
-      "description": "Describes the result of the request to list Service Fabric operations."
+      "description": "Describes the result of the request to list Service Fabric resource provider operations."
     },
     "OperationResult": {
       "properties": {
@@ -1249,7 +1281,7 @@
     },
     "ReliabilityLevel": {
       "type": "string",
-      "description": "The reliability level sets the replica set size of system services. Learn about [ReliabilityLevel](https://docs.microsoft.com/en-us/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - None - Run the System services with a target replica set count of 1. This should only be used for test clusters.\n  - Bronze - Run the System services with a target replica set count of 3. This should only be used for test clusters.\n  - Silver - Run the System services with a target replica set count of 5.\n  - Gold - Run the System services with a target replica set count of 7.\n  - Platinum - Run the System services with a target replica set count of 9.\n",
+      "description": "The reliability level sets the replica set size of system services. Learn about [ReliabilityLevel](https://docs.microsoft.com/azure/service-fabric/service-fabric-cluster-capacity).\n\n  - None - Run the System services with a target replica set count of 1. This should only be used for test clusters.\n  - Bronze - Run the System services with a target replica set count of 3. This should only be used for test clusters.\n  - Silver - Run the System services with a target replica set count of 5.\n  - Gold - Run the System services with a target replica set count of 7.\n  - Platinum - Run the System services with a target replica set count of 9.\n",
       "enum": [
         "None",
         "Bronze",
@@ -1292,6 +1324,11 @@
           "additionalProperties": {
             "type": "string"
           }
+        },
+        "etag": {
+          "type": "string",
+          "description": "Azure resource etag.",
+          "readOnly": true
         }
       },
       "description": "The resource model definition.",
@@ -1456,13 +1493,13 @@
     "api-version": {
       "name": "api-version",
       "in": "query",
-      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2018-02-01\" for this specification.",
+      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2020-03-01\" for this specification.",
       "required": true,
       "type": "string",
       "enum": [
-        "2018-02-01"
+        "2020-03-01"
       ],
-      "default": "2018-02-01",
+      "default": "2020-03-01",
       "x-ms-parameter-location": "client"
     },
     "clusterNameParameter": {
