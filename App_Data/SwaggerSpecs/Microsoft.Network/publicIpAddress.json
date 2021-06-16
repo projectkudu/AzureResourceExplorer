@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-07-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -54,7 +54,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the subnet."
+            "description": "The name of the public IP address."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -72,12 +72,23 @@
           },
           "200": {
             "description": "Delete successful."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Delete public IP address": { "$ref": "./examples/PublicIpAddressDelete.json" }
+          "Delete public IP address": {
+            "$ref": "./examples/PublicIpAddressDelete.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        }
       },
       "get": {
         "tags": [
@@ -98,7 +109,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The name of the subnet."
+            "description": "The name of the public IP address."
           },
           {
             "$ref": "./network.json#/parameters/ApiVersionParameter"
@@ -120,10 +131,18 @@
             "schema": {
               "$ref": "#/definitions/PublicIPAddress"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get public IP address": { "$ref": "./examples/PublicIpAddressGet.json" }
+          "Get public IP address": {
+            "$ref": "./examples/PublicIpAddressGet.json"
+          }
         }
       },
       "put": {
@@ -175,14 +194,29 @@
             "schema": {
               "$ref": "#/definitions/PublicIPAddress"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Create public IP address defaults": { "$ref": "./examples/PublicIpAddressCreateDefaults.json" },
-          "Create public IP address allocation method": { "$ref": "./examples/PublicIpAddressCreateCustomizedValues.json" },
-          "Create public IP address DNS": { "$ref": "./examples/PublicIpAddressCreateDns.json" }
+          "Create public IP address defaults": {
+            "$ref": "./examples/PublicIpAddressCreateDefaults.json"
+          },
+          "Create public IP address allocation method": {
+            "$ref": "./examples/PublicIpAddressCreateCustomizedValues.json"
+          },
+          "Create public IP address DNS": {
+            "$ref": "./examples/PublicIpAddressCreateDns.json"
+          }
         },
-        "x-ms-long-running-operation": true
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        }
       },
       "patch": {
         "tags": [
@@ -227,12 +261,19 @@
             "schema": {
               "$ref": "#/definitions/PublicIPAddress"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Update public IP address tags": { "$ref": "./examples/PublicIpAddressUpdateTags.json" }
-        },
-        "x-ms-long-running-operation": true
+          "Update public IP address tags": {
+            "$ref": "./examples/PublicIpAddressUpdateTags.json"
+          }
+        }
       }
     },
     "/subscriptions/{subscriptionId}/providers/Microsoft.Network/publicIPAddresses": {
@@ -256,10 +297,18 @@
             "schema": {
               "$ref": "#/definitions/PublicIPAddressListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List all public IP addresses": { "$ref": "./examples/PublicIpAddressListAll.json" }
+          "List all public IP addresses": {
+            "$ref": "./examples/PublicIpAddressListAll.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -294,10 +343,18 @@
             "schema": {
               "$ref": "#/definitions/PublicIPAddressListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List resource group public IP addresses": { "$ref": "./examples/PublicIpAddressList.json" }
+          "List resource group public IP addresses": {
+            "$ref": "./examples/PublicIpAddressList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -319,35 +376,31 @@
             "name": "PublicIPAddressSkuName",
             "modelAsString": true
           }
+        },
+        "tier": {
+          "type": "string",
+          "description": "Tier of a public IP address SKU.",
+          "enum": [
+            "Regional",
+            "Global"
+          ],
+          "x-ms-enum": {
+            "name": "PublicIPAddressSkuTier",
+            "modelAsString": true
+          }
         }
       },
-      "description": "SKU of a public IP address"
+      "description": "SKU of a public IP address."
     },
     "PublicIPAddressPropertiesFormat": {
       "properties": {
         "publicIPAllocationMethod": {
-          "type": "string",
-          "description": "The public IP allocation method. Possible values are: 'Static' and 'Dynamic'.",
-          "enum": [
-            "Static",
-            "Dynamic"
-          ],
-          "x-ms-enum": {
-            "name": "IPAllocationMethod",
-            "modelAsString": true
-          }
+          "$ref": "./network.json#/definitions/IPAllocationMethod",
+          "description": "The public IP address allocation method."
         },
         "publicIPAddressVersion": {
-          "type": "string",
-          "description": "The public IP address version. Possible values are: 'IPv4' and 'IPv6'.",
-          "enum": [
-            "IPv4",
-            "IPv6"
-          ],
-          "x-ms-enum": {
-            "name": "IPVersion",
-            "modelAsString": true
-          }
+          "$ref": "./network.json#/definitions/IPVersion",
+          "description": "The public IP address version."
         },
         "ipConfiguration": {
           "readOnly": true,
@@ -357,6 +410,10 @@
         "dnsSettings": {
           "$ref": "#/definitions/PublicIPAddressDnsSettings",
           "description": "The FQDN of the DNS record associated with the public IP address."
+        },
+        "ddosSettings": {
+          "$ref": "#/definitions/DdosSettings",
+          "description": "The DDoS protection custom policy associated with the public IP address."
         },
         "ipTags": {
           "type": "array",
@@ -370,7 +427,7 @@
           "description": "The IP address associated with the public IP address resource."
         },
         "publicIPPrefix": {
-          "$ref":"./network.json#/definitions/SubResource",
+          "$ref": "./network.json#/definitions/SubResource",
           "description": "The Public IP Prefix this Public IP Address should be allocated from."
         },
         "idleTimeoutInMinutes": {
@@ -379,18 +436,63 @@
           "description": "The idle timeout of the public IP address."
         },
         "resourceGuid": {
+          "readOnly": true,
           "type": "string",
-          "description": "The resource GUID property of the public IP resource."
+          "description": "The resource GUID property of the public IP address resource."
         },
         "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the public IP address resource."
+        },
+        "servicePublicIPAddress": {
+          "$ref": "#/definitions/PublicIPAddress",
+          "description": "The service public IP address of the public IP address resource."
+        },
+        "natGateway": {
+          "$ref": "./natGateway.json#/definitions/NatGateway",
+          "description": "The NatGateway for the Public IP address."
+        },
+        "migrationPhase": {
           "type": "string",
-          "description": "The provisioning state of the PublicIP resource. Possible values are: 'Updating', 'Deleting', and 'Failed'."
+          "description": "Migration phase of Public IP Address.",
+          "enum": [
+            "None",
+            "Prepare",
+            "Commit",
+            "Abort",
+            "Committed"
+          ],
+          "x-ms-enum": {
+            "name": "PublicIPAddressMigrationPhase",
+            "modelAsString": true
+          }
+        },
+        "linkedPublicIPAddress": {
+          "$ref": "#/definitions/PublicIPAddress",
+          "description": "The linked public IP address of the public IP address resource."
+        },
+        "deleteOption": {
+          "type": "string",
+          "description": "Specify what happens to the public IP address when the VM using it is deleted",
+          "enum": [
+            "Delete",
+            "Detach"
+          ],
+          "x-ms-enum": {
+            "name": "DeleteOptions",
+            "modelAsString": true
+          }
         }
       },
       "description": "Public IP address properties."
     },
     "PublicIPAddress": {
       "properties": {
+        "extendedLocation": {
+          "$ref": "./network.json#/definitions/ExtendedLocation",
+          "description": "The extended location of the public ip address."
+        },
         "sku": {
           "$ref": "#/definitions/PublicIPAddressSku",
           "description": "The public IP address SKU."
@@ -401,6 +503,7 @@
           "description": "Public IP address properties."
         },
         "etag": {
+          "readOnly": true,
           "type": "string",
           "description": "A unique read-only string that changes whenever the resource is updated."
         },
@@ -439,31 +542,59 @@
       "properties": {
         "domainNameLabel": {
           "type": "string",
-          "description": "Gets or sets the Domain name label.The concatenation of the domain name label and the regionalized DNS zone make up the fully qualified domain name associated with the public IP address. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system."
+          "description": "The domain name label. The concatenation of the domain name label and the regionalized DNS zone make up the fully qualified domain name associated with the public IP address. If a domain name label is specified, an A DNS record is created for the public IP in the Microsoft Azure DNS system."
         },
         "fqdn": {
           "type": "string",
-          "description": "Gets the FQDN, Fully qualified domain name of the A DNS record associated with the public IP. This is the concatenation of the domainNameLabel and the regionalized DNS zone."
+          "description": "The Fully Qualified Domain Name of the A DNS record associated with the public IP. This is the concatenation of the domainNameLabel and the regionalized DNS zone."
         },
         "reverseFqdn": {
           "type": "string",
-          "description": "Gets or Sets the Reverse FQDN. A user-visible, fully qualified domain name that resolves to this public IP address. If the reverseFqdn is specified, then a PTR DNS record is created pointing from the IP address in the in-addr.arpa domain to the reverse FQDN. "
+          "description": "The reverse FQDN. A user-visible, fully qualified domain name that resolves to this public IP address. If the reverseFqdn is specified, then a PTR DNS record is created pointing from the IP address in the in-addr.arpa domain to the reverse FQDN."
         }
       },
-      "description": "Contains FQDN of the DNS record associated with the public IP address"
+      "description": "Contains FQDN of the DNS record associated with the public IP address."
+    },
+    "DdosSettings": {
+      "properties": {
+        "ddosCustomPolicy": {
+          "readOnly": false,
+          "$ref": "./network.json#/definitions/SubResource",
+          "description": "The DDoS custom policy associated with the public IP."
+        },
+        "protectionCoverage": {
+          "readOnly": false,
+          "type": "string",
+          "enum": [
+            "Basic",
+            "Standard"
+          ],
+          "x-ms-enum": {
+            "name": "DdosSettingsProtectionCoverage",
+            "modelAsString": true
+          },
+          "description": "The DDoS protection policy customizability of the public IP. Only standard coverage will have the ability to be customized."
+        },
+        "protectedIP": {
+          "readOnly": false,
+          "type": "boolean",
+          "description": "Enables DDoS protection on the public IP."
+        }
+      },
+      "description": "Contains the DDoS protection settings of the public IP."
     },
     "IpTag": {
       "properties": {
         "ipTagType": {
           "type": "string",
-          "description": "Gets or sets the ipTag type: Example FirstPartyUsage."
+          "description": "The IP tag type. Example: FirstPartyUsage."
         },
         "tag": {
           "type": "string",
-          "description": "Gets or sets value of the IpTag associated with the public IP. Example SQL, Storage etc"
+          "description": "The value of the IP tag associated with the public IP. Example: SQL."
         }
       },
-      "description": "Contains the IpTag associated with the object"
+      "description": "Contains the IpTag associated with the object."
     }
   }
 }

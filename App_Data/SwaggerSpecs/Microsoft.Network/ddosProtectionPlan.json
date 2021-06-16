@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-07-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -72,9 +72,18 @@
           },
           "200": {
             "description": "Delete successful."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
         "x-ms-examples": {
           "Delete DDoS protection plan": {
             "$ref": "./examples/DdosProtectionPlanDelete.json"
@@ -114,6 +123,12 @@
             "description": "Request successful. The operation returns the specified DDoS protection plan resource.",
             "schema": {
               "$ref": "#/definitions/DdosProtectionPlan"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -172,12 +187,78 @@
             "schema": {
               "$ref": "#/definitions/DdosProtectionPlan"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "x-ms-examples": {
           "Create DDoS protection plan": {
             "$ref": "./examples/DdosProtectionPlanCreate.json"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "DdosProtectionPlans"
+        ],
+        "operationId": "DdosProtectionPlans_UpdateTags",
+        "description": "Update a DDoS protection plan tags.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "ddosProtectionPlanName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the DDoS protection plan."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./network.json#/definitions/TagsObject"
+            },
+            "description": "Parameters supplied to the update DDoS protection plan resource tags."
+          },
+          {
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful. The operation returns the resulting DDoS protection plan resource.",
+            "schema": {
+              "$ref": "#/definitions/DdosProtectionPlan"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "DDoS protection plan Update tags": {
+            "$ref": "./examples/DdosProtectionPlanUpdateTags.json"
           }
         }
       }
@@ -202,6 +283,12 @@
             "description": "Request successful. The operation returns a list of DDoS protection plan resources.",
             "schema": {
               "$ref": "#/definitions/DdosProtectionPlanListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -242,6 +329,12 @@
             "description": "Request successful. The operation returns a list of DDoS protection plan resources.",
             "schema": {
               "$ref": "#/definitions/DdosProtectionPlanListResult"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -308,8 +401,8 @@
         },
         "provisioningState": {
           "readOnly": true,
-          "type": "string",
-          "description": "The provisioning state of the DDoS protection plan resource. Possible values are: 'Succeeded', 'Updating', 'Deleting', and 'Failed'."
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the DDoS protection plan resource."
         },
         "virtualNetworks": {
           "readOnly": true,

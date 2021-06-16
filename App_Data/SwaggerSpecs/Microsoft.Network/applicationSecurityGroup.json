@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2018-07-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -72,11 +72,22 @@
           },
           "200": {
             "description": "Delete successful."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
         "x-ms-examples": {
-          "Delete application security group": { "$ref": "./examples/ApplicationSecurityGroupDelete.json" }
+          "Delete application security group": {
+            "$ref": "./examples/ApplicationSecurityGroupDelete.json"
+          }
         }
       },
       "get": {
@@ -113,10 +124,18 @@
             "schema": {
               "$ref": "#/definitions/ApplicationSecurityGroup"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "Get application security group": { "$ref": "./examples/ApplicationSecurityGroupGet.json" }
+          "Get application security group": {
+            "$ref": "./examples/ApplicationSecurityGroupGet.json"
+          }
         }
       },
       "put": {
@@ -168,11 +187,79 @@
             "schema": {
               "$ref": "#/definitions/ApplicationSecurityGroup"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "azure-async-operation"
+        },
         "x-ms-examples": {
-          "Create application security group": { "$ref": "./examples/ApplicationSecurityGroupCreate.json" }
+          "Create application security group": {
+            "$ref": "./examples/ApplicationSecurityGroupCreate.json"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "applicationSecurityGroups"
+        ],
+        "operationId": "ApplicationSecurityGroups_UpdateTags",
+        "description": "Updates an application security group's tags.",
+        "parameters": [
+          {
+            "name": "resourceGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the resource group."
+          },
+          {
+            "name": "applicationSecurityGroupName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The name of the application security group."
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./network.json#/definitions/TagsObject"
+            },
+            "description": "Parameters supplied to update application security group tags."
+          },
+          {
+            "$ref": "./network.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./network.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Update successful. The operation returns the resulting ApplicationSecurityGroup resource.",
+            "schema": {
+              "$ref": "#/definitions/ApplicationSecurityGroup"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
+          }
+        },
+        "x-ms-examples": {
+          "Update application security group tags": {
+            "$ref": "./examples/ApplicationSecurityGroupUpdateTags.json"
+          }
         }
       }
     },
@@ -197,13 +284,21 @@
             "schema": {
               "$ref": "#/definitions/ApplicationSecurityGroupListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
         "x-ms-examples": {
-          "List all application security groups": { "$ref": "./examples/ApplicationSecurityGroupListAll.json" }
+          "List all application security groups": {
+            "$ref": "./examples/ApplicationSecurityGroupListAll.json"
+          }
         }
       }
     },
@@ -235,10 +330,18 @@
             "schema": {
               "$ref": "#/definitions/ApplicationSecurityGroupListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "List load balancers in resource group": { "$ref": "./examples/ApplicationSecurityGroupList.json" }
+          "List load balancers in resource group": {
+            "$ref": "./examples/ApplicationSecurityGroupList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -276,8 +379,8 @@
         },
         "provisioningState": {
           "readOnly": true,
-          "type": "string",
-          "description": "The provisioning state of the application security group resource. Possible values are: 'Succeeded', 'Updating', 'Deleting', and 'Failed'."
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the application security group resource."
         }
       },
       "description": "Application security group properties."

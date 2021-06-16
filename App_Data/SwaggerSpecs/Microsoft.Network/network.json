@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2019-04-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -80,6 +80,41 @@
       },
       "description": "Common error representation."
     },
+    "CloudError": {
+      "x-ms-external": true,
+      "properties": {
+        "error": {
+          "$ref": "#/definitions/CloudErrorBody",
+          "description": "Cloud error body."
+        }
+      },
+      "description": "An error response from the service."
+    },
+    "CloudErrorBody": {
+      "x-ms-external": true,
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An identifier for the error. Codes are invariant and are intended to be consumed programmatically."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message describing the error, intended to be suitable for display in a user interface."
+        },
+        "target": {
+          "type": "string",
+          "description": "The target of the particular error. For example, the name of the property in error."
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CloudErrorBody"
+          },
+          "description": "A list of additional details about the error."
+        }
+      },
+      "description": "An error response from the service."
+    },
     "AzureAsyncOperationResult": {
       "properties": {
         "status": {
@@ -155,54 +190,54 @@
       },
       "description": "Tags object for patch operations."
     },
-	"ManagedServiceIdentity": {
-		"properties": {
-			"principalId": {
-				"readOnly": true,
-				"type": "string",
-				"description": "The principal id of the system assigned identity. This property will only be provided for a system assigned identity."
-			},
-			"tenantId": {
-				"readOnly": true,
-				"type": "string",
-				"description": "The tenant id of the system assigned identity. This property will only be provided for a system assigned identity."
-			},
-			"type": {
-				"type": "string",
-				"description": "The type of identity used for the resource. The type 'SystemAssigned, UserAssigned' includes both an implicitly created identity and a set of user assigned identities. The type 'None' will remove any identities from the virtual machine.",
-				"enum": [
-					"SystemAssigned",
-					"UserAssigned",
-					"SystemAssigned, UserAssigned",
-					"None"
-				],
-				"x-ms-enum": {
-					"name": "ResourceIdentityType",
-					"modelAsString": false
-				}
-			},
-			"userAssignedIdentities": {
-				"type": "object",
-				"additionalProperties": {
-					"type": "object",
-					"properties": {
-						"principalId": {
-							"readOnly": true,
-							"type": "string",
-							"description": "The principal id of user assigned identity."
-						},
-						"clientId": {
-							"readOnly": true,
-							"type": "string",
-							"description": "The client id of user assigned identity."
-						}
-					}
-				},
-				"description": "The list of user identities associated with resource. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'."
-			}
-		},
-		"description": "Identity for the resource."
-	},
+    "ManagedServiceIdentity": {
+      "properties": {
+        "principalId": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The principal id of the system assigned identity. This property will only be provided for a system assigned identity."
+        },
+        "tenantId": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The tenant id of the system assigned identity. This property will only be provided for a system assigned identity."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of identity used for the resource. The type 'SystemAssigned, UserAssigned' includes both an implicitly created identity and a set of user assigned identities. The type 'None' will remove any identities from the virtual machine.",
+          "enum": [
+            "SystemAssigned",
+            "UserAssigned",
+            "SystemAssigned, UserAssigned",
+            "None"
+          ],
+          "x-ms-enum": {
+            "name": "ResourceIdentityType",
+            "modelAsString": false
+          }
+        },
+        "userAssignedIdentities": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "principalId": {
+                "readOnly": true,
+                "type": "string",
+                "description": "The principal id of user assigned identity."
+              },
+              "clientId": {
+                "readOnly": true,
+                "type": "string",
+                "description": "The client id of user assigned identity."
+              }
+            }
+          },
+          "description": "The list of user identities associated with resource. The user identity dictionary key references will be ARM resource ids in the form: '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ManagedIdentity/userAssignedIdentities/{identityName}'."
+        }
+      },
+      "description": "Identity for the resource."
+    },
     "ProvisioningState": {
       "type": "string",
       "readOnly": true,
@@ -264,6 +299,30 @@
       "x-ms-enum": {
         "name": "IPVersion",
         "modelAsString": true
+      }
+    },
+    "ExtendedLocationType": {
+      "type": "string",
+      "description": "The supported ExtendedLocation types. Currently only EdgeZone is supported in Microsoft.Network resources.",
+      "enum": [
+        "EdgeZone"
+      ],
+      "x-ms-enum": {
+        "name": "ExtendedLocationTypes",
+        "modelAsString": true
+      }
+    },
+    "ExtendedLocation": {
+      "description": "ExtendedLocation complex type.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the extended location."
+        },
+        "type": {
+          "$ref": "#/definitions/ExtendedLocationType",
+          "description": "The type of the extended location."
+        }
       }
     }
   },

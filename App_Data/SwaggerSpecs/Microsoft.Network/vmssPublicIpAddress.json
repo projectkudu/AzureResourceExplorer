@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2017-03-30"
+    "version": "2018-10-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -27,7 +27,7 @@
       "type": "oauth2",
       "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
       "flow": "implicit",
-      "description": "Azure Active Directory OAuth2 Flow",
+      "description": "Azure Active Directory OAuth2 Flow.",
       "scopes": {
         "user_impersonation": "impersonate your user account"
       }
@@ -54,18 +54,7 @@
             "description": "The name of the virtual machine scale set."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -77,17 +66,25 @@
             "schema": {
               "$ref": "./publicIpAddress.json#/definitions/PublicIPAddressListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "ListVMSSPublicIP": { "$ref": "./examples/VmssPublicIpListAll.json" }
+          "ListVMSSPublicIP": {
+            "$ref": "./examples/VmssPublicIpListAll.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/virtualMachines/{virtualmachineIndex}/networkInterfaces/{networkInterfaceName}/ipconfigurations/{ipConfigurationName}/publicipaddresses" : {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Compute/virtualMachineScaleSets/{virtualMachineScaleSetName}/virtualMachines/{virtualmachineIndex}/networkInterfaces/{networkInterfaceName}/ipconfigurations/{ipConfigurationName}/publicipaddresses": {
       "get": {
         "operationId": "PublicIPAddresses_ListVirtualMachineScaleSetVMPublicIPAddresses",
         "description": "Gets information about all public IP addresses in a virtual machine IP configuration in a virtual machine scale set.",
@@ -128,18 +125,7 @@
             "description": "The IP configuration name."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -151,10 +137,18 @@
             "schema": {
               "$ref": "./publicIpAddress.json#/definitions/PublicIPAddressListResult"
             }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
+            }
           }
         },
         "x-ms-examples": {
-          "ListVMSSVMPublicIP": { "$ref": "./examples/VmssVmPublicIpList.json" }
+          "ListVMSSVMPublicIP": {
+            "$ref": "./examples/VmssVmPublicIpList.json"
+          }
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
@@ -209,18 +203,7 @@
             "description": "The name of the public IP Address."
           },
           {
-            "name": "api-version",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "enum": [
-              "2017-03-30"
-            ],
-            "x-ms-enum": {
-              "name": "ApiVersion",
-              "modelAsString": true
-            },
-            "description": "Client API version."
+            "$ref": "./network.json#/parameters/ApiVersionVmssParameter"
           },
           {
             "$ref": "./network.json#/parameters/SubscriptionIdParameter"
@@ -234,13 +217,21 @@
           }
         ],
         "x-ms-examples": {
-          "GetVMSSPublicIP": { "$ref": "./examples/VmssPublicIpGet.json" }
+          "GetVMSSPublicIP": {
+            "$ref": "./examples/VmssPublicIpGet.json"
+          }
         },
         "responses": {
           "200": {
             "description": "Request successful. The operation returns the resulting PublicIPAddress resource.",
             "schema": {
               "$ref": "./publicIpAddress.json#/definitions/PublicIPAddress"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         }

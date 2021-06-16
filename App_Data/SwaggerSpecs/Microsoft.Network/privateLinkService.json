@@ -3,7 +3,7 @@
   "info": {
     "title": "NetworkManagementClient",
     "description": "The Microsoft Azure Network management API provides a RESTful set of web services that interact with Microsoft Azure Networks service to manage your network resources. The API has entities that capture the relationship between an end user and the Microsoft Azure Networks service.",
-    "version": "2020-05-01"
+    "version": "2021-02-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -585,7 +585,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -651,7 +651,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -698,7 +698,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -751,7 +751,7 @@
           "default": {
             "description": "Error response describing why the operation failed.",
             "schema": {
-              "$ref": "#/definitions/CloudError"
+              "$ref": "./network.json#/definitions/CloudError"
             }
           }
         },
@@ -766,338 +766,321 @@
       }
     }
   },
-    "definitions": {
-        "PrivateLinkService": {
-            "properties": {
-                "properties": {
-                    "x-ms-client-flatten": true,
-                    "$ref": "#/definitions/PrivateLinkServiceProperties",
-                    "description": "Properties of the private link service."
-                },
-                "etag": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "A unique read-only string that changes whenever the resource is updated."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "./network.json#/definitions/Resource"
-                }
-            ],
-            "description": "Private link service resource."
+  "definitions": {
+    "PrivateLinkService": {
+      "properties": {
+        "extendedLocation": {
+          "$ref": "./network.json#/definitions/ExtendedLocation",
+          "description": "The extended location of the load balancer."
         },
-        "PrivateLinkServiceProperties": {
-            "properties": {
-                "loadBalancerFrontendIpConfigurations": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "./loadBalancer.json#/definitions/FrontendIPConfiguration"
-                    },
-                    "description": "An array of references to the load balancer IP configurations."
-                },
-                "ipConfigurations": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateLinkServiceIpConfiguration"
-                    },
-                    "description": "An array of private link service IP configurations."
-                },
-                "networkInterfaces": {
-                    "type": "array",
-                    "readOnly": true,
-                    "items": {
-                        "$ref": "./networkInterface.json#/definitions/NetworkInterface"
-                    },
-                    "description": "An array of references to the network interfaces created for this private link service."
-                },
-                "provisioningState": {
-                    "readOnly": true,
-                    "$ref": "./network.json#/definitions/ProvisioningState",
-                    "description": "The provisioning state of the private link service resource."
-                },
-                "privateEndpointConnections": {
-                    "readOnly": true,
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateEndpointConnection"
-                    },
-                    "description": "An array of list about connections to the private endpoint."
-                },
-                "visibility": {
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/ResourceSet"
-                        }
-                    ],
-                    "description": "The visibility list of the private link service."
-                },
-                "autoApproval": {
-                    "allOf": [
-                        {
-                            "$ref": "#/definitions/ResourceSet"
-                        }
-                    ],
-                    "description": "The auto-approval list of the private link service."
-                },
-                "fqdns": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The list of Fqdn."
-                },
-                "alias": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "The alias of the private link service."
-                },
-                "enableProxyProtocol": {
-                    "type": "boolean",
-                    "description": "Whether the private link service is enabled for proxy protocol or not."
-                }
-            },
-            "description": "Properties of the private link service."
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/PrivateLinkServiceProperties",
+          "description": "Properties of the private link service."
         },
-        "ResourceSet": {
-            "properties": {
-                "subscriptions": {
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    },
-                    "description": "The list of subscriptions."
-                }
-            },
-            "description": "The base resource set for visibility and auto-approval."
-        },
-        "PrivateLinkServiceIpConfiguration": {
-            "properties": {
-                "properties": {
-                    "x-ms-client-flatten": true,
-                    "$ref": "#/definitions/PrivateLinkServiceIpConfigurationProperties",
-                    "description": "Properties of the private link service ip configuration."
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of private link service ip configuration."
-                },
-                "etag": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "A unique read-only string that changes whenever the resource is updated."
-                },
-                "type": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "The resource type."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "./network.json#/definitions/SubResource"
-                }
-            ],
-            "description": "The private link service ip configuration."
-        },
-        "PrivateLinkServiceIpConfigurationProperties": {
-            "properties": {
-                "privateIPAddress": {
-                    "type": "string",
-                    "description": "The private IP address of the IP configuration."
-                },
-                "privateIPAllocationMethod": {
-                    "$ref": "./network.json#/definitions/IPAllocationMethod",
-                    "description": "The private IP address allocation method."
-                },
-                "subnet": {
-                    "$ref": "./virtualNetwork.json#/definitions/Subnet",
-                    "description": "The reference to the subnet resource."
-                },
-                "primary": {
-                    "type": "boolean",
-                    "description": "Whether the ip configuration is primary or not."
-                },
-                "provisioningState": {
-                    "readOnly": true,
-                    "$ref": "./network.json#/definitions/ProvisioningState",
-                    "description": "The provisioning state of the private link service IP configuration resource."
-                },
-                "privateIPAddressVersion": {
-                    "$ref": "./network.json#/definitions/IPVersion",
-                    "description": "Whether the specific IP configuration is IPv4 or IPv6. Default is IPv4."
-                }
-            },
-            "description": "Properties of private link service IP configuration."
-        },
-        "PrivateEndpointConnection": {
-            "properties": {
-                "properties": {
-                    "x-ms-client-flatten": true,
-                    "$ref": "#/definitions/PrivateEndpointConnectionProperties",
-                    "description": "Properties of the private end point connection."
-                },
-                "name": {
-                    "type": "string",
-                    "description": "The name of the resource that is unique within a resource group. This name can be used to access the resource."
-                },
-                "type": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "The resource type."
-                },
-                "etag": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "A unique read-only string that changes whenever the resource is updated."
-                }
-            },
-            "allOf": [
-                {
-                    "$ref": "./network.json#/definitions/SubResource"
-                }
-            ],
-            "description": "PrivateEndpointConnection resource."
-        },
-        "PrivateEndpointConnectionProperties": {
-            "properties": {
-                "privateEndpoint": {
-                    "readOnly": true,
-                    "$ref": "./privateEndpoint.json#/definitions/PrivateEndpoint",
-                    "description": "The resource of private end point."
-                },
-                "privateLinkServiceConnectionState": {
-                    "$ref": "#/definitions/PrivateLinkServiceConnectionState",
-                    "description": "A collection of information about the state of the connection between service consumer and provider."
-                },
-                "provisioningState": {
-                    "readOnly": true,
-                    "$ref": "./network.json#/definitions/ProvisioningState",
-                    "description": "The provisioning state of the private endpoint connection resource."
-                },
-                "linkIdentifier": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "The consumer link id."
-                }
-            },
-            "description": "Properties of the PrivateEndpointConnectProperties."
-        },
-        "PrivateLinkServiceConnectionState": {
-            "properties": {
-                "status": {
-                    "type": "string",
-                    "description": "Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service."
-                },
-                "description": {
-                    "type": "string",
-                    "description": "The reason for approval/rejection of the connection."
-                },
-                "actionsRequired": {
-                    "type": "string",
-                    "description": "A message indicating if changes on the service provider require any updates on the consumer."
-                }
-            },
-            "description": "A collection of information about the state of the connection between service consumer and provider."
-        },
-        "PrivateLinkServiceListResult": {
-            "properties": {
-                "value": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateLinkService"
-                    },
-                    "description": "A list of PrivateLinkService resources in a resource group."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL to get the next set of results.",
-                    "readOnly": true
-                }
-            },
-            "description": "Response for the ListPrivateLinkService API service call."
-        },
-        "PrivateEndpointConnectionListResult": {
-            "properties": {
-                "value": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/PrivateEndpointConnection"
-                    },
-                    "description": "A list of PrivateEndpointConnection resources for a specific private link service."
-                },
-                "nextLink": {
-                    "type": "string",
-                    "description": "The URL to get the next set of results.",
-                    "readOnly": true
-                }
-            },
-            "description": "Response for the ListPrivateEndpointConnection API service call."
-        },
-        "CheckPrivateLinkServiceVisibilityRequest": {
-            "properties": {
-                "privateLinkServiceAlias": {
-                    "type": "string",
-                    "description": "The alias of the private link service."
-                }
-            },
-            "description": "Request body of the CheckPrivateLinkServiceVisibility API service call."
-        },
-        "CloudError": {
-            "description": "Error from a REST request.",
-            "type": "object",
-            "properties": { "error": { "$ref": "#/definitions/CloudErrorBody" } },
-            "x-ms-external": true
-        },
-        "CloudErrorBody": {
-            "description": "Body of an error from a REST request.",
-            "type": "object",
-            "properties": {
-                "code": { "type": "string" },
-                "message": { "type": "string" },
-                "target": { "type": "string" },
-                "details": {
-                    "description": "Inner errors.",
-                    "type": "array",
-                    "items": { "$ref": "#/definitions/CloudErrorBody" }
-                }
-            },
-            "x-ms-external": true
-        },
-        "PrivateLinkServiceVisibility": {
-            "properties": {
-                "visible": {
-                    "type": "boolean",
-                    "description": "Private Link Service Visibility (True/False)."
-                }
-            },
-            "description": "Response for the CheckPrivateLinkServiceVisibility API service call."
-        },
-        "AutoApprovedPrivateLinkServicesResult": {
-            "properties": {
-                "value": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/definitions/AutoApprovedPrivateLinkService"
-                    },
-                    "description": "An array of auto approved private link service."
-                },
-                "nextLink": {
-                    "readOnly": true,
-                    "type": "string",
-                    "description": "The URL to get the next set of results."
-                }
-            },
-            "description": "An array of private link service id that can be linked to a private end point with auto approved."
-        },
-        "AutoApprovedPrivateLinkService": {
-            "properties": {
-                "privateLinkService": {
-                    "type": "string",
-                    "description": "The id of the private link service resource."
-                }
-            },
-            "description": "The information of an AutoApprovedPrivateLinkService."
+        "etag": {
+          "readOnly": true,
+          "type": "string",
+          "description": "A unique read-only string that changes whenever the resource is updated."
         }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/Resource"
+        }
+      ],
+      "description": "Private link service resource."
+    },
+    "PrivateLinkServiceProperties": {
+      "properties": {
+        "loadBalancerFrontendIpConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "./loadBalancer.json#/definitions/FrontendIPConfiguration"
+          },
+          "description": "An array of references to the load balancer IP configurations."
+        },
+        "ipConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateLinkServiceIpConfiguration"
+          },
+          "description": "An array of private link service IP configurations."
+        },
+        "networkInterfaces": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "./networkInterface.json#/definitions/NetworkInterface"
+          },
+          "description": "An array of references to the network interfaces created for this private link service."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the private link service resource."
+        },
+        "privateEndpointConnections": {
+          "readOnly": true,
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateEndpointConnection"
+          },
+          "description": "An array of list about connections to the private endpoint."
+        },
+        "visibility": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/ResourceSet"
+            }
+          ],
+          "description": "The visibility list of the private link service."
+        },
+        "autoApproval": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/ResourceSet"
+            }
+          ],
+          "description": "The auto-approval list of the private link service."
+        },
+        "fqdns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The list of Fqdn."
+        },
+        "alias": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The alias of the private link service."
+        },
+        "enableProxyProtocol": {
+          "type": "boolean",
+          "description": "Whether the private link service is enabled for proxy protocol or not."
+        }
+      },
+      "description": "Properties of the private link service."
+    },
+    "ResourceSet": {
+      "properties": {
+        "subscriptions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "The list of subscriptions."
+        }
+      },
+      "description": "The base resource set for visibility and auto-approval."
+    },
+    "PrivateLinkServiceIpConfiguration": {
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/PrivateLinkServiceIpConfigurationProperties",
+          "description": "Properties of the private link service ip configuration."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of private link service ip configuration."
+        },
+        "etag": {
+          "readOnly": true,
+          "type": "string",
+          "description": "A unique read-only string that changes whenever the resource is updated."
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The resource type."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/SubResource"
+        }
+      ],
+      "description": "The private link service ip configuration."
+    },
+    "PrivateLinkServiceIpConfigurationProperties": {
+      "properties": {
+        "privateIPAddress": {
+          "type": "string",
+          "description": "The private IP address of the IP configuration."
+        },
+        "privateIPAllocationMethod": {
+          "$ref": "./network.json#/definitions/IPAllocationMethod",
+          "description": "The private IP address allocation method."
+        },
+        "subnet": {
+          "$ref": "./virtualNetwork.json#/definitions/Subnet",
+          "description": "The reference to the subnet resource."
+        },
+        "primary": {
+          "type": "boolean",
+          "description": "Whether the ip configuration is primary or not."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the private link service IP configuration resource."
+        },
+        "privateIPAddressVersion": {
+          "$ref": "./network.json#/definitions/IPVersion",
+          "description": "Whether the specific IP configuration is IPv4 or IPv6. Default is IPv4."
+        }
+      },
+      "description": "Properties of private link service IP configuration."
+    },
+    "PrivateEndpointConnection": {
+      "properties": {
+        "properties": {
+          "x-ms-client-flatten": true,
+          "$ref": "#/definitions/PrivateEndpointConnectionProperties",
+          "description": "Properties of the private end point connection."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the resource that is unique within a resource group. This name can be used to access the resource."
+        },
+        "type": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The resource type."
+        },
+        "etag": {
+          "readOnly": true,
+          "type": "string",
+          "description": "A unique read-only string that changes whenever the resource is updated."
+        }
+      },
+      "allOf": [
+        {
+          "$ref": "./network.json#/definitions/SubResource"
+        }
+      ],
+      "description": "PrivateEndpointConnection resource."
+    },
+    "PrivateEndpointConnectionProperties": {
+      "properties": {
+        "privateEndpoint": {
+          "readOnly": true,
+          "$ref": "./privateEndpoint.json#/definitions/PrivateEndpoint",
+          "description": "The resource of private end point."
+        },
+        "privateLinkServiceConnectionState": {
+          "$ref": "#/definitions/PrivateLinkServiceConnectionState",
+          "description": "A collection of information about the state of the connection between service consumer and provider."
+        },
+        "provisioningState": {
+          "readOnly": true,
+          "$ref": "./network.json#/definitions/ProvisioningState",
+          "description": "The provisioning state of the private endpoint connection resource."
+        },
+        "linkIdentifier": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The consumer link id."
+        }
+      },
+      "description": "Properties of the PrivateEndpointConnectProperties."
+    },
+    "PrivateLinkServiceConnectionState": {
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Indicates whether the connection has been Approved/Rejected/Removed by the owner of the service."
+        },
+        "description": {
+          "type": "string",
+          "description": "The reason for approval/rejection of the connection."
+        },
+        "actionsRequired": {
+          "type": "string",
+          "description": "A message indicating if changes on the service provider require any updates on the consumer."
+        }
+      },
+      "description": "A collection of information about the state of the connection between service consumer and provider."
+    },
+    "PrivateLinkServiceListResult": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateLinkService"
+          },
+          "description": "A list of PrivateLinkService resources in a resource group."
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The URL to get the next set of results.",
+          "readOnly": true
+        }
+      },
+      "description": "Response for the ListPrivateLinkService API service call."
+    },
+    "PrivateEndpointConnectionListResult": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateEndpointConnection"
+          },
+          "description": "A list of PrivateEndpointConnection resources for a specific private link service."
+        },
+        "nextLink": {
+          "type": "string",
+          "description": "The URL to get the next set of results.",
+          "readOnly": true
+        }
+      },
+      "description": "Response for the ListPrivateEndpointConnection API service call."
+    },
+    "CheckPrivateLinkServiceVisibilityRequest": {
+      "properties": {
+        "privateLinkServiceAlias": {
+          "type": "string",
+          "description": "The alias of the private link service."
+        }
+      },
+      "description": "Request body of the CheckPrivateLinkServiceVisibility API service call."
+    },
+    "PrivateLinkServiceVisibility": {
+      "properties": {
+        "visible": {
+          "type": "boolean",
+          "description": "Private Link Service Visibility (True/False)."
+        }
+      },
+      "description": "Response for the CheckPrivateLinkServiceVisibility API service call."
+    },
+    "AutoApprovedPrivateLinkServicesResult": {
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AutoApprovedPrivateLinkService"
+          },
+          "description": "An array of auto approved private link service."
+        },
+        "nextLink": {
+          "readOnly": true,
+          "type": "string",
+          "description": "The URL to get the next set of results."
+        }
+      },
+      "description": "An array of private link service id that can be linked to a private end point with auto approved."
+    },
+    "AutoApprovedPrivateLinkService": {
+      "properties": {
+        "privateLinkService": {
+          "type": "string",
+          "description": "The id of the private link service resource."
+        }
+      },
+      "description": "The information of an AutoApprovedPrivateLinkService."
     }
+  }
 }
