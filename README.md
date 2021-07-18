@@ -8,17 +8,14 @@ This project has dependencies on OAuth authentication.
 ### Create AAD application
 1. Go to [Azure Portal](https://portal.azure.com/) while logged in as an Org ID (i.e. not MSA) and create AAD Application. You may create an application on existing AAD directory or a new directory altogether.
 1. Select 'Azure Active Directory' and then 'App registrations' and click 'New application registration'
-1. Enter any name for application name.
-1. Select `WEB APPLICATION AND/OR WEB API`
-1. Enter `https://localhost:44300/` as `SIGN ON URL`
-1. For `APP ID URL`, enter something like `https://davidebboslingshot.onmicrosoft.com/`.
-1. Once created, click `Settings` tab
-1. On `Required permissions`, add `Windows Azure Service Management API` and check `Access Azure Service Management` for `Delegated Permissions` and save.
-1. In 'Reply URLs' add 'https://localhost:44300/manage'
+1. Enter any name for application name and `https://localhost:44300/manage` as `Redirect URIs` and click 'Register'
+1. Once created, open the application
+1. On `Authentication`, check `ID tokens (used for implicit and hybrid flows)` in `Implicit grant and hybrid flows` and save.
+1. On `API permissions`, add `Windows Azure Service Management API` and check `Access Azure Service Management` for `Delegated Permissions` and save.
 
 ### Fix AADClientId and AADClientSecret in codes
 1. Copy `CLIENT ID` and paste it in [this line](https://github.com/projectkudu/ARMExplorer/blob/master/Modules/ARMOAuthModule.cs#L38), replacing `Environment.GetEnvironmentVariable("AADClientId")`.
-2. On `Keys` section, create a client secret. Copy the key and paste it in the same file, replacing `Environment.GetEnvironmentVariable("AADClientSecret")`.
+2. On `Certificates & secrets` section, create a client secret. Copy the key and paste it in the same file, replacing `Environment.GetEnvironmentVariable("AADClientSecret")`.
 
 
 Test with localhost
