@@ -183,6 +183,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Compute\compute.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Compute\disk.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Compute\runCommands.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.Compute\cloudService.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\applicationGateway.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\checkDnsAvailability.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\expressRouteCircuit.json" />
