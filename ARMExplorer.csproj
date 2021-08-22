@@ -202,6 +202,8 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\vmssNetworkInterface.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Storage\storage.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.CDN\cdn.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.CDN\afdx.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.CDN\cdnwebapplicationfirewall.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.EventHub\EventHub.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Logic\logic.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\dns.json" />
