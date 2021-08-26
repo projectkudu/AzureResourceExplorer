@@ -81,6 +81,7 @@
     <Compile Include="WebApiTests\ArmRepositoryTests.cs" />
     <Compile Include="WebApiTests\MockHttpClientWrapper.cs" />
     <Compile Include="WebApiTests\OperationControllerTests.cs" />
+    <Compile Include="WebApiTests\OperationInfoTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
