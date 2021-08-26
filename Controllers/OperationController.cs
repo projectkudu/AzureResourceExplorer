@@ -135,7 +135,7 @@ namespace ARMExplorer.Controllers
         [Authorize]
         public async Task<HttpResponseMessage> Invoke(OperationInfo info)
         {
-            if (!IsValidHost())
+            if (!IsValidHost() || !info.IsValidHost())
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid request domain");
             }

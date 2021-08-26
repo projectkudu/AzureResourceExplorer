@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -36,27 +37,44 @@ namespace ARMExplorer.Controllers
             return response;
         }
 
+        private const string ApiNextHost = "api-next.resources.windows-int.net";
+        private const string ApiCurrentHost = "api-current.resources.windows-int.net";
+        private const string DogfoodHost = "api-dogfood.resources.windows-int.net";
+        private const string ArmHost = "management.azure.com";
+
+        private static readonly HashSet<string> SupportedHosts = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ApiNextHost,
+            ApiCurrentHost,
+            DogfoodHost,
+            ArmHost
+        };
+
+        public static bool IsSupportedHost(string host)
+        {
+            return SupportedHosts.Contains(host);
+        }
 
         public static string GetCSMUrl(string host)
         {
             if (host.EndsWith(".antares-int.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return "https://api-next.resources.windows-int.net";
+                return $"https://{ApiNextHost}";
             }
             else if (host.EndsWith(".antares-test.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return "https://api-current.resources.windows-int.net";
+                return $"https://{ApiCurrentHost}";
             }
             else if (host.EndsWith(".ant-intapp.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return "https://api-dogfood.resources.windows-int.net";
+                return $"https://{DogfoodHost}";
             }
             else if (host.EndsWith(".waws-ppedf.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return "https://api-dogfood.resources.windows-int.net";
+                return $"https://{DogfoodHost}";
             }
 
-            return "https://management.azure.com";
+            return $"https://{ArmHost}";
         }
     }
 }
