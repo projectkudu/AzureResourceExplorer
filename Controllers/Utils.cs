@@ -17,6 +17,22 @@ namespace ARMExplorer.Controllers
         public const string SubscriptionTemplate = "{0}/subscriptions/{1}?api-version={2}";
         public const string AllSubscriptionsTemplate = "{0}/subscriptions?api-version={1}";
 
+        public static string GetAbsoluteArmUrl(string url, string requestHost)
+        {
+            Uri uri;
+            if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uri))
+            {
+                var armHostName = GetArmHostName(requestHost);
+                return uri.IsAbsoluteUri
+                    ? $"{uri.Scheme}://{armHostName}/{uri.PathAndQuery}"
+                    : $"https://{armHostName}/{uri.OriginalString}";
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         public static string GetApiVersion(string path)
         {
             if (path.IndexOf("/Microsoft.Web/", StringComparison.OrdinalIgnoreCase) > 0)
@@ -57,24 +73,29 @@ namespace ARMExplorer.Controllers
 
         public static string GetCSMUrl(string host)
         {
+            return $"https://{GetArmHostName(host)}";
+        }
+
+        public static string GetArmHostName(string host)
+        {
             if (host.EndsWith(".antares-int.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return $"https://{ApiNextHost}";
+                return ApiNextHost;
             }
             else if (host.EndsWith(".antares-test.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return $"https://{ApiCurrentHost}";
+                return ApiCurrentHost;
             }
             else if (host.EndsWith(".ant-intapp.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return $"https://{DogfoodHost}";
+                return DogfoodHost;
             }
             else if (host.EndsWith(".waws-ppedf.windows-int.net", StringComparison.OrdinalIgnoreCase))
             {
-                return $"https://{DogfoodHost}";
+                return DogfoodHost;
             }
 
-            return $"https://{ArmHost}";
+            return ArmHost;
         }
     }
 }

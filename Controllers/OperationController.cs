@@ -135,15 +135,19 @@ namespace ARMExplorer.Controllers
         [Authorize]
         public async Task<HttpResponseMessage> Invoke(OperationInfo info)
         {
-            if (!IsValidHost() || !info.IsValidHost())
+            if (!IsValidHost())
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid request domain");
             }
 
-            HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
-
-            // escaping "#" as it may appear in some resource names
-            info.Url = info.Url.Replace("#", "%23");
+            if (info.TryFixUrl(Request.RequestUri.Host) && info.IsValidHost())
+            {
+                // request url is ok.
+            }
+            else
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid request url");
+            }
 
             var executeRequest = new HttpRequestMessage(new HttpMethod(info.HttpMethod), info.Url + (info.Url.IndexOf("?api-version=", StringComparison.Ordinal) != -1 ? string.Empty : "?api-version=" + info.ApiVersion) + (string.IsNullOrEmpty(info.QueryString) ? string.Empty : info.QueryString));
             if (info.RequestBody != null)
