@@ -11,6 +11,14 @@ namespace ARMExplorer.Controllers
         public string ApiVersion { get; set;}
         public string QueryString { get; set; }
 
+        public bool TryFixUrl(string requestHost)
+        {
+            // escaping "#" as it may appear in some resource names
+            Url = Url.Replace("#", "%23");
+            Url = Utils.GetAbsoluteArmUrl(Url, requestHost);
+            return !string.IsNullOrEmpty(Url);
+        }
+
         public bool IsValidHost()
         {
             Uri uri;
