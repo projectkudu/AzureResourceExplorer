@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Caching;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -71,12 +73,8 @@ namespace ARMExplorer.Controllers
             }
         }
 
-        [Authorize]
-        public async Task<HttpResponseMessage> GetAllProviders()
+        private async Task<IEnumerable<string>> GetProvidersFromSubscriptionResources()
         {
-            var watch = Stopwatch.StartNew();
-            HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
-
             var allProviders = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
             var tasks = new List<Task<HashSet<string>>>();
             foreach (var subscriptionId in await _armRepository.GetSubscriptionIdsAsync(Request))
@@ -93,6 +91,28 @@ namespace ARMExplorer.Controllers
             allProviders.Add("MICROSOFT.RESOURCES");
 
             allProviders.Add("MICROSOFT.CAPACITY");
+
+            return allProviders;
+        }
+
+        [Authorize]
+        public async Task<HttpResponseMessage> GetAllProviders()
+        {
+            var watch = Stopwatch.StartNew();
+            HyakUtils.CSMUrl = HyakUtils.CSMUrl ?? Utils.GetCSMUrl(Request.RequestUri.Host);
+
+            IEnumerable<string> allProviders;
+
+            var loadFromSubscriptions = Environment.GetEnvironmentVariable("LoadProviderNamesFromSubscriptions");
+            if (!string.IsNullOrEmpty(loadFromSubscriptions) &&
+                string.Equals(loadFromSubscriptions, "1", StringComparison.OrdinalIgnoreCase))
+            {
+                allProviders = await GetProvidersFromSubscriptionResources();
+            }
+            else
+            {
+                allProviders = ProviderNamesRepository.GetAllProviders();
+            }
 
             watch.Stop();
 

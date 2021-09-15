@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\HydraSpecs\*.dll" />
+    <Content Include="App_Data\providernames.txt" />
     <Content Include="Content\Scripts\ui-ace.min.js" />
     <Content Include="Content\Styles\app2.css" />
     <Content Include="Images\ARMExplorer.svg">
@@ -467,6 +468,7 @@
     <Compile Include="Controllers\OperationController.cs" />
     <Compile Include="Controllers\OperationInfo.cs" />
     <Compile Include="Controllers\ArmRepository.cs" />
+    <Compile Include="Controllers\ProviderNamesRepository.cs" />
     <Compile Include="Model\ArmResource.cs" />
     <Compile Include="Model\ArmResourceListResult.cs" />
     <Compile Include="Modules\Extensions.cs" />
