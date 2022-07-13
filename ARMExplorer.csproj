@@ -230,6 +230,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimsubscriptions.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimtenant.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ApiManagement\apimusers.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.App\*.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Authorization\authorization.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Authorization\locks.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Authorization\policy.json" />
