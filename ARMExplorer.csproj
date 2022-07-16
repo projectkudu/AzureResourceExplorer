@@ -443,6 +443,9 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\natGateway.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\networkProfile.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Network\virtualNetworkTap.json" />
+    <Content Include="App_Data\SwaggerSpecs\common-types\resource-management\v3\managedidentity.json" />
+    <Content Include="App_Data\SwaggerSpecs\common-types\resource-management\v3\privatelinks.json" />
+    <Content Include="App_Data\SwaggerSpecs\common-types\resource-management\v3\types.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
