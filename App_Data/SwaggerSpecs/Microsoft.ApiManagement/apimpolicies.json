@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on Diagnostic entity associated with your Azure API Management deployment. Diagnostics are used to log requests/responses in the APIM proxy.",
+    "description": "Use these REST APIs for performing operations on Global Policies in Azure API Management deployment.",
     "version": "2021-08-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/policies": {
       "get": {
         "tags": [
-          "Diagnostic"
+          "Policy"
         ],
-        "operationId": "Diagnostic_ListByService",
-        "description": "Lists all diagnostics of the API Management service instance.",
+        "operationId": "Policy_ListByService",
+        "description": "Lists all the Global Policy definitions of the Api Management service.",
         "x-ms-examples": {
-          "ApiManagementListDiagnostics": {
-            "$ref": "./examples/ApiManagementListDiagnostics.json"
+          "ApiManagementListPolicies": {
+            "$ref": "./examples/ApiManagementListPolicies.json"
           }
         },
         "parameters": [
@@ -54,19 +54,6 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "name": "$filter",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
-          },
-          {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
           },
           {
@@ -75,9 +62,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Paged Result response of diagnostics.",
+            "description": "Returns an array of Policy Contracts.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticCollection"
+              "$ref": "./definitions.json#/definitions/PolicyCollection"
             }
           },
           "default": {
@@ -86,23 +73,19 @@
               "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "./definitions.json#/definitions/DiagnosticContract"
+        }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics/{diagnosticId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/policies/{policyId}": {
       "head": {
         "tags": [
-          "Diagnostic"
+          "Policy"
         ],
-        "operationId": "Diagnostic_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the Diagnostic specified by its identifier.",
+        "operationId": "Policy_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the Global policy definition in the Api Management service.",
         "x-ms-examples": {
-          "ApiManagementHeadDiagnostic": {
-            "$ref": "./examples/ApiManagementHeadDiagnostic.json"
+          "ApiManagementHeadPolicy": {
+            "$ref": "./examples/ApiManagementHeadPolicy.json"
           }
         },
         "parameters": [
@@ -113,7 +96,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -124,7 +107,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Gets the entity tag of the diagnostic",
+            "description": "The current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -142,13 +125,16 @@
       },
       "get": {
         "tags": [
-          "Diagnostic"
+          "Policy"
         ],
-        "operationId": "Diagnostic_Get",
-        "description": "Gets the details of the Diagnostic specified by its identifier.",
+        "operationId": "Policy_Get",
+        "description": "Get the Global policy definition of the Api Management service.",
         "x-ms-examples": {
-          "ApiManagementGetDiagnostic": {
-            "$ref": "./examples/ApiManagementGetDiagnostic.json"
+          "ApiManagementGetPolicy": {
+            "$ref": "./examples/ApiManagementGetPolicy.json"
+          },
+          "ApiManagementGetPolicyFormat": {
+            "$ref": "./examples/ApiManagementGetPolicyFormat.json"
           }
         },
         "parameters": [
@@ -159,7 +145,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/PolicyExportFormat"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -170,15 +159,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified Diagnostic entity.",
+            "description": "Get the Global policy definition of the Api Management service.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/PolicyContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "default": {
@@ -191,13 +180,13 @@
       },
       "put": {
         "tags": [
-          "Diagnostic"
+          "Policy"
         ],
-        "operationId": "Diagnostic_CreateOrUpdate",
-        "description": "Creates a new Diagnostic or updates an existing one.",
+        "operationId": "Policy_CreateOrUpdate",
+        "description": "Creates or updates the global policy configuration of the Api Management service.",
         "x-ms-examples": {
-          "ApiManagementCreateDiagnostic": {
-            "$ref": "./examples/ApiManagementCreateDiagnostic.json"
+          "ApiManagementCreatePolicy": {
+            "$ref": "./examples/ApiManagementCreatePolicy.json"
           }
         },
         "parameters": [
@@ -208,16 +197,16 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/PolicyContract"
             },
-            "description": "Create parameters."
+            "description": "The policy contents to apply."
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
@@ -231,86 +220,25 @@
         ],
         "responses": {
           "201": {
-            "description": "Diagnostic was successfully created.",
+            "description": "Global policy configuration was successfully created.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/PolicyContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "200": {
-            "description": "Diagnostic successfully updated",
-            "headers": {
-              "ETag": {
-                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
-                "type": "string"
-              }
-            },
+            "description": "Global policy configuration of the Api Management service was successfully updated.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Diagnostic"
-        ],
-        "operationId": "Diagnostic_Update",
-        "description": "Updates the details of the Diagnostic specified by its identifier.",
-        "x-ms-examples": {
-          "ApiManagementUpdateDiagnostic": {
-            "$ref": "./examples/ApiManagementUpdateDiagnostic.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
-          },
-          {
-            "name": "parameters",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
-            },
-            "description": "Diagnostic Update parameters."
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Diagnostic successfully updated",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/PolicyContract"
             },
             "headers": {
               "ETag": {
-                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "description": "Current entity state version",
                 "type": "string"
               }
             }
@@ -325,13 +253,13 @@
       },
       "delete": {
         "tags": [
-          "Diagnostic"
+          "Policy"
         ],
-        "operationId": "Diagnostic_Delete",
-        "description": "Deletes the specified Diagnostic.",
+        "operationId": "Policy_Delete",
+        "description": "Deletes the global policy configuration of the Api Management Service.",
         "x-ms-examples": {
-          "ApiManagementDeleteDiagnostic": {
-            "$ref": "./examples/ApiManagementDeleteDiagnostic.json"
+          "ApiManagementDeletePolicy": {
+            "$ref": "./examples/ApiManagementDeletePolicy.json"
           }
         },
         "parameters": [
@@ -342,7 +270,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -356,10 +284,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The Diagnostic was successfully deleted."
+            "description": "Policy was successfully removed"
           },
           "204": {
-            "description": "The Diagnostic was successfully deleted."
+            "description": "Policy successfully removed by previous request or does not exist"
           },
           "default": {
             "description": "Error response describing why the operation failed.",

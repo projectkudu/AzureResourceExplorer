@@ -3,7 +3,7 @@
   "info": {
     "title": "ApiManagementClient",
     "description": "Use these REST APIs for performing operations on Certificate entity in your Azure API Management deployment. Certificates can be used to setup mutual authentication with your Backend in API Management. For more information refer to [How to secure backend using Mutual Auth Certificate](https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-mutual-certificates).",
-    "version": "2018-01-01"
+    "version": "2021-08-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -37,7 +37,7 @@
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/certificates": {
       "get": {
         "tags": [
-          "Certificates"
+          "Certificate"
         ],
         "operationId": "Certificate_ListByService",
         "description": "Lists a collection of all certificates in the specified service instance.",
@@ -58,13 +58,20 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "| Field          | Supported operators    | Supported functions                         |\n|----------------|------------------------|---------------------------------------------|\n| id             | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |\n| subject        | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |\n| thumbprint     | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |\n| expirationDate | ge, le, eq, ne, gt, lt | N/A                                         |"
+            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| subject | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| thumbprint | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| expirationDate | filter | ge, le, eq, ne, gt, lt |     |</br>"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
+          },
+          {
+            "name": "isKeyVaultRefreshFailed",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "description": "When set to true, the response contains only certificates entities which failed refresh."
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -77,7 +84,7 @@
           "200": {
             "description": "Returns a collection of Certificate entity.",
             "schema": {
-              "$ref": "#/definitions/CertificateCollection"
+              "$ref": "./definitions.json#/definitions/CertificateCollection"
             }
           },
           "default": {
@@ -90,13 +97,13 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
-        "x-ms-odata": "#/definitions/CertificateContract"
+        "x-ms-odata": "./definitions.json#/definitions/CertificateContract"
       }
     },
     "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/certificates/{certificateId}": {
       "head": {
         "tags": [
-          "Certificates"
+          "Certificate"
         ],
         "operationId": "Certificate_GetEntityTag",
         "description": "Gets the entity state (Etag) version of the certificate specified by its identifier.",
@@ -113,7 +120,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/CertificateIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -142,13 +149,16 @@
       },
       "get": {
         "tags": [
-          "Certificates"
+          "Certificate"
         ],
         "operationId": "Certificate_Get",
         "description": "Gets the details of the certificate specified by its identifier.",
         "x-ms-examples": {
           "ApiManagementGetCertificate": {
             "$ref": "./examples/ApiManagementGetCertificate.json"
+          },
+          "ApiManagementGetCertificateWithKeyVault": {
+            "$ref": "./examples/ApiManagementGetCertificateWithKeyVault.json"
           }
         },
         "parameters": [
@@ -159,7 +169,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/CertificateIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -172,7 +182,7 @@
           "200": {
             "description": "The response body contains the specified Certificate entity.",
             "schema": {
-              "$ref": "#/definitions/CertificateContract"
+              "$ref": "./definitions.json#/definitions/CertificateContract"
             },
             "headers": {
               "ETag": {
@@ -191,7 +201,7 @@
       },
       "put": {
         "tags": [
-          "Certificates"
+          "Certificate"
         ],
         "operationId": "Certificate_CreateOrUpdate",
         "description": "Creates or updates the certificate being used for authentication with the backend.",
@@ -202,6 +212,9 @@
         "x-ms-examples": {
           "ApiManagementCreateCertificate": {
             "$ref": "./examples/ApiManagementCreateCertificate.json"
+          },
+          "ApiManagementCreateCertificateWithKeyVault": {
+            "$ref": "./examples/ApiManagementCreateCertificateWithKeyVault.json"
           }
         },
         "parameters": [
@@ -212,14 +225,14 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/CertificateIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CertificateCreateOrUpdateParameters"
+              "$ref": "./definitions.json#/definitions/CertificateCreateOrUpdateParameters"
             },
             "description": "Create or Update parameters."
           },
@@ -236,14 +249,26 @@
         "responses": {
           "201": {
             "description": "The new certificate was successfully added.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "$ref": "#/definitions/CertificateContract"
+              "$ref": "./definitions.json#/definitions/CertificateContract"
             }
           },
           "200": {
             "description": "The certificate details were successfully updated.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "$ref": "#/definitions/CertificateContract"
+              "$ref": "./definitions.json#/definitions/CertificateContract"
             }
           },
           "default": {
@@ -256,7 +281,7 @@
       },
       "delete": {
         "tags": [
-          "Certificates"
+          "Certificate"
         ],
         "operationId": "Certificate_Delete",
         "description": "Deletes specific certificate.",
@@ -273,7 +298,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/CertificateIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -300,102 +325,63 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "CertificateCollection": {
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CertificateContract"
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/certificates/{certificateId}/refreshSecret": {
+      "post": {
+        "tags": [
+          "Certificate"
+        ],
+        "operationId": "Certificate_RefreshSecret",
+        "description": "From KeyVault, Refresh the certificate being used for authentication with the backend.",
+        "externalDocs": {
+          "description": "How to secure back-end services using client certificate authentication in Azure API Management",
+          "url": "https://azure.microsoft.com/en-us/documentation/articles/api-management-howto-mutual-certificates/"
+        },
+        "x-ms-examples": {
+          "ApiManagementRefreshCertificate": {
+            "$ref": "./examples/ApiManagementRefreshCertificate.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
           },
-          "description": "Page values."
-        },
-        "nextLink": {
-          "type": "string",
-          "description": "Next page link if any."
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The certificate details were successfully updated.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/CertificateContract"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
         }
-      },
-      "description": "Paged Certificates list representation."
-    },
-    "CertificateContract": {
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "$ref": "#/definitions/CertificateContractProperties",
-          "description": "Certificate properties details."
-        }
-      },
-      "allOf": [
-        {
-          "$ref": "./apimanagement.json#/definitions/Resource"
-        }
-      ],
-      "description": "Certificate details."
-    },
-    "CertificateContractProperties": {
-      "properties": {
-        "subject": {
-          "type": "string",
-          "description": "Subject attribute of the certificate."
-        },
-        "thumbprint": {
-          "type": "string",
-          "description": "Thumbprint of the certificate."
-        },
-        "expirationDate": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Expiration date of the certificate. The date conforms to the following format: `yyyy-MM-ddTHH:mm:ssZ` as specified by the ISO 8601 standard.\n"
-        }
-      },
-      "required": [
-        "subject",
-        "thumbprint",
-        "expirationDate"
-      ],
-      "description": "Properties of the Certificate contract."
-    },
-    "CertificateCreateOrUpdateParameters": {
-      "properties": {
-        "properties": {
-          "x-ms-client-flatten": true,
-          "$ref": "#/definitions/CertificateCreateOrUpdateProperties",
-          "description": "Certificate create or update properties details."
-        }
-      },
-      "description": "Certificate create or update details."
-    },
-    "CertificateCreateOrUpdateProperties": {
-      "properties": {
-        "data": {
-          "type": "string",
-          "description": "Base 64 encoded certificate using the application/x-pkcs12 representation."
-        },
-        "password": {
-          "type": "string",
-          "description": "Password for the Certificate"
-        }
-      },
-      "required": [
-        "data",
-        "password"
-      ],
-      "description": "Parameters supplied to the CreateOrUpdate certificate operation."
+      }
     }
   },
-  "parameters": {
-    "CertificateIdParameter": {
-      "name": "certificateId",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "Identifier of the certificate entity. Must be unique in the current API Management service instance.",
-      "minLength": 1,
-      "maxLength": 80,
-      "pattern": "(^[\\w]+$)|(^[\\w][\\w\\-]+[\\w]$)",
-      "x-ms-parameter-location": "method"
-    }
-  }
+  "definitions": {},
+  "parameters": {}
 }

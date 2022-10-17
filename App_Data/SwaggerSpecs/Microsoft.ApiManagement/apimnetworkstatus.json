@@ -3,7 +3,7 @@
   "info": {
     "title": "ApiManagementClient",
     "description": "Use these REST APIs for getting the network connectivity status of your Azure API Management deployment. When the API Management service is deployed inside a Virtual Network, it needs to have access to other Azure resources it depends on. This also gives details about the DNS Servers visible to Azure API Management deployment.",
-    "version": "2018-01-01"
+    "version": "2021-08-01"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -103,7 +103,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "#/parameters/LocationNameParameter"
+            "$ref": "./apimanagement.json#/parameters/LocationNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -160,13 +160,23 @@
           "type": "string",
           "format": "date-time",
           "description": "The date when the resource connectivity status last Changed from success to failure or vice-versa. The date conforms to the following format: `yyyy-MM-ddTHH:mm:ssZ` as specified by the ISO 8601 standard.\n"
+        },
+        "resourceType": {
+          "type": "string",
+          "description": "Resource Type."
+        },
+        "isOptional": {
+          "type": "boolean",
+          "description": "Whether this is optional."
         }
       },
       "required": [
         "name",
         "status",
         "lastUpdated",
-        "lastStatusChange"
+        "lastStatusChange",
+        "resourceType",
+        "isOptional"
       ],
       "description": "Details about connectivity to a resource."
     },
@@ -198,6 +208,10 @@
           "items": {
             "$ref": "#/definitions/ConnectivityStatusContract"
           },
+          "x-ms-identifiers": [
+            "name",
+            "resourceType"
+          ],
           "description": "Gets the list of Connectivity Status to the Resources on which the service depends upon."
         }
       },
@@ -208,15 +222,5 @@
       "description": "Network Status details."
     }
   },
-  "parameters": {
-    "LocationNameParameter": {
-      "name": "locationName",
-      "in": "path",
-      "required": true,
-      "type": "string",
-      "description": "Location in which the API Management service is deployed. This is one of the Azure Regions like West US, East US, South Central US.",
-      "minLength": 1,
-      "x-ms-parameter-location": "method"
-    }
-  }
+  "parameters": {}
 }

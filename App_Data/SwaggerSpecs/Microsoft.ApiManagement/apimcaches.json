@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on Diagnostic entity associated with your Azure API Management deployment. Diagnostics are used to log requests/responses in the APIM proxy.",
+    "description": "Use these REST APIs for performing operations on Cache entity in your Azure API Management deployment. Azure API Management also allows for caching responses in an external Azure Cache for Redis. For more information refer to [External Redis Cache in ApiManagement](https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-cache-external).",
     "version": "2021-08-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/caches": {
       "get": {
         "tags": [
-          "Diagnostic"
+          "Cache"
         ],
-        "operationId": "Diagnostic_ListByService",
-        "description": "Lists all diagnostics of the API Management service instance.",
+        "operationId": "Cache_ListByService",
+        "description": "Lists a collection of all external Caches in the specified service instance.",
         "x-ms-examples": {
-          "ApiManagementListDiagnostics": {
-            "$ref": "./examples/ApiManagementListDiagnostics.json"
+          "ApiManagementListCaches": {
+            "$ref": "./examples/ApiManagementListCaches.json"
           }
         },
         "parameters": [
@@ -52,13 +52,6 @@
           },
           {
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "name": "$filter",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
@@ -75,9 +68,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Paged Result response of diagnostics.",
+            "description": "Returns a collection of Cache entity.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticCollection"
+              "$ref": "./definitions.json#/definitions/CacheCollection"
             }
           },
           "default": {
@@ -89,20 +82,19 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "./definitions.json#/definitions/DiagnosticContract"
+        }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics/{diagnosticId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/caches/{cacheId}": {
       "head": {
         "tags": [
-          "Diagnostic"
+          "Cache"
         ],
-        "operationId": "Diagnostic_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the Diagnostic specified by its identifier.",
+        "operationId": "Cache_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the Cache specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementHeadDiagnostic": {
-            "$ref": "./examples/ApiManagementHeadDiagnostic.json"
+          "ApiManagementHeadCache": {
+            "$ref": "./examples/ApiManagementHeadCache.json"
           }
         },
         "parameters": [
@@ -113,7 +105,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CacheIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -124,7 +116,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Gets the entity tag of the diagnostic",
+            "description": "Specified Cache entity exists and current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -142,13 +134,13 @@
       },
       "get": {
         "tags": [
-          "Diagnostic"
+          "Cache"
         ],
-        "operationId": "Diagnostic_Get",
-        "description": "Gets the details of the Diagnostic specified by its identifier.",
+        "operationId": "Cache_Get",
+        "description": "Gets the details of the Cache specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementGetDiagnostic": {
-            "$ref": "./examples/ApiManagementGetDiagnostic.json"
+          "ApiManagementGetCache": {
+            "$ref": "./examples/ApiManagementGetCache.json"
           }
         },
         "parameters": [
@@ -159,7 +151,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CacheIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -170,15 +162,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified Diagnostic entity.",
+            "description": "The response body contains the specified Cache entity.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/CacheContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "default": {
@@ -191,13 +183,17 @@
       },
       "put": {
         "tags": [
-          "Diagnostic"
+          "Cache"
         ],
-        "operationId": "Diagnostic_CreateOrUpdate",
-        "description": "Creates a new Diagnostic or updates an existing one.",
+        "operationId": "Cache_CreateOrUpdate",
+        "description": "Creates or updates an External Cache to be used in Api Management instance.",
+        "externalDocs": {
+          "description": "Use an external cache in Azure API Management",
+          "url": "https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-cache-external"
+        },
         "x-ms-examples": {
-          "ApiManagementCreateDiagnostic": {
-            "$ref": "./examples/ApiManagementCreateDiagnostic.json"
+          "ApiManagementCreateCache": {
+            "$ref": "./examples/ApiManagementCreateCache.json"
           }
         },
         "parameters": [
@@ -208,16 +204,16 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CacheIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/CacheContract"
             },
-            "description": "Create parameters."
+            "description": "Create or Update parameters."
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
@@ -231,7 +227,7 @@
         ],
         "responses": {
           "201": {
-            "description": "Diagnostic was successfully created.",
+            "description": "The new Cache was successfully added.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -239,11 +235,11 @@
               }
             },
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/CacheContract"
             }
           },
           "200": {
-            "description": "Diagnostic successfully updated",
+            "description": "The Cache details were successfully updated.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -251,7 +247,7 @@
               }
             },
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/CacheContract"
             }
           },
           "default": {
@@ -264,13 +260,13 @@
       },
       "patch": {
         "tags": [
-          "Diagnostic"
+          "Cache"
         ],
-        "operationId": "Diagnostic_Update",
-        "description": "Updates the details of the Diagnostic specified by its identifier.",
+        "operationId": "Cache_Update",
+        "description": "Updates the details of the cache specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementUpdateDiagnostic": {
-            "$ref": "./examples/ApiManagementUpdateDiagnostic.json"
+          "ApiManagementUpdateCache": {
+            "$ref": "./examples/ApiManagementUpdateCache.json"
           }
         },
         "parameters": [
@@ -281,16 +277,16 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CacheIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/CacheUpdateParameters"
             },
-            "description": "Diagnostic Update parameters."
+            "description": "Update parameters."
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -304,15 +300,15 @@
         ],
         "responses": {
           "200": {
-            "description": "Diagnostic successfully updated",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
-            },
+            "description": "The Cache details were successfully updated.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/CacheContract"
             }
           },
           "default": {
@@ -325,13 +321,13 @@
       },
       "delete": {
         "tags": [
-          "Diagnostic"
+          "Cache"
         ],
-        "operationId": "Diagnostic_Delete",
-        "description": "Deletes the specified Diagnostic.",
+        "operationId": "Cache_Delete",
+        "description": "Deletes specific Cache.",
         "x-ms-examples": {
-          "ApiManagementDeleteDiagnostic": {
-            "$ref": "./examples/ApiManagementDeleteDiagnostic.json"
+          "ApiManagementDeleteCache": {
+            "$ref": "./examples/ApiManagementDeleteCache.json"
           }
         },
         "parameters": [
@@ -342,7 +338,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CacheIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -356,10 +352,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The Diagnostic was successfully deleted."
+            "description": "The Cache was successfully deleted."
           },
           "204": {
-            "description": "The Diagnostic was successfully deleted."
+            "description": "The Cache was successfully deleted."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
