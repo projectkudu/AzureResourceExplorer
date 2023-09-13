@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use this REST API to get all the issues across an Azure Api Management service.",
+    "description": "Use these REST APIs for performing operations on settings entity associated with your Azure API Management deployment. Using this entity you can manage properties and configuration that apply to the entire API Management service instance.",
     "version": "2021-08-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/issues": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/settings": {
       "get": {
         "tags": [
-          "Issue"
+          "TenantSettings"
         ],
-        "operationId": "Issue_ListByService",
-        "description": "Lists a collection of issues in the specified service instance.",
+        "operationId": "TenantSettings_ListByService",
+        "description": "Public settings.",
         "x-ms-examples": {
-          "ApiManagementListIssues": {
-            "$ref": "./examples/ApiManagementListIssues.json"
+          "ApiManagementListTenantSettings": {
+            "$ref": "./examples/ApiManagementListTenantSettings.json"
           }
         },
         "parameters": [
@@ -58,13 +58,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| apiId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| title | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| authorName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| state | filter | eq |     |</br>"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
+            "description": "Not used"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -75,9 +69,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Lists a collection of Issue entities.",
+            "description": "Lists a collection of TenantSettings entities.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/IssueCollection"
+              "$ref": "./definitions.json#/definitions/TenantSettingsCollection"
             }
           },
           "default": {
@@ -90,19 +84,19 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
-        "x-ms-odata": "./definitions.json#/definitions/IssueContract"
+        "x-ms-odata": "./definitions.json#/definitions/TenantSettingsContract"
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/issues/{issueId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/settings/{settingsType}": {
       "get": {
         "tags": [
-          "Issue"
+          "TenantSettings"
         ],
-        "operationId": "Issue_Get",
-        "description": "Gets API Management issue details",
+        "operationId": "TenantSettings_Get",
+        "description": "Get tenant settings.",
         "x-ms-examples": {
-          "ApiManagementGetIssue": {
-            "$ref": "./examples/ApiManagementGetIssue.json"
+          "ApiManagementGetTenantSettings": {
+            "$ref": "./examples/ApiManagementGetTenantSettings.json"
           }
         },
         "parameters": [
@@ -113,20 +107,20 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/IssueIdParameter"
-          },
-          {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SettingsParameter"
           }
         ],
         "responses": {
           "200": {
-            "description": "Get the details of the issue.",
+            "description": "Tenant Settings.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/IssueContract"
+              "$ref": "./definitions.json#/definitions/TenantSettingsContract"
             },
             "headers": {
               "ETag": {

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on Diagnostic entity associated with your Azure API Management deployment. Diagnostics are used to log requests/responses in the APIM proxy.",
+    "description": "Use these REST APIs for performing operations in Azure API Management deployment.",
     "version": "2021-08-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/portalRevisions": {
       "get": {
         "tags": [
-          "Diagnostic"
+          "PortalRevision"
         ],
-        "operationId": "Diagnostic_ListByService",
-        "description": "Lists all diagnostics of the API Management service instance.",
+        "operationId": "PortalRevision_ListByService",
+        "description": "Lists developer portal's revisions.",
         "x-ms-examples": {
-          "ApiManagementListDiagnostics": {
-            "$ref": "./examples/ApiManagementListDiagnostics.json"
+          "ApiManagementListPortalRevisions": {
+            "$ref": "./examples/ApiManagementListPortalRevisions.json"
           }
         },
         "parameters": [
@@ -58,7 +58,7 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
+            "description": "| Field       | Supported operators    | Supported functions               |\n|-------------|------------------------|-----------------------------------|\n\r\n|name | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|description | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith|\n|isCurrent | eq, ne |    |\n"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
@@ -75,9 +75,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Paged Result response of diagnostics.",
+            "description": "Lists portal's revisions.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticCollection"
+              "$ref": "./definitions.json#/definitions/PortalRevisionCollection"
             }
           },
           "default": {
@@ -89,20 +89,19 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "./definitions.json#/definitions/DiagnosticContract"
+        }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics/{diagnosticId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/portalRevisions/{portalRevisionId}": {
       "head": {
         "tags": [
-          "Diagnostic"
+          "PortalRevision"
         ],
-        "operationId": "Diagnostic_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the Diagnostic specified by its identifier.",
+        "operationId": "PortalRevision_GetEntityTag",
+        "description": "Gets the developer portal revision specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementHeadDiagnostic": {
-            "$ref": "./examples/ApiManagementHeadDiagnostic.json"
+          "ApiManagementHeadPortalRevision": {
+            "$ref": "./examples/ApiManagementHeadPortalRevision.json"
           }
         },
         "parameters": [
@@ -113,7 +112,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PortalRevisionIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -124,7 +123,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Gets the entity tag of the diagnostic",
+            "description": "The specified portal revision entity exists and current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -142,13 +141,13 @@
       },
       "get": {
         "tags": [
-          "Diagnostic"
+          "PortalRevision"
         ],
-        "operationId": "Diagnostic_Get",
-        "description": "Gets the details of the Diagnostic specified by its identifier.",
+        "operationId": "PortalRevision_Get",
+        "description": "Gets the developer portal's revision specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementGetDiagnostic": {
-            "$ref": "./examples/ApiManagementGetDiagnostic.json"
+          "ApiManagementGetPortalRevision": {
+            "$ref": "./examples/ApiManagementGetPortalRevision.json"
           }
         },
         "parameters": [
@@ -159,7 +158,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PortalRevisionIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -170,15 +169,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified Diagnostic entity.",
+            "description": "Gets the specified portal's revision.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/PortalRevisionContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "default": {
@@ -191,13 +190,13 @@
       },
       "put": {
         "tags": [
-          "Diagnostic"
+          "PortalRevision"
         ],
-        "operationId": "Diagnostic_CreateOrUpdate",
-        "description": "Creates a new Diagnostic or updates an existing one.",
+        "operationId": "PortalRevision_CreateOrUpdate",
+        "description": "Creates a new developer portal's revision by running the portal's publishing. The `isCurrent` property indicates if the revision is publicly accessible.",
         "x-ms-examples": {
-          "ApiManagementCreateDiagnostic": {
-            "$ref": "./examples/ApiManagementCreateDiagnostic.json"
+          "ApiManagementCreatePortalRevision": {
+            "$ref": "./examples/ApiManagementCreatePortalRevision.json"
           }
         },
         "parameters": [
@@ -208,19 +207,15 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PortalRevisionIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
-            },
-            "description": "Create parameters."
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
+              "$ref": "./definitions.json#/definitions/PortalRevisionContract"
+            }
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -230,28 +225,19 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Diagnostic was successfully created.",
-            "headers": {
-              "ETag": {
-                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
-                "type": "string"
-              }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
-            }
+          "202": {
+            "description": "Request to create a developer portal revision was accepted."
           },
-          "200": {
-            "description": "Diagnostic successfully updated",
+          "201": {
+            "description": "The developer portal revision was successfully created.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/PortalRevisionContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "default": {
@@ -260,17 +246,21 @@
               "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         }
       },
       "patch": {
         "tags": [
-          "Diagnostic"
+          "PortalRevision"
         ],
-        "operationId": "Diagnostic_Update",
-        "description": "Updates the details of the Diagnostic specified by its identifier.",
+        "operationId": "PortalRevision_Update",
+        "description": "Updates the description of specified portal revision or makes it current.",
         "x-ms-examples": {
-          "ApiManagementUpdateDiagnostic": {
-            "$ref": "./examples/ApiManagementUpdateDiagnostic.json"
+          "ApiManagementUpdatePortalRevision": {
+            "$ref": "./examples/ApiManagementUpdatePortalRevision.json"
           }
         },
         "parameters": [
@@ -281,16 +271,15 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/PortalRevisionIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
-            },
-            "description": "Diagnostic Update parameters."
+              "$ref": "./definitions.json#/definitions/PortalRevisionContract"
+            }
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -303,10 +292,13 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "Request to update developer portal revision was accepted."
+          },
           "200": {
-            "description": "Diagnostic successfully updated",
+            "description": "Developer portal revision was successfully updated.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/PortalRevisionContract"
             },
             "headers": {
               "ETag": {
@@ -321,52 +313,10 @@
               "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Diagnostic"
-        ],
-        "operationId": "Diagnostic_Delete",
-        "description": "Deletes the specified Diagnostic.",
-        "x-ms-examples": {
-          "ApiManagementDeleteDiagnostic": {
-            "$ref": "./examples/ApiManagementDeleteDiagnostic.json"
-          }
         },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The Diagnostic was successfully deleted."
-          },
-          "204": {
-            "description": "The Diagnostic was successfully deleted."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         }
       }
     }

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on Backend entity in Azure API Management deployment. The Backend entity in API Management represents a backend service that is configured to skip certification chain validation when using a self-signed certificate to test mutual certificate authentication.",
+    "description": "Use these REST APIs for performing operations on NamedValue entity associated with your Azure API Management deployment. API Management policies are a powerful capability of the system that allow the publisher to change the behavior of the API through configuration. Policies are a collection of statements that are executed sequentially on the request or response of an API. Policy statements can be constructed using literal text values, policy expressions, and NamedValues. Each API Management service instance has a NamedValues collection of key/value pairs that are global to the service instance. These NamedValues can be used to manage constant string values across all API configuration and policies.",
     "version": "2021-08-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,19 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/namedValues": {
       "get": {
         "tags": [
-          "Backend"
+          "NamedValue"
         ],
-        "operationId": "Backend_ListByService",
-        "description": "Lists a collection of backends in the specified service instance.",
+        "operationId": "NamedValue_ListByService",
+        "description": "Lists a collection of named values defined within a service instance.",
+        "externalDocs": {
+          "url": "https://docs.microsoft.com/en-us/azure/api-management/api-management-howto-properties"
+        },
         "x-ms-examples": {
-          "ApiManagementListBackends": {
-            "$ref": "./examples/ApiManagementListBackends.json"
+          "ApiManagementListNamedValues": {
+            "$ref": "./examples/ApiManagementListNamedValues.json"
           }
         },
         "parameters": [
@@ -58,13 +61,20 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| title | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| url | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
+            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| tags | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith, any, all |</br>| displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
+          },
+          {
+            "name": "isKeyVaultRefreshFailed",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "description": "When set to true, the response contains only named value entities which failed refresh."
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -75,9 +85,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Lists a collection of Backend entities.",
+            "description": "A Collection of the named value entities for the specified API Management service instance.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/BackendCollection"
+              "$ref": "./definitions.json#/definitions/NamedValueCollection"
             }
           },
           "default": {
@@ -90,19 +100,19 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
-        "x-ms-odata": "./definitions.json#/definitions/BackendContract"
+        "x-ms-odata": "./definitions.json#/definitions/NamedValueContract"
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends/{backendId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/namedValues/{namedValueId}": {
       "head": {
         "tags": [
-          "Backend"
+          "NamedValue"
         ],
-        "operationId": "Backend_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the backend specified by its identifier.",
+        "operationId": "NamedValue_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the named value specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementHeadBackend": {
-            "$ref": "./examples/ApiManagementHeadBackend.json"
+          "ApiManagementHeadNamedValue": {
+            "$ref": "./examples/ApiManagementHeadNamedValue.json"
           }
         },
         "parameters": [
@@ -113,7 +123,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/BackendIdParameter"
+            "$ref": "./apimanagement.json#/parameters/NamedValueIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -124,7 +134,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Specified backend entity exists and current entity state version is present in the ETag header.",
+            "description": "Specified named value entity exists and current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -142,13 +152,16 @@
       },
       "get": {
         "tags": [
-          "Backend"
+          "NamedValue"
         ],
-        "operationId": "Backend_Get",
-        "description": "Gets the details of the backend specified by its identifier.",
+        "operationId": "NamedValue_Get",
+        "description": "Gets the details of the named value specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementGetBackend": {
-            "$ref": "./examples/ApiManagementGetBackend.json"
+          "ApiManagementGetNamedValue": {
+            "$ref": "./examples/ApiManagementGetNamedValue.json"
+          },
+          "ApiManagementGetNamedValueWithKeyVault": {
+            "$ref": "./examples/ApiManagementGetNamedValueWithKeyVault.json"
           }
         },
         "parameters": [
@@ -159,7 +172,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/BackendIdParameter"
+            "$ref": "./apimanagement.json#/parameters/NamedValueIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -170,9 +183,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified Backend entity.",
+            "description": "The response body contains the specified named value entity. No secrets included",
             "schema": {
-              "$ref": "./definitions.json#/definitions/BackendContract"
+              "$ref": "./definitions.json#/definitions/NamedValueContract"
             },
             "headers": {
               "ETag": {
@@ -191,16 +204,16 @@
       },
       "put": {
         "tags": [
-          "Backend"
+          "NamedValue"
         ],
-        "operationId": "Backend_CreateOrUpdate",
-        "description": "Creates or Updates a backend.",
+        "operationId": "NamedValue_CreateOrUpdate",
+        "description": "Creates or updates named value.",
         "x-ms-examples": {
-          "ApiManagementCreateBackendServiceFabric": {
-            "$ref": "./examples/ApiManagementCreateBackendServiceFabric.json"
+          "ApiManagementCreateNamedValue": {
+            "$ref": "./examples/ApiManagementCreateNamedValue.json"
           },
-          "ApiManagementCreateBackendProxyBackend": {
-            "$ref": "./examples/ApiManagementCreateBackendProxyBackend.json"
+          "ApiManagementCreateNamedValueWithKeyVault": {
+            "$ref": "./examples/ApiManagementCreateNamedValueWithKeyVault.json"
           }
         },
         "parameters": [
@@ -211,14 +224,14 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/BackendIdParameter"
+            "$ref": "./apimanagement.json#/parameters/NamedValueIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/BackendContract"
+              "$ref": "./definitions.json#/definitions/NamedValueCreateContract"
             },
             "description": "Create parameters."
           },
@@ -233,28 +246,31 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "Request to create or update named value was accepted."
+          },
           "201": {
-            "description": "Backend was successfully created.",
+            "description": "Named value was successfully created.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/NamedValueContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/BackendContract"
             }
           },
           "200": {
-            "description": "The existing backend was successfully updated.",
+            "description": "Named value was successfully updated.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/NamedValueContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/BackendContract"
             }
           },
           "default": {
@@ -263,17 +279,21 @@
               "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         }
       },
       "patch": {
         "tags": [
-          "Backend"
+          "NamedValue"
         ],
-        "operationId": "Backend_Update",
-        "description": "Updates an existing backend.",
+        "operationId": "NamedValue_Update",
+        "description": "Updates the specific named value.",
         "x-ms-examples": {
-          "ApiManagementUpdateBackend": {
-            "$ref": "./examples/ApiManagementUpdateBackend.json"
+          "ApiManagementUpdateNamedValue": {
+            "$ref": "./examples/ApiManagementUpdateNamedValue.json"
           }
         },
         "parameters": [
@@ -284,14 +304,14 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/BackendIdParameter"
+            "$ref": "./apimanagement.json#/parameters/NamedValueIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/BackendUpdateParameters"
+              "$ref": "./definitions.json#/definitions/NamedValueUpdateParameters"
             },
             "description": "Update parameters."
           },
@@ -306,16 +326,19 @@
           }
         ],
         "responses": {
+          "202": {
+            "description": "Request to create or update named value was accepted."
+          },
           "200": {
-            "description": "The existing backend was successfully updated.",
+            "description": "Named value was successfully updated.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/NamedValueContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/BackendContract"
             }
           },
           "default": {
@@ -324,17 +347,21 @@
               "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         }
       },
       "delete": {
         "tags": [
-          "Backend"
+          "NamedValue"
         ],
-        "operationId": "Backend_Delete",
-        "description": "Deletes the specified backend.",
+        "operationId": "NamedValue_Delete",
+        "description": "Deletes specific named value from the API Management service instance.",
         "x-ms-examples": {
-          "ApiManagementDeleteBackend": {
-            "$ref": "./examples/ApiManagementDeleteBackend.json"
+          "ApiManagementDeleteNamedValue": {
+            "$ref": "./examples/ApiManagementDeleteNamedValue.json"
           }
         },
         "parameters": [
@@ -345,7 +372,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/BackendIdParameter"
+            "$ref": "./apimanagement.json#/parameters/NamedValueIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -359,10 +386,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The backend was successfully deleted."
+            "description": "Named value was successfully deleted."
           },
           "204": {
-            "description": "The backend was successfully deleted."
+            "description": "Named value was successfully deleted."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -373,16 +400,16 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/backends/{backendId}/reconnect": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/namedValues/{namedValueId}/listValue": {
       "post": {
         "tags": [
-          "BackendReconnect"
+          "NamedValue"
         ],
-        "operationId": "Backend_Reconnect",
-        "description": "Notifies the APIM proxy to create a new connection to the backend after the specified timeout. If no timeout was specified, timeout of 2 minutes is used.",
+        "operationId": "NamedValue_ListValue",
+        "description": "Gets the secret of the named value specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementBackendReconnect": {
-            "$ref": "./examples/ApiManagementBackendReconnect.json"
+          "ApiManagementNamedValueListValue": {
+            "$ref": "./examples/ApiManagementNamedValueListValue.json"
           }
         },
         "parameters": [
@@ -393,16 +420,58 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/BackendIdParameter"
+            "$ref": "./apimanagement.json#/parameters/NamedValueIdParameter"
           },
           {
-            "name": "parameters",
-            "in": "body",
-            "required": false,
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response body contains the specified named value secret.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/BackendReconnectContract"
+              "$ref": "./definitions.json#/definitions/NamedValueSecretContract"
             },
-            "description": "Reconnect request parameters."
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/namedValues/{namedValueId}/refreshSecret": {
+      "post": {
+        "tags": [
+          "NamedValue"
+        ],
+        "operationId": "NamedValue_RefreshSecret",
+        "description": "Refresh the secret of the named value specified by its identifier.",
+        "x-ms-examples": {
+          "ApiManagementRefreshNamedValue": {
+            "$ref": "./examples/ApiManagementRefreshNamedValue.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/NamedValueIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -413,7 +482,19 @@
         ],
         "responses": {
           "202": {
-            "description": "Reconnect request accepted."
+            "description": "Request to refresh secret was accepted."
+          },
+          "200": {
+            "description": "Named value was successfully updated.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/NamedValueContract"
+            },
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -421,6 +502,10 @@
               "$ref": "./apimanagement.json#/definitions/ErrorResponse"
             }
           }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
         }
       }
     }
