@@ -319,6 +319,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\vaults.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\vaultusages.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Relay\relay.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ResourceConnector\appliances.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ResourceHealth\resourcehealth.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Resources\resources.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Scheduler\scheduler.json" />
