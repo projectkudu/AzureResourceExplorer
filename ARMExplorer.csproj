@@ -275,6 +275,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeStore\filesystem.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Devices\iothub.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DevTestLab\DTL.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ExtendedLocation\customlocations.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\features.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\links.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.GuestConfiguration\guestconfiguration.json" />
