@@ -1,7 +1,7 @@
 # ARMExplorer
 This project has dependencies on OAuth authentication.
 
-Note: Guest user scenarios are not supported
+Note: Guest user scenarios are not supported.
 
 ## Instructions
 1. Clone this repository to your local drive.
