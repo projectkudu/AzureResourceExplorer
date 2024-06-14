@@ -275,6 +275,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DataLakeStore\filesystem.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Devices\iothub.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.DevTestLab\DTL.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ExtendedLocation\customlocations.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\features.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Features\links.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.GuestConfiguration\guestconfiguration.json" />
@@ -319,6 +320,7 @@
     <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\vaults.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.RecoveryServices\vaultusages.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Relay\relay.json" />
+    <Content Include="App_Data\SwaggerSpecs\Microsoft.ResourceConnector\appliances.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.ResourceHealth\resourcehealth.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Resources\resources.json" />
     <Content Include="App_Data\SwaggerSpecs\Microsoft.Scheduler\scheduler.json" />
