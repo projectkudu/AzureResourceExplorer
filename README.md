@@ -1,3 +1,6 @@
+# Azure Resource Explorer is shutting down
+More details at https://github.com/projectkudu/AzureResourceExplorer/issues/374
+
 # ARMExplorer
 This project has dependencies on OAuth authentication.
 
