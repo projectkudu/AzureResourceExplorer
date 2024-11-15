@@ -3,7 +3,7 @@
   "info": {
     "title": "ServiceFabricManagementClient",
     "description": "Azure Service Fabric Resource Provider API Client",
-    "version": "2022-01-01"
+    "version": "2024-09-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -34,7 +34,7 @@
     }
   ],
   "paths": {
-    "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters": {
       "get": {
         "operationId": "ManagedClusters_ListByResourceGroup",
         "summary": "Gets the list of Service Fabric cluster resources created in the specified resource group.",
@@ -213,6 +213,16 @@
             "description": "The request was accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/ManagedCluster"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -306,11 +316,147 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "204": {
             "description": "The resource was not found."
           },
+          "200": {
+            "description": "The operation completed successfully."
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/getazresiliencystatus": {
+      "post": {
+        "tags": [
+          "managedAzResiliencyStatus"
+        ],
+        "summary": "Action to get Az Resiliency Status of all the Base resources constituting Service Fabric Managed Clusters.",
+        "description": "Action to get Az Resiliency Status of all the Base resources constituting Service Fabric Managed Clusters.",
+        "operationId": "managedAzResiliencyStatus_Get",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          },
+          {
+            "$ref": "#/parameters/subscriptionId"
+          }
+        ],
+        "x-ms-examples": {
+          "Az Resiliency status of Base Resources": {
+            "$ref": "./examples/managedAzResiliencyStatusGet_example.json"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ManagedAzResiliencyStatus"
+            }
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/getMaintenanceWindowStatus": {
+      "post": {
+        "tags": [
+          "managedMaintenanceWindowStatus"
+        ],
+        "summary": "Action to get Maintenance Window Status of the Service Fabric Managed Clusters.",
+        "description": "Action to get Maintenance Window Status of the Service Fabric Managed Clusters.",
+        "operationId": "managedMaintenanceWindowStatus_Get",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          },
+          {
+            "$ref": "#/parameters/subscriptionId"
+          }
+        ],
+        "x-ms-examples": {
+          "Maintenance Window Status": {
+            "$ref": "./examples/ManagedMaintenanceWindowStatusGet_example.json"
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The operation completed successfully.",
+            "schema": {
+              "$ref": "#/definitions/ManagedMaintenanceWindowStatus"
+            }
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applyMaintenanceWindow": {
+      "post": {
+        "tags": [
+          "managedApplyMaintenanceWindow"
+        ],
+        "summary": "Action to Apply Maintenance window on the Service Fabric Managed Clusters, right now. Any pending update will be applied.",
+        "description": "Action to Apply Maintenance window on the Service Fabric Managed Clusters, right now. Any pending update will be applied.",
+        "operationId": "managedApplyMaintenanceWindow_Post",
+        "parameters": [
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          },
+          {
+            "$ref": "#/parameters/subscriptionId"
+          }
+        ],
+        "x-ms-examples": {
+          "Maintenance Window Status": {
+            "$ref": "./examples/ManagedApplyMaintenanceWindowPost_example.json"
+          }
+        },
+        "responses": {
           "200": {
             "description": "The operation completed successfully."
           },
@@ -659,7 +805,13 @@
             "description": "OK. The request has succeeded."
           },
           "202": {
-            "description": "Accepted. The request is still running."
+            "description": "Accepted. The request is still running.",
+            "headers": {
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "204": {
             "description": "No Content. For Delete operation results."
@@ -723,7 +875,25 @@
         "DnsService",
         "BackupRestoreService",
         "ResourceMonitorService"
-      ]
+      ],
+      "x-ms-enum": {
+        "name": "ManagedClusterAddOnFeature",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "DnsService",
+            "description": "Dns service"
+          },
+          {
+            "value": "BackupRestoreService",
+            "description": "Backup and restore service"
+          },
+          {
+            "value": "ResourceMonitorService",
+            "description": "Resource monitor service"
+          }
+        ]
+      }
     },
     "ApplicationTypeVersionsCleanupPolicy": {
       "type": "object",
@@ -739,6 +909,38 @@
         }
       },
       "description": "The policy used to clean up unused versions. When the policy is not specified explicitly, the default unused application versions to keep will be 3."
+    },
+    "AutoGeneratedDomainNameLabelScope": {
+      "type": "string",
+      "enum": [
+        "TenantReuse",
+        "SubscriptionReuse",
+        "ResourceGroupReuse",
+        "NoReuse"
+      ],
+      "x-ms-enum": {
+        "name": "AutoGeneratedDomainNameLabelScope",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "TenantReuse",
+            "description": "TenantReuse allows for the same hash to be created if the resource is created in the same Tenant with the same resource name."
+          },
+          {
+            "value": "SubscriptionReuse",
+            "description": "SubscriptionReuse allows for the same hash to be created if the resource is created in the same Subscription with the same resource name."
+          },
+          {
+            "value": "ResourceGroupReuse",
+            "description": "ResourceGroupReuse allows for the same hash to be created if the resource is created in the same Resource Group with the same resource name."
+          },
+          {
+            "value": "NoReuse",
+            "description": "NoReuse will create a new hash regardless of the Subscription, Resource Group, Tenant and Resource name."
+          }
+        ]
+      },
+      "description": "This enum is the entrypoint to using a certificate from a public CA for your cluster. This property was introduced to solve the\ndomain squatting problem with new domains. A domain name will be generated in the following format: <clustername>.<hash>.<regionname>.<sfmcdomain>.\nThe hash portion comes from Azure DNS' Deterministic Name Library. The library creates a hash using the cluster's Tenant, Subscription, Resource Group\nand Resource Name using the AutoGeneratedDomainNameLabelScope/reuse policy chosen.\n"
     },
     "AzureActiveDirectory": {
       "type": "object",
@@ -782,6 +984,67 @@
         }
       },
       "description": "Client certificate definition."
+    },
+    "ClusterHealthPolicy": {
+      "type": "object",
+      "required": [
+        "maxPercentUnhealthyNodes",
+        "maxPercentUnhealthyApplications"
+      ],
+      "description": "Defines a health policy used to evaluate the health of the cluster or of a cluster node.\n",
+      "properties": {
+        "maxPercentUnhealthyNodes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of unhealthy nodes before reporting an error. For example, to allow 10% of nodes to be unhealthy, this value would be 10.\n\nThe percentage represents the maximum tolerated percentage of nodes that can be unhealthy before the cluster is considered in error.\nIf the percentage is respected but there is at least one unhealthy node, the health is evaluated as Warning.\nThe percentage is calculated by dividing the number of unhealthy nodes over the total number of nodes in the cluster.\nThe computation rounds up to tolerate one failure on small numbers of nodes. Default percentage is zero.\n\nIn large clusters, some nodes will always be down or out for repairs, so this percentage should be configured to tolerate that.\n",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 100
+        },
+        "maxPercentUnhealthyApplications": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of unhealthy applications before reporting an error. For example, to allow 10% of applications to be unhealthy, this value would be 10.\n\nThe percentage represents the maximum tolerated percentage of applications that can be unhealthy before the cluster is considered in error.\nIf the percentage is respected but there is at least one unhealthy application, the health is evaluated as Warning.\nThis is calculated by dividing the number of unhealthy applications over the total number of application instances in the cluster, excluding applications of application types that are included in the ApplicationTypeHealthPolicyMap.\nThe computation rounds up to tolerate one failure on small numbers of applications. Default percentage is zero.\n",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "ClusterMonitoringPolicy": {
+      "type": "object",
+      "description": "Describes the monitoring policies for the cluster upgrade.",
+      "required": [
+        "healthCheckWaitDuration",
+        "healthCheckStableDuration",
+        "healthCheckRetryTimeout",
+        "upgradeTimeout",
+        "upgradeDomainTimeout"
+      ],
+      "properties": {
+        "healthCheckWaitDuration": {
+          "type": "string",
+          "x-ms-format": "duration-constant",
+          "description": "The length of time to wait after completing an upgrade domain before performing health checks. The duration can be in either hh:mm:ss or in d.hh:mm:ss.ms format."
+        },
+        "healthCheckStableDuration": {
+          "type": "string",
+          "x-ms-format": "duration-constant",
+          "description": "The amount of time that the application or cluster must remain healthy before the upgrade proceeds to the next upgrade domain. The duration can be in either hh:mm:ss or in d.hh:mm:ss.ms format."
+        },
+        "healthCheckRetryTimeout": {
+          "type": "string",
+          "description": "The amount of time to retry health evaluation when the application or cluster is unhealthy before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format."
+        },
+        "upgradeTimeout": {
+          "type": "string",
+          "description": "The amount of time the overall upgrade has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format."
+        },
+        "upgradeDomainTimeout": {
+          "type": "string",
+          "description": "The amount of time each upgrade domain has to complete before the upgrade rolls back. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format."
+        }
+      }
     },
     "ClusterState": {
       "type": "string",
@@ -852,6 +1115,36 @@
       },
       "description": "Indicates when new cluster runtime version upgrades will be applied after they are released. By default is Wave0."
     },
+    "ClusterUpgradeDeltaHealthPolicy": {
+      "type": "object",
+      "description": "Describes the delta health policies for the cluster upgrade.",
+      "required": [
+        "maxPercentDeltaUnhealthyNodes"
+      ],
+      "properties": {
+        "maxPercentDeltaUnhealthyNodes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of nodes health degradation allowed during cluster upgrades.\nThe delta is measured between the state of the nodes at the beginning of upgrade and the state of the nodes at the time of the health evaluation.\nThe check is performed after every upgrade domain upgrade completion to make sure the global state of the cluster is within tolerated limits.\n",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "maxPercentUpgradeDomainDeltaUnhealthyNodes": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of upgrade domain nodes health degradation allowed during cluster upgrades.\nThe delta is measured between the state of the upgrade domain nodes at the beginning of upgrade and the state of the upgrade domain nodes at the time of the health evaluation.\nThe check is performed after every upgrade domain upgrade completion for all completed upgrade domains to make sure the state of the upgrade domains is within tolerated limits.\n",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "maxPercentDeltaUnhealthyApplications": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The maximum allowed percentage of applications health degradation allowed during cluster upgrades.\nThe delta is measured between the state of the applications at the beginning of upgrade and the state of the applications at the time of the health evaluation.\nThe check is performed after every upgrade domain upgrade completion to make sure the global state of the cluster is within tolerated limits. System services are not included in this.\nNOTE: This value will overwrite the value specified in properties.UpgradeDescription.HealthPolicy.MaxPercentUnhealthyApplications\n",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
     "ClusterUpgradeMode": {
       "type": "string",
       "description": "The upgrade mode of the cluster when new Service Fabric runtime version is available.\n",
@@ -875,23 +1168,31 @@
         ]
       }
     },
-    "IPTag": {
+    "ClusterUpgradePolicy": {
       "type": "object",
-      "required": [
-        "ipTagType",
-        "tag"
-      ],
       "properties": {
-        "ipTagType": {
-          "type": "string",
-          "description": "The IP tag type."
+        "forceRestart": {
+          "type": "boolean",
+          "description": "If true, then processes are forcefully restarted during upgrade even when the code version has not changed (the upgrade only changes configuration or data)."
         },
-        "tag": {
+        "healthPolicy": {
+          "$ref": "#/definitions/ClusterHealthPolicy",
+          "description": "The cluster health policy defines a health policy used to evaluate the health of the cluster during a cluster upgrade."
+        },
+        "deltaHealthPolicy": {
+          "$ref": "#/definitions/ClusterUpgradeDeltaHealthPolicy",
+          "description": "The cluster delta health policy defines a health policy used to evaluate the health of the cluster during a cluster upgrade."
+        },
+        "monitoringPolicy": {
+          "$ref": "#/definitions/ClusterMonitoringPolicy",
+          "description": "The cluster monitoring policy describes the parameters for monitoring an upgrade in Monitored mode."
+        },
+        "upgradeReplicaSetCheckTimeout": {
           "type": "string",
-          "description": "The value of the IP tag."
+          "description": "The maximum amount of time to block processing of an upgrade domain and prevent loss of availability when there are unexpected issues.\nWhen this timeout expires, processing of the upgrade domain will proceed regardless of availability loss issues.\nThe timeout is reset at the start of each upgrade domain. The timeout can be in either hh:mm:ss or in d.hh:mm:ss.ms format.\nThis value must be between 00:00:00 and 49710.06:28:15 (unsigned 32 bit integer for seconds)\n"
         }
       },
-      "description": "IPTag associated with the object."
+      "description": "Describes the policy used when upgrading the cluster."
     },
     "LoadBalancingRule": {
       "type": "object",
@@ -994,7 +1295,10 @@
     },
     "ManagedCluster": {
       "type": "object",
-      "description": "The manged cluster resource\n",
+      "required": [
+        "sku"
+      ],
+      "description": "The managed cluster resource\n",
       "allOf": [
         {
           "$ref": "#/definitions/Resource"
@@ -1126,6 +1430,7 @@
           "items": {
             "$ref": "#/definitions/LoadBalancingRule"
           },
+          "x-ms-identifiers": [],
           "description": "Load balancing rules that are applied to the public load balancer of the cluster."
         },
         "allowRdpAccess": {
@@ -1137,6 +1442,7 @@
           "items": {
             "$ref": "#/definitions/NetworkSecurityRule"
           },
+          "x-ms-identifiers": [],
           "description": "Custom Network Security Rules that are applied to the Virtual Network of the cluster."
         },
         "clients": {
@@ -1144,6 +1450,7 @@
           "items": {
             "$ref": "#/definitions/ClientCertificate"
           },
+          "x-ms-identifiers": [],
           "description": "Client certificates that are allowed to manage the cluster."
         },
         "azureActiveDirectory": {
@@ -1155,6 +1462,7 @@
           "items": {
             "$ref": "#/definitions/SettingsSectionDescription"
           },
+          "x-ms-identifiers": [],
           "description": "The list of custom fabric settings to configure the cluster."
         },
         "provisioningState": {
@@ -1182,7 +1490,7 @@
         },
         "enableAutoOSUpgrade": {
           "type": "boolean",
-          "description": "Setting this to true enables automatic OS upgrade for the node types that are created using any platform OS image with version 'latest'. The default value for this setting is false."
+          "description": "Enables automatic OS upgrade for node types created using OS images with version 'latest'. The default value for this setting is false."
         },
         "zonalResiliency": {
           "type": "boolean",
@@ -1204,8 +1512,9 @@
         "ipTags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/IPTag"
+            "$ref": "#/definitions/IpTag"
           },
+          "x-ms-identifiers": [],
           "description": "The list of IP tags associated with the default public IP address of the cluster."
         },
         "ipv6Address": {
@@ -1222,6 +1531,7 @@
           "items": {
             "$ref": "#/definitions/Subnet"
           },
+          "x-ms-identifiers": [],
           "description": "Auxiliary subnets for the cluster."
         },
         "serviceEndpoints": {
@@ -1229,7 +1539,74 @@
           "items": {
             "$ref": "#/definitions/ServiceEndpoint"
           },
+          "x-ms-identifiers": [],
           "description": "Service endpoints for subnets in the cluster."
+        },
+        "zonalUpdateMode": {
+          "$ref": "#/definitions/ZonalUpdateMode",
+          "description": "Indicates the update mode for Cross Az clusters."
+        },
+        "useCustomVnet": {
+          "type": "boolean",
+          "description": "For new clusters, this parameter indicates that it uses Bring your own VNet, but the subnet is specified at node type level; and for such clusters, the subnetId property is required for node types."
+        },
+        "publicIPPrefixId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/publicIPPrefixes"
+              }
+            ]
+          },
+          "description": "Specify the resource id of a public IPv4 prefix that the load balancer will allocate a public IPv4 address from. This setting cannot be changed once the cluster is created."
+        },
+        "publicIPv6PrefixId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/publicIPPrefixes"
+              }
+            ]
+          },
+          "description": "Specify the resource id of a public IPv6 prefix that the load balancer will allocate a public IPv6 address from. This setting cannot be changed once the cluster is created."
+        },
+        "ddosProtectionPlanId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/ddosProtectionPlans"
+              }
+            ]
+          },
+          "description": "Specify the resource id of a DDoS network protection plan that will be associated with the virtual network of the cluster."
+        },
+        "upgradeDescription": {
+          "$ref": "#/definitions/ClusterUpgradePolicy",
+          "description": "The policy to use when upgrading the cluster."
+        },
+        "httpGatewayTokenAuthConnectionPort": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The port used for token-auth based HTTPS connections to the cluster. Cannot be set to the same port as HttpGatewayEndpoint."
+        },
+        "enableHttpGatewayExclusiveAuthMode": {
+          "type": "boolean",
+          "description": "If true, token-based authentication is not allowed on the HttpGatewayEndpoint. This is required to support TLS versions 1.3 and above. If token-based authentication is used, HttpGatewayTokenAuthConnectionPort must be defined."
+        },
+        "autoGeneratedDomainNameLabelScope": {
+          "$ref": "#/definitions/AutoGeneratedDomainNameLabelScope",
+          "description": "This property is the entry point to using a public CA cert for your cluster cert. It specifies the level of reuse allowed for the custom FQDN created, matching the subject of the public CA cert."
+        },
+        "allocatedOutboundPorts": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of outbound ports allocated for SNAT for each node in the backend pool of the default load balancer. The default value is 0 which provides dynamic port allocation based on pool size."
         }
       },
       "description": "Describes the managed cluster resource properties."
@@ -1308,12 +1685,111 @@
       },
       "description": "Describes the result of the request to list Managed VM Sizes for Service Fabric Managed Clusters."
     },
+    "ManagedAzResiliencyStatus": {
+      "type": "object",
+      "properties": {
+        "baseResourceStatus": {
+          "type": "array",
+          "description": "List of Managed VM Sizes for Service Fabric Managed Clusters.",
+          "items": {
+            "$ref": "#/definitions/ResourceAzStatus"
+          },
+          "x-ms-identifiers": []
+        },
+        "isClusterZoneResilient": {
+          "type": "boolean",
+          "description": "URL to get the next set of Managed VM Sizes if there are any.",
+          "readOnly": true
+        }
+      },
+      "description": "Describes the result of the request to list Managed VM Sizes for Service Fabric Managed Clusters."
+    },
+    "ManagedMaintenanceWindowStatus": {
+      "type": "object",
+      "properties": {
+        "isWindowEnabled": {
+          "type": "boolean",
+          "description": "If maintenance window is enabled on this cluster.",
+          "readOnly": true
+        },
+        "isRegionReady": {
+          "type": "boolean",
+          "description": "Indicates if the region is ready to configure maintenance windows.",
+          "readOnly": true
+        },
+        "isWindowActive": {
+          "type": "boolean",
+          "description": "If maintenance window is active.",
+          "readOnly": true
+        },
+        "canApplyUpdates": {
+          "type": "boolean",
+          "description": "If updates can be applied.",
+          "readOnly": true
+        },
+        "lastWindowStatusUpdateAtUTC": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last window update time in UTC.",
+          "readOnly": true
+        },
+        "lastWindowStartTimeUTC": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last window start time in UTC.",
+          "readOnly": true
+        },
+        "lastWindowEndTimeUTC": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last window end time in UTC.",
+          "readOnly": true
+        }
+      },
+      "description": "Describes the maintenance window status of the Service Fabric Managed Cluster."
+    },
+    "ResourceAzStatus": {
+      "type": "object",
+      "properties": {
+        "resourceName": {
+          "type": "string",
+          "description": "VM Size properties.",
+          "readOnly": true
+        },
+        "resourceType": {
+          "type": "string",
+          "description": "VM Size id.",
+          "readOnly": true
+        },
+        "isZoneResilient": {
+          "type": "boolean",
+          "description": "VM Size name.",
+          "readOnly": true
+        },
+        "details": {
+          "type": "string",
+          "description": "Zone resiliency status details for the resource.",
+          "readOnly": true
+        }
+      },
+      "description": "Describes Az Resiliency status of Base resources"
+    },
     "OsType": {
       "type": "string",
       "description": "Cluster operating system, the default will be Windows",
       "enum": [
         "Windows"
-      ]
+      ],
+      "x-ms-enum": {
+        "name": "OsType",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Windows",
+            "description": "Indicates os is Windows."
+          }
+        ]
+      }
     },
     "ServiceEndpoint": {
       "type": "object",
@@ -1426,6 +1902,28 @@
       },
       "description": "VM Sizes properties."
     },
+    "ZonalUpdateMode": {
+      "type": "string",
+      "description": "Indicates the update mode for Cross Az clusters.",
+      "enum": [
+        "Standard",
+        "Fast"
+      ],
+      "x-ms-enum": {
+        "name": "ZonalUpdateMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Standard",
+            "description": "The cluster will use 5 upgrade domains for Cross Az Node types."
+          },
+          {
+            "value": "Fast",
+            "description": "The cluster will use a maximum of 3 upgrade domains per zone instead of 5 for Cross Az Node types for faster deployments."
+          }
+        ]
+      }
+    },
     "AvailableOperationDisplay": {
       "type": "object",
       "properties": {
@@ -1471,6 +1969,24 @@
         }
       },
       "description": "The error details."
+    },
+    "IpTag": {
+      "type": "object",
+      "required": [
+        "ipTagType",
+        "tag"
+      ],
+      "properties": {
+        "ipTagType": {
+          "type": "string",
+          "description": "IP tag type. Example: FirstPartyUsage."
+        },
+        "tag": {
+          "type": "string",
+          "description": "IP tag associated with the public IP. Example: SQL, Storage etc."
+        }
+      },
+      "description": "The IP tag associated with the public IP address."
     },
     "ManagedResourceProvisioningState": {
       "type": "string",
@@ -1613,7 +2129,8 @@
           "description": "List of operations supported by the Service Fabric resource provider.",
           "items": {
             "$ref": "#/definitions/OperationResult"
-          }
+          },
+          "x-ms-identifiers": []
         },
         "nextLink": {
           "type": "string",
@@ -1731,7 +2248,10 @@
           "description": "The collection of parameters in the section.",
           "items": {
             "$ref": "#/definitions/SettingsParameterDescription"
-          }
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         }
       },
       "description": "Describes a section in the fabric settings of the cluster."
@@ -1774,7 +2294,7 @@
     "api-version": {
       "name": "api-version",
       "in": "query",
-      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2022-01-01\" for this specification.",
+      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2024-09-01-preview\" for this specification.",
       "required": true,
       "type": "string",
       "x-ms-parameter-location": "client"
@@ -1804,11 +2324,17 @@
       "enum": [
         "Windows"
       ],
+      "x-ms-parameter-location": "method",
       "x-ms-enum": {
         "name": "ManagedClusterVersionEnvironment",
-        "modelAsString": true
-      },
-      "x-ms-parameter-location": "method"
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Windows",
+            "description": "Windows."
+          }
+        ]
+      }
     },
     "locationForClusterCodeVersions": {
       "name": "location",
