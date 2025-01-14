@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ARMExplorer", "ARMExplorer.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{8994BE5C-A107-4D13-9F05-9D482C0843E8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SyncSwaggerSpecs", "SyncSwaggerSpecs\SyncSwaggerSpecs.csproj", "{3DB1C5C0-095C-4E73-B432-D5CCB413AA22}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +23,15 @@ Global
 		{8994BE5C-A107-4D13-9F05-9D482C0843E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8994BE5C-A107-4D13-9F05-9D482C0843E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8994BE5C-A107-4D13-9F05-9D482C0843E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DB1C5C0-095C-4E73-B432-D5CCB413AA22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DB1C5C0-095C-4E73-B432-D5CCB413AA22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DB1C5C0-095C-4E73-B432-D5CCB413AA22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DB1C5C0-095C-4E73-B432-D5CCB413AA22}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {14AB35F1-4B93-4086-8973-AD07BD43298A}
 	EndGlobalSection
 EndGlobal
