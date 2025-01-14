@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on Product entity associated with your Azure API Management deployment. The Product entity represents a product in API Management. Products include one or more APIs and their associated terms of use. Once a product is published, developers can subscribe to the product and begin to use the product’s APIs.",
+    "description": "Use these REST APIs for performing operations on Gateway entity in Azure API Management deployment.",
     "version": "2021-08-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways": {
       "get": {
         "tags": [
-          "Product"
+          "Gateway"
         ],
-        "operationId": "Product_ListByService",
-        "description": "Lists a collection of products in the specified service instance.",
+        "operationId": "Gateway_ListByService",
+        "description": "Lists a collection of gateways registered with service instance.",
         "x-ms-examples": {
-          "ApiManagementListProducts": {
-            "$ref": "./examples/ApiManagementListProducts.json"
+          "ApiManagementListGateways": {
+            "$ref": "./examples/ApiManagementListGateways.json"
           }
         },
         "parameters": [
@@ -58,27 +58,13 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| terms | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| state | filter | eq |     |</br>| groups | expand |     |     |</br>"
+            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| region | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
-          },
-          {
-            "name": "expandGroups",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "description": "When set to true, the response contains an array of groups that have visibility to the product. The default is false."
-          },
-          {
-            "name": "tags",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": "Products which are part of a specific tag."
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -89,9 +75,9 @@
         ],
         "responses": {
           "200": {
-            "description": "A Collection of the Product entities for the specified API Management service instance.",
+            "description": "Lists a collection of Gateway entities.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/ProductCollection"
+              "$ref": "./definitions.json#/definitions/GatewayCollection"
             }
           },
           "default": {
@@ -104,19 +90,19 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
-        "x-ms-odata": "./definitions.json#/definitions/ProductContract"
+        "x-ms-odata": "./definitions.json#/definitions/GatewayContract"
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}": {
       "head": {
         "tags": [
-          "Product"
+          "Gateway"
         ],
-        "operationId": "Product_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the product specified by its identifier.",
+        "operationId": "Gateway_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the Gateway specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementHeadProduct": {
-            "$ref": "./examples/ApiManagementHeadProduct.json"
+          "ApiManagementHeadGateway": {
+            "$ref": "./examples/ApiManagementHeadGateway.json"
           }
         },
         "parameters": [
@@ -127,7 +113,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -138,7 +124,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Specified Product entity exists and current entity state version is present in the ETag header.",
+            "description": "Specified Gateway entity exists and current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -156,13 +142,13 @@
       },
       "get": {
         "tags": [
-          "Product"
+          "Gateway"
         ],
-        "operationId": "Product_Get",
-        "description": "Gets the details of the product specified by its identifier.",
+        "operationId": "Gateway_Get",
+        "description": "Gets the details of the Gateway specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementGetProduct": {
-            "$ref": "./examples/ApiManagementGetProduct.json"
+          "ApiManagementGetGateway": {
+            "$ref": "./examples/ApiManagementGetGateway.json"
           }
         },
         "parameters": [
@@ -173,7 +159,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -184,9 +170,9 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified Product entity.",
+            "description": "The response body contains the specified Gateway entity.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/ProductContract"
+              "$ref": "./definitions.json#/definitions/GatewayContract"
             },
             "headers": {
               "ETag": {
@@ -205,13 +191,13 @@
       },
       "put": {
         "tags": [
-          "Product"
+          "Gateway"
         ],
-        "operationId": "Product_CreateOrUpdate",
-        "description": "Creates or Updates a product.",
+        "operationId": "Gateway_CreateOrUpdate",
+        "description": "Creates or updates a Gateway to be used in Api Management instance.",
         "x-ms-examples": {
-          "ApiManagementCreateProduct": {
-            "$ref": "./examples/ApiManagementCreateProduct.json"
+          "ApiManagementCreateGateway": {
+            "$ref": "./examples/ApiManagementCreateGateway.json"
           }
         },
         "parameters": [
@@ -222,16 +208,15 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/ProductContract"
-            },
-            "description": "Create or update parameters."
+              "$ref": "./definitions.json#/definitions/GatewayContract"
+            }
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
@@ -245,27 +230,27 @@
         ],
         "responses": {
           "201": {
-            "description": "Product was successfully created.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/ProductContract"
-            },
+            "description": "The new Gateway was successfully added.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayContract"
             }
           },
           "200": {
-            "description": "Product was successfully updated.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/ProductContract"
-            },
+            "description": "The Gateway details were successfully updated.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayContract"
             }
           },
           "default": {
@@ -278,13 +263,13 @@
       },
       "patch": {
         "tags": [
-          "Product"
+          "Gateway"
         ],
-        "operationId": "Product_Update",
-        "description": "Update existing product details.",
+        "operationId": "Gateway_Update",
+        "description": "Updates the details of the gateway specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementUpdateProduct": {
-            "$ref": "./examples/ApiManagementUpdateProduct.json"
+          "ApiManagementUpdateGateway": {
+            "$ref": "./examples/ApiManagementUpdateGateway.json"
           }
         },
         "parameters": [
@@ -295,16 +280,15 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/ProductUpdateParameters"
-            },
-            "description": "Update parameters."
+              "$ref": "./definitions.json#/definitions/GatewayContract"
+            }
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -318,9 +302,106 @@
         ],
         "responses": {
           "200": {
-            "description": "Product was successfully updated.",
+            "description": "The Gateway details were successfully updated.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
             "schema": {
-              "$ref": "./definitions.json#/definitions/ProductContract"
+              "$ref": "./definitions.json#/definitions/GatewayContract"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Gateway"
+        ],
+        "operationId": "Gateway_Delete",
+        "description": "Deletes specific Gateway.",
+        "x-ms-examples": {
+          "ApiManagementDeleteGateway": {
+            "$ref": "./examples/ApiManagementDeleteGateway.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The Gateway was successfully deleted."
+          },
+          "204": {
+            "description": "The Gateway was successfully deleted."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/listKeys": {
+      "post": {
+        "tags": [
+          "GatewayListKeys"
+        ],
+        "operationId": "Gateway_ListKeys",
+        "description": "Retrieves gateway keys.",
+        "x-ms-examples": {
+          "ApiManagementGatewayListKeys": {
+            "$ref": "./examples/ApiManagementGatewayListKeys.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response body contains the specified Gateway keys.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayKeysContract"
             },
             "headers": {
               "ETag": {
@@ -336,16 +417,18 @@
             }
           }
         }
-      },
-      "delete": {
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/regenerateKey": {
+      "post": {
         "tags": [
-          "Product"
+          "GatewayRegenerateKey"
         ],
-        "operationId": "Product_Delete",
-        "description": "Delete product.",
+        "operationId": "Gateway_RegenerateKey",
+        "description": "Regenerates specified gateway key invalidating any tokens created with it.",
         "x-ms-examples": {
-          "ApiManagementDeleteProduct": {
-            "$ref": "./examples/ApiManagementDeleteProduct.json"
+          "ApiManagementGatewayRegenerateKey": {
+            "$ref": "./examples/ApiManagementGatewayRegenerateKey.json"
           }
         },
         "parameters": [
@@ -356,17 +439,15 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
-          },
-          {
-            "name": "deleteSubscriptions",
-            "in": "query",
-            "required": false,
-            "type": "boolean",
-            "description": "Delete existing subscriptions associated with the product or not."
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayKeyRegenerationRequestContract"
+            }
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -376,11 +457,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Product was successfully removed."
-          },
           "204": {
-            "description": "Product was successfully removed by previous request or does not exist."
+            "description": "Key successfully regenerated"
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -391,16 +469,16 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis": {
-      "get": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/generateToken": {
+      "post": {
         "tags": [
-          "ProductApi"
+          "GatewayGenerateToken"
         ],
-        "operationId": "ProductApi_ListByProduct",
-        "description": "Lists a collection of the APIs associated with a product.",
+        "operationId": "Gateway_GenerateToken",
+        "description": "Gets the Shared Access Authorization Token for the gateway.",
         "x-ms-examples": {
-          "ApiManagementListProductApis": {
-            "$ref": "./examples/ApiManagementListProductApis.json"
+          "ApiManagementGatewayGenerateToken": {
+            "$ref": "./examples/ApiManagementGatewayGenerateToken.json"
           }
         },
         "parameters": [
@@ -411,14 +489,67 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayTokenRequestContract"
+            }
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response body contains the authorization token for the gateway.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayTokenContract"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/hostnameConfigurations": {
+      "get": {
+        "tags": [
+          "GatewayHostnameConfiguration"
+        ],
+        "operationId": "GatewayHostnameConfiguration_ListByService",
+        "description": "Lists the collection of hostname configurations for the specified gateway.",
+        "x-ms-examples": {
+          "ApiManagementListGatewayHostnameConfigurations": {
+            "$ref": "./examples/ApiManagementListGatewayHostnameConfigurations.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
             "name": "$filter",
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| description | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| serviceUrl | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| path | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
+            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| hostname | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
@@ -435,7 +566,296 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains a collection of Api entities in the product.",
+            "description": "Collection of hostname configuration entities.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayHostnameConfigurationCollection"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        },
+        "x-ms-pageable": {
+          "nextLinkName": "nextLink"
+        },
+        "x-ms-odata": "./definitions.json#/definitions/GatewayHostnameConfigurationContract"
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/hostnameConfigurations/{hcId}": {
+      "head": {
+        "tags": [
+          "GatewayHostnameConfiguration"
+        ],
+        "operationId": "GatewayHostnameConfiguration_GetEntityTag",
+        "description": "Checks that hostname configuration entity specified by identifier exists for specified Gateway entity.",
+        "x-ms-examples": {
+          "ApiManagementHeadGatewayHostnameConfiguration": {
+            "$ref": "./examples/ApiManagementHeadGatewayHostnameConfiguration.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayHostnameConfigurationIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Specified Gateway entity exists and current entity state version is present in the ETag header.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "GatewayHostnameConfiguration"
+        ],
+        "operationId": "GatewayHostnameConfiguration_Get",
+        "description": "Get details of a hostname configuration",
+        "x-ms-examples": {
+          "ApiManagementGetGatewayHostnameConfiguration": {
+            "$ref": "./examples/ApiManagementGetGatewayHostnameConfiguration.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayHostnameConfigurationIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response body contains the specified Gateway entity.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayHostnameConfigurationContract"
+            },
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "GatewayHostnameConfiguration"
+        ],
+        "operationId": "GatewayHostnameConfiguration_CreateOrUpdate",
+        "description": "Creates of updates hostname configuration for a Gateway.",
+        "x-ms-examples": {
+          "ApiManagementCreateGatewayHostnameConfiguration": {
+            "$ref": "./examples/ApiManagementCreateGatewayHostnameConfiguration.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayHostnameConfigurationIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayHostnameConfigurationContract"
+            }
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The new Gateway hostname configuration was successfully created.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayHostnameConfigurationContract"
+            }
+          },
+          "200": {
+            "description": "The Gateway hostname configuration details were successfully updated.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayHostnameConfigurationContract"
+            }
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "GatewayHostnameConfiguration"
+        ],
+        "operationId": "GatewayHostnameConfiguration_Delete",
+        "description": "Deletes the specified hostname configuration from the specified Gateway.",
+        "x-ms-examples": {
+          "ApiManagementDeleteGatewayHostnameConfiguration": {
+            "$ref": "./examples/ApiManagementDeleteGatewayHostnameConfiguration.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayHostnameConfigurationIdParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Hostname configuration was successfully removed from Gateway."
+          },
+          "204": {
+            "description": "Hostname configuration successfully removed by previous request or does not exist in Gateway."
+          },
+          "default": {
+            "description": "Error response describing why the operation failed.",
+            "schema": {
+              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/apis": {
+      "get": {
+        "tags": [
+          "GatewayApi"
+        ],
+        "operationId": "GatewayApi_ListByService",
+        "description": "Lists a collection of the APIs associated with a gateway.",
+        "x-ms-examples": {
+          "ApiManagementListGatewayApis": {
+            "$ref": "./examples/ApiManagementListGatewayApis.json"
+          }
+        },
+        "parameters": [
+          {
+            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The response body contains a collection of Api entities in the gateway.",
             "schema": {
               "$ref": "./definitions.json#/definitions/ApiCollection"
             }
@@ -453,16 +873,16 @@
         "x-ms-odata": "./definitions.json#/definitions/ApiContract"
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/apis/{apiId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/apis/{apiId}": {
       "head": {
         "tags": [
-          "ProductApi"
+          "GatewayApi"
         ],
-        "operationId": "ProductApi_CheckEntityExists",
-        "description": "Checks that API entity specified by identifier is associated with the Product entity.",
+        "operationId": "GatewayApi_GetEntityTag",
+        "description": "Checks that API entity specified by identifier is associated with the Gateway entity.",
         "x-ms-examples": {
-          "ApiManagementHeadProductApi": {
-            "$ref": "./examples/ApiManagementHeadProductApi.json"
+          "ApiManagementHeadGatewayApi": {
+            "$ref": "./examples/ApiManagementHeadGatewayApi.json"
           }
         },
         "parameters": [
@@ -473,10 +893,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ApiIdRevParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -486,8 +906,14 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "Entity exists"
+          "200": {
+            "description": "Specified Gateway entity exists and current entity state version is present in the ETag header.",
+            "headers": {
+              "ETag": {
+                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
+                "type": "string"
+              }
+            }
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -499,13 +925,13 @@
       },
       "put": {
         "tags": [
-          "ProductApi"
+          "GatewayApi"
         ],
-        "operationId": "ProductApi_CreateOrUpdate",
-        "description": "Adds an API to the specified product.",
+        "operationId": "GatewayApi_CreateOrUpdate",
+        "description": "Adds an API to the specified Gateway.",
         "x-ms-examples": {
-          "ApiManagementCreateProductApi": {
-            "$ref": "./examples/ApiManagementCreateProductApi.json"
+          "ApiManagementCreateGatewayApi": {
+            "$ref": "./examples/ApiManagementCreateGatewayApi.json"
           }
         },
         "parameters": [
@@ -516,27 +942,35 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ApiIdRevParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "$ref": "./definitions.json#/definitions/AssociationContract"
+            }
           }
         ],
         "responses": {
           "201": {
-            "description": "The API was successfully added to the product.",
+            "description": "The API was successfully added to the Gateway.",
             "schema": {
               "$ref": "./definitions.json#/definitions/ApiContract"
             }
           },
           "200": {
-            "description": "The specified API is already added to the product.",
+            "description": "The specified API is already added to the Gateway.",
             "schema": {
               "$ref": "./definitions.json#/definitions/ApiContract"
             }
@@ -551,13 +985,13 @@
       },
       "delete": {
         "tags": [
-          "ProductApi"
+          "GatewayApi"
         ],
-        "operationId": "ProductApi_Delete",
-        "description": "Deletes the specified API from the specified product.",
+        "operationId": "GatewayApi_Delete",
+        "description": "Deletes the specified API from the specified Gateway.",
         "x-ms-examples": {
-          "ApiManagementDeleteProductApi": {
-            "$ref": "./examples/ApiManagementDeleteProductApi.json"
+          "ApiManagementDeleteGatewayApi": {
+            "$ref": "./examples/ApiManagementDeleteGatewayApi.json"
           }
         },
         "parameters": [
@@ -568,10 +1002,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ApiIdRevParameter"
+            "$ref": "./apimanagement.json#/parameters/ApiIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -582,10 +1016,10 @@
         ],
         "responses": {
           "200": {
-            "description": "API was successfully removed from product"
+            "description": "API was successfully removed from Gateway"
           },
           "204": {
-            "description": "API successfully removed by previous request or does not exist in product"
+            "description": "API successfully removed by previous request or does not exist in Gateway"
           },
           "default": {
             "description": "Error response describing why the operation failed.",
@@ -596,16 +1030,16 @@
         }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/groups": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/certificateAuthorities": {
       "get": {
         "tags": [
-          "ProductGroup"
+          "GatewayCertificateAuthority"
         ],
-        "operationId": "ProductGroup_ListByProduct",
-        "description": "Lists the collection of developer groups associated with the specified product.",
+        "operationId": "GatewayCertificateAuthority_ListByService",
+        "description": "Lists the collection of Certificate Authorities for the specified Gateway entity.",
         "x-ms-examples": {
-          "ApiManagementListProductGroups": {
-            "$ref": "./examples/ApiManagementListProductGroups.json"
+          "ApiManagementListGatewaycertificateAuthorities": {
+            "$ref": "./examples/ApiManagementListGatewayCertificateAuthorities.json"
           }
         },
         "parameters": [
@@ -616,14 +1050,14 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
             "name": "$filter",
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt |     |</br>| displayName | filter | eq, ne |     |</br>| description | filter | eq, ne |     |</br>"
+            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | eq, ne |  |</br>"
           },
           {
             "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
@@ -640,9 +1074,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Lists a collection of Group entities.",
+            "description": "Collection of Gateway Certificate Authority entities.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/GroupCollection"
+              "$ref": "./definitions.json#/definitions/GatewayCertificateAuthorityCollection"
             }
           },
           "default": {
@@ -655,19 +1089,19 @@
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
         },
-        "x-ms-odata": "./definitions.json#/definitions/GroupContract"
+        "x-ms-odata": "./definitions.json#/definitions/GatewayCertificateAuthorityContract"
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/groups/{groupId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/gateways/{gatewayId}/certificateAuthorities/{certificateId}": {
       "head": {
         "tags": [
-          "ProductGroup"
+          "GatewayCertificateAuthority"
         ],
-        "operationId": "ProductGroup_CheckEntityExists",
-        "description": "Checks that Group entity specified by identifier is associated with the Product entity.",
+        "operationId": "GatewayCertificateAuthority_GetEntityTag",
+        "description": "Checks if Certificate entity is assigned to Gateway entity as Certificate Authority.",
         "x-ms-examples": {
-          "ApiManagementHeadProductGroup": {
-            "$ref": "./examples/ApiManagementHeadProductGroup.json"
+          "ApiManagementHeadGatewayCertificateAuthority": {
+            "$ref": "./examples/ApiManagementHeadGatewayCertificateAuthority.json"
           }
         },
         "parameters": [
@@ -678,105 +1112,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/GroupIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The Group is associated with the Product."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "ProductGroup"
-        ],
-        "operationId": "ProductGroup_CreateOrUpdate",
-        "description": "Adds the association between the specified developer group with the specified product.",
-        "x-ms-examples": {
-          "ApiManagementCreateProductGroup": {
-            "$ref": "./examples/ApiManagementCreateProductGroup.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/GroupIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "The group was successfully associated with the product.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/GroupContract"
-            }
-          },
-          "200": {
-            "description": "The specified group is already associated with the product.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/GroupContract"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "ProductGroup"
-        ],
-        "operationId": "ProductGroup_Delete",
-        "description": "Deletes the association between the specified group and product.",
-        "x-ms-examples": {
-          "ApiManagementDeleteProductGroup": {
-            "$ref": "./examples/ApiManagementDeleteProductGroup.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/GroupIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -787,162 +1126,7 @@
         ],
         "responses": {
           "200": {
-            "description": "The group was successfully disassociated with the product."
-          },
-          "204": {
-            "description": "The group was successfully disassociated with the product."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/subscriptions": {
-      "get": {
-        "tags": [
-          "ProductSubscription"
-        ],
-        "operationId": "ProductSubscriptions_List",
-        "description": "Lists the collection of subscriptions to the specified product.",
-        "x-ms-examples": {
-          "ApiManagementListProductSubscriptions": {
-            "$ref": "./examples/ApiManagementListProductSubscriptions.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "name": "$filter",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| stateComment | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| ownerId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| scope | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| userId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| productId | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| state | filter | eq |     |</br>| user | expand |     |     |</br>"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Lists a collection of subscription entities.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/SubscriptionCollection"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "./definitions.json#/definitions/SubscriptionContract"
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policies": {
-      "get": {
-        "tags": [
-          "ProductPolicy"
-        ],
-        "operationId": "ProductPolicy_ListByProduct",
-        "description": "Get the policy configuration at the Product level.",
-        "x-ms-examples": {
-          "ApiManagementListProductPolicies": {
-            "$ref": "./examples/ApiManagementListProductPolicies.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Product Policy information.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/PolicyCollection"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/policies/{policyId}": {
-      "head": {
-        "tags": [
-          "ProductPolicy"
-        ],
-        "operationId": "ProductPolicy_GetEntityTag",
-        "description": "Get the ETag of the policy configuration at the Product level.",
-        "x-ms-examples": {
-          "ApiManagementHeadProductPolicy": {
-            "$ref": "./examples/ApiManagementHeadProductPolicy.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Product Policy Etag information.",
+            "description": "Specified Gateway Certificate Authority entity exists and current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -960,13 +1144,13 @@
       },
       "get": {
         "tags": [
-          "ProductPolicy"
+          "GatewayCertificateAuthority"
         ],
-        "operationId": "ProductPolicy_Get",
-        "description": "Get the policy configuration at the Product level.",
+        "operationId": "GatewayCertificateAuthority_Get",
+        "description": "Get assigned Gateway Certificate Authority details.",
         "x-ms-examples": {
-          "ApiManagementGetProductPolicy": {
-            "$ref": "./examples/ApiManagementGetProductPolicy.json"
+          "ApiManagementGetGatewayCertificateAuthority": {
+            "$ref": "./examples/ApiManagementGetGatewayCertificateAuthority.json"
           }
         },
         "parameters": [
@@ -977,13 +1161,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/PolicyExportFormat"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -994,9 +1175,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Product Policy information.",
+            "description": "The response body contains the specified Gateway Certificate Authority entity.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/PolicyContract"
+              "$ref": "./definitions.json#/definitions/GatewayCertificateAuthorityContract"
             },
             "headers": {
               "ETag": {
@@ -1015,13 +1196,13 @@
       },
       "put": {
         "tags": [
-          "ProductPolicy"
+          "GatewayCertificateAuthority"
         ],
-        "operationId": "ProductPolicy_CreateOrUpdate",
-        "description": "Creates or updates policy configuration for the Product.",
+        "operationId": "GatewayCertificateAuthority_CreateOrUpdate",
+        "description": "Assign Certificate entity to Gateway entity as Certificate Authority.",
         "x-ms-examples": {
-          "ApiManagementCreateProductPolicy": {
-            "$ref": "./examples/ApiManagementCreateProductPolicy.json"
+          "ApiManagementCreateGatewayCertificateAuthority": {
+            "$ref": "./examples/ApiManagementCreateGatewayCertificateAuthority.json"
           }
         },
         "parameters": [
@@ -1032,10 +1213,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
@@ -1045,9 +1226,8 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/PolicyContract"
-            },
-            "description": "The policy contents to apply."
+              "$ref": "./definitions.json#/definitions/GatewayCertificateAuthorityContract"
+            }
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -1058,27 +1238,27 @@
         ],
         "responses": {
           "201": {
-            "description": "Product policy configuration was successfully created.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/PolicyContract"
-            },
+            "description": "Certificate entity was successfully assigned to Gateway entity as Certificate Authority.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayCertificateAuthorityContract"
             }
           },
           "200": {
-            "description": "Product policy configuration of the tenant was successfully updated.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/PolicyContract"
-            },
+            "description": "Gateway Certificate Authority details were successfully updated",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/GatewayCertificateAuthorityContract"
             }
           },
           "default": {
@@ -1091,13 +1271,13 @@
       },
       "delete": {
         "tags": [
-          "ProductPolicy"
+          "GatewayCertificateAuthority"
         ],
-        "operationId": "ProductPolicy_Delete",
-        "description": "Deletes the policy configuration at the Product.",
+        "operationId": "GatewayCertificateAuthority_Delete",
+        "description": "Remove relationship between Certificate Authority and Gateway entity.",
         "x-ms-examples": {
-          "ApiManagementDeleteProductPolicy": {
-            "$ref": "./examples/ApiManagementDeleteProductPolicy.json"
+          "ApiManagementDeleteGatewayCertificateAuthority": {
+            "$ref": "./examples/ApiManagementDeleteGatewayCertificateAuthority.json"
           }
         },
         "parameters": [
@@ -1108,10 +1288,10 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
+            "$ref": "./apimanagement.json#/parameters/GatewayIdParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/PolicyIdParameter"
+            "$ref": "./apimanagement.json#/parameters/CertificateIdParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -1125,273 +1305,10 @@
         ],
         "responses": {
           "200": {
-            "description": "Successfully deleted the policy configuration at the Product level."
+            "description": "Certificate entity was successfully removed from Gateway entity as Certificate Authority."
           },
           "204": {
-            "description": "Successfully deleted the policy configuration at the Product level."
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/tags": {
-      "get": {
-        "tags": [
-          "ProductTag"
-        ],
-        "operationId": "Tag_ListByProduct",
-        "description": "Lists all Tags associated with the Product.",
-        "x-ms-examples": {
-          "ApiManagementListProductTags": {
-            "$ref": "./examples/ApiManagementListProductTags.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "name": "$filter",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": "|     Field     |     Usage     |     Supported operators     |     Supported functions     |</br>|-------------|-------------|-------------|-------------|</br>| displayName | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>| name | filter | ge, le, eq, ne, gt, lt | substringof, contains, startswith, endswith |</br>"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TopQueryParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SkipQueryParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "The operation returns a collection of tags associated with the Product entity.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/TagCollection"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        },
-        "x-ms-pageable": {
-          "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "./definitions.json#/definitions/TagContract"
-      }
-    },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/products/{productId}/tags/{tagId}": {
-      "head": {
-        "tags": [
-          "ProductTag"
-        ],
-        "operationId": "Tag_GetEntityStateByProduct",
-        "description": "Gets the entity state version of the tag specified by its identifier.",
-        "x-ms-examples": {
-          "ApiManagementHeadProductTag": {
-            "$ref": "./examples/ApiManagementHeadProductTag.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TagIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Empty response body, ETag header entity state version.",
-            "headers": {
-              "ETag": {
-                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
-                "type": "string"
-              }
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "ProductTag"
-        ],
-        "operationId": "Tag_GetByProduct",
-        "description": "Get tag associated with the Product.",
-        "x-ms-examples": {
-          "ApiManagementGetProductTag": {
-            "$ref": "./examples/ApiManagementGetProductTag.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TagIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Gets the details of the tag specified by its identifier.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/TagContract"
-            },
-            "headers": {
-              "ETag": {
-                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
-                "type": "string"
-              }
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "ProductTag"
-        ],
-        "operationId": "Tag_AssignToProduct",
-        "description": "Assign tag to the Product.",
-        "x-ms-examples": {
-          "ApiManagementCreateProductTag": {
-            "$ref": "./examples/ApiManagementCreateProductTag.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TagIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Tag was assigned to the Product.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/TagContract"
-            }
-          },
-          "200": {
-            "description": "Tag is already assigned to the Product.",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/TagContract"
-            }
-          },
-          "default": {
-            "description": "Error response describing why the operation failed.",
-            "schema": {
-              "$ref": "./apimanagement.json#/definitions/ErrorResponse"
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "ProductTag"
-        ],
-        "operationId": "Tag_DetachFromProduct",
-        "description": "Detach the tag from the Product.",
-        "x-ms-examples": {
-          "ApiManagementDeleteProductTag": {
-            "$ref": "./examples/ApiManagementDeleteProductTag.json"
-          }
-        },
-        "parameters": [
-          {
-            "$ref": "./apimanagement.json#/parameters/ResourceGroupNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ProductIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/TagIdParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/SubscriptionIdParameter"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully detached the tag from the Product."
-          },
-          "204": {
-            "description": "Successfully detached the tag from the Product."
+            "description": "Certificate was successfully removed from Gateway entity as Certificate Authority by one of the previous requests or never assigned."
           },
           "default": {
             "description": "Error response describing why the operation failed.",

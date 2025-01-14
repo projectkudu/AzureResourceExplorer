@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "ApiManagementClient",
-    "description": "Use these REST APIs for performing operations on Diagnostic entity associated with your Azure API Management deployment. Diagnostics are used to log requests/responses in the APIM proxy.",
+    "description": "Use these REST APIs for performing operations on Email Templates associated with your Azure API Management deployment.",
     "version": "2021-08-01"
   },
   "host": "management.azure.com",
@@ -34,16 +34,16 @@
     }
   },
   "paths": {
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/templates": {
       "get": {
         "tags": [
-          "Diagnostic"
+          "EmailTemplate"
         ],
-        "operationId": "Diagnostic_ListByService",
-        "description": "Lists all diagnostics of the API Management service instance.",
+        "operationId": "EmailTemplate_ListByService",
+        "description": "Gets all email templates",
         "x-ms-examples": {
-          "ApiManagementListDiagnostics": {
-            "$ref": "./examples/ApiManagementListDiagnostics.json"
+          "ApiManagementListTemplates": {
+            "$ref": "./examples/ApiManagementListTemplates.json"
           }
         },
         "parameters": [
@@ -75,9 +75,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Paged Result response of diagnostics.",
+            "description": "A Collection of the Email Template for the specified API Management service instance.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticCollection"
+              "$ref": "./definitions.json#/definitions/EmailTemplateCollection"
             }
           },
           "default": {
@@ -89,20 +89,19 @@
         },
         "x-ms-pageable": {
           "nextLinkName": "nextLink"
-        },
-        "x-ms-odata": "./definitions.json#/definitions/DiagnosticContract"
+        }
       }
     },
-    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/diagnostics/{diagnosticId}": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ApiManagement/service/{serviceName}/templates/{templateName}": {
       "head": {
         "tags": [
-          "Diagnostic"
+          "EmailTemplates"
         ],
-        "operationId": "Diagnostic_GetEntityTag",
-        "description": "Gets the entity state (Etag) version of the Diagnostic specified by its identifier.",
+        "operationId": "EmailTemplate_GetEntityTag",
+        "description": "Gets the entity state (Etag) version of the email template specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementHeadDiagnostic": {
-            "$ref": "./examples/ApiManagementHeadDiagnostic.json"
+          "ApiManagementHeadEmailTemplate": {
+            "$ref": "./examples/ApiManagementHeadEmailTemplate.json"
           }
         },
         "parameters": [
@@ -113,7 +112,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/TemplateNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -124,7 +123,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Gets the entity tag of the diagnostic",
+            "description": "Specified email template entity exists and current entity state version is present in the ETag header.",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
@@ -142,13 +141,13 @@
       },
       "get": {
         "tags": [
-          "Diagnostic"
+          "EmailTemplates"
         ],
-        "operationId": "Diagnostic_Get",
-        "description": "Gets the details of the Diagnostic specified by its identifier.",
+        "operationId": "EmailTemplate_Get",
+        "description": "Gets the details of the email template specified by its identifier.",
         "x-ms-examples": {
-          "ApiManagementGetDiagnostic": {
-            "$ref": "./examples/ApiManagementGetDiagnostic.json"
+          "ApiManagementGetTemplate": {
+            "$ref": "./examples/ApiManagementGetTemplate.json"
           }
         },
         "parameters": [
@@ -159,7 +158,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/TemplateNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -170,15 +169,15 @@
         ],
         "responses": {
           "200": {
-            "description": "The response body contains the specified Diagnostic entity.",
+            "description": "The response body contains the specified Email template.",
+            "schema": {
+              "$ref": "./definitions.json#/definitions/EmailTemplateContract"
+            },
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
-            },
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
             }
           },
           "default": {
@@ -191,13 +190,13 @@
       },
       "put": {
         "tags": [
-          "Diagnostic"
+          "EmailTemplates"
         ],
-        "operationId": "Diagnostic_CreateOrUpdate",
-        "description": "Creates a new Diagnostic or updates an existing one.",
+        "operationId": "EmailTemplate_CreateOrUpdate",
+        "description": "Updates an Email Template.",
         "x-ms-examples": {
-          "ApiManagementCreateDiagnostic": {
-            "$ref": "./examples/ApiManagementCreateDiagnostic.json"
+          "ApiManagementCreateTemplate": {
+            "$ref": "./examples/ApiManagementCreateTemplate.json"
           }
         },
         "parameters": [
@@ -208,16 +207,16 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/TemplateNameParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/EmailTemplateUpdateParameters"
             },
-            "description": "Create parameters."
+            "description": "Email Template update parameters."
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchOptionalParameter"
@@ -231,27 +230,15 @@
         ],
         "responses": {
           "201": {
-            "description": "Diagnostic was successfully created.",
-            "headers": {
-              "ETag": {
-                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
-                "type": "string"
-              }
-            },
+            "description": "Email Template was successfully updated.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/EmailTemplateContract"
             }
           },
           "200": {
-            "description": "Diagnostic successfully updated",
-            "headers": {
-              "ETag": {
-                "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
-                "type": "string"
-              }
-            },
+            "description": "Email Template was successfully updated.",
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/EmailTemplateContract"
             }
           },
           "default": {
@@ -264,13 +251,13 @@
       },
       "patch": {
         "tags": [
-          "Diagnostic"
+          "EmailTemplates"
         ],
-        "operationId": "Diagnostic_Update",
-        "description": "Updates the details of the Diagnostic specified by its identifier.",
+        "operationId": "EmailTemplate_Update",
+        "description": "Updates API Management email template",
         "x-ms-examples": {
-          "ApiManagementUpdateDiagnostic": {
-            "$ref": "./examples/ApiManagementUpdateDiagnostic.json"
+          "ApiManagementUpdateTemplate": {
+            "$ref": "./examples/ApiManagementUpdateTemplate.json"
           }
         },
         "parameters": [
@@ -281,19 +268,19 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/TemplateNameParameter"
+          },
+          {
+            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
           },
           {
             "name": "parameters",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
+              "$ref": "./definitions.json#/definitions/EmailTemplateUpdateParameters"
             },
-            "description": "Diagnostic Update parameters."
-          },
-          {
-            "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
+            "description": "Update parameters."
           },
           {
             "$ref": "./apimanagement.json#/parameters/ApiVersionParameter"
@@ -304,15 +291,15 @@
         ],
         "responses": {
           "200": {
-            "description": "Diagnostic successfully updated",
-            "schema": {
-              "$ref": "./definitions.json#/definitions/DiagnosticContract"
-            },
+            "description": "email template successfully updated",
             "headers": {
               "ETag": {
                 "description": "Current entity state version. Should be treated as opaque and used to make conditional HTTP requests.",
                 "type": "string"
               }
+            },
+            "schema": {
+              "$ref": "./definitions.json#/definitions/EmailTemplateContract"
             }
           },
           "default": {
@@ -325,13 +312,13 @@
       },
       "delete": {
         "tags": [
-          "Diagnostic"
+          "EmailTemplates"
         ],
-        "operationId": "Diagnostic_Delete",
-        "description": "Deletes the specified Diagnostic.",
+        "operationId": "EmailTemplate_Delete",
+        "description": "Reset the Email Template to default template provided by the API Management service instance.",
         "x-ms-examples": {
-          "ApiManagementDeleteDiagnostic": {
-            "$ref": "./examples/ApiManagementDeleteDiagnostic.json"
+          "ApiManagementDeleteTemplate": {
+            "$ref": "./examples/ApiManagementDeleteTemplate.json"
           }
         },
         "parameters": [
@@ -342,7 +329,7 @@
             "$ref": "./apimanagement.json#/parameters/ServiceNameParameter"
           },
           {
-            "$ref": "./apimanagement.json#/parameters/DiagnosticIdParameter"
+            "$ref": "./apimanagement.json#/parameters/TemplateNameParameter"
           },
           {
             "$ref": "./apimanagement.json#/parameters/IfMatchRequiredParameter"
@@ -356,10 +343,10 @@
         ],
         "responses": {
           "200": {
-            "description": "The Diagnostic was successfully deleted."
+            "description": "Email Template was successfully reset to default."
           },
           "204": {
-            "description": "The Diagnostic was successfully deleted."
+            "description": "Email Template was successfully reset to default."
           },
           "default": {
             "description": "Error response describing why the operation failed.",
