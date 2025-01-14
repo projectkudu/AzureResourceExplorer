@@ -3,7 +3,7 @@
   "info": {
     "title": "ServiceFabricManagementClient",
     "description": "Azure Service Fabric Resource Provider API Client",
-    "version": "2022-01-01"
+    "version": "2024-09-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -389,6 +389,16 @@
             "description": "The request was accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/ApplicationTypeVersionResource"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -493,7 +503,17 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "204": {
             "description": "The resource was not found."
@@ -548,6 +568,187 @@
             "description": "The operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/ApplicationTypeVersionResourceList"
+            }
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/fetchUpgradeStatus": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_ReadUpgrade",
+        "summary": "Get the status of the latest application upgrade.",
+        "description": "Get the status of the latest application upgrade. It will query the cluster to find the status of the latest application upgrade.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          }
+        ],
+        "x-ms-examples": {
+          "Get an application upgrade": {
+            "$ref": "./examples/ApplicationActionGetUpgrade_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/startRollback": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_StartRollback",
+        "summary": "Send a request to start a rollback of the current application upgrade.",
+        "description": "Send a request to start a rollback of the current application upgrade. This will start rolling back the application to the previous version.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          }
+        ],
+        "x-ms-examples": {
+          "Start an application upgrade rollback": {
+            "$ref": "./examples/ApplicationActionStartRollback_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
+          },
+          "default": {
+            "description": "The detailed error response.",
+            "schema": {
+              "$ref": "#/definitions/ErrorModel"
+            }
+          }
+        }
+      }
+    },
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/applications/{applicationName}/resumeUpgrade": {
+      "post": {
+        "tags": [
+          "Application"
+        ],
+        "operationId": "Applications_ResumeUpgrade",
+        "summary": "Send a request to resume the current application upgrade.",
+        "description": "Send a request to resume the current application upgrade. This will resume the application upgrade from where it was paused.",
+        "parameters": [
+          {
+            "$ref": "#/parameters/subscriptionId"
+          },
+          {
+            "$ref": "#/parameters/resourceGroupNameParameter"
+          },
+          {
+            "$ref": "#/parameters/clusterNameParameter"
+          },
+          {
+            "$ref": "#/parameters/applicationName"
+          },
+          {
+            "$ref": "#/parameters/api-version"
+          },
+          {
+            "name": "parameters",
+            "in": "body",
+            "description": "The parameters for resuming an application upgrade.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RuntimeResumeApplicationUpgradeParameters"
+            },
+            "x-ms-parameter-location": "method"
+          }
+        ],
+        "x-ms-examples": {
+          "Resume upgrade": {
+            "$ref": "./examples/ApplicationActionResumeUpgrade_example.json"
+          }
+        },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
+        "responses": {
+          "202": {
+            "description": "The operation was accepted.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -661,6 +862,16 @@
             "description": "The request was accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/ApplicationResource"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -759,7 +970,17 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "204": {
             "description": "The resource was not found."
@@ -930,6 +1151,16 @@
             "description": "The request was accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/ServiceResource"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -1034,7 +1265,17 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "204": {
             "description": "The resource was not found."
@@ -1102,6 +1343,66 @@
     }
   },
   "definitions": {
+    "RuntimeFailureAction": {
+      "type": "string",
+      "description": "The compensating action to perform when a Monitored upgrade encounters monitoring policy or health policy violations.\nRollback specifies that the upgrade will start rolling back automatically.\nManual indicates that the upgrade will switch to UnmonitoredManual upgrade mode.\n",
+      "enum": [
+        "Rollback",
+        "Manual"
+      ],
+      "x-ms-enum": {
+        "name": "FailureAction",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Rollback",
+            "description": "The upgrade will start rolling back automatically. The value is 0"
+          },
+          {
+            "value": "Manual",
+            "description": "The upgrade will switch to UnmonitoredManual upgrade mode. The value is 1"
+          }
+        ]
+      }
+    },
+    "RuntimeResumeApplicationUpgradeParameters": {
+      "type": "object",
+      "properties": {
+        "upgradeDomainName": {
+          "description": "The upgrade domain name. Expected to be the next upgrade domain if the application is upgrading.",
+          "type": "string"
+        }
+      },
+      "description": "Parameters for Resume Upgrade action. The upgrade domain name must be specified."
+    },
+    "RuntimeUpgradeMode": {
+      "type": "string",
+      "description": "The mode used to monitor health during a rolling upgrade. The values are UnmonitoredAuto, UnmonitoredManual, Monitored, and UnmonitoredDeferred.",
+      "enum": [
+        "UnmonitoredAuto",
+        "UnmonitoredManual",
+        "Monitored"
+      ],
+      "default": "Monitored",
+      "x-ms-enum": {
+        "name": "UpgradeMode",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "UnmonitoredAuto",
+            "description": "The upgrade will proceed automatically without performing any health monitoring. The value is 0"
+          },
+          {
+            "value": "UnmonitoredManual",
+            "description": "The upgrade will stop after completing each upgrade domain, giving the opportunity to manually monitor health before proceeding. The value is 1"
+          },
+          {
+            "value": "Monitored",
+            "description": "The upgrade will stop after completing each upgrade domain and automatically monitor health before proceeding. The value is 2"
+          }
+        ]
+      }
+    },
     "AddRemoveIncrementalNamedPartitionScalingMechanism": {
       "type": "object",
       "description": "Represents a scaling mechanism for adding or removing named partitions of a stateless service. Partition names are in the format '0','1'...'N-1'.",
@@ -1230,7 +1531,8 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ApplicationUserAssignedIdentity"
-          }
+          },
+          "x-ms-identifiers": []
         }
       }
     },
@@ -1509,6 +1811,9 @@
       "items": {
         "$ref": "#/definitions/ServiceCorrelation"
       },
+      "x-ms-identifiers": [
+        "serviceName"
+      ],
       "description": "A list that describes the correlation of the service with other services."
     },
     "ForceRestart": {
@@ -1522,10 +1827,12 @@
     },
     "HealthCheckStableDuration": {
       "type": "string",
+      "x-ms-format": "duration-constant",
       "description": "The amount of time that the application or cluster must remain healthy before the upgrade proceeds to the next upgrade domain. It is interpreted as a string representing an ISO 8601 duration with following format \"hh:mm:ss.fff\"."
     },
     "HealthCheckWaitDuration": {
       "type": "string",
+      "x-ms-format": "duration-constant",
       "description": "The amount of time to wait after completing an upgrade domain before applying health policies. It is interpreted as a string representing an ISO 8601 duration with following format \"hh:mm:ss.fff\"."
     },
     "ManagedIdentity": {
@@ -1871,6 +2178,7 @@
       "items": {
         "$ref": "#/definitions/ScalingPolicy"
       },
+      "x-ms-identifiers": [],
       "description": "Scaling policies for this service."
     },
     "ScalingTrigger": {
@@ -1986,6 +2294,7 @@
       "items": {
         "$ref": "#/definitions/ServiceLoadMetric"
       },
+      "x-ms-identifiers": [],
       "description": "The service load metrics is given as an array of ServiceLoadMetric objects."
     },
     "ServiceLoadMetricWeight": {
@@ -2069,6 +2378,7 @@
       "items": {
         "$ref": "#/definitions/ServicePlacementPolicy"
       },
+      "x-ms-identifiers": [],
       "description": "A list that describes the correlation of the service with other services."
     },
     "ServicePlacementPolicy": {
@@ -2272,6 +2582,10 @@
               }
             ]
           }
+        },
+        "serviceDnsName": {
+          "type": "string",
+          "description": "Dns name used for the service. If this is specified, then the DNS name can be used to return the IP addresses of service endpoints for application layer protocols (e.g., HTTP).\nWhen updating serviceDnsName, old name may be temporarily resolvable. However, rely on new name.\nWhen removing serviceDnsName, removed name may temporarily be resolvable. Do not rely on the name being unresolvable.\n"
         }
       }
     },
@@ -2661,7 +2975,7 @@
     "api-version": {
       "name": "api-version",
       "in": "query",
-      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2022-01-01\" for this specification.",
+      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2024-09-01-preview\" for this specification.",
       "required": true,
       "type": "string",
       "x-ms-parameter-location": "client"

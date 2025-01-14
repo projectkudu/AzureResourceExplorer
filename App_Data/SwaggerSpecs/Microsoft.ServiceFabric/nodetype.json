@@ -3,7 +3,7 @@
   "info": {
     "title": "ServiceFabricManagementClient",
     "description": "Azure Service Fabric Resource Provider API Client",
-    "version": "2022-01-01"
+    "version": "2024-09-01-preview"
   },
   "host": "management.azure.com",
   "schemes": [
@@ -34,7 +34,7 @@
     }
   ],
   "paths": {
-    "/subscriptions/{subscriptionId}/resourcegroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/nodeTypes": {
+    "/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.ServiceFabric/managedClusters/{clusterName}/nodeTypes": {
       "get": {
         "operationId": "NodeTypes_ListByManagedClusters",
         "summary": "Gets the list of Node types of the specified managed cluster.",
@@ -126,7 +126,17 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "200": {
             "description": "The operation completed successfully."
@@ -178,6 +188,9 @@
         "x-ms-examples": {
           "Reimage nodes": {
             "$ref": "./examples/ReimageNodes_example.json"
+          },
+          "Reimage all nodes By upgrade domain": {
+            "$ref": "./examples/ReimageNodes_UD_example.json"
           }
         },
         "x-ms-long-running-operation": true,
@@ -186,7 +199,17 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "200": {
             "description": "The operation completed successfully."
@@ -246,7 +269,17 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "200": {
             "description": "The operation completed successfully."
@@ -400,6 +433,18 @@
           },
           "Put an stateless node type with temporary disk for service fabric": {
             "$ref": "./examples/NodeTypePutOperationStateless_example.json"
+          },
+          "Put node type with dedicated hosts": {
+            "$ref": "./examples/NodeTypePutOperationDedicatedHost_example.json"
+          },
+          "Put node type with custom vm image": {
+            "$ref": "./examples/NodeTypePutOperationCustomImage_example.json"
+          },
+          "Put node type with shared galleries custom vm image": {
+            "$ref": "./examples/NodeTypePutOperationCustomSharedGalleriesImage_example.json"
+          },
+          "Put node type with vm image plan ": {
+            "$ref": "./examples/NodeTypePutOperationVmImagePlan_example.json"
           }
         },
         "x-ms-long-running-operation": true,
@@ -417,6 +462,16 @@
             "description": "The request was accepted and the operation will complete asynchronously.",
             "schema": {
               "$ref": "#/definitions/NodeType"
+            },
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -469,11 +524,28 @@
             "$ref": "./examples/NodeTypePatchOperationAutoScale_example.json"
           }
         },
+        "x-ms-long-running-operation": true,
+        "x-ms-long-running-operation-options": {
+          "final-state-via": "location"
+        },
         "responses": {
           "200": {
             "description": "The operation completed successfully.",
             "schema": {
               "$ref": "#/definitions/NodeType"
+            }
+          },
+          "202": {
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
             }
           },
           "default": {
@@ -519,7 +591,17 @@
         },
         "responses": {
           "202": {
-            "description": "The request was accepted and the operation will complete asynchronously."
+            "description": "The request was accepted and the operation will complete asynchronously.",
+            "headers": {
+              "Azure-AsyncOperation": {
+                "description": "The URL to get the status of an ongoing long-running operation.",
+                "type": "string"
+              },
+              "Location": {
+                "description": "The URL to get the status of a completed long-running operation.",
+                "type": "string"
+              }
+            }
           },
           "204": {
             "description": "The resource was not found."
@@ -538,6 +620,38 @@
     }
   },
   "definitions": {
+    "AdditionalNetworkInterfaceConfiguration": {
+      "type": "object",
+      "required": [
+        "name",
+        "ipConfigurations"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the network interface."
+        },
+        "enableAcceleratedNetworking": {
+          "type": "boolean",
+          "description": "Specifies whether the network interface is accelerated networking-enabled."
+        },
+        "dscpConfiguration": {
+          "$ref": "#/definitions/SubResource",
+          "description": "Specifies the DSCP configuration to apply to the network interface."
+        },
+        "ipConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/IpConfiguration"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ],
+          "description": "Specifies the IP configurations of the network interface."
+        }
+      },
+      "description": "Specifies the settings for a network interface to attach to the node type."
+    },
     "DiskType": {
       "type": "string",
       "description": "Managed data disk type. IOPS and throughput are given by the disk size, to see more information go to https://docs.microsoft.com/en-us/azure/virtual-machines/disks-types.\n",
@@ -566,6 +680,28 @@
         ]
       }
     },
+    "EvictionPolicyType": {
+      "type": "string",
+      "description": "Specifies the eviction policy for virtual machines in a SPOT node type.",
+      "enum": [
+        "Delete",
+        "Deallocate"
+      ],
+      "x-ms-enum": {
+        "name": "EvictionPolicyType",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "Delete",
+            "description": "Eviction policy will be Delete for SPOT vms."
+          },
+          {
+            "value": "Deallocate",
+            "description": "Eviction policy will be Deallocate for SPOT vms."
+          }
+        ]
+      }
+    },
     "FrontendConfiguration": {
       "type": "object",
       "properties": {
@@ -575,11 +711,25 @@
         },
         "loadBalancerBackendAddressPoolId": {
           "type": "string",
+          "format": "arm-id",
           "description": "The resource Id of the Load Balancer backend address pool that the VM instances of the node type are associated with. The format of the resource Id is '/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/Microsoft.Network/loadBalancers/<loadBalancerName>/backendAddressPools/<backendAddressPoolName>'."
         },
         "loadBalancerInboundNatPoolId": {
           "type": "string",
+          "format": "arm-id",
           "description": "The resource Id of the Load Balancer inbound NAT pool that the VM instances of the node type are associated with. The format of the resource Id is '/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/Microsoft.Network/loadBalancers/<loadBalancerName>/inboundNatPools/<inboundNatPoolName>'."
+        },
+        "applicationGatewayBackendAddressPoolId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/applicationGateways/backendAddressPools"
+              }
+            ]
+          },
+          "description": "The resource Id of application gateway backend address pool. The format of the resource Id is '/subscriptions/<subscriptionId>/resourceGroups/<resourceGroupName>/providers/Microsoft.Network/applicationGateways/<applicationGatewayName>/backendAddressPools/<backendAddressPoolName>'."
         }
       },
       "description": "Describes the frontend configurations for the node type."
@@ -605,6 +755,107 @@
             "description": "IPv6 address type."
           }
         ]
+      }
+    },
+    "IpConfiguration": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "description": "Specifies an IP configuration of the network interface.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the network interface."
+        },
+        "applicationGatewayBackendAddressPools": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubResource"
+          },
+          "description": "Specifies an array of references to backend address pools of application gateways. A node type can reference backend address pools of multiple application gateways. Multiple node types cannot use the same application gateway."
+        },
+        "loadBalancerBackendAddressPools": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubResource"
+          },
+          "description": "Specifies an array of references to backend address pools of load balancers. A node type can reference backend address pools of one public and one internal load balancer. Multiple node types cannot use the same basic sku load balancer.\t"
+        },
+        "loadBalancerInboundNatPools": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/SubResource"
+          },
+          "description": "Specifies an array of references to inbound Nat pools of the load balancers. A node type can reference inbound nat pools of one public and one internal load balancer. Multiple node types cannot use the same basic sku load balancer."
+        },
+        "subnet": {
+          "$ref": "#/definitions/SubResource",
+          "description": "Specifies the subnet of the network interface."
+        },
+        "privateIPAddressVersion": {
+          "type": "string",
+          "description": "Specifies whether the IP configuration's private IP is IPv4 or IPv6. Default is IPv4.",
+          "enum": [
+            "IPv4",
+            "IPv6"
+          ],
+          "default": "IPv4",
+          "x-ms-enum": {
+            "name": "privateIPAddressVersion",
+            "modelAsString": true,
+            "values": [
+              {
+                "value": "IPv4"
+              },
+              {
+                "value": "IPv6"
+              }
+            ]
+          }
+        },
+        "publicIPAddressConfiguration": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "description": "The public IP address configuration of the network interface.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Name of the network interface."
+            },
+            "ipTags": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/IpTag"
+              },
+              "x-ms-identifiers": [],
+              "description": "Specifies the list of IP tags associated with the public IP address."
+            },
+            "publicIPAddressVersion": {
+              "type": "string",
+              "description": "Specifies whether the IP configuration's public IP is IPv4 or IPv6. Default is IPv4.",
+              "enum": [
+                "IPv4",
+                "IPv6"
+              ],
+              "default": "IPv4",
+              "x-ms-enum": {
+                "name": "publicIPAddressVersion",
+                "modelAsString": true,
+                "values": [
+                  {
+                    "value": "IPv4"
+                  },
+                  {
+                    "value": "IPv6"
+                  }
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "ManagedProxyResource": {
@@ -665,9 +916,6 @@
     },
     "NodeTypeActionParameters": {
       "type": "object",
-      "required": [
-        "nodes"
-      ],
       "properties": {
         "nodes": {
           "description": "List of node names from the node type.",
@@ -679,9 +927,31 @@
         "force": {
           "description": "Force the action to go through.",
           "type": "boolean"
+        },
+        "updateType": {
+          "type": "string",
+          "description": "Specifies the way the operation will be performed.",
+          "enum": [
+            "Default",
+            "ByUpgradeDomain"
+          ],
+          "x-ms-enum": {
+            "name": "updateType",
+            "modelAsString": true,
+            "values": [
+              {
+                "value": "Default",
+                "description": "The operation will proceed in all specified nodes at the same time."
+              },
+              {
+                "value": "ByUpgradeDomain",
+                "description": "The operation will proceed one upgrade domain at a time, checking the health in between each to continue."
+              }
+            ]
+          }
         }
       },
-      "description": "Parameters for Node type action."
+      "description": "Parameters for Node type action. If nodes are not specified on the parameters, the operation will be performed in all nodes of the node type one upgrade domain at a time."
     },
     "NodeTypeProperties": {
       "type": "object",
@@ -765,7 +1035,10 @@
           "description": "The secrets to install in the virtual machines.",
           "items": {
             "$ref": "#/definitions/VaultSecretGroup"
-          }
+          },
+          "x-ms-identifiers": [
+            "sourceVault"
+          ]
         },
         "vmExtensions": {
           "type": "array",
@@ -773,7 +1046,10 @@
           "description": "Set of extensions that should be installed onto the virtual machines.",
           "items": {
             "$ref": "#/definitions/VMSSExtension"
-          }
+          },
+          "x-ms-identifiers": [
+            "name"
+          ]
         },
         "vmManagedIdentity": {
           "$ref": "#/definitions/VmManagedIdentity",
@@ -794,6 +1070,7 @@
           "items": {
             "$ref": "#/definitions/FrontendConfiguration"
           },
+          "x-ms-identifiers": [],
           "description": "Indicates the node type uses its own frontend configurations instead of the default one for the cluster. This setting can only be specified for non-primary node types and can not be added or removed after the node type is created."
         },
         "networkSecurityRules": {
@@ -801,6 +1078,7 @@
           "items": {
             "$ref": "#/definitions/NetworkSecurityRule"
           },
+          "x-ms-identifiers": [],
           "description": "The Network Security Rules for this node type. This setting can only be specified for node types that are configured with frontend configurations."
         },
         "additionalDataDisks": {
@@ -808,6 +1086,9 @@
           "items": {
             "$ref": "#/definitions/VmssDataDisk"
           },
+          "x-ms-identifiers": [
+            "lun"
+          ],
           "description": "Additional managed data disks."
         },
         "enableEncryptionAtHost": {
@@ -835,6 +1116,191 @@
         "enableOverProvisioning": {
           "type": "boolean",
           "description": "Specifies whether the node type should be overprovisioned. It is only allowed for stateless node types."
+        },
+        "zones": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Specifies the availability zones where the node type would span across. If the cluster is not spanning across availability zones, initiates az migration for the cluster."
+        },
+        "isSpotVM": {
+          "type": "boolean",
+          "description": "Indicates whether the node type will be Spot Virtual Machines. Azure will allocate the VMs if there is capacity available and the VMs can be evicted at any time."
+        },
+        "hostGroupId": {
+          "type": "string",
+          "description": "Specifies the full host group resource Id. This property is used for deploying on azure dedicated hosts."
+        },
+        "useEphemeralOSDisk": {
+          "type": "boolean",
+          "description": "Indicates whether to use ephemeral os disk. The sku selected on the vmSize property needs to support this feature."
+        },
+        "spotRestoreTimeout": {
+          "type": "string",
+          "description": "Indicates the time duration after which the platform will not try to restore the VMSS SPOT instances specified as ISO 8601."
+        },
+        "evictionPolicy": {
+          "$ref": "#/definitions/EvictionPolicyType",
+          "description": "Specifies the eviction policy for virtual machines in a SPOT node type. Default is Delete."
+        },
+        "vmImageResourceId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Compute/images"
+              },
+              {
+                "type": "Microsoft.Compute/galleries/images"
+              },
+              {
+                "type": "Microsoft.Compute/galleries/images/versions"
+              }
+            ]
+          },
+          "description": "Indicates the resource id of the vm image. This parameter is used for custom vm image."
+        },
+        "subnetId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/virtualNetworks/subnets"
+              }
+            ]
+          },
+          "description": "Indicates the resource id of the subnet for the node type."
+        },
+        "vmSetupActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VmSetupAction"
+          },
+          "description": "Specifies the actions to be performed on the vms before bootstrapping the service fabric runtime."
+        },
+        "securityType": {
+          "type": "string",
+          "description": "Specifies the security type of the nodeType. Only Standard and TrustedLaunch are currently supported",
+          "enum": [
+            "TrustedLaunch",
+            "Standard"
+          ],
+          "x-ms-enum": {
+            "name": "securityType",
+            "modelAsString": true,
+            "values": [
+              {
+                "value": "TrustedLaunch",
+                "description": "Trusted Launch is a security type that secures generation 2 virtual machines."
+              },
+              {
+                "value": "Standard",
+                "description": "Standard is the default security type for all machines."
+              }
+            ]
+          }
+        },
+        "secureBootEnabled": {
+          "type": "boolean",
+          "description": "Specifies whether secure boot should be enabled on the nodeType. Can only be used with TrustedLaunch SecurityType"
+        },
+        "enableNodePublicIP": {
+          "type": "boolean",
+          "description": "Specifies whether each node is allocated its own public IPv4 address. This is only supported on secondary node types with custom Load Balancers."
+        },
+        "enableNodePublicIPv6": {
+          "type": "boolean",
+          "description": "Specifies whether each node is allocated its own public IPv6 address. This is only supported on secondary node types with custom Load Balancers."
+        },
+        "vmSharedGalleryImageId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Compute/sharedGalleries/images"
+              },
+              {
+                "type": "Microsoft.Compute/sharedGalleries/images/versions"
+              }
+            ]
+          },
+          "description": "Indicates the resource id of the vm shared galleries image. This parameter is used for custom vm image."
+        },
+        "natGatewayId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/natGateways"
+              }
+            ]
+          },
+          "description": "Specifies the resource id of a NAT Gateway to attach to the subnet of this node type. Node type must use custom load balancer."
+        },
+        "natConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/NodeTypeNatConfig"
+          },
+          "x-ms-identifiers": [],
+          "description": "Specifies the NAT configuration on default public Load Balancer for the node type. This is only supported for node types use the default public Load Balancer."
+        },
+        "vmImagePlan": {
+          "$ref": "#/definitions/VmImagePlan",
+          "description": "Specifies information about the marketplace image used to create the virtual machine. This element is only used for marketplace images. Before you can use a marketplace image from an API, you must enable the image for programmatic use. In the Azure portal, find the marketplace image that you want to use and then click Want to deploy programmatically, Get Started ->. Enter any required information and then click Save."
+        },
+        "serviceArtifactReferenceId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Compute/galleries/serviceArtifacts/vmArtifactsProfiles"
+              }
+            ]
+          },
+          "description": "Specifies the service artifact reference id used to set same image version for all virtual machines in the scale set when using 'latest' image version."
+        },
+        "dscpConfigurationId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Network/dscpConfigurations"
+              }
+            ]
+          },
+          "description": "Specifies the resource id of the DSCP configuration to apply to the node type network interface."
+        },
+        "additionalNetworkInterfaceConfigurations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AdditionalNetworkInterfaceConfiguration"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ],
+          "description": "Specifies the settings for any additional secondary network interfaces to attach to the node type."
+        },
+        "computerNamePrefix": {
+          "type": "string",
+          "description": "Specifies the computer name prefix. Limited to 9 characters. If specified, allows for a longer name to be specified for the node type name."
+        },
+        "vmApplications": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VmApplication"
+          },
+          "x-ms-identifiers": [
+            "name"
+          ],
+          "description": "Specifies the gallery applications that should be made available to the underlying VMSS."
         }
       },
       "description": "Describes a node type in the cluster, each node type represents sub set of nodes in the cluster."
@@ -856,6 +1322,33 @@
         }
       },
       "description": "Node type list results"
+    },
+    "NodeTypeNatConfig": {
+      "type": "object",
+      "properties": {
+        "backendPort": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 65535,
+          "description": "The internal port for the NAT configuration."
+        },
+        "frontendPortRangeStart": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 65534,
+          "description": "The port range start for the external endpoint."
+        },
+        "frontendPortRangeEnd": {
+          "type": "integer",
+          "format": "int32",
+          "minimum": 1,
+          "maximum": 65534,
+          "description": "The port range end for the external endpoint."
+        }
+      },
+      "description": "Provides information about NAT configuration on the default public Load Balancer for the node type."
     },
     "NodeTypeUpdateParameters": {
       "type": "object",
@@ -1001,7 +1494,8 @@
           "description": "The list of available node type SKUs.",
           "items": {
             "$ref": "#/definitions/NodeTypeAvailableSku"
-          }
+          },
+          "x-ms-identifiers": []
         },
         "nextLink": {
           "type": "string",
@@ -1030,7 +1524,7 @@
       "properties": {
         "certificateUrl": {
           "type": "string",
-          "description": "This is the URL of a certificate that has been uploaded to Key Vault as a secret. For adding a secret to the Key Vault, see [Add a key or secret to the key vault](https://docs.microsoft.com/azure/key-vault/key-vault-get-started/#add). In this case, your certificate needs to be It is the Base64 encoding of the following JSON Object which is encoded in UTF-8: <br><br> {<br>  \"data\":\"<Base64-encoded-certificate>\",<br>  \"dataType\":\"pfx\",<br>  \"password\":\"<pfx-file-password>\"<br>}"
+          "description": "This is the URL of a certificate that has been uploaded to Key Vault as a secret. For adding a secret to the Key Vault, see [Add a key or secret to the key vault](https://docs.microsoft.com/azure/key-vault/key-vault-get-started/#add)."
         },
         "certificateStore": {
           "type": "string",
@@ -1055,10 +1549,76 @@
           "items": {
             "$ref": "#/definitions/VaultCertificate"
           },
+          "x-ms-identifiers": [],
           "description": "The list of key vault references in SourceVault which contain certificates."
         }
       },
       "description": "Specifies set of certificates that should be installed onto the virtual machines."
+    },
+    "VmApplication": {
+      "type": "object",
+      "required": [
+        "packageReferenceId"
+      ],
+      "properties": {
+        "configurationReference": {
+          "format": "uri",
+          "type": "string",
+          "description": "Optional, Specifies the uri to an azure blob that will replace the default configuration for the package if provided."
+        },
+        "enableAutomaticUpgrade": {
+          "type": "boolean",
+          "description": "If set to true, when a new Gallery Application version is available in PIR/SIG, it will be automatically updated for the underlying VMSS."
+        },
+        "order": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Optional, Specifies the order in which the packages have to be installed."
+        },
+        "packageReferenceId": {
+          "type": "string",
+          "format": "arm-id",
+          "x-ms-arm-id-details": {
+            "allowedResources": [
+              {
+                "type": "Microsoft.Compute/galleries/applications/versions"
+              }
+            ]
+          },
+          "description": "Specifies the GalleryApplicationVersion resource id on the form of /subscriptions/{SubscriptionId}/resourceGroups/{ResourceGroupName}/providers/Microsoft.Compute/galleries/{galleryName}/applications/{application}/versions/{version}."
+        },
+        "vmGalleryTags": {
+          "type": "string",
+          "description": "Optional, Specifies a passthrough value for more generic context. Accepts a JSON-formatted string e.g. '{\"Tag1\":\"Value1\",\"Tag2\":\"Value2\"}'."
+        },
+        "treatFailureAsDeploymentFailure": {
+          "type": "boolean",
+          "description": "Optional, If true, any failure for any operation in the VmApplication will fail the deployment."
+        }
+      },
+      "description": "Specifies the gallery application that should be made available to the underlying VMSS."
+    },
+    "VmImagePlan": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The plan ID."
+        },
+        "product": {
+          "type": "string",
+          "description": "Specifies the product of the image from the marketplace. This is the same value as Offer under the imageReference element."
+        },
+        "promotionCode": {
+          "type": "string",
+          "description": "The promotion code."
+        },
+        "publisher": {
+          "type": "string",
+          "description": "The publisher ID."
+        }
+      },
+      "description": "Specifies information about the marketplace image used to create the virtual machine. This element is only used for marketplace images. Before you can use a marketplace image from an API, you must enable the image for programmatic use. In the Azure portal, find the marketplace image that you want to use and then click Want to deploy programmatically, Get Started ->. Enter any required information and then click Save."
     },
     "VmManagedIdentity": {
       "type": "object",
@@ -1104,6 +1664,28 @@
         }
       },
       "description": "Managed data disk description."
+    },
+    "VmSetupAction": {
+      "type": "string",
+      "description": "action to be performed on the vms before bootstrapping the service fabric runtime.",
+      "enum": [
+        "EnableContainers",
+        "EnableHyperV"
+      ],
+      "x-ms-enum": {
+        "name": "VmSetupAction",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "EnableContainers",
+            "description": "Enable windows containers feature."
+          },
+          {
+            "value": "EnableHyperV",
+            "description": "Enables windows HyperV feature."
+          }
+        ]
+      }
     },
     "VMSSExtension": {
       "type": "object",
@@ -1175,9 +1757,34 @@
         "enableAutomaticUpgrade": {
           "type": "boolean",
           "description": "Indicates whether the extension should be automatically upgraded by the platform if there is a newer version of the extension available."
+        },
+        "setupOrder": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VmssExtensionSetupOrder"
+          },
+          "x-ms-identifiers": [],
+          "description": "Indicates the setup order for the extension."
         }
       },
       "description": "Describes the properties of a Virtual Machine Scale Set Extension."
+    },
+    "VmssExtensionSetupOrder": {
+      "type": "string",
+      "description": "Vm extension setup order.\n",
+      "enum": [
+        "BeforeSFRuntime"
+      ],
+      "x-ms-enum": {
+        "name": "VmssExtensionSetupOrder",
+        "modelAsString": true,
+        "values": [
+          {
+            "value": "BeforeSFRuntime",
+            "description": "Indicates that the vm extension should run before the service fabric runtime starts."
+          }
+        ]
+      }
     },
     "AvailableOperationDisplay": {
       "type": "object",
@@ -1244,6 +1851,24 @@
         }
       },
       "description": "The error details."
+    },
+    "IpTag": {
+      "type": "object",
+      "required": [
+        "ipTagType",
+        "tag"
+      ],
+      "properties": {
+        "ipTagType": {
+          "type": "string",
+          "description": "IP tag type. Example: FirstPartyUsage."
+        },
+        "tag": {
+          "type": "string",
+          "description": "IP tag associated with the public IP. Example: SQL, Storage etc."
+        }
+      },
+      "description": "The IP tag associated with the public IP address."
     },
     "ManagedResourceProvisioningState": {
       "type": "string",
@@ -1442,7 +2067,7 @@
     "api-version": {
       "name": "api-version",
       "in": "query",
-      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2022-01-01\" for this specification.",
+      "description": "The version of the Service Fabric resource provider API. This is a required parameter and it's value must be \"2024-09-01-preview\" for this specification.",
       "required": true,
       "type": "string",
       "x-ms-parameter-location": "client"
